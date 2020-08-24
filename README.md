@@ -1,0 +1,3 @@
+# SomChin
+
+android app
