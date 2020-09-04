@@ -4,4 +4,10 @@
     <color name="purple500">#6200EE</color>
     <color name="purple700">#3700B3</color>
     <color name="teal200">#03DAC5</color>
+
+    <color name="caribbean_green">#00C299</color>
+    <color name="caribbean_green_lighter">#D5F6F0</color>
+    <color name="white_ice">#E4FAF6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>
