@@ -10,4 +10,12 @@
     <color name="white_ice">#E4FAF6</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+
+    <color name="persian_green">#00B48E</color>
+    <color name="polar">#EFFBF9</color>
+    <!--background-->
+    <color name="athens_gray">#F1F1F6</color>
+    <!--text-->
+    <color name="hit_gray">#A0ABB4</color>
 </resources>
