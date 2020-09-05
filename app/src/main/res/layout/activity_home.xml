@@ -17,15 +17,14 @@
 
         <TextView
             android:id="@+id/page_name"
+            style="@style/Theme.App.Toolbar.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Theme.App.Toolbar.Text"
             android:text="@string/home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <ImageView
             android:id="@+id/menu_button"
@@ -34,8 +33,90 @@
             android:layout_height="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_toolbar">
+
+        <TextView
+            android:id="@+id/next_visit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/anjoman_bold"
+            android:text="next visits"
+            android:textColor="@color/selected_tab_home"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/next_visit_contatiner"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/next_visit_list_background"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/next_visit_title">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/next_visit_lists"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:overScrollMode="never"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="3"
+                tools:listitem="@layout/next_visit_item_home" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/work_offline"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:textSize="14sp"
+                app:fb_borderColor="@color/caribbean_green"
+                app:fb_borderWidth="2dp"
+                app:fb_defaultColor="@color/show_more_back"
+                app:fb_focusColor="@color/persian_green"
+                app:fb_radius="5dp"
+                app:fb_text="@string/show_more"
+                app:fb_textColor="@color/caribbean_green"
+                app:fb_textFontRes="@font/anjoman_bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/next_visit_lists"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/livestock_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/anjoman_bold"
+            android:text="livestocks"
+            android:textColor="@color/selected_tab_home"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/next_visit_contatiner" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
