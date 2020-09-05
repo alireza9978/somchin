@@ -2,13 +2,17 @@
     <string name="app_name">SomChin</string>
     <string name="logo_content">logo image</string>
 
-    <string name="login">ورود</string>
-    <string name="sign_in">عضویت</string>
+    <string name="login">login</string>
+    <string name="sign_in">sign up</string>
 
-    <string name="home">خانه</string>
-    <string name="search">جستجو</string>
-    <string name="report">گزارش</string>
-    <string name="marked">نشان شده‌ها</string>
+    <string name="home">home</string>
+    <string name="search">search</string>
+    <string name="report">report</string>
+    <string name="marked">marked</string>
 
+    <string name="user_name">username</string>
+    <string name="help">help</string>
+    <string name="contact_us">contact us</string>
+    <string name="about_us">about us</string>
 
 </resources>

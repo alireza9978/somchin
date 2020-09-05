@@ -7,6 +7,15 @@
         <item name="colorAccent">@color/teal200</item>
     </style>
 
+    <style name="Theme.App.Navigation" parent="Theme.App">
+        <item name="android:tint">@color/persian_green</item>
+        <item name="itemIconTint">@color/persian_green</item>
+        <item name="fontFamily">@font/anjoman_medium</item>
+        <item name="android:fontFamily">@font/anjoman_medium</item>
+        <item name="android:textColor">@color/hit_gray</item>
+    </style>
+
+
     <style name="Theme.App.EditText.Login.Input" parent="Theme.App">
         <item name="android:textSize">16sp</item>
         <item name="hintTextColor">@color/hit_gray</item>

@@ -2,22 +2,37 @@ package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.TypefaceSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.menu.ContactActivity;
+import com.damasahhre.hooftrim.activities.menu.ProfileActivity;
 import com.damasahhre.hooftrim.activities.tabs.AddLivestockActivity;
 import com.damasahhre.hooftrim.activities.tabs.HomeActivity;
 import com.damasahhre.hooftrim.activities.tabs.MarkedActivity;
 import com.damasahhre.hooftrim.activities.tabs.ReportsActivity;
 import com.damasahhre.hooftrim.activities.tabs.SearchActivity;
 import com.damasahhre.hooftrim.adapters.TabAdapterHome;
+import com.damasahhre.hooftrim.ui_element.MyViewPager;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TabAdapterHome adapter;
     private TabLayout tabLayout;
@@ -27,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = findViewById(R.id.pager_id);
+        MyViewPager viewPager = findViewById(R.id.pager_id);
+        viewPager.setEnableSwipe(false);
         tabLayout = findViewById(R.id.tab_layout_id);
         viewPager.setOffscreenPageLimit(4);
 
@@ -72,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        NavigationView navigationView = findViewById(R.id.navigation);
+        applyFontToMenu(navigationView.getMenu(), this);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -110,5 +129,82 @@ public class MainActivity extends AppCompatActivity {
         tab.setCustomView(adapter.getSelectedTabView(position));
     }
 
+    public static void applyFontToMenu(Menu m, Context mContext) {
+        for (int i = 0; i < m.size(); i++) {
+            applyFontToMenuItem(m.getItem(i), mContext);
+        }
+    }
+
+    public static void applyFontToMenuItem(MenuItem mi, Context mContext) {
+        if (mi.hasSubMenu())
+            for (int i = 0; i < mi.getSubMenu().size(); i++) {
+                applyFontToMenuItem(mi.getSubMenu().getItem(i), mContext);
+            }
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.anjoman_medium);
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+
+        mNewTitle.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mi.setTitle(mNewTitle);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_us:
+            case R.id.user_guid:
+                return true;
+            case R.id.username:
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.contact:
+                Intent i = new Intent(this, ContactActivity.class);
+                startActivity(i);
+                return true;
+        }
+        return false;
+    }
+
+    static class CustomTypefaceSpan extends TypefaceSpan {
+
+        private final Typeface newType;
+
+        public CustomTypefaceSpan(String family, Typeface type) {
+            super(family);
+            newType = type;
+        }
+
+        private static void applyCustomTypeFace(Paint paint, Typeface tf) {
+            int oldStyle;
+            Typeface old = paint.getTypeface();
+            if (old == null) {
+                oldStyle = 0;
+            } else {
+                oldStyle = old.getStyle();
+            }
+
+            int fake = oldStyle & ~tf.getStyle();
+            if ((fake & Typeface.BOLD) != 0) {
+                paint.setFakeBoldText(true);
+            }
+
+            if ((fake & Typeface.ITALIC) != 0) {
+                paint.setTextSkewX(-0.25f);
+            }
+
+            paint.setTypeface(tf);
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            applyCustomTypeFace(ds, newType);
+        }
+
+        @Override
+        public void updateMeasureState(TextPaint paint) {
+            applyCustomTypeFace(paint, newType);
+        }
+    }
 
 }
