@@ -1,16 +1,22 @@
 package com.damasahhre.hooftrim.activities.tabs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.damasahhre.hooftrim.R;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.activity_search, container, false);
+        return view;
     }
+
 }

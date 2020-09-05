@@ -1,16 +1,22 @@
 package com.damasahhre.hooftrim.activities.tabs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.damasahhre.hooftrim.R;
 
-public class ReportsActivity extends AppCompatActivity {
+public class ReportsActivity extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reports);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.activity_reports, container, false);
+        return view;
     }
+
 }

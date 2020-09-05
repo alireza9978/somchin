@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.damasahhre.hooftrim"
-        minSdkVersion 19
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -69,6 +69,13 @@ dependencies {
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0'
     implementation 'com.github.medyo:fancybuttons:1.9.1'
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
+
+    implementation "com.mikepenz:materialdrawer:6.1.2"
+//required support lib modules
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "com.google.android.material:material:1.2.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.1"
 
     implementation 'ir.coleo.chayi:Chayi:0.10.20'
 }

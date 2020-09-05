@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
         if (!Constants.isNetworkAvailable()) {
             changeState(1);
         } else {
-            changeState(0);
+            goApp();
         }
     }
 

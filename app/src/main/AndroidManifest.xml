@@ -3,6 +3,7 @@
     package="com.damasahhre.hooftrim">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,27 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".activities.reports.AddReportActivity"></activity>
-        <activity android:name=".activities.LivestockProfileActivity" />
-        <activity android:name=".activities.CattelProfileActivity" />
-        <activity android:name=".activities.tabs.MarkedActivity" />
-        <activity android:name=".activities.tabs.ReportsActivity" />
-        <activity android:name=".activities.tabs.AddLivestockActivity" />
-        <activity android:name=".activities.tabs.SearchActivity" />
-        <activity android:name=".activities.menu.ProfileActivity" />
-        <activity android:name=".activities.tabs.home_activites.VisitActivity" />
-        <activity android:name=".activities.tabs.HomeActivity" />
-        <activity android:name=".activities.LoginActivity" >
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".activities.SplashActivity">
-
-        </activity>
+        <activity android:name=".activities.reports.AddReportActivity" />
+        <activity android:name=".activities.LivestockProfileActivity" />
+        <activity android:name=".activities.CattelProfileActivity" />
+        <activity android:name=".activities.tabs.AddLivestockActivity" />
+        <activity android:name=".activities.menu.ProfileActivity" />
+        <activity android:name=".activities.tabs.home_activites.VisitActivity" />
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.SplashActivity"/>
     </application>
 
 </manifest>

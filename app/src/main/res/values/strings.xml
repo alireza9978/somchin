@@ -5,4 +5,10 @@
     <string name="login">ورود</string>
     <string name="sign_in">عضویت</string>
 
+    <string name="home">خانه</string>
+    <string name="search">جستجو</string>
+    <string name="report">گزارش</string>
+    <string name="marked">نشان شده‌ها</string>
+
+
 </resources>
