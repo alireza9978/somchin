@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
+import com.damasahhre.hooftrim.constants.Constants;
 
 public class ReportsActivity extends Fragment {
 

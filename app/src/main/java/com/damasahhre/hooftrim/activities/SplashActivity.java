@@ -1,6 +1,11 @@
 package com.damasahhre.hooftrim.activities;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,6 +16,7 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.tabs.HomeActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,12 +47,52 @@ public class SplashActivity extends AppCompatActivity {
         }, 1000);
     }
 
-    private void checkConnection() {
-        if (!Constants.isNetworkAvailable()) {
-            changeState(1);
-        } else {
-            goApp();
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(updateBaseContextLocale(newBase));
+    }
+
+    public Context updateBaseContextLocale(Context context) {
+        String language = Constants.getDefualtlanguage(context);
+        if (language.isEmpty()) {
+            //when first time enter into app (get the device language and set it
+            language = Locale.getDefault().getLanguage();
+            Constants.setLanguage(context, language);
         }
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            updateResourcesLocale(context, locale);
+            return updateResourcesLocaleLegacy(context, locale);
+        }
+
+        return updateResourcesLocaleLegacy(context, locale);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private Context updateResourcesLocale(Context context, Locale locale) {
+        Configuration configuration = context.getResources().getConfiguration();
+        configuration.setLocale(locale);
+        return context.createConfigurationContext(configuration);
+    }
+
+    @SuppressWarnings("deprecation")
+    private Context updateResourcesLocaleLegacy(Context context, Locale locale) {
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = locale;
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        return context;
+    }
+
+    private void checkConnection() {
+        goApp();
+//        if (!Constants.isNetworkAvailable()) {
+//            changeState(1);
+//        } else {
+//            goApp();
+//        }
     }
 
     private void changeState(int state) {
@@ -72,7 +118,7 @@ public class SplashActivity extends AppCompatActivity {
      * بازکردن صفحه اصلی
      */
     public void goApp() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

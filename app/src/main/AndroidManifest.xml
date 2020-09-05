@@ -11,14 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".activities.menu.ContactActivity"></activity>
-        <activity android:name=".activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.menu.ContactActivity" />
+        <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.reports.AddReportActivity" />
         <activity android:name=".activities.LivestockProfileActivity" />
         <activity android:name=".activities.CattelProfileActivity" />
@@ -26,7 +20,13 @@
         <activity android:name=".activities.menu.ProfileActivity" />
         <activity android:name=".activities.tabs.home_activites.VisitActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.SplashActivity" />
+        <activity android:name=".activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

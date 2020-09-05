@@ -12,6 +12,7 @@
         android:id="@+id/offline_splash_loading_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
         android:background="@drawable/splash_loading_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splash_logo">
@@ -89,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/splash_loading_background"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splash_logo">
 
