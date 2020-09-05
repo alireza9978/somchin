@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.MainActivity;
 
 public class SearchActivity extends Fragment {
 
@@ -16,6 +17,9 @@ public class SearchActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.activity_search, container, false);
+        view.findViewById(R.id.menu_button).setOnClickListener(v -> {
+            ((MainActivity) requireActivity()).openMenu();
+        });
         return view;
     }
 

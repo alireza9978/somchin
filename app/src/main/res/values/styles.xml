@@ -15,6 +15,21 @@
         <item name="android:textColor">@color/hit_gray</item>
     </style>
 
+    <style name="Theme.App.Toolbar.Text" parent="Theme.App">
+        <item name="fontFamily">@font/anjoman_semi_bold</item>
+        <item name="android:fontFamily">@font/anjoman_semi_bold</item>
+        <item name="android:textColor">@color/selected_tab_home</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.App.Toolbar.Image" parent="Theme.App">
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/ic_hamburger_menu</item>
+        <item name="tint">@color/selected_tab_home</item>
+
+    </style>
 
     <style name="Theme.App.EditText.Login.Input" parent="Theme.App">
         <item name="android:textSize">16sp</item>

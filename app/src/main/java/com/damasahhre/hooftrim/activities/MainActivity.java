@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.damasahhre.hooftrim.R;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private TabAdapterHome adapter;
     private TabLayout tabLayout;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +47,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         MyViewPager viewPager = findViewById(R.id.pager_id);
-        viewPager.setEnableSwipe(false);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation);
         tabLayout = findViewById(R.id.tab_layout_id);
+
+        viewPager.setEnableSwipe(false);
         viewPager.setOffscreenPageLimit(4);
 
         adapter = new TabAdapterHome(this, getSupportFragmentManager());
         adapter.addFragment(new MarkedActivity(),
-                getResources().getString(R.string.report),
+                getResources().getString(R.string.marked),
                 ContextCompat.getDrawable(this, R.drawable.ic_bookmark),
                 ContextCompat.getDrawable(this, R.drawable.ic_bookmark_fill));
         adapter.addFragment(new ReportsActivity(),
-                getResources().getString(R.string.marked),
+                getResources().getString(R.string.report),
                 ContextCompat.getDrawable(this, R.drawable.ic_report),
                 ContextCompat.getDrawable(this, R.drawable.ic_report_fill));
         adapter.addFragment(AddLivestockActivity.class);
@@ -88,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        NavigationView navigationView = findViewById(R.id.navigation);
         applyFontToMenu(navigationView.getMenu(), this);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -205,6 +211,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public void updateMeasureState(TextPaint paint) {
             applyCustomTypeFace(paint, newType);
         }
+    }
+
+    public void openMenu(){
+        drawerLayout.openDrawer(GravityCompat.START);
     }
 
 }

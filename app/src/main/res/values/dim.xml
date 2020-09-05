@@ -2,5 +2,7 @@
 <resources>
 
     <dimen name="login_input_height">55dp</dimen>
+    <dimen name="toolbar_height">70dp</dimen>
+    <dimen name="toolbar_top_padding">15dp</dimen>
 
 </resources>
