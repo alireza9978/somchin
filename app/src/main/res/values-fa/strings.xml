@@ -5,6 +5,9 @@
     <string name="login">ورود</string>
     <string name="sign_in">عضویت</string>
 
+    <string name="cows">گاو‌ها</string>
+    <string name="livestrocks">گاوداری‌ها</string>
+
     <string name="home">خانه</string>
     <string name="search">جستجو</string>
     <string name="report">گزارش</string>
@@ -18,5 +21,8 @@
 
     <string name="show_more">مشاهده بیشتر ></string>
 
-
+    <string name="import_file">ایمپورت اکسل</string>
+    <string name="visits">بازدید‌ها</string>
+    <string name="facor">دریافت‌فاکتور</string>
+    <string name="injeries">جراحات‌گله</string>
 </resources>

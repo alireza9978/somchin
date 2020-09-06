@@ -5,6 +5,9 @@
     <string name="login">login</string>
     <string name="sign_in">sign up</string>
 
+    <string name="cows">cows</string>
+    <string name="livestrocks">livestrocks</string>
+
     <string name="home">home</string>
     <string name="search">search</string>
     <string name="report">report</string>
@@ -16,5 +19,12 @@
     <string name="about_us">about us</string>
 
     <string name="show_more">show more ></string>
+
+    <string name="import_file">import file</string>
+    <string name="visits">visits</string>
+    <string name="facor">factor</string>
+    <string name="injeries">injeries</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
