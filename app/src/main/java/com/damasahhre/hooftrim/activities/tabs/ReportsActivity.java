@@ -15,12 +15,13 @@ import com.damasahhre.hooftrim.activities.tabs.report_activites.ImportFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.InjeriesFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.ReportVisitFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapter;
+import com.damasahhre.hooftrim.adapters.TabAdapterLongText;
 import com.google.android.material.tabs.TabLayout;
 
 public class ReportsActivity extends Fragment {
 
 
-    private TabAdapter adapter;
+    private TabAdapterLongText adapter;
     private TabLayout tabLayout;
 
     @Override
@@ -34,7 +35,7 @@ public class ReportsActivity extends Fragment {
         tabLayout = view.findViewById(R.id.report_tab_layout_id);
         viewPager.setOffscreenPageLimit(3);
 
-        adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
+        adapter = new TabAdapterLongText(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new ImportFragment(), getResources().getString(R.string.import_file));
         adapter.addFragment(new ReportVisitFragment(), getResources().getString(R.string.visits));
         adapter.addFragment(new FactorFragment(), getResources().getString(R.string.facor));

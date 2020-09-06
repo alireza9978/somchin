@@ -56,7 +56,7 @@
 
     <style name="Theme.App.TextView.Body.TabView" parent="Theme.App">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/hit_gray</item>
+        <item name="android:textColor">@color/tab_colors</item>
         <item name="android:gravity">center</item>
         <item name="fontFamily">@font/anjoman_bold</item>
     </style>
