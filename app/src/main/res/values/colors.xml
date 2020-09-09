@@ -19,6 +19,9 @@
     <!--text-->
     <color name="hit_gray">#A0ABB4</color>
 
+    <color name="report_gray">#697B86</color>
+    <color name="calender_blue">#00BFD5</color>
+
 
     <color name="selected_tab_home">#072336</color>
     <color name="tab_home">#A9B3BB</color>

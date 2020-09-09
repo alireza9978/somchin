@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = findViewById(R.id.tab_layout_id);
 
         viewPager.setEnableSwipe(false);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(1);
 
         adapter = new TabAdapterHome(this, getSupportFragmentManager());
         adapter.addFragment(new MarkedActivity(),
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    static class CustomTypefaceSpan extends TypefaceSpan {
+    public static class CustomTypefaceSpan extends TypefaceSpan {
 
         private final Typeface newType;
 
