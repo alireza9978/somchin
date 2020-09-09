@@ -6,4 +6,230 @@
     android:layout_height="match_parent"
     tools:context=".activities.LivestockProfileActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white_ice"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/dropdown_menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_menu"
+            app:tint="@color/selected_tab_home"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/back_icon" />
+
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_next"
+            android:rotationY="180"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/other_part"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/next_visit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/anjoman_bold"
+                android:text="بازدید‌ها"
+                android:textColor="@color/selected_tab_home"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/next_visit_lists"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:overScrollMode="never"
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/next_visit_title"
+                tools:itemCount="3"
+                tools:listitem="@layout/next_visit_item_home" />
+
+            <TextView
+                android:id="@+id/livestock_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/anjoman_bold"
+                android:text="لیست دام‌ها"
+                android:textColor="@color/selected_tab_home"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/next_visit_lists" />
+
+
+            <GridView
+                android:id="@+id/cows_grid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="15dp"
+                android:layout_marginTop="5dp"
+                android:numColumns="2"
+                android:overScrollMode="never"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="5dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/livestock_title"
+                tools:listitem="@layout/livestock_grid_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_card"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_margin="@dimen/margin_livestrock"
+        android:background="@drawable/info_constraint_back"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/top_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar">
+
+        <TextView
+            android:id="@+id/title_livestrok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_livestrock"
+            android:fontFamily="@font/anjoman_light"
+            android:text="دامداری ممد"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bookmark_image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_livestrock"
+            android:padding="12dp"
+            android:src="@drawable/ic_bookmark"
+            app:layout_constraintBottom_toBottomOf="@id/title_livestrok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_livestrok"
+            app:tint="@color/persian_green" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foregroundGravity="center"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_livestrok">
+
+            <TextView
+                android:id="@+id/count"
+                style="@style/Theme.App.Profile.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="تعداد مولد"
+                app:layout_constraintBottom_toTopOf="@id/count_value"
+                app:layout_constraintEnd_toStartOf="@id/system_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/count_value"
+                style="@style/Theme.App.Profile.Value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="۱۰"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/count"
+                app:layout_constraintStart_toStartOf="@id/count"
+                app:layout_constraintTop_toBottomOf="@id/count" />
+
+            <TextView
+                android:id="@+id/system_title"
+                style="@style/Theme.App.Profile.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="سیستم نگداری"
+                app:layout_constraintBottom_toTopOf="@id/system_value"
+                app:layout_constraintEnd_toStartOf="@id/next_visit_title_top"
+                app:layout_constraintStart_toEndOf="@id/count"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/system_value"
+                style="@style/Theme.App.Profile.Value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ممد زاده"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/system_title"
+                app:layout_constraintStart_toStartOf="@id/system_title"
+                app:layout_constraintTop_toBottomOf="@id/system_title" />
+
+            <TextView
+                android:id="@+id/next_visit_title_top"
+                style="@style/Theme.App.Profile.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بازدید‌بعدی"
+                app:layout_constraintBottom_toTopOf="@id/next_visit_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/system_title"
+                app:layout_constraintTop_toTopOf="@id/system_title" />
+
+            <TextView
+                android:id="@+id/next_visit_value"
+                style="@style/Theme.App.Profile.Value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="۱۵ شهریور"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/next_visit_title_top"
+                app:layout_constraintStart_toStartOf="@id/next_visit_title_top"
+                app:layout_constraintTop_toBottomOf="@id/next_visit_title_top" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

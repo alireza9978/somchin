@@ -5,4 +5,5 @@
     <dimen name="toolbar_height">70dp</dimen>
     <dimen name="toolbar_top_padding">15dp</dimen>
 
+    <dimen name="margin_livestrock">15dp</dimen>
 </resources>
