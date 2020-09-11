@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
+        <activity android:name=".activities.DateSelectionActivity"></activity>
         <activity android:name=".activities.menu.ContactActivity" />
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.reports.AddReportActivity" />

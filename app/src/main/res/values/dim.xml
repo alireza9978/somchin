@@ -6,4 +6,7 @@
     <dimen name="toolbar_top_padding">15dp</dimen>
 
     <dimen name="margin_livestrock">15dp</dimen>
+    <dimen name="my_edit_text_height">60dp</dimen>
+
+
 </resources>
