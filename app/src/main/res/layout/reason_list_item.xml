@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="175dp"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBox
+        android:id="@+id/reason_check"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/reason_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="۱۰۰ روزه"
+        app:layout_constraintStart_toEndOf="@id/reason_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/reason_check"
+        app:layout_constraintBottom_toBottomOf="@id/reason_check"
+        android:textSize="18sp"
+        android:fontFamily="@font/anjoman_regular"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
