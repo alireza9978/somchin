@@ -1,9 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/persian_green"
     tools:context=".activities.tabs.report_activites.FactorFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/livestock_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/login_input_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/livestock_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="25dp"
+                android:src="@drawable/ic_cow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <TextView
+                android:id="@+id/livestock_name_text"
+                style="@style/Theme.App.TextView.Search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="دامداری مورد نظر خود را انتخاب کنید"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/livestock_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/date_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/login_input_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/livestock_container">
+
+            <ImageView
+                android:id="@+id/date_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="25dp"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <TextView
+                android:id="@+id/date_text"
+                style="@style/Theme.App.TextView.Search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="دامداری مورد نظر خود را انتخاب کنید"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/date_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/cow_selection_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/anjoman_bold"
+            android:text="انتخاب دام"
+            android:textColor="@color/selected_tab_home"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_container" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cow_number_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/login_input_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cow_selection_title">
+
+            <ImageView
+                android:id="@+id/cow_name_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_cow_border"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <EditText
+                android:id="@+id/cow_name_text"
+                style="@style/Theme.App.EditText.Search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:hint="شماره دام مورد نظر خود را وارد کنید"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cow_name_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/som_cut_price_container"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/login_input_background"
+            app:layout_constraintEnd_toStartOf="@id/cure_price_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cow_number_container">
+
+            <ImageView
+                android:id="@+id/som_cut_price_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_price"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <EditText
+                android:id="@+id/som_cut_price_text"
+                style="@style/Theme.App.EditText.Report.Price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:hint="هزینه‌ سم‌چینی"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/som_cut_price_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cure_price_container"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/login_input_background"
+            app:layout_constraintBottom_toBottomOf="@id/som_cut_price_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/som_cut_price_container"
+            app:layout_constraintTop_toTopOf="@id/som_cut_price_container">
+
+            <ImageView
+                android:id="@+id/cure_price_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_price"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <EditText
+                android:id="@+id/cure_price_text"
+                style="@style/Theme.App.EditText.Report.Price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:hint="هزینه‌ درمان‌عفونی"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cure_price_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/som_bed_price_container"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/login_input_background"
+            app:layout_constraintEnd_toEndOf="@id/som_cut_price_container"
+            app:layout_constraintStart_toStartOf="@id/som_cut_price_container"
+            app:layout_constraintTop_toBottomOf="@id/som_cut_price_container">
+
+            <ImageView
+                android:id="@+id/som_bed_price_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_price"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <EditText
+                android:id="@+id/som_bed_price_text"
+                style="@style/Theme.App.EditText.Report.Price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:hint="هزینه‌ تخته‌گذاری"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/som_bed_price_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_cow_number_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/login_input_background"
+            android:foregroundGravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/som_bed_price_container">
+
+            <ImageView
+                android:id="@+id/add_cow_name_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_add_reverse"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/add_cow_name_text"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/hit_gray" />
+
+            <TextView
+                android:id="@+id/add_cow_name_text"
+                style="@style/Theme.App.TextView.Search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="start|center_vertical"
+                android:text="افزودن دام جدید به فاکتور"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/add_cow_name_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/my_edit_text_height"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="72dp"
+            android:backgroundTint="@color/persian_green"
+            android:fontFamily="@font/anjoman_bold"
+            android:text="دریافت فاکتور"
+            android:textSize="18sp"
+            app:cornerRadius="15dp"
+            app:layout_constraintTop_toBottomOf="@id/add_cow_number_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
