@@ -80,5 +80,9 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
     implementation 'com.github.badoualy:stepper-indicator:1.0.7'
 
+    implementation "androidx.room:room-runtime:2.2.5"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
+
+
     implementation 'ir.coleo.chayi:Chayi:0.10.20'
 }

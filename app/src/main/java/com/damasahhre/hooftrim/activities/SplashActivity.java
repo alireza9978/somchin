@@ -7,18 +7,22 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.tabs.HomeActivity;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.FarmWithCows;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
+import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -38,13 +42,59 @@ public class SplashActivity extends AppCompatActivity {
             goApp();
         });
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                checkConnection();
+//            }
+//        }, 1000);
+
+        temp2();
+    }
+
+    synchronized private void temp() {
+        DataBase dataBase = DataBase.getInstance(this);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            final List<FarmWithCows> farmWithCows = dataBase.cowDao().getFarmWithCows();
+//            final List<Farm> farms = dataBase.cowDao().getAll();
+            runOnUiThread(() -> {
+//                for (Farm farm : farms)
+//                    Log.i("TAG", "onResume: " + farm.id);
+//
+                for (FarmWithCows farm : farmWithCows)
+                    for (Cow cow : farm.cows)
+                        Log.i("TAG", "onResume: " + farm.farm.id + " " + cow.number);
+            });
+        });
+    }
+
+    synchronized private void temp2() {
+        DataBase dataBase = DataBase.getInstance(this);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                checkConnection();
+                Farm farm = new Farm();
+                farm.birthCount = 2;
+                farm.controlSystem = "none";
+                farm.favorite = false;
+                dataBase.cowDao().insertFarm(farm);
+                Cow cow = new Cow();
+                cow.farm = 2;
+                cow.number = 111;
+                dataBase.cowDao().insertCow(cow);
+                runOnUiThread(() -> Log.i("TAG", "onResume: done"));
             }
-        }, 1000);
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        temp();
+
     }
 
     @Override
