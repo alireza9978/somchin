@@ -2,26 +2,19 @@ package com.damasahhre.hooftrim.database.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
+import java.util.Date;
 
-@Entity(
-//        foreignKeys = {@ForeignKey(
-//        entity = Cow.class,
-//        parentColumns = "id",
-//        childColumns = "cow",
-//        onDelete = ForeignKey.CASCADE)}
-        )
+@Entity
 public class Report {
     @PrimaryKey
     public Integer id;
 
-//    @ColumnInfo(name = "visit_date")
-//    private Date visit;
-//    @ColumnInfo(name = "next_visit_date")
-//    private Date nextVisit;
+    @ColumnInfo(name = "visit_date")
+    private Date visit;
+    @ColumnInfo(name = "next_visit_date")
+    private Date nextVisit;
 
     @ColumnInfo(name = "leg_area_number")
     public Integer legAreaNumber;
@@ -68,9 +61,8 @@ public class Report {
     @ColumnInfo(name = "description")
     public String description;
 
-//    @ColumnInfo(name = "cow")
-//    public Cow cow;
-
+    @ColumnInfo(name = "cow_id")
+    public Integer cowId;
 
 
 }

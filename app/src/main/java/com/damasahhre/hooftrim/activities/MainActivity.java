@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = findViewById(R.id.tab_layout_id);
 
         viewPager.setEnableSwipe(false);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(0);
 
         adapter = new TabAdapterHome(this, getSupportFragmentManager());
         adapter.addFragment(new MarkedActivity(),
