@@ -26,5 +26,13 @@
     <string name="injeries">injeries</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next_visits">next visits</string>
+    <string name="no_next_visit">there is no visit</string>
+    <string name="empty_livestrock_list">no livestrocks</string>
+    <string name="create_first_livestrock">create your first farm</string>
+    <string name="livestocks">livestocks</string>
+    <string name="cow_title">cow </string>
+    <string name="today">today</string>
+
 
 </resources>

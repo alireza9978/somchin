@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.database.dao;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -10,11 +11,13 @@ import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowWithReports;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithCows;
+import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.models.Report;
 
+import java.util.Date;
 import java.util.List;
 
-@androidx.room.Dao
+@Dao
 public interface MyDao {
 
     @Transaction
@@ -28,6 +31,12 @@ public interface MyDao {
     @Transaction
     @Query("SELECT * FROM Cow WHERE Cow.farm_id == :farmId")
     public List<FarmWithCows> getFarmWithCows(Integer farmId);
+
+    @Transaction
+    @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
+            " FROM Cow, Report, Farm" +
+            " WHERE next_visit_date > :now")
+    List<NextReport> getAllNextVisit(Date now);
 
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();

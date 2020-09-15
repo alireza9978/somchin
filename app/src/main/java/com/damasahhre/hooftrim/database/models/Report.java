@@ -12,9 +12,9 @@ public class Report {
     public Integer id;
 
     @ColumnInfo(name = "visit_date")
-    private Date visit;
+    public Date visit;
     @ColumnInfo(name = "next_visit_date")
-    private Date nextVisit;
+    public Date nextVisit;
 
     @ColumnInfo(name = "leg_area_number")
     public Integer legAreaNumber;

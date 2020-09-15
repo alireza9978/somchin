@@ -2,7 +2,7 @@ package com.damasahhre.hooftrim.database.utils;
 
 import androidx.room.TypeConverter;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 public class DateConverter {
