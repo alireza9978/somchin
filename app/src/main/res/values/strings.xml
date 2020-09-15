@@ -33,6 +33,12 @@
     <string name="livestocks">livestocks</string>
     <string name="cow_title">cow </string>
     <string name="today">today</string>
+    <string name="enter_farm_name">enter farm name</string>
+    <string name="create_farm">create farm</string>
+    <string name="control_system">control system</string>
+    <string name="birth_count">birth count</string>
+
+    <string name="check_fields">check fields</string>
 
 
 </resources>

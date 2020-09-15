@@ -33,5 +33,10 @@
     <string name="livestocks">گاوداری‌ها</string>
     <string name="cow_title">گاو </string>
     <string name="today">امروز</string>
+    <string name="create_farm">ایجاد گاوداری</string>
+    <string name="control_system">سیستم نگهداری</string>
+    <string name="enter_farm_name">نام گاوداری را وارد کنید</string>
+    <string name="birth_count">تعداد مولد</string>
+    <string name="check_fields">ورودی را بررسی کنید</string>
 
 </resources>
