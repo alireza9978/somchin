@@ -15,70 +15,66 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.LivestockProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.Report;
 
 import java.util.List;
 
-public class GridViewAdapterHomeFarm extends BaseAdapter {
+public class GridViewAdapterCowProfile extends BaseAdapter {
 
-    private List<Farm> farms;
+    private List<Report> reports;
     private Context context;
 
-    public GridViewAdapterHomeFarm(Context context, List<Farm> farms) {
-        this.farms = farms;
+    public GridViewAdapterCowProfile(Context context, List<Report> reports) {
+        this.reports = reports;
         this.context = context;
     }
 
-    public void setFarms(List<Farm> farms) {
-        this.farms = farms;
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 
     @Override
     public int getCount() {
-        return farms.size();
+        return reports.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return farms.get(i);
+        return reports.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return farms.get(i).id;
+        return reports.get(i).id;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Holder holder;
-        Farm farm = farms.get(i);
+        Report report = reports.get(i);
         if (view == null) {
             view = LayoutInflater.from(context)
-                    .inflate(R.layout.livestock_grid_item, viewGroup, false);
+                    .inflate(R.layout.cow_report_item, viewGroup, false);
             holder = new Holder();
             holder.view = view;
-            holder.cowCount = view.findViewById(R.id.cow_count);
-            holder.farmTitle = view.findViewById(R.id.farm_text);
-            holder.icon = view.findViewById(R.id.cow_icon);
+            holder.title = view.findViewById(R.id.report_name);
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
         }
         holder.view.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, LivestockProfileActivity.class);
-            intent.putExtra(Constants.FARM_ID, farm.id);
+            //todo change to report summery activity
+            Intent intent = new Intent(context, Report.class);
+            intent.putExtra(Constants.FARM_ID, report.id);
             context.startActivity(intent);
         });
-        holder.farmTitle.setText(farm.name);
-        holder.cowCount.setText("" + farm.birthCount);
-        holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cow));
+        holder.title.setText("" + report.id);
         return view;
     }
 
     static class Holder {
         View view;
-        TextView cowCount;
-        TextView farmTitle;
-        ImageView icon;
+        TextView title;
     }
 
 }

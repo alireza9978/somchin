@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.CattelProfileActivity;
+import com.damasahhre.hooftrim.activities.CowProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Cow;
 
@@ -40,7 +40,7 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return cows.get(i).id;
+        return cows.get(i).getId();
     }
 
     @Override
@@ -60,12 +60,12 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             holder = (Holder) view.getTag();
         }
         holder.view.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, CattelProfileActivity.class);
-            intent.putExtra(Constants.COW_ID, cow.id);
+            Intent intent = new Intent(context, CowProfileActivity.class);
+            intent.putExtra(Constants.COW_ID, cow.getId());
             context.startActivity(intent);
         });
         holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_calendar));
-        holder.farmTitle.setText("" + cow.number);
+        holder.farmTitle.setText("" + cow.getNumber(context));
         holder.cowCount.setText("  ");
         return view;
     }

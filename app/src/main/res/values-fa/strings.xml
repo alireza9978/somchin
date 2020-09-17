@@ -38,5 +38,11 @@
     <string name="enter_farm_name">نام گاوداری را وارد کنید</string>
     <string name="birth_count">تعداد مولد</string>
     <string name="check_fields">ورودی را بررسی کنید</string>
+    <string name="not_found">نتیجه‌ای یافت نشد!</string>
+    <string name="cows_list">لیست دام‌ها</string>
+    <string name="submit">اعمال</string>
+    <string name="enter_farm">دامداری مورد نظر خود را انتخاب کنید</string>
+    <string name="enter_date">بازه‌ی زمانی برای جستجو را وارد کنید</string>
+    <string name="enter_cow_number">شماره دام مورد نظر خود را وارد کنید</string>
 
 </resources>

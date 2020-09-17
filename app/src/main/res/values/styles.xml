@@ -72,7 +72,7 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:cursorVisible">true</item>
-        <item name="android:background">@drawable/login_input_selector</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="Theme.App.TextView.Search" parent="Theme.App">

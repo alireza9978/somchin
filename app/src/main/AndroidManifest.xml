@@ -17,7 +17,7 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.reports.AddReportActivity" />
         <activity android:name=".activities.LivestockProfileActivity" />
-        <activity android:name=".activities.CattelProfileActivity" />
+        <activity android:name=".activities.CowProfileActivity" />
         <activity android:name=".activities.tabs.AddLivestockActivity" />
         <activity android:name=".activities.menu.ProfileActivity" />
         <activity android:name=".activities.tabs.home_activites.VisitActivity" />

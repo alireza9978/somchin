@@ -10,8 +10,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
-import com.damasahhre.hooftrim.activities.login_fragments.LoginFragment;
-import com.damasahhre.hooftrim.activities.login_fragments.SignUpFragment;
 import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchCowFragment;
 import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchLivestockFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapter;
@@ -31,7 +29,6 @@ public class SearchActivity extends Fragment {
         });
         ViewPager viewPager = view.findViewById(R.id.search_pager_id);
         tabLayout = view.findViewById(R.id.search_tab_layout_id);
-        viewPager.setOffscreenPageLimit(4);
 
         adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new SearchCowFragment(), getResources().getString(R.string.cows));
@@ -56,11 +53,15 @@ public class SearchActivity extends Fragment {
         });
 
         setupTabIcons();
-        highLightCurrentTab(0);
-
-        tabLayout.selectTab(tabLayout.getTabAt(0), true);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        highLightCurrentTab(0);
+        tabLayout.selectTab(tabLayout.getTabAt(0), true);
     }
 
     /**

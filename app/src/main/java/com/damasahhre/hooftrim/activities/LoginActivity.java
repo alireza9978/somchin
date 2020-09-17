@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         ImageView logo = findViewById(R.id.login_logo);
         ViewPager viewPager = findViewById(R.id.pager_id);
         tabLayout = findViewById(R.id.tab_layout_id);
-        viewPager.setOffscreenPageLimit(4);
 
         adapter = new TabAdapter(this, getSupportFragmentManager());
         adapter.addFragment(new SignUpFragment(), getResources().getString(R.string.sign_in));

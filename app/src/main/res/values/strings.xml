@@ -39,6 +39,12 @@
     <string name="birth_count">birth count</string>
 
     <string name="check_fields">check fields</string>
+    <string name="not_found">not found</string>
+    <string name="cows_list">cows list</string>
+    <string name="submit">submit</string>
+    <string name="enter_farm">please select farm</string>
+    <string name="enter_date">enter searching date</string>
+    <string name="enter_cow_number">enter cow number</string>
 
 
 </resources>

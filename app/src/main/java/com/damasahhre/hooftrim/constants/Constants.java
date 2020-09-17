@@ -15,6 +15,9 @@ public class Constants {
     public static final String FARM_ID = "sdaxce";
     public static final String COW_ID = "Addssaxce";
 
+    public static final Integer FARM_SELECTION_SEARCH_COW = 101;
+    public static final Integer DATE_SELECTION_SEARCH_COW = 102;
+
     public static boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) ir.coleo.chayi.constats.Constants.context.getSystemService(Context.CONNECTIVITY_SERVICE);
