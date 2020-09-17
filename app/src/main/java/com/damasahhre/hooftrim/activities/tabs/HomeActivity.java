@@ -24,6 +24,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +64,16 @@ public class HomeActivity extends Fragment {
             Intent intent = new Intent(requireContext(), VisitActivity.class);
             startActivity(intent);
         });
+
+        adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), new ArrayList<>());
+        farmsGrid.setAdapter(adapterHomeFarm);
+
+        nextVisitList.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(requireContext());
+        nextVisitList.setLayoutManager(layoutManager);
+        mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>());
+        nextVisitList.setAdapter(mAdapter);
+
         return view;
     }
 
@@ -115,8 +126,8 @@ public class HomeActivity extends Fragment {
             if (farmList.isEmpty()) {
                 hideFarms();
             } else {
-                adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), farmList);
-                farmsGrid.setAdapter(adapterHomeFarm);
+                adapterHomeFarm.setFarms(farmList);
+                adapterHomeFarm.notifyDataSetChanged();
                 showFarms();
             }
         });
@@ -125,11 +136,8 @@ public class HomeActivity extends Fragment {
             if (reports.isEmpty()) {
                 hideVisit();
             } else {
-                nextVisitList.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(requireContext());
-                nextVisitList.setLayoutManager(layoutManager);
-                mAdapter = new RecyclerViewAdapterHomeNextVisit(reports);
-                nextVisitList.setAdapter(mAdapter);
+                mAdapter.setNextReports(reports);
+                mAdapter.notifyDataSetChanged();
                 showVisit(reports.size() > 3);
             }
         });

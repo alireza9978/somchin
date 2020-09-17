@@ -41,6 +41,18 @@ public interface MyDao {
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();
 
+    @Query("SELECT * FROM Cow WHERE Cow.farm_id == :id")
+    List<Cow> getAllCowOfFarm(Integer id);
+
+    @Query("SELECT * FROM Farm WHERE Farm.id == :id")
+    Farm getFarm(Integer id);
+
+    @Query("SELECT * FROM Cow WHERE Cow.id == :id")
+    Cow getCow(Integer id);
+
+    @Query("SELECT * FROM Report WHERE Report.id == :id")
+    Report getReport(Integer id);
+
     @Delete
     void deleteCow(Cow... cows);
 

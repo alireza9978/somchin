@@ -11,6 +11,9 @@ public class Constants {
     private static String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static String LANGUAGE_DATA = "someWhereInDarkness12";
 
+    //intent to start activity data
+    public static final String FARM_ID = "sdaxce";
+    public static final String COW_ID = "Addssaxce";
 
     public static boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

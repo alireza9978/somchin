@@ -22,6 +22,10 @@ public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<Recyc
         this.nextReports = nextReports;
     }
 
+    public void setNextReports(List<NextReport> nextReports) {
+        this.nextReports = nextReports;
+    }
+
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
