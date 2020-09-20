@@ -2,23 +2,23 @@ package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -30,7 +30,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import ir.mirrajabi.persiancalendar.PersianCalendarView;
+import ir.mirrajabi.persiancalendar.core.PersianCalendarHandler;
+import ir.mirrajabi.persiancalendar.core.models.PersianDate;
+
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
+import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_NONE;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_RANGE;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_SINGLE;
@@ -40,218 +45,138 @@ public class DateSelectionActivity extends AppCompatActivity {
     private Context context = this;
     private TextView month;
     private TextView year;
+    private MaterialCalendarView calendar;
+    private PersianCalendarView calendarView;
+    private ImageView right;
+    private ImageView left;
+    private TextView startDate;
+    private TextView endDate;
+    private TextView clear;
+    private Button submit;
+    private boolean rang;
+    private String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_selection);
 
-        ImageView right = findViewById(R.id.right_arrow);
-        ImageView left = findViewById(R.id.left_arrow);
+        right = findViewById(R.id.right_arrow);
+        left = findViewById(R.id.left_arrow);
+        startDate = findViewById(R.id.start_date);
+        endDate = findViewById(R.id.end_date);
+        clear = findViewById(R.id.clear_text);
+        submit = findViewById(R.id.submit_date);
         month = findViewById(R.id.month_title);
         year = findViewById(R.id.year_title);
-        TextView clear = findViewById(R.id.clear_text);
-        Button submit = findViewById(R.id.submit_date);
-        MaterialCalendarView calendar = findViewById(R.id.calendarView);
+        calendar = findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.persian_calendar);
 
-        submit.setOnClickListener((v) -> {
-            Intent intent = new Intent();
-            DateContainer container;
-            if (calendar.getSelectionMode() == SELECTION_MODE_RANGE) {
-                List<CalendarDay> days = calendar.getSelectedDates();
-                CalendarDay startDay = days.get(0);
-                CalendarDay endDay = days.get(days.size() - 1);
-//                container = new DateContainer(RANG, )
-            } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
-
-            }
-//            intent.putExtra()
-//            setResult();
-
-        });
-
-        right.setOnClickListener(v -> {
-            calendar.goToNext();
-        });
-
-        left.setOnClickListener(v -> {
-            calendar.goToPrevious();
-        });
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            language = "fa";
+        } else {
+            language = "en";
+        }
 
         String action = getIntent().getAction();
         assert action != null;
         if (action.equals(RANG)) {
             calendar.setSelectionMode(SELECTION_MODE_RANGE);
+            startDate.setVisibility(View.VISIBLE);
+            endDate.setVisibility(View.VISIBLE);
+            startDate.setText("");
+            endDate.setText("");
+            rang = true;
         } else if (action.equals(Constants.DateSelectionMode.SINGLE)) {
             calendar.setSelectionMode(SELECTION_MODE_SINGLE);
+            startDate.setVisibility(View.GONE);
+            endDate.setVisibility(View.GONE);
+            rang = false;
         } else {
             calendar.setSelectionMode(SELECTION_MODE_NONE);
+            rang = false;
         }
 
-        String language = Constants.getDefualtlanguage(context);
-        if (language.isEmpty()) {
-            language = "en";
+        if (language.equals("en")) {
+            calendar.setVisibility(View.VISIBLE);
+            calendarView.setVisibility(View.INVISIBLE);
+            setEnglish();
+        } else {
+            calendarView.setVisibility(View.VISIBLE);
+            calendar.setVisibility(View.INVISIBLE);
+            setPersian();
         }
-        String finalLanguage = language;
+        first = true;
+    }
 
+
+    private boolean first;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    private void setEnglish() {
         calendar.setTopbarVisible(false);
         calendar.setOnMonthChangedListener((widget, date) -> {
-            setTopCalendarBar(finalLanguage, date.getYear(), date.getMonth(), date.getDay());
-        });
-        calendar.setDayFormatter(day -> {
-            String temp;
-            if (finalLanguage.equals("en")) {
-                temp = "" + day.getDay();
-            } else {
-                temp = FormatHelper.toPersianNumber("" + day.getDay());
-            }
-            return temp;
-        });
-        calendar.setWeekDayFormatter(dayOfWeek -> {
-            String temp = " ";
-            if (finalLanguage.equals("en")) {
-                switch (dayOfWeek) {
-                    case MONDAY:
-                        temp = "mon";
-                        break;
-                    case TUESDAY:
-                        temp = "tue";
-                        break;
-                    case WEDNESDAY:
-                        temp = "wed";
-                        break;
-                    case THURSDAY:
-                        temp = "thu";
-                        break;
-                    case FRIDAY:
-                        temp = "fri";
-                        break;
-                    case SATURDAY:
-                        temp = "sat";
-                        break;
-                    case SUNDAY:
-                        temp = "sun";
-                        break;
-                }
-            } else {
-                switch (dayOfWeek) {
-                    case MONDAY:
-                        temp = "ج";
-                        break;
-                    case TUESDAY:
-                        temp = "ش";
-                        break;
-                    case WEDNESDAY:
-                        temp = "ی";
-                        break;
-                    case THURSDAY:
-                        temp = "د";
-                        break;
-                    case FRIDAY:
-                        temp = "س";
-                        break;
-                    case SATURDAY:
-                        temp = "چ";
-                        break;
-                    case SUNDAY:
-                        temp = "پ";
-                        break;
-                }
-            }
-            Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_medium);
-            SpannableString mNewTitle = new SpannableString(temp);
+            Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
+            SpannableString mNewTitle = new SpannableString(Utilities.monthToString(date, context));
 
             mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.calender_blue)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.black)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return mNewTitle;
-        });
-        calendar.setOnDateChangedListener((widget, date, selected) -> {
-            if (selected) {
-                String temp = date.toString();
-                Toast.makeText(context, temp, Toast.LENGTH_LONG).show();
-            }
-        });
+            month.setText(mNewTitle);
 
+            font = ResourcesCompat.getFont(context, R.font.anjoman_regular);
+            mNewTitle = new SpannableString(Utilities.yearToString(date, context));
+
+            mNewTitle.setSpan(new AbsoluteSizeSpan(16, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            year.setText(mNewTitle);
+        });
+        right.setOnClickListener(v -> calendar.goToNext());
+        left.setOnClickListener(v -> calendar.goToPrevious());
+        submit.setOnClickListener((v) -> {
+            //todo return correct data
+            Intent intent = new Intent();
+            DateContainer container = null;
+            if (calendar.getSelectionMode() == SELECTION_MODE_RANGE) {
+                List<CalendarDay> days = calendar.getSelectedDates();
+                CalendarDay startDay = days.get(0);
+                CalendarDay endDay = days.get(days.size() - 1);
+                container = new DateContainer(RANG, startDay.toString(), endDate.toString(), startDay, endDay);
+            } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
+                CalendarDay day = calendar.getSelectedDate();
+                assert day != null;
+                container = new DateContainer(SINGLE, day.toString(), day);
+            }
+            if (container == null) {
+                setResult(Constants.DATE_SELECTION_FAIL);
+            }
+            intent.putExtra(Constants.DATE_SELECTION_RESULT, container);
+            setResult(Constants.DATE_SELECTION_OK, intent);
+            finish();
+        });
 
         Date date = new Date();
-        setTopCalendarBar(finalLanguage, date.getYear() + 1900, date.getMonth() + 1, date.getDay());
-        calendar.setSelectedDate(getToday(finalLanguage));
-        calendar.setCurrentDate(getToday(finalLanguage));
+        CalendarDay today = CalendarDay.today();
+        calendar.setSelectedDate(today);
+        calendar.setCurrentDate(today);
+        setTopCalendarBarEn(date);
     }
 
-    private CalendarDay getToday(String finalLanguage) {
-        Date date = new Date();
-        if (finalLanguage.equals("en")) {
-            return CalendarDay.from(date.getYear() + 1900, date.getMonth() + 1, date.getDay());
-        } else {
-            Utilities.SolarCalendar calendar = new Utilities.SolarCalendar();
-            int temp = calendar.month + 3;
-            return CalendarDay.from(1900 + date.getYear(), temp, calendar.date);
-        }
-    }
-
-    private void setTopCalendarBar(String finalLanguage, int year_number, int month_number, int day_number) {
-        String output_year;
-        String output_month;
-        if (finalLanguage.equals("en")) {
-            Calendar cal = Calendar.getInstance();
-            cal.set(year_number, month_number - 1, day_number);
-            SimpleDateFormat month_date = new SimpleDateFormat("MMMM", Locale.ENGLISH);
-            SimpleDateFormat year_date = new SimpleDateFormat("yyyy", Locale.ENGLISH);
-            output_month = month_date.format(cal.getTime());
-            output_year = year_date.format(cal.getTime());
-        } else {
-            Utilities.SolarCalendar calendar = new Utilities.SolarCalendar(new Date(year_number - 1900, month_number - 1, day_number));
-            int temp = month_number - 3;
-            int tempYear = calendar.year;
-            if (temp < 1) {
-                temp += 12;
-            }
-            String strMonth = " ";
-            switch (temp) {
-                case 1:
-                    strMonth = "فروردين";
-                    break;
-                case 2:
-                    strMonth = "ارديبهشت";
-                    break;
-                case 3:
-                    strMonth = "خرداد";
-                    break;
-                case 4:
-                    strMonth = "تير";
-                    break;
-                case 5:
-                    strMonth = "مرداد";
-                    break;
-                case 6:
-                    strMonth = "شهريور";
-                    break;
-                case 7:
-                    strMonth = "مهر";
-                    break;
-                case 8:
-                    strMonth = "آبان";
-                    break;
-                case 9:
-                    strMonth = "آذر";
-                    break;
-                case 10:
-                    strMonth = "دي";
-                    break;
-                case 11:
-                    strMonth = "بهمن";
-                    break;
-                case 12:
-                    strMonth = "اسفند";
-                    break;
-            }
-            output_month = strMonth;
-            output_year = FormatHelper.toPersianNumber("" + tempYear);
-        }
+    private void setTopCalendarBarEn(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.getYear() + 1900, date.getMonth(), date.getDay());
+        SimpleDateFormat month_date = new SimpleDateFormat("MMMM", Locale.ENGLISH);
+        SimpleDateFormat year_date = new SimpleDateFormat("yyyy", Locale.ENGLISH);
+        String output_year = year_date.format(cal.getTime());
+        String output_month = month_date.format(cal.getTime());
         Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
-        SpannableString mNewTitle = new SpannableString(output_month);
+        SpannableString mNewTitle = new SpannableString(output_year);
 
         mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.black)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -259,12 +184,164 @@ public class DateSelectionActivity extends AppCompatActivity {
         month.setText(mNewTitle);
 
         font = ResourcesCompat.getFont(context, R.font.anjoman_regular);
-        mNewTitle = new SpannableString(output_year);
+        mNewTitle = new SpannableString(output_month);
 
         mNewTitle.setSpan(new AbsoluteSizeSpan(16, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         year.setText(mNewTitle);
     }
+
+    private void setTopBarFa(PersianDate persianDate) {
+        String monthName = getPersianMonthName(persianDate.getMonth());
+        String yearName = "" + persianDate.getYear();
+
+        Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
+        SpannableString mNewTitle = new SpannableString(monthName);
+
+        mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.black)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        month.setText(mNewTitle);
+
+        font = ResourcesCompat.getFont(context, R.font.anjoman_regular);
+        mNewTitle = new SpannableString(yearName);
+
+        mNewTitle.setSpan(new AbsoluteSizeSpan(16, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        year.setText(mNewTitle);
+    }
+
+    private int state = 0;
+    private PersianDate monthDate;
+    private PersianDate startPersianDate;
+    private PersianDate endPersianDate;
+
+    private void setPersian() {
+        PersianCalendarHandler calendarHandler = calendarView.getCalendar();
+        calendarHandler.setOnMonthChangedListener(persianDate -> {
+            monthDate = persianDate;
+            setTopBarFa(persianDate);
+        });
+        calendarHandler.setOnDayClickedListener(persianDate -> {
+            if (rang) {
+                if (state == 0) {
+                    startDate.setText(persianDate.toString());
+                    startPersianDate = persianDate;
+                    endPersianDate = null;
+                    endDate.setText("");
+                    state = 1;
+                }
+                if (state == 1) {
+                    endDate.setText(persianDate.toString());
+                    endPersianDate = startPersianDate;
+                    state = 0;
+                }
+            } else {
+                startPersianDate = persianDate;
+            }
+        });
+        left.setOnClickListener(v -> {
+            if (monthDate == null){
+                monthDate = calendarHandler.getToday();
+            }
+            int month = monthDate.getMonth() + 1;
+            int year = monthDate.getYear();
+            if (month > 12) {
+                month = 1;
+                year += 1;
+            }
+            monthDate.setMonth(month);
+            monthDate.setYear(year);
+            calendarView.goToDate(monthDate);
+        });
+        right.setOnClickListener(v -> {
+            if (monthDate == null){
+                monthDate = calendarHandler.getToday();
+            }
+            int month = monthDate.getMonth() - 1;
+            int year = monthDate.getYear();
+            if (month == 0) {
+                month = 12;
+                year -= 1;
+            }
+            monthDate.setMonth(month);
+            monthDate.setYear(year);
+            calendarView.goToDate(monthDate);
+        });
+        submit.setOnClickListener((v) -> {
+            Intent intent = new Intent();
+            DateContainer container = null;
+            if (rang) {
+                container = new DateContainer(RANG, startPersianDate.toString(), endPersianDate.toString(), startPersianDate, endPersianDate);
+            } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
+                container = new DateContainer(SINGLE, startPersianDate.toString(), startPersianDate);
+            }
+            if (container == null) {
+                setResult(Constants.DATE_SELECTION_FAIL);
+            }
+            //todo return correct data
+            intent.putExtra(Constants.DATE_SELECTION_RESULT, container);
+            setResult(Constants.DATE_SELECTION_OK, intent);
+            finish();
+        });
+        clear.setOnClickListener(v -> {
+            if (rang) {
+                state = 0;
+                calendarView.goToToday();
+                startPersianDate = calendarHandler.getToday();
+                startDate.setText(startPersianDate.toString());
+                endDate.setText("");
+            } else {
+                calendarView.goToToday();
+            }
+        });
+        setTopBarFa(calendarHandler.getToday());
+    }
+
+    private String getPersianMonthName(int month) {
+        String strMonth = " ";
+        switch (month) {
+            case 1:
+                strMonth = "فروردين";
+                break;
+            case 2:
+                strMonth = "ارديبهشت";
+                break;
+            case 3:
+                strMonth = "خرداد";
+                break;
+            case 4:
+                strMonth = "تير";
+                break;
+            case 5:
+                strMonth = "مرداد";
+                break;
+            case 6:
+                strMonth = "شهريور";
+                break;
+            case 7:
+                strMonth = "مهر";
+                break;
+            case 8:
+                strMonth = "آبان";
+                break;
+            case 9:
+                strMonth = "آذر";
+                break;
+            case 10:
+                strMonth = "دي";
+                break;
+            case 11:
+                strMonth = "بهمن";
+                break;
+            case 12:
+                strMonth = "اسفند";
+                break;
+        }
+        return strMonth;
+    }
+
 
 }

@@ -1,9 +1,82 @@
 package com.damasahhre.hooftrim.constants;
 
+import android.content.Context;
+
+import com.damasahhre.hooftrim.R;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 import java.util.Date;
 import java.util.Locale;
 
 public class Utilities {
+
+    public static String monthToString(CalendarDay date, Context context) {
+        String language = Constants.getDefualtlanguage(context);
+        if (language.isEmpty()) {
+            language = "en";
+        }
+        int month;
+        if (language.equals("en")) {
+            month = date.getMonth();
+        } else {
+            Utilities.SolarCalendar solarCalendar = new Utilities.SolarCalendar(date);
+            month = solarCalendar.month;
+        }
+        String strMonth = "month";
+        switch (month) {
+            case 1:
+                strMonth = context.getString(R.string.month_1);
+                break;
+            case 2:
+                strMonth = context.getString(R.string.month_2);
+                break;
+            case 3:
+                strMonth = context.getString(R.string.month_3);
+                break;
+            case 4:
+                strMonth = context.getString(R.string.month_4);
+                break;
+            case 5:
+                strMonth = context.getString(R.string.month_5);
+                break;
+            case 6:
+                strMonth = context.getString(R.string.month_6);
+                break;
+            case 7:
+                strMonth = context.getString(R.string.month_7);
+                break;
+            case 8:
+                strMonth = context.getString(R.string.month_8);
+                break;
+            case 9:
+                strMonth = context.getString(R.string.month_9);
+                break;
+            case 10:
+                strMonth = context.getString(R.string.month_10);
+                break;
+            case 11:
+                strMonth = context.getString(R.string.month_11);
+                break;
+            case 12:
+                strMonth = context.getString(R.string.month_12);
+        }
+        return strMonth;
+    }
+
+    public static String yearToString(CalendarDay date, Context context) {
+        String language = Constants.getDefualtlanguage(context);
+        if (language.isEmpty()) {
+            language = "en";
+        }
+        int year;
+        if (language.equals("en")) {
+            year = date.getYear();
+        } else {
+            Utilities.SolarCalendar solarCalendar = new Utilities.SolarCalendar(date);
+            year = solarCalendar.year;
+        }
+        return "" + year;
+    }
 
     public static class SolarCalendar {
 
@@ -16,6 +89,11 @@ public class Utilities {
 
         public SolarCalendar() {
             Date MiladiDate = new Date();
+            calcSolarCalendar(MiladiDate);
+        }
+
+        public SolarCalendar(CalendarDay calendarDay) {
+            Date MiladiDate = new Date(calendarDay.getYear() - 1900, calendarDay.getMonth() - 1, calendarDay.getDay());
             calcSolarCalendar(MiladiDate);
         }
 

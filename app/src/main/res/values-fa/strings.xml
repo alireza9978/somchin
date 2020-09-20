@@ -50,5 +50,16 @@
 
     <string name="next">بعدی</string>
     <string name="add_report">افزودن گزارش</string>
-
+    <string name="month_1">فروردين</string>
+    <string name="month_2">ارديبهشت</string>
+    <string name="month_3">خرداد</string>
+    <string name="month_4">تير</string>
+    <string name="month_5">مرداد</string>
+    <string name="month_6">شهريور</string>
+    <string name="month_7">مهر</string>
+    <string name="month_8">آبان</string>
+    <string name="month_9">آذر</string>
+    <string name="month_10">دي</string>
+    <string name="month_11">بهمن</string>
+    <string name="month_12">اسفند</string>
 </resources>

@@ -54,7 +54,7 @@ public class CowInfoFragment extends Fragment {
         });
         date_container.setOnClickListener(view12 -> {
             Intent intent = new Intent(requireContext(), DateSelectionActivity.class);
-            intent.setAction(Constants.DateSelectionMode.SINGLE);
+            intent.setAction(Constants.DateSelectionMode.RANG);
             requireActivity().startActivityForResult(intent, Constants.DATE_SELECTION_SEARCH_COW);
         });
 

@@ -169,10 +169,28 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/top_of_calendar">
 
+                <ir.mirrajabi.persiancalendar.PersianCalendarView
+                    android:id="@+id/persian_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:pcv_colorBackground="@color/white"
+                    app:pcv_colorDayName="@color/calender_blue"
+                    app:pcv_colorHoliday="@color/red"
+                    app:pcv_colorHolidaySelected="@color/red"
+                    app:pcv_colorNormalDay="@color/black"
+                    app:pcv_colorNormalDaySelected="@color/white"
+                    app:pcv_eventUnderlineColor="@android:color/transparent"
+                    app:pcv_fontSize="18sp"
+                    android:visibility="invisible"
+                    app:pcv_headersFontSize="18sp"
+                    app:pcv_selectedDayBackground="@color/calender_blue"
+                    app:pcv_typefacePath="res/font/anjoman_medium.ttf" />
+
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                     android:id="@+id/calendarView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="invisible"
                     app:mcv_calendarMode="month"
                     app:mcv_selectionColor="@color/calender_blue"
                     app:mcv_selectionMode="range"
