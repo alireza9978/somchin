@@ -33,6 +33,10 @@ public class Cow {
         this.id = id;
     }
 
+    public Integer getNumber() {
+        return number;
+    }
+
     public String getNumber(Context context) {
         return context.getString(R.string.cow_title) + number;
     }

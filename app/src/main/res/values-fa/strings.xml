@@ -44,5 +44,11 @@
     <string name="enter_farm">دامداری مورد نظر خود را انتخاب کنید</string>
     <string name="enter_date">بازه‌ی زمانی برای جستجو را وارد کنید</string>
     <string name="enter_cow_number">شماره دام مورد نظر خود را وارد کنید</string>
+    <string name="enter_cow_number_report">شماره گاو را وارد کنید</string>
+    <string name="enter_date_report">تاریخ بازدید را وارد کنید</string>
+    <string name="information">اطلاعات اولیه</string>
+
+    <string name="next">بعدی</string>
+    <string name="add_report">افزودن گزارش</string>
 
 </resources>

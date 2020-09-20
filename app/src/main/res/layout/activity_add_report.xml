@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:fontFamily="@font/anjoman_semi_bold"
-            android:text="افزودن دام"
+            android:text="@string/add_report"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,6 +56,8 @@
         android:id="@+id/state_indicator"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_add_cow_container"
@@ -65,7 +67,7 @@
         app:stpi_lineMargin="0dp"
         app:stpi_stepCount="4" />
 
-    <androidx.viewpager.widget.ViewPager
+    <com.damasahhre.hooftrim.ui_element.MyViewPager
         android:id="@+id/pager_id"
         android:layout_width="match_parent"
         android:layout_height="0dp"

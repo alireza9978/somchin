@@ -15,7 +15,13 @@
         <activity android:name=".activities.DateSelectionActivity" />
         <activity android:name=".activities.menu.ContactActivity" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.reports.AddReportActivity" />
+        <activity android:name=".activities.reports.AddReportActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.LivestockProfileActivity" />
         <activity android:name=".activities.CowProfileActivity" />
         <activity android:name=".activities.tabs.AddLivestockActivity" />
@@ -23,11 +29,7 @@
         <activity android:name=".activities.tabs.home_activites.VisitActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

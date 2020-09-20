@@ -2,8 +2,15 @@ package com.damasahhre.hooftrim.constants;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
+
+import com.damasahhre.hooftrim.R;
 
 public class Constants {
 
@@ -16,13 +23,37 @@ public class Constants {
     public static final String COW_ID = "Addssaxce";
 
     public static final Integer FARM_SELECTION_SEARCH_COW = 101;
-    public static final Integer DATE_SELECTION_SEARCH_COW = 102;
+    public static final int DATE_SELECTION_SEARCH_COW = 102;
+    public static final int DATE_SELECTION_REPORT_CREATE = 103;
+
+    public static class DateSelectionMode{
+        public static String SINGLE = "asdasdngy";
+        public static String RANG = "vuwasdngy";
+    }
 
     public static boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) ir.coleo.chayi.constats.Constants.context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public static void setImageFront(Context context, ImageView imageView){
+        Configuration config = context.getResources().getConfiguration();
+        if(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
+        }else{
+            imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_back));
+        }
+    }
+
+    public static void setImageBack(Context context, ImageView imageView){
+        Configuration config = context.getResources().getConfiguration();
+        if(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
+        }else{
+            imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_front));
+        }
     }
 
     /**

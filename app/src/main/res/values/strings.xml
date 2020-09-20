@@ -45,6 +45,11 @@
     <string name="enter_farm">please select farm</string>
     <string name="enter_date">enter searching date</string>
     <string name="enter_cow_number">enter cow number</string>
+    <string name="enter_date_report">enter visit date</string>
+    <string name="enter_cow_number_report">enter cow number</string>
+    <string name="next">next</string>
+    <string name="information">information</string>
+    <string name="add_report">add report</string>
 
 
 </resources>

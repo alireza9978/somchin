@@ -1,13 +1,14 @@
 package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,13 +20,20 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
+import com.damasahhre.hooftrim.models.DateContainer;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
+import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_NONE;
+import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_RANGE;
+import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_SINGLE;
 
 public class DateSelectionActivity extends AppCompatActivity {
 
@@ -37,17 +45,55 @@ public class DateSelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_selection);
+
         ImageView right = findViewById(R.id.right_arrow);
         ImageView left = findViewById(R.id.left_arrow);
         month = findViewById(R.id.month_title);
         year = findViewById(R.id.year_title);
+        TextView clear = findViewById(R.id.clear_text);
+        Button submit = findViewById(R.id.submit_date);
+        MaterialCalendarView calendar = findViewById(R.id.calendarView);
+
+        submit.setOnClickListener((v) -> {
+            Intent intent = new Intent();
+            DateContainer container;
+            if (calendar.getSelectionMode() == SELECTION_MODE_RANGE) {
+                List<CalendarDay> days = calendar.getSelectedDates();
+                CalendarDay startDay = days.get(0);
+                CalendarDay endDay = days.get(days.size() - 1);
+//                container = new DateContainer(RANG, )
+            } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
+
+            }
+//            intent.putExtra()
+//            setResult();
+
+        });
+
+        right.setOnClickListener(v -> {
+            calendar.goToNext();
+        });
+
+        left.setOnClickListener(v -> {
+            calendar.goToPrevious();
+        });
+
+        String action = getIntent().getAction();
+        assert action != null;
+        if (action.equals(RANG)) {
+            calendar.setSelectionMode(SELECTION_MODE_RANGE);
+        } else if (action.equals(Constants.DateSelectionMode.SINGLE)) {
+            calendar.setSelectionMode(SELECTION_MODE_SINGLE);
+        } else {
+            calendar.setSelectionMode(SELECTION_MODE_NONE);
+        }
+
         String language = Constants.getDefualtlanguage(context);
         if (language.isEmpty()) {
             language = "en";
         }
         String finalLanguage = language;
 
-        MaterialCalendarView calendar = findViewById(R.id.calendarView);
         calendar.setTopbarVisible(false);
         calendar.setOnMonthChangedListener((widget, date) -> {
             setTopCalendarBar(finalLanguage, date.getYear(), date.getMonth(), date.getDay());
@@ -126,9 +172,10 @@ public class DateSelectionActivity extends AppCompatActivity {
                 Toast.makeText(context, temp, Toast.LENGTH_LONG).show();
             }
         });
+
+
         Date date = new Date();
         setTopCalendarBar(finalLanguage, date.getYear() + 1900, date.getMonth() + 1, date.getDay());
-        Log.i("here", "onCreateView: " + getToday(finalLanguage));
         calendar.setSelectedDate(getToday(finalLanguage));
         calendar.setCurrentDate(getToday(finalLanguage));
     }
