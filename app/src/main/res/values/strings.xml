@@ -63,5 +63,14 @@
     <string name="month_10">October</string>
     <string name="month_11">November</string>
     <string name="month_12">December</string>
+    <string name="reason">reason</string>
+    <string name="prevois">previeos</string>
 
+    <string name="reason_1">January</string>
+    <string name="reason_2">February</string>
+    <string name="reason_3">March</string>
+    <string name="reason_4">April</string>
+    <string name="reason_5">May</string>
+    <string name="reason_6">June</string>
+    <string name="reason_7">July</string>
 </resources>

@@ -17,12 +17,11 @@
         android:id="@+id/reason_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="۱۰۰ روزه"
         app:layout_constraintStart_toEndOf="@id/reason_check"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/reason_check"
         app:layout_constraintBottom_toBottomOf="@id/reason_check"
         android:textSize="18sp"
+        android:textColor="@color/report_gray"
         android:fontFamily="@font/anjoman_regular"
         />
 

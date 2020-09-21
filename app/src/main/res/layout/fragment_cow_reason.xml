@@ -19,7 +19,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/anjoman_bold"
-            android:text="علت ارجاع"
+            android:text="@string/reason"
             android:textColor="@color/selected_tab_home"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,10 +29,19 @@
             android:id="@+id/reason_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:numColumns="2"
+            android:gravity="center"
+            android:clipToPadding="false"
+            android:verticalSpacing="10dp"
+            android:paddingTop="10dp"
+            android:overScrollMode="never"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:listitem=""
-            app:layout_constraintTop_toBottomOf="@id/info_title" />
+            app:layout_constraintTop_toBottomOf="@id/info_title"
+            tools:listitem="@layout/reason_list_item" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/anjoman_medium"
                 android:paddingStart="20dp"
-                android:text="بعدی"
+                android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -89,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/anjoman_medium"
                 android:paddingEnd="20dp"
-                android:text="قبلی"
+                android:text="@string/prevois"
                 android:textColor="@color/hit_gray"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"

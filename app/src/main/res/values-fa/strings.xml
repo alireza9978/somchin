@@ -62,4 +62,13 @@
     <string name="month_10">دي</string>
     <string name="month_11">بهمن</string>
     <string name="month_12">اسفند</string>
+    <string name="reason">علت ارجاع</string>
+    <string name="prevois">قبلی</string>
+    <string name="reason_1">فروردين</string>
+    <string name="reason_2">ارديبهشت</string>
+    <string name="reason_3">خرداد</string>
+    <string name="reason_4">تير</string>
+    <string name="reason_5">مرداد</string>
+    <string name="reason_6">شهريور</string>
+    <string name="reason_7">مهر</string>
 </resources>
