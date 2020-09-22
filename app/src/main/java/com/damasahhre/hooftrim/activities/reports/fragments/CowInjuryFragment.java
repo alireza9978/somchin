@@ -23,6 +23,9 @@ public class CowInjuryFragment extends Fragment {
     private int[] imageIdRight = {R.drawable.ic_one_right, R.drawable.ic_two_right, R.drawable.ic_three_right, R.drawable.ic_four_right, R.drawable.ic_five_right, R.drawable.ic_six_right};
     private int[] btnIdLeft = {R.id.one_left, R.id.two_left, R.id.three_left, R.id.four_left, R.id.five_left, R.id.six_left};
     private int[] imageIdLeft = {R.drawable.ic_one_left, R.drawable.ic_two_left, R.drawable.ic_three_left, R.drawable.ic_four_left, R.drawable.ic_five_left, R.drawable.ic_six_left};
+    private ImageView mainImage;
+    private ImageView rightImage;
+    private ImageView leftImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,9 +34,9 @@ public class CowInjuryFragment extends Fragment {
         Constants.setImageFront(requireContext(), view.findViewById(R.id.next_icon));
         Constants.setImageBack(requireContext(), view.findViewById(R.id.back_icon));
 
-        ImageView mainImage = view.findViewById(R.id.main_som);
-        ImageView rightImage = view.findViewById(R.id.right_som);
-        ImageView leftImage = view.findViewById(R.id.left_som);
+        mainImage = view.findViewById(R.id.main_som);
+        rightImage = view.findViewById(R.id.right_som);
+        leftImage = view.findViewById(R.id.left_som);
         view.findViewById(R.id.zero).setOnClickListener(v -> {
             if (selected == -1) {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_zero));
@@ -46,8 +49,8 @@ public class CowInjuryFragment extends Fragment {
             }
         });
         for (int i = 1; i < 7; i++) {
-            int id = btnIdRight[i-1];
-            int drawable = imageIdRight[i-1];
+            int id = btnIdRight[i - 1];
+            int drawable = imageIdRight[i - 1];
             int finalI = i;
             view.findViewById(id).setOnClickListener(v -> {
                 if (selected == -1) {
@@ -62,8 +65,8 @@ public class CowInjuryFragment extends Fragment {
             });
         }
         for (int i = 1; i < 7; i++) {
-            int id = btnIdLeft[i-1];
-            int drawable = imageIdLeft[i-1];
+            int id = btnIdLeft[i - 1];
+            int drawable = imageIdLeft[i - 1];
             int finalI = i;
             view.findViewById(id).setOnClickListener(v -> {
                 if (selected == -1) {
@@ -142,5 +145,52 @@ public class CowInjuryFragment extends Fragment {
             ((AddReportActivity) requireActivity()).back();
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (selected != -1) {
+            if (selected > -1 && selected < 7 || selected == 10) {
+                if (selected == 10) {
+                    mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_ten));
+                    rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
+                    leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
+                } else if (selected == 0) {
+                    mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_zero));
+                    rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
+                    leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
+                } else {
+                    if (rightSide)
+                        mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), imageIdRight[selected - 1]));
+                    else
+                        mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), imageIdLeft[selected - 1]));
+                    rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
+                    leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
+                }
+            } else if (selected > 10) {
+                if (selected == 11) {
+                    leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_eleven));
+                } else {
+                    leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_twelve));
+                }
+                mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
+                rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
+            } else {
+                if (selected == 7) {
+                    rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_seven));
+                } else if (selected == 8) {
+                    rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_eight));
+                } else {
+                    rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_nine));
+                }
+                mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
+                leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
+            }
+        } else {
+            mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
+            rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
+            leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
+        }
     }
 }

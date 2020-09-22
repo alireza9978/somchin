@@ -46,6 +46,7 @@
     <string name="enter_date">enter searching date</string>
     <string name="enter_cow_number">enter cow number</string>
     <string name="enter_date_report">enter visit date</string>
+    <string name="enter_next_visit_date">enter next visit date</string>
     <string name="enter_cow_number_report">enter cow number</string>
     <string name="next">next</string>
     <string name="information">information</string>
@@ -66,6 +67,13 @@
     <string name="reason">reason</string>
     <string name="prevois">previeos</string>
 
+    <string name="more_info_reason_1">January</string>
+    <string name="more_info_reason_2">February</string>
+    <string name="more_info_reason_3">March</string>
+    <string name="more_info_reason_4">April</string>
+    <string name="more_info_reason_5">May</string>
+    <string name="more_info_reason_6">June</string>
+
     <string name="reason_1">January</string>
     <string name="reason_2">February</string>
     <string name="reason_3">March</string>
@@ -73,4 +81,12 @@
     <string name="reason_5">May</string>
     <string name="reason_6">June</string>
     <string name="reason_7">July</string>
+    <string name="reason_8">August</string>
+    <string name="reason_9">September</string>
+    <string name="reason_10">October</string>
+
+    <string name="more_info">more info</string>
+    <string name="create">create</string>
+    <string name="more_info_text_add_report">text</string>
+    <string name="injury_area">injury area</string>
 </resources>

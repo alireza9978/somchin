@@ -11,11 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".activities.LiveStrockSelectionActivity"/>
+        <activity android:name=".activities.LiveStrockSelectionActivity" />
         <activity android:name=".activities.DateSelectionActivity" />
         <activity android:name=".activities.menu.ContactActivity" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.reports.AddReportActivity" >
+        <activity
+            android:name=".activities.reports.AddReportActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

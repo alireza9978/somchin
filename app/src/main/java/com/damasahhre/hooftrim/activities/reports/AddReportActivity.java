@@ -51,6 +51,7 @@ public class AddReportActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.pager_id);
         viewPager.setAdapter(adapter);
+        viewPager.setEnableSwipe(false);
         tabLayout.setupWithViewPager(viewPager);
 
         stepperIndicator = findViewById(R.id.state_indicator);
@@ -84,7 +85,21 @@ public class AddReportActivity extends AppCompatActivity {
     }
 
     public void back() {
-
+        switch (state) {
+            case info:
+                break;
+            case reason:
+                state = State.info;
+                break;
+            case injury:
+                state = State.reason;
+                break;
+            case moreInfo:
+                state = State.injury;
+                break;
+        }
+        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)));
+        stepperIndicator.setCurrentStep(State.getNumber(state));
     }
 
     @Override

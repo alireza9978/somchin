@@ -64,11 +64,29 @@
     <string name="month_12">اسفند</string>
     <string name="reason">علت ارجاع</string>
     <string name="prevois">قبلی</string>
-    <string name="reason_1">فروردين</string>
-    <string name="reason_2">ارديبهشت</string>
-    <string name="reason_3">خرداد</string>
-    <string name="reason_4">تير</string>
-    <string name="reason_5">مرداد</string>
-    <string name="reason_6">شهريور</string>
-    <string name="reason_7">مهر</string>
+
+    <string name="more_info_reason_1">زخم</string>
+    <string name="more_info_reason_2">خونمردگی</string>
+    <string name="more_info_reason_3">بهبودیافته</string>
+    <string name="more_info_reason_4">بدون‌جراحت</string>
+    <string name="more_info_reason_5">ژل‌و‌بانداز</string>
+    <string name="more_info_reason_6">تخته‌گذاری</string>
+
+    <string name="reason_1">۱۰۰ روزه</string>
+    <string name="reason_2">خشکی</string>
+    <string name="reason_3">عقب‌مانده تولید‌مثلی</string>
+    <string name="reason_4">لنگش‌جدید</string>
+    <string name="reason_5">بازدید‌لنگش</string>
+    <string name="reason_6">اسکوربالا</string>
+    <string name="reason_7">ارجاعی</string>
+    <string name="reason_8">سم‌بلند</string>
+    <string name="reason_9">تلیسه</string>
+    <string name="reason_10">سم‌چینی‌گروهی</string>
+
+    <string name="more_info">توضیحات بیشتر</string>
+    <string name="enter_next_visit_date">تاریخ بازدید بعدی را انتخاب کنید</string>
+    <string name="create">ثبت دام</string>
+    <string name="more_info_text_add_report">در این قسمت حتما باید یکی از گزینه‌ّای زخم، خونمردگی یا سم‌چینی را علامت بزنید.</string>
+    <string name="injury_area">ناحیه درگیر</string>
+
 </resources>
