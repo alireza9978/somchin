@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.activities.reports;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -16,10 +17,15 @@ import com.damasahhre.hooftrim.activities.reports.fragments.MoreInfoFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapterReport;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.ui_element.MyViewPager;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_CREATE;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_RESULT;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_SEARCH_COW;
 
 public class AddReportActivity extends AppCompatActivity {
 
@@ -105,11 +111,18 @@ public class AddReportActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         switch (requestCode) {
             case DATE_SELECTION_REPORT_CREATE: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
+                    assert data != null;
+                    DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
+                    assert container != null;
+                    ((CowInfoFragment) adapter.getItem(0)).setDate(container.toString(this));
+                }
                 break;
             }
-            case Constants.DATE_SELECTION_SEARCH_COW: {
+            case DATE_SELECTION_SEARCH_COW: {
                 break;
             }
             default: {

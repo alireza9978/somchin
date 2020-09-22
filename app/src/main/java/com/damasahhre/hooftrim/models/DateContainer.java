@@ -1,45 +1,27 @@
 package com.damasahhre.hooftrim.models;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
+import android.content.Context;
+
+import com.damasahhre.hooftrim.constants.FormatHelper;
+import com.damasahhre.hooftrim.constants.Utilities;
 
 import java.io.Serializable;
 
-import ir.mirrajabi.persiancalendar.core.models.PersianDate;
+import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
 
 public class DateContainer implements Serializable {
 
     private String mode;
-    private String start;
-    private String end;
-    private CalendarDay startDate;
-    private CalendarDay endDate;
-    private PersianDate startPersianDate;
-    private PersianDate endPersianDate;
+    private MyDate startDate;
+    private MyDate endDate;
 
-    public DateContainer(String mode, String start, String end, PersianDate startPersianDate, PersianDate endPersianDate) {
+    public DateContainer(String mode, MyDate startDate) {
         this.mode = mode;
-        this.start = start;
-        this.end = end;
-        this.startPersianDate = startPersianDate;
-        this.endPersianDate = endPersianDate;
-    }
-
-    public DateContainer(String mode, String start, PersianDate startPersianDate) {
-        this.mode = mode;
-        this.start = start;
-        this.startPersianDate = startPersianDate;
-    }
-
-    public DateContainer(String mode, String start, CalendarDay startDate) {
-        this.mode = mode;
-        this.start = start;
         this.startDate = startDate;
     }
 
-    public DateContainer(String mode, String start, String end, CalendarDay startDate, CalendarDay endDate) {
+    public DateContainer(String mode, MyDate startDate, MyDate endDate) {
         this.mode = mode;
-        this.start = start;
-        this.end = end;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -52,51 +34,57 @@ public class DateContainer implements Serializable {
         this.mode = mode;
     }
 
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public CalendarDay getStartDate() {
+    public MyDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(CalendarDay startDate) {
+    public void setStartDate(MyDate startDate) {
         this.startDate = startDate;
     }
 
-    public CalendarDay getEndDate() {
+    public MyDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(CalendarDay endDate) {
+    public void setEndDate(MyDate endDate) {
         this.endDate = endDate;
     }
 
-    public PersianDate getStartPersianDate() {
-        return startPersianDate;
+    public static class MyDate implements Serializable {
+        boolean persian;
+        int day;
+        int month;
+        int year;
+
+        public MyDate(boolean persian, int day, int month, int year) {
+            this.persian = persian;
+            this.day = day;
+            this.month = month;
+            this.year = year;
+        }
+
+        public String toString(Context context) {
+            String out = "";
+            if (persian) {
+                out = FormatHelper.toPersianNumber("" + year);
+            } else {
+                out += year;
+            }
+            out = out + " " + Utilities.getMonthName(context, month);
+            if (persian) {
+                out = out + " " + FormatHelper.toPersianNumber("" + day);
+            } else {
+                out = out + " " + day;
+            }
+            return out;
+        }
     }
 
-    public void setStartPersianDate(PersianDate startPersianDate) {
-        this.startPersianDate = startPersianDate;
-    }
-
-    public PersianDate getEndPersianDate() {
-        return endPersianDate;
-    }
-
-    public void setEndPersianDate(PersianDate endPersianDate) {
-        this.endPersianDate = endPersianDate;
+    public String toString(Context context) {
+        if (mode.equals(RANG)) {
+            return startDate.toString(context) + " " + endDate.toString(context);
+        } else {
+            return startDate.toString(context);
+        }
     }
 }

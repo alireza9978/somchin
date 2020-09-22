@@ -36,6 +36,7 @@ import ir.mirrajabi.persiancalendar.core.models.PersianDate;
 
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
+import static com.damasahhre.hooftrim.models.DateContainer.MyDate;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_NONE;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_RANGE;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_SINGLE;
@@ -88,7 +89,7 @@ public class DateSelectionActivity extends AppCompatActivity {
             startDate.setText("");
             endDate.setText("");
             rang = true;
-        } else if (action.equals(Constants.DateSelectionMode.SINGLE)) {
+        } else if (action.equals(SINGLE)) {
             calendar.setSelectionMode(SELECTION_MODE_SINGLE);
             startDate.setVisibility(View.GONE);
             endDate.setVisibility(View.GONE);
@@ -107,15 +108,6 @@ public class DateSelectionActivity extends AppCompatActivity {
             calendar.setVisibility(View.INVISIBLE);
             setPersian();
         }
-        first = true;
-    }
-
-
-    private boolean first;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void setEnglish() {
@@ -140,18 +132,20 @@ public class DateSelectionActivity extends AppCompatActivity {
         right.setOnClickListener(v -> calendar.goToNext());
         left.setOnClickListener(v -> calendar.goToPrevious());
         submit.setOnClickListener((v) -> {
-            //todo return correct data
             Intent intent = new Intent();
             DateContainer container = null;
             if (calendar.getSelectionMode() == SELECTION_MODE_RANGE) {
                 List<CalendarDay> days = calendar.getSelectedDates();
                 CalendarDay startDay = days.get(0);
                 CalendarDay endDay = days.get(days.size() - 1);
-                container = new DateContainer(RANG, startDay.toString(), endDate.toString(), startDay, endDay);
+                container = new DateContainer(RANG,
+                        new MyDate(false, startDay.getDay(), startDay.getMonth(), startDay.getYear()),
+                        new MyDate(false, endDay.getDay(), endDay.getMonth(), endDay.getYear()));
             } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
                 CalendarDay day = calendar.getSelectedDate();
                 assert day != null;
-                container = new DateContainer(SINGLE, day.toString(), day);
+                container = new DateContainer(SINGLE,
+                        new MyDate(false, day.getDay(), day.getMonth(), day.getYear()));
             }
             if (container == null) {
                 setResult(Constants.DATE_SELECTION_FAIL);
@@ -243,7 +237,7 @@ public class DateSelectionActivity extends AppCompatActivity {
             }
         });
         left.setOnClickListener(v -> {
-            if (monthDate == null){
+            if (monthDate == null) {
                 monthDate = calendarHandler.getToday();
             }
             int month = monthDate.getMonth() + 1;
@@ -257,7 +251,7 @@ public class DateSelectionActivity extends AppCompatActivity {
             calendarView.goToDate(monthDate);
         });
         right.setOnClickListener(v -> {
-            if (monthDate == null){
+            if (monthDate == null) {
                 monthDate = calendarHandler.getToday();
             }
             int month = monthDate.getMonth() - 1;
@@ -274,14 +268,16 @@ public class DateSelectionActivity extends AppCompatActivity {
             Intent intent = new Intent();
             DateContainer container = null;
             if (rang) {
-                container = new DateContainer(RANG, startPersianDate.toString(), endPersianDate.toString(), startPersianDate, endPersianDate);
+                container = new DateContainer(RANG,
+                        new MyDate(true, startPersianDate.getDayOfMonth(), startPersianDate.getMonth(), startPersianDate.getYear()),
+                        new MyDate(true, endPersianDate.getDayOfMonth(), endPersianDate.getMonth(), endPersianDate.getYear()));
             } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
-                container = new DateContainer(SINGLE, startPersianDate.toString(), startPersianDate);
+                container = new DateContainer(SINGLE,
+                        new MyDate(true, startPersianDate.getDayOfMonth(), startPersianDate.getMonth(), startPersianDate.getYear()));
             }
             if (container == null) {
                 setResult(Constants.DATE_SELECTION_FAIL);
             }
-            //todo return correct data
             intent.putExtra(Constants.DATE_SELECTION_RESULT, container);
             setResult(Constants.DATE_SELECTION_OK, intent);
             finish();

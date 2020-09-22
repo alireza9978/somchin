@@ -63,6 +63,48 @@ public class Utilities {
         return strMonth;
     }
 
+    public static String getMonthName(Context context, int month) {
+        String strMonth = "month";
+        switch (month) {
+            case 1:
+                strMonth = context.getString(R.string.month_1);
+                break;
+            case 2:
+                strMonth = context.getString(R.string.month_2);
+                break;
+            case 3:
+                strMonth = context.getString(R.string.month_3);
+                break;
+            case 4:
+                strMonth = context.getString(R.string.month_4);
+                break;
+            case 5:
+                strMonth = context.getString(R.string.month_5);
+                break;
+            case 6:
+                strMonth = context.getString(R.string.month_6);
+                break;
+            case 7:
+                strMonth = context.getString(R.string.month_7);
+                break;
+            case 8:
+                strMonth = context.getString(R.string.month_8);
+                break;
+            case 9:
+                strMonth = context.getString(R.string.month_9);
+                break;
+            case 10:
+                strMonth = context.getString(R.string.month_10);
+                break;
+            case 11:
+                strMonth = context.getString(R.string.month_11);
+                break;
+            case 12:
+                strMonth = context.getString(R.string.month_12);
+        }
+        return strMonth;
+    }
+
     public static String yearToString(CalendarDay date, Context context) {
         String language = Constants.getDefualtlanguage(context);
         if (language.isEmpty()) {
