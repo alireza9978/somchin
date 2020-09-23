@@ -15,30 +15,23 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.menu.ContactActivity;
 import com.damasahhre.hooftrim.activities.menu.ProfileActivity;
-import com.damasahhre.hooftrim.activities.tabs.AddLivestockActivity;
-import com.damasahhre.hooftrim.activities.tabs.HomeActivity;
-import com.damasahhre.hooftrim.activities.tabs.MarkedActivity;
-import com.damasahhre.hooftrim.activities.tabs.ReportsActivity;
-import com.damasahhre.hooftrim.activities.tabs.SearchActivity;
 import com.damasahhre.hooftrim.adapters.TabAdapterHome;
-import com.damasahhre.hooftrim.ui_element.MyViewPager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TabAdapterHome adapter;
     private TabLayout tabLayout;
-    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
     @Override
@@ -46,94 +39,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyViewPager viewPager = findViewById(R.id.pager_id);
+        ViewPager2 viewPager = findViewById(R.id.pager_id);
+        viewPager.setUserInputEnabled(false);
+        NavigationView navigationView = findViewById(R.id.navigation);
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.navigation);
         tabLayout = findViewById(R.id.tab_layout_id);
-
-        viewPager.setEnableSwipe(false);
-        viewPager.setOffscreenPageLimit(0);
-
-        adapter = new TabAdapterHome(this, getSupportFragmentManager());
-        adapter.addFragment(new MarkedActivity(),
-                getResources().getString(R.string.marked),
-                ContextCompat.getDrawable(this, R.drawable.ic_bookmark),
-                ContextCompat.getDrawable(this, R.drawable.ic_bookmark_fill));
-        adapter.addFragment(new ReportsActivity(),
-                getResources().getString(R.string.report),
-                ContextCompat.getDrawable(this, R.drawable.ic_report),
-                ContextCompat.getDrawable(this, R.drawable.ic_report_fill));
-        adapter.addFragment(AddLivestockActivity.class);
-        adapter.addFragment(new SearchActivity(),
-                getResources().getString(R.string.search),
-                ContextCompat.getDrawable(this, R.drawable.ic_search),
-                ContextCompat.getDrawable(this, R.drawable.ic_search_fill));
-        adapter.addFragment(new HomeActivity(),
-                getResources().getString(R.string.home),
-                ContextCompat.getDrawable(this, R.drawable.ic_home),
-                ContextCompat.getDrawable(this, R.drawable.ic_home_fill));
-
+        adapter = new TabAdapterHome(this,tabLayout,viewPager);
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        final Context context = this;
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setCustomView(null);
+                tab.setCustomView(adapter.getTabView(position));
             }
-
-            @Override
-            public void onPageSelected(int position) {
-                highLightCurrentTab(position);
-                if (position == 2) {
-                    Intent intent = new Intent(context, AddLivestockActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
+        }).attach();
 
         applyFontToMenu(navigationView.getMenu(), this);
         navigationView.setNavigationItemSelectedListener(this);
-        setupTabIcons();
-        highLightCurrentTab(4);
-        tabLayout.selectTab(tabLayout.getTabAt(4), true);
+        tabLayout.selectTab(tabLayout.getTabAt(4));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-    }
-
-    /**
-     * مقدار دهی اولیه نوار پایین
-     */
-    private void setupTabIcons() {
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            assert tab != null;
-            tab.setCustomView(null);
-            tab.setCustomView(adapter.getTabView(i));
+        if (tabLayout.getSelectedTabPosition() == 2){
+            tabLayout.selectTab(tabLayout.getTabAt(4));
         }
-    }
 
-    /**
-     * تغییر رنگ صفحه فعال
-     */
-    private void highLightCurrentTab(int position) {
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            assert tab != null;
-            tab.setCustomView(null);
-            tab.setCustomView(adapter.getTabView(i));
-        }
-        TabLayout.Tab tab = tabLayout.getTabAt(position);
-        assert tab != null;
-        tab.setCustomView(null);
-        tab.setCustomView(adapter.getSelectedTabView(position));
     }
 
     public static void applyFontToMenu(Menu m, Context mContext) {
@@ -214,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void openMenu(){
+    public void openMenu() {
         drawerLayout.openDrawer(GravityCompat.START);
     }
 

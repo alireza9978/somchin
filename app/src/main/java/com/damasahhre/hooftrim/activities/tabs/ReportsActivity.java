@@ -33,7 +33,7 @@ public class ReportsActivity extends Fragment {
         });
         ViewPager viewPager = view.findViewById(R.id.report_pager_id);
         tabLayout = view.findViewById(R.id.report_tab_layout_id);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(4);
 
         adapter = new TabAdapterLongText(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new ImportFragment(), getResources().getString(R.string.import_file));

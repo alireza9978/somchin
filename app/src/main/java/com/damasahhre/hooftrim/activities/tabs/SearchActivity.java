@@ -34,6 +34,7 @@ public class SearchActivity extends Fragment {
             ((MainActivity) requireActivity()).openMenu();
         });
         ViewPager viewPager = view.findViewById(R.id.search_pager_id);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout = view.findViewById(R.id.search_tab_layout_id);
 
         adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());

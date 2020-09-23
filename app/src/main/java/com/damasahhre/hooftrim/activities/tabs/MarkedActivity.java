@@ -32,7 +32,7 @@ public class MarkedActivity extends Fragment {
         });
         ViewPager viewPager = view.findViewById(R.id.marked_pager_id);
         tabLayout = view.findViewById(R.id.marked_tab_layout_id);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(2);
 
         adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new MarkedCowsFragment(), getResources().getString(R.string.cows));
