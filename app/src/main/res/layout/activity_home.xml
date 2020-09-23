@@ -190,7 +190,7 @@
             android:overScrollMode="never"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="15dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

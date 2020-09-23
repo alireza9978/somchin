@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +22,7 @@ public class CowInfoFragment extends Fragment {
 
     private ConstraintLayout date_container;
     private TextView date_text;
+    private TextView numberEdit;
     private String date;
 
     @Override
@@ -33,10 +33,10 @@ public class CowInfoFragment extends Fragment {
 
         date_container = view.findViewById(R.id.date_container);
         ConstraintLayout number_container = view.findViewById(R.id.cow_number_container);
-        EditText number_edit = view.findViewById(R.id.cow_name_text);
+        numberEdit = view.findViewById(R.id.cow_name_text);
         date_text = view.findViewById(R.id.date_text);
 
-        number_edit.addTextChangedListener(new TextWatcher() {
+        numberEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -78,6 +78,10 @@ public class CowInfoFragment extends Fragment {
             }
             date_text.setText(date);
         }
+    }
+
+    public void setCowNumber(int number) {
+        numberEdit.setText("" + number);
     }
 
     public void setDate(String date) {

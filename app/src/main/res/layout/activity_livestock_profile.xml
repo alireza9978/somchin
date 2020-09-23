@@ -62,7 +62,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 android:fontFamily="@font/anjoman_bold"
-                android:text="بازدید‌ها"
+                android:text="@string/visits"
                 android:textColor="@color/selected_tab_home"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,14 +88,14 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 android:fontFamily="@font/anjoman_bold"
-                android:text="لیست دام‌ها"
+                android:text="@string/cows_list"
                 android:textColor="@color/selected_tab_home"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/next_visit_lists" />
 
 
-            <GridView
+            <com.damasahhre.hooftrim.ui_element.ExpandableHeightGridView
                 android:id="@+id/cows_grid"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -106,7 +106,6 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="5dp"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -142,8 +141,8 @@
 
         <ImageView
             android:id="@+id/bookmark_image"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="@dimen/margin_livestrock"
             android:padding="12dp"
             android:src="@drawable/ic_bookmark"
@@ -166,7 +165,7 @@
                 style="@style/Theme.App.Profile.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="تعداد مولد"
+                android:text="@string/birth_count"
                 app:layout_constraintBottom_toTopOf="@id/count_value"
                 app:layout_constraintEnd_toStartOf="@id/system_title"
                 app:layout_constraintStart_toStartOf="parent"
@@ -187,7 +186,7 @@
                 style="@style/Theme.App.Profile.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="سیستم نگداری"
+                android:text="@string/control_system"
                 app:layout_constraintBottom_toTopOf="@id/system_value"
                 app:layout_constraintEnd_toStartOf="@id/next_visit_title_top"
                 app:layout_constraintStart_toEndOf="@id/count"
@@ -208,7 +207,7 @@
                 style="@style/Theme.App.Profile.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="بازدید‌بعدی"
+                android:text="@string/next_visits"
                 app:layout_constraintBottom_toTopOf="@id/next_visit_value"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/system_title"

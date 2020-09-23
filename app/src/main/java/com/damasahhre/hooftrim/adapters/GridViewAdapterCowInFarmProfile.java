@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.CowProfileActivity;
+import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Cow;
 
@@ -30,43 +31,59 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return cows.size();
+        return cows.size() + 1;
     }
 
     @Override
     public Object getItem(int i) {
+        if (cows.size() <= i) {
+            return null;
+        }
         return cows.get(i);
     }
 
     @Override
     public long getItemId(int i) {
+        if (cows.size() <= i) {
+            return i;
+        }
         return cows.get(i).getId();
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Holder holder;
-        Cow cow = cows.get(i);
-        if (view == null) {
+        if (cows.size() == i) {
             view = LayoutInflater.from(context)
-                    .inflate(R.layout.livestock_grid_item, viewGroup, false);
-            holder = new Holder();
-            holder.view = view;
-            holder.cowCount = view.findViewById(R.id.cow_count);
-            holder.farmTitle = view.findViewById(R.id.farm_text);
-            holder.icon = view.findViewById(R.id.cow_icon);
-            view.setTag(holder);
+                    .inflate(R.layout.add_grid_item, viewGroup, false);
+            view.setOnClickListener(view1 -> {
+                Intent intent = new Intent(context, AddReportActivity.class);
+                intent.putExtra(Constants.COW_ID, -1);
+                context.startActivity(intent);
+            });
         } else {
-            holder = (Holder) view.getTag();
+            Cow cow = cows.get(i);
+            if (view == null) {
+                view = LayoutInflater.from(context)
+                        .inflate(R.layout.livestock_grid_item, viewGroup, false);
+                holder = new Holder();
+                holder.view = view;
+                holder.cowCount = view.findViewById(R.id.cow_count);
+                holder.farmTitle = view.findViewById(R.id.farm_text);
+                holder.icon = view.findViewById(R.id.cow_icon);
+                view.setTag(holder);
+            } else {
+                holder = (Holder) view.getTag();
+            }
+            holder.view.setOnClickListener((v) -> {
+                Intent intent = new Intent(context, CowProfileActivity.class);
+                intent.putExtra(Constants.COW_ID, cow.getId());
+                context.startActivity(intent);
+            });
+            holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_calendar));
+            holder.farmTitle.setText("" + cow.getNumber(context));
+            holder.cowCount.setText("  ");
         }
-        holder.view.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, CowProfileActivity.class);
-            intent.putExtra(Constants.COW_ID, cow.getId());
-            context.startActivity(intent);
-        });
-        holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_calendar));
-        holder.farmTitle.setText("" + cow.getNumber(context));
-        holder.cowCount.setText("  ");
         return view;
     }
 

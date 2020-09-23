@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.adapters.GridViewAdapterCowInFarmProfile;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
@@ -43,8 +44,9 @@ public class LivestockProfileActivity extends AppCompatActivity {
         bookmark = findViewById(R.id.bookmark_image);
         exit = findViewById(R.id.back_icon);
         cowsGridView = findViewById(R.id.cows_grid);
-        nextVisitView = findViewById(R.id.next_visit_lists);;
+        nextVisitView = findViewById(R.id.next_visit_lists);
         exit.setOnClickListener(view -> finish());
+        Constants.setImageBackBorder(this, exit);
 
         int id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.FARM_ID);
         MyDao dao = DataBase.getInstance(this).dao();
@@ -53,7 +55,15 @@ public class LivestockProfileActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 bookmark.setOnClickListener(view -> {
                     farm.favorite = !farm.favorite;
-                    dao.update(farm);
+                    if (farm.favorite) {
+                        bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark_fill));
+                    } else {
+                        bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark));
+                    }
+                    AppExecutors.getInstance().diskIO().execute(() -> {
+
+                        dao.update(farm);
+                    });
                 });
                 if (farm.favorite) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(LivestockProfileActivity.this, R.drawable.ic_bookmark_fill));
@@ -66,7 +76,10 @@ public class LivestockProfileActivity extends AppCompatActivity {
                 nextVisit.setText("Not yet");
             });
             List<Cow> cows = dao.getAllCowOfFarm(id);
-
+            runOnUiThread(() -> {
+                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows);
+                cowsGridView.setAdapter(adapter);
+            });
         });
 
     }

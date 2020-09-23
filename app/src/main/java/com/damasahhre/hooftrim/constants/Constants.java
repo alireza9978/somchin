@@ -22,7 +22,7 @@ public class Constants {
     public static final String FARM_ID = "sdaxce";
     public static final String COW_ID = "Addssaxce";
 
-    public static final Integer FARM_SELECTION_SEARCH_COW = 101;
+    public static final int FARM_SELECTION_SEARCH_COW = 101;
     public static final int DATE_SELECTION_SEARCH_COW = 102;
     public static final int DATE_SELECTION_REPORT_CREATE = 103;
     public static final int DATE_SELECTION_OK = 200;
@@ -56,6 +56,15 @@ public class Constants {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
         }else{
             imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_front));
+        }
+    }
+
+    public static void setImageBackBorder(Context context,ImageView imageView){
+        Configuration config = context.getResources().getConfiguration();
+        if(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_next));
+        }else{
+            imageView.setImageDrawable(ContextCompat.getDrawable(context ,R.drawable.ic_previous));
         }
     }
 

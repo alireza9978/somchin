@@ -126,9 +126,11 @@ public class HomeActivity extends Fragment {
             if (farmList.isEmpty()) {
                 hideFarms();
             } else {
-                adapterHomeFarm.setFarms(farmList);
-                adapterHomeFarm.notifyDataSetChanged();
-                showFarms();
+                requireActivity().runOnUiThread(() -> {
+                    adapterHomeFarm.setFarms(farmList);
+                    adapterHomeFarm.notifyDataSetChanged();
+                    showFarms();
+                });
             }
         });
         AppExecutors.getInstance().diskIO().execute(() -> {
@@ -136,9 +138,11 @@ public class HomeActivity extends Fragment {
             if (reports.isEmpty()) {
                 hideVisit();
             } else {
-                mAdapter.setNextReports(reports);
-                mAdapter.notifyDataSetChanged();
-                showVisit(reports.size() > 3);
+                requireActivity().runOnUiThread(() -> {
+                    mAdapter.setNextReports(reports);
+                    mAdapter.notifyDataSetChanged();
+                    showVisit(reports.size() > 3);
+                });
             }
         });
     }

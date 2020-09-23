@@ -35,7 +35,7 @@
                 android:fontFamily="@font/anjoman_regular"
                 android:gravity="start|center_vertical"
                 android:padding="10dp"
-                android:text="دامداری مورد نظر خود را انتخاب کنید"
+                android:text="@string/select_farm"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

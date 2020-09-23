@@ -20,6 +20,11 @@ import com.damasahhre.hooftrim.activities.DateSelectionActivity;
 import com.damasahhre.hooftrim.activities.LiveStrockSelectionActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.DateContainer;
 
 import java.util.ArrayList;
 
@@ -27,6 +32,8 @@ public class SearchCowFragment extends Fragment {
 
     private RecyclerView cowsList;
     private TextView notFound;
+    private TextView farmName;
+    private TextView dateText;
     private EditText cowNumber;
     private ConstraintLayout cowNumberContainer;
     private ConstraintLayout farmContainer;
@@ -34,6 +41,9 @@ public class SearchCowFragment extends Fragment {
     private Button search;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerViewAdapterSearchCow mAdapter;
+
+    private int farmId = -1;
+    private DateContainer date = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +57,8 @@ public class SearchCowFragment extends Fragment {
         cowNumberContainer = view.findViewById(R.id.cow_number_container);
         farmContainer = view.findViewById(R.id.livestock_container);
         dateContainer = view.findViewById(R.id.date_container);
+        farmName = view.findViewById(R.id.livestock_name_text);
+        dateText = view.findViewById(R.id.date_text);
 
         cowsList.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(requireContext());
@@ -61,6 +73,7 @@ public class SearchCowFragment extends Fragment {
 
         dateContainer.setOnClickListener(view12 -> {
             Intent intent = new Intent(requireContext(), DateSelectionActivity.class);
+            intent.setAction(Constants.DateSelectionMode.RANG);
             requireActivity().startActivityForResult(intent, Constants.DATE_SELECTION_SEARCH_COW);
         });
 
@@ -84,5 +97,21 @@ public class SearchCowFragment extends Fragment {
         return view;
     }
 
+    public void setDate(DateContainer date) {
+        this.date = date;
+        dateText.setText(date.toString(requireContext()));
+    }
+
+    public void setFarm(int id) {
+        this.farmId = id;
+        MyDao dao = DataBase.getInstance(requireContext()).dao();
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            Farm farm = dao.getFarm(id);
+            if (farm != null)
+                requireActivity().runOnUiThread(() -> {
+                    farmName.setText(farm.name);
+                });
+        });
+    }
 
 }

@@ -97,14 +97,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         applyFontToMenu(navigationView.getMenu(), this);
         navigationView.setNavigationItemSelectedListener(this);
+        setupTabIcons();
+        highLightCurrentTab(4);
+        tabLayout.selectTab(tabLayout.getTabAt(4), true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setupTabIcons();
-        highLightCurrentTab(4);
-        tabLayout.selectTab(tabLayout.getTabAt(4), true);
+
     }
 
     /**

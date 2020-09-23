@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities.reports;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -16,7 +15,10 @@ import com.damasahhre.hooftrim.activities.reports.fragments.CowReasonFragment;
 import com.damasahhre.hooftrim.activities.reports.fragments.MoreInfoFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapterReport;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.ui_element.MyViewPager;
 import com.google.android.material.tabs.TabLayout;
@@ -41,12 +43,8 @@ public class AddReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
 
-//        int id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.COW_ID);
-//        MyDao dao = DataBase.getInstance(this).dao();
-//        AppExecutors.getInstance().diskIO().execute(() -> {
-//            cow = dao.getCow(id);
-//
-//        });
+        int id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.COW_ID);
+
         tabLayout = new TabLayout(this);
         state = State.info;
         adapter = new TabAdapterReport(this, getSupportFragmentManager());
@@ -70,7 +68,16 @@ public class AddReportActivity extends AppCompatActivity {
             //todo go to more info page
         });
 
+        MyDao dao = DataBase.getInstance(this).dao();
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if (id != -1) {
+                cow = dao.getCow(id);
+                if (cow != null)
+                    ((CowInfoFragment) adapter.getItem(0)).setCowNumber(cow.getNumber());
+            }
+        });
     }
+
 
     public void next() {
         switch (state) {
