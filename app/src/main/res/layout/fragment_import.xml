@@ -8,9 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/import_text"
@@ -19,9 +17,9 @@
             android:layout_margin="15dp"
             android:fontFamily="@font/anjoman_semi_bold"
             android:gravity="center"
-            android:text="فایل اکسل خود را امپورت کنید"
+            android:text="@string/import_excel"
             android:textColor="@color/report_gray"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +31,7 @@
             android:layout_marginStart="45dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="45dp"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:fb_borderColor="@color/caribbean_green"
             app:fb_borderWidth="2dp"
             app:fb_defaultColor="@color/show_more_back"
@@ -45,7 +43,7 @@
             app:fb_iconPosition="left"
             app:fb_iconResource="@drawable/ic_resource_import"
             app:fb_radius="15dp"
-            app:fb_text="ایمپورت"
+            app:fb_text="@string/import_text"
             app:fb_textColor="@color/caribbean_green"
             app:fb_textFontRes="@font/anjoman_black"
             app:layout_constraintEnd_toEndOf="parent"

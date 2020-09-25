@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
-import com.damasahhre.hooftrim.activities.LiveStrockSelectionActivity;
+import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -79,7 +79,7 @@ public class SearchCowFragment extends Fragment {
         });
 
         farmContainer.setOnClickListener(view1 -> {
-            Intent intent = new Intent(requireContext(), LiveStrockSelectionActivity.class);
+            Intent intent = new Intent(requireContext(), FarmSelectionActivity.class);
             requireActivity().startActivityForResult(intent, Constants.FARM_SELECTION_SEARCH_COW);
         });
 

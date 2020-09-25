@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.LiveStrockSelectionActivity;
+import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
 import com.damasahhre.hooftrim.database.models.Farm;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class RecyclerViewAdapterFarmSimple extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Farm farm = farms.get(position);
         holder.farmName.setText(farm.name);
-        holder.itemView.setOnClickListener(view -> ((LiveStrockSelectionActivity) context).selectedFarm(farm.id));
+        holder.itemView.setOnClickListener(view -> ((FarmSelectionActivity) context).selectedFarm(farm.id));
     }
 
     @Override

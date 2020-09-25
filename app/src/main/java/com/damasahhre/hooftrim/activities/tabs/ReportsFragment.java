@@ -1,10 +1,12 @@
 package com.damasahhre.hooftrim.activities.tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -14,9 +16,12 @@ import com.damasahhre.hooftrim.activities.tabs.report_activites.FactorFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.ImportFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.InjeriesFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.ReportVisitFragment;
-import com.damasahhre.hooftrim.adapters.TabAdapter;
 import com.damasahhre.hooftrim.adapters.TabAdapterLongText;
+import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.models.DateContainer;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 public class ReportsFragment extends Fragment {
 
@@ -65,6 +70,28 @@ public class ReportsFragment extends Fragment {
         tabLayout.selectTab(tabLayout.getTabAt(0), true);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case Constants.FARM_SELECTION_REPORT_FACTOR: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
+                    assert data != null;
+                    int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
+                    ((FactorFragment) adapter.getItem(2)).setFarm(id);
+                }
+                break;
+            }
+            case Constants.DATE_SELECTION_REPORT_FACTOR: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
+                    assert data != null;
+                    DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(Constants.DATE_SELECTION_RESULT);
+                    assert container != null;
+                    ((FactorFragment) adapter.getItem(2)).setDate(container);
+                }
+            }
+        }
     }
 
     /**

@@ -22,11 +22,17 @@ public class Constants {
     public static final String FARM_ID = "sdaxce";
     public static final String COW_ID = "Addssaxce";
 
+    public static final int CHOOSE_FILE_REQUEST_CODE = 99;
+    public static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 98;
+
     public static final int FARM_SELECTION_SEARCH_COW = 101;
     public static final int DATE_SELECTION_SEARCH_COW = 102;
     public static final int DATE_SELECTION_SEARCH_FARM = 104;
 
     public static final int DATE_SELECTION_REPORT_CREATE = 103;
+
+    public static final int DATE_SELECTION_REPORT_FACTOR = 105;
+    public static final int FARM_SELECTION_REPORT_FACTOR = 106;
 
     public static final int DATE_SELECTION_OK = 200;
     public static final int DATE_SELECTION_FAIL = 400;

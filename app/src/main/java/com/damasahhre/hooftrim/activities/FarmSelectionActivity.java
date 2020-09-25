@@ -19,7 +19,7 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class LiveStrockSelectionActivity extends AppCompatActivity {
+public class FarmSelectionActivity extends AppCompatActivity {
 
 
     private Context context = this;

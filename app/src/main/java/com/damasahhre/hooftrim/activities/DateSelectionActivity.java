@@ -9,11 +9,13 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -23,6 +25,7 @@ import com.damasahhre.hooftrim.constants.Utilities;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,6 +53,7 @@ public class DateSelectionActivity extends AppCompatActivity {
     private PersianCalendarView calendarView;
     private ImageView right;
     private ImageView left;
+    private ImageView close;
     private TextView startDate;
     private TextView endDate;
     private TextView clear;
@@ -63,6 +67,7 @@ public class DateSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_date_selection);
 
         right = findViewById(R.id.right_arrow);
+        close = findViewById(R.id.close_image);
         left = findViewById(R.id.left_arrow);
         startDate = findViewById(R.id.start_date);
         endDate = findViewById(R.id.end_date);
@@ -108,6 +113,9 @@ public class DateSelectionActivity extends AppCompatActivity {
             calendar.setVisibility(View.INVISIBLE);
             setPersian();
         }
+
+        close.setOnClickListener(view -> finish());
+
     }
 
     private void setEnglish() {
@@ -128,6 +136,29 @@ public class DateSelectionActivity extends AppCompatActivity {
             mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             year.setText(mNewTitle);
+        });
+        if (rang) {
+            calendar.setOnRangeSelectedListener((widget, dates) -> {
+                List<CalendarDay> days = calendar.getSelectedDates();
+                CalendarDay startDay = days.get(0);
+                CalendarDay endDay = days.get(days.size() - 1);
+                DateContainer container = new DateContainer(RANG,
+                        new MyDate(false, startDay.getDay(), startDay.getMonth(), startDay.getYear()),
+                        new MyDate(false, endDay.getDay(), endDay.getMonth(), endDay.getYear()));
+                startDate.setText(container.getStartDate().toStringWithoutYear(context));
+                endDate.setText(container.getEndDate().toStringWithoutYear(context));
+            });
+            calendar.setOnDateChangedListener((widget, date, selected) -> {
+                startDate.setText("");
+                endDate.setText("");
+            });
+        }
+        clear.setOnClickListener(view -> {
+            calendar.clearSelection();
+            CalendarDay today = CalendarDay.today();
+            calendar.setCurrentDate(today);
+            startDate.setText("");
+            endDate.setText("");
         });
         right.setOnClickListener(v -> calendar.goToNext());
         left.setOnClickListener(v -> calendar.goToPrevious());
