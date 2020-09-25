@@ -30,7 +30,7 @@ import java.util.List;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class HomeActivity extends Fragment {
+public class HomeFragment extends Fragment {
 
     private ImageView downArrow;
     private TextView noFarmOne;

@@ -1,6 +1,5 @@
 package com.damasahhre.hooftrim.activities.tabs;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,12 +12,10 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.activities.tabs.marked_activities.MarkedCowsFragment;
 import com.damasahhre.hooftrim.activities.tabs.marked_activities.MarkedLivestockFragment;
-import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchCowFragment;
-import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchLivestockFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class MarkedActivity extends Fragment {
+public class MarkedFragment extends Fragment {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;

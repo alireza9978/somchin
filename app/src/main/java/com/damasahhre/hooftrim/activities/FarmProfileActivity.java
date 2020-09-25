@@ -21,7 +21,7 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import java.util.List;
 import java.util.Objects;
 
-public class LivestockProfileActivity extends AppCompatActivity {
+public class FarmProfileActivity extends AppCompatActivity {
 
     private TextView title;
     private TextView system;
@@ -66,9 +66,9 @@ public class LivestockProfileActivity extends AppCompatActivity {
                     });
                 });
                 if (farm.favorite) {
-                    bookmark.setImageDrawable(ContextCompat.getDrawable(LivestockProfileActivity.this, R.drawable.ic_bookmark_fill));
+                    bookmark.setImageDrawable(ContextCompat.getDrawable(FarmProfileActivity.this, R.drawable.ic_bookmark_fill));
                 } else {
-                    bookmark.setImageDrawable(ContextCompat.getDrawable(LivestockProfileActivity.this, R.drawable.ic_bookmark));
+                    bookmark.setImageDrawable(ContextCompat.getDrawable(FarmProfileActivity.this, R.drawable.ic_bookmark));
                 }
                 title.setText(farm.name);
                 birthCount.setText("" + farm.birthCount);

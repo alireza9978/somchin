@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.LivestockProfileActivity;
+import com.damasahhre.hooftrim.activities.FarmProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Farm;
 
@@ -64,7 +64,7 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
             holder = (Holder) view.getTag();
         }
         holder.view.setOnClickListener((v) -> {
-            Intent intent = new Intent(context, LivestockProfileActivity.class);
+            Intent intent = new Intent(context, FarmProfileActivity.class);
             intent.putExtra(Constants.FARM_ID, farm.id);
             context.startActivity(intent);
         });

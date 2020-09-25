@@ -32,13 +32,13 @@ public class SearchCowFragment extends Fragment {
 
     private RecyclerView cowsList;
     private TextView notFound;
+    private TextView cowsListTitle;
     private TextView farmName;
-    private TextView dateText;
     private EditText cowNumber;
     private ConstraintLayout cowNumberContainer;
     private ConstraintLayout farmContainer;
+    private TextView dateText;
     private ConstraintLayout dateContainer;
-    private Button search;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerViewAdapterSearchCow mAdapter;
 
@@ -51,7 +51,8 @@ public class SearchCowFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_cow, container, false);
 
         cowsList = view.findViewById(R.id.searched_cows_list);
-        search = view.findViewById(R.id.submit);
+        Button search = view.findViewById(R.id.submit);
+        cowsListTitle = view.findViewById(R.id.searched_cows_title);
         notFound = view.findViewById(R.id.not_fount_text);
         cowNumber = view.findViewById(R.id.cow_name_text);
         cowNumberContainer = view.findViewById(R.id.cow_number_container);
@@ -97,9 +98,22 @@ public class SearchCowFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        notSearched();
+    }
+
     public void setDate(DateContainer date) {
         this.date = date;
-        dateText.setText(date.toString(requireContext()));
+        dateText.setText(date.toStringSmall(requireContext()));
+
+        if (dateText.getText().toString().isEmpty()) {
+            dateContainer.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.login_input_background));
+        } else {
+            dateContainer.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.black_border_background));
+        }
+
     }
 
     public void setFarm(int id) {
@@ -110,8 +124,31 @@ public class SearchCowFragment extends Fragment {
             if (farm != null)
                 requireActivity().runOnUiThread(() -> {
                     farmName.setText(farm.name);
+                    if (farmName.getText().toString().isEmpty()) {
+                        farmContainer.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.login_input_background));
+                    } else {
+                        farmContainer.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.black_border_background));
+                    }
                 });
         });
+    }
+
+    public void notSearched() {
+        cowsList.setVisibility(View.INVISIBLE);
+        notFound.setVisibility(View.INVISIBLE);
+        cowsListTitle.setVisibility(View.INVISIBLE);
+    }
+
+    public void found() {
+        cowsList.setVisibility(View.VISIBLE);
+        notFound.setVisibility(View.INVISIBLE);
+        cowsListTitle.setVisibility(View.VISIBLE);
+    }
+
+    public void notFound() {
+        cowsList.setVisibility(View.INVISIBLE);
+        notFound.setVisibility(View.VISIBLE);
+        cowsListTitle.setVisibility(View.VISIBLE);
     }
 
 }

@@ -91,5 +91,6 @@
     <string name="more_info_text_add_report">در این قسمت حتما باید یکی از گزینه‌ّای زخم، خونمردگی یا سم‌چینی را علامت بزنید.</string>
     <string name="injury_area">ناحیه درگیر</string>
     <string name="select_farm">دامداری مورد نظر خود را انتخاب کنید</string>
+    <string name="farm_list">لیست دامداری‌ها</string>
 
 </resources>

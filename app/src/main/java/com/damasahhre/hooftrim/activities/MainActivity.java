@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
@@ -23,7 +24,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.menu.ContactActivity;
 import com.damasahhre.hooftrim.activities.menu.ProfileActivity;
+import com.damasahhre.hooftrim.activities.tabs.SearchFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapterHome;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -44,14 +47,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.navigation);
         drawerLayout = findViewById(R.id.drawer_layout);
         tabLayout = findViewById(R.id.tab_layout_id);
-        adapter = new TabAdapterHome(this,tabLayout,viewPager);
+        adapter = new TabAdapterHome(this, tabLayout, viewPager);
         viewPager.setAdapter(adapter);
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setCustomView(null);
-                tab.setCustomView(adapter.getTabView(position));
-            }
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            tab.setCustomView(null);
+            tab.setCustomView(adapter.getTabView(position));
         }).attach();
 
         applyFontToMenu(navigationView.getMenu(), this);
@@ -60,9 +60,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case Constants.DATE_SELECTION_SEARCH_COW:
+            case Constants.FARM_SELECTION_SEARCH_COW:
+            case Constants.DATE_SELECTION_SEARCH_FARM:
+                adapter.getFragment(3).onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        if (tabLayout.getSelectedTabPosition() == 2){
+        if (tabLayout.getSelectedTabPosition() == 2) {
             tabLayout.selectTab(tabLayout.getTabAt(4));
         }
 

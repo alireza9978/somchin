@@ -24,7 +24,10 @@ public class Constants {
 
     public static final int FARM_SELECTION_SEARCH_COW = 101;
     public static final int DATE_SELECTION_SEARCH_COW = 102;
+    public static final int DATE_SELECTION_SEARCH_FARM = 104;
+
     public static final int DATE_SELECTION_REPORT_CREATE = 103;
+
     public static final int DATE_SELECTION_OK = 200;
     public static final int DATE_SELECTION_FAIL = 400;
     public static final String DATE_SELECTION_RESULT = "res_xc";

@@ -18,7 +18,7 @@ import com.damasahhre.hooftrim.adapters.TabAdapter;
 import com.damasahhre.hooftrim.adapters.TabAdapterLongText;
 import com.google.android.material.tabs.TabLayout;
 
-public class ReportsActivity extends Fragment {
+public class ReportsFragment extends Fragment {
 
 
     private TabAdapterLongText adapter;

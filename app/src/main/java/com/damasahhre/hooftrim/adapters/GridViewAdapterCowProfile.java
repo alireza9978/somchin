@@ -6,15 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.LivestockProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 
 import java.util.List;

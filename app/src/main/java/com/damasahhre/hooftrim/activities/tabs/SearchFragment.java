@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchCowFragment;
-import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchLivestockFragment;
+import com.damasahhre.hooftrim.activities.tabs.search_activities.SearchFarmFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapter;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.models.DateContainer;
@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-public class SearchActivity extends Fragment {
+public class SearchFragment extends Fragment {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;
@@ -39,7 +39,7 @@ public class SearchActivity extends Fragment {
 
         adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new SearchCowFragment(), getResources().getString(R.string.cows));
-        adapter.addFragment(new SearchLivestockFragment(), getResources().getString(R.string.livestrocks));
+        adapter.addFragment(new SearchFarmFragment(), getResources().getString(R.string.livestrocks));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -60,27 +60,36 @@ public class SearchActivity extends Fragment {
         });
 
         setupTabIcons();
-
+        highLightCurrentTab(0);
+        tabLayout.selectTab(tabLayout.getTabAt(0), true);
         return view;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case Constants.FARM_SELECTION_SEARCH_COW:{
-                if (resultCode == Constants.DATE_SELECTION_OK){
+        switch (requestCode) {
+            case Constants.FARM_SELECTION_SEARCH_COW: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;
                     int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
                     ((SearchCowFragment) adapter.getItem(0)).setFarm(id);
                 }
                 break;
             }
-            case Constants.DATE_SELECTION_SEARCH_COW:{
-                if (resultCode == Constants.DATE_SELECTION_OK){
+            case Constants.DATE_SELECTION_SEARCH_COW: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(Constants.DATE_SELECTION_RESULT);
+                    assert container != null;
                     ((SearchCowFragment) adapter.getItem(0)).setDate(container);
+                }
+            }
+            case Constants.DATE_SELECTION_SEARCH_FARM: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
+                    assert data != null;
+                    DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(Constants.DATE_SELECTION_RESULT);
+                    assert container != null;
+                    ((SearchFarmFragment) adapter.getItem(1)).setDate(container);
                 }
             }
         }
@@ -89,8 +98,6 @@ public class SearchActivity extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        highLightCurrentTab(0);
-        tabLayout.selectTab(tabLayout.getTabAt(0), true);
     }
 
     /**

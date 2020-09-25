@@ -63,6 +63,10 @@ public class DateContainer implements Serializable {
             this.year = year;
         }
 
+        public boolean equals(MyDate obj) {
+            return day == obj.day && month == obj.month && year == obj.year;
+        }
+
         public String toString(Context context) {
             String out = "";
             if (persian) {
@@ -78,10 +82,35 @@ public class DateContainer implements Serializable {
             }
             return out;
         }
+
+        public String toStringWithoutYear(Context context) {
+            String out = Utilities.getMonthName(context, month);
+            if (persian) {
+                out = out + " " + FormatHelper.toPersianNumber("" + day);
+            } else {
+                out = out + " " + day;
+            }
+            return out;
+        }
+
+    }
+
+    public String toStringSmall(Context context) {
+        if (mode.equals(RANG)) {
+            if (startDate.equals(endDate)){
+                return startDate.toStringWithoutYear(context);
+            }
+            return startDate.toStringWithoutYear(context) + "~" + endDate.toStringWithoutYear(context);
+        } else {
+            return startDate.toStringWithoutYear(context);
+        }
     }
 
     public String toString(Context context) {
         if (mode.equals(RANG)) {
+            if (startDate.equals(endDate)){
+                return startDate.toString(context);
+            }
             return startDate.toString(context) + " " + endDate.toString(context);
         } else {
             return startDate.toString(context);

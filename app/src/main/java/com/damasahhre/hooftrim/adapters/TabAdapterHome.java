@@ -18,10 +18,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.tabs.AddLivestockActivity;
 import com.damasahhre.hooftrim.activities.tabs.BlankFragment;
-import com.damasahhre.hooftrim.activities.tabs.HomeActivity;
-import com.damasahhre.hooftrim.activities.tabs.MarkedActivity;
-import com.damasahhre.hooftrim.activities.tabs.ReportsActivity;
-import com.damasahhre.hooftrim.activities.tabs.SearchActivity;
+import com.damasahhre.hooftrim.activities.tabs.HomeFragment;
+import com.damasahhre.hooftrim.activities.tabs.MarkedFragment;
+import com.damasahhre.hooftrim.activities.tabs.ReportsFragment;
+import com.damasahhre.hooftrim.activities.tabs.SearchFragment;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -34,6 +34,7 @@ public class TabAdapterHome extends FragmentStateAdapter {
     private TabLayout tabLayout;
     private LayoutInflater inflater;
     private Context context;
+    private Fragment[] fragments = new Fragment[5];
 
     public TabAdapterHome(@NonNull FragmentActivity fragmentActivity, TabLayout tabLayout,
                           ViewPager2 pager) {
@@ -50,8 +51,8 @@ public class TabAdapterHome extends FragmentStateAdapter {
                 if (tab.getPosition() == 2) {
                     Intent intent = new Intent(context, AddLivestockActivity.class);
                     context.startActivity(intent);
-                }else{
-                    pager.setCurrentItem(tab.getPosition(),true);
+                } else {
+                    pager.setCurrentItem(tab.getPosition(), true);
                 }
             }
 
@@ -147,25 +148,34 @@ public class TabAdapterHome extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0: {
-                return new MarkedActivity();
+        if (fragments[position] == null)
+            switch (position) {
+                case 0: {
+                    fragments[0] = new MarkedFragment();
+                    break;
+                }
+                case 1: {
+                    fragments[1] = new ReportsFragment();
+                    break;
+                }
+                case 2: {
+                    fragments[2] = new BlankFragment();
+                    break;
+                }
+                case 3: {
+                    fragments[3] = new SearchFragment();
+                    break;
+                }
+                case 4: {
+                    fragments[4] = new HomeFragment();
+                    break;
+                }
             }
-            case 1: {
-                return new ReportsActivity();
-            }
-            case 2:{
-                return new BlankFragment();
-            }
-            case 3: {
-                return new SearchActivity();
-            }
-            case 4: {
-                return new HomeActivity();
-            }
-            default:
-                return new HomeActivity();
-        }
+        return fragments[position];
+    }
+
+    public Fragment getFragment(int position) {
+        return fragments[position];
     }
 
     @Override
