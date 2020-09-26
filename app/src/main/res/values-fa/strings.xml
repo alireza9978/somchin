@@ -98,5 +98,8 @@
     <string name="export_factor">دریافت فاکتور</string>
     <string name="add_new_cow">افزودن دام جدید به فاکتور</string>
     <string name="som_cut_price">هزینه‌ سم‌چینی</string>
+    <string name="cure_price">هزینه‌ درمان‌عفونی</string>
+    <string name="bed_price">هزینه‌ تخته‌گذاری</string>
+    <string name="export_report">دریافت گزارش</string>
 
 </resources>

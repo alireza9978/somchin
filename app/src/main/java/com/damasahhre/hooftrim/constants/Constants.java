@@ -34,6 +34,9 @@ public class Constants {
     public static final int DATE_SELECTION_REPORT_FACTOR = 105;
     public static final int FARM_SELECTION_REPORT_FACTOR = 106;
 
+    public static final int DATE_SELECTION_REPORT_INJURY = 107;
+    public static final int FARM_SELECTION_REPORT_INJURY = 108;
+
     public static final int DATE_SELECTION_OK = 200;
     public static final int DATE_SELECTION_FAIL = 400;
     public static final String DATE_SELECTION_RESULT = "res_xc";

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.tabs.report_activites.InjeriesFragment">
+    tools:context=".activities.tabs.report_activites.InjuriesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,7 +38,8 @@
                 style="@style/Theme.App.TextView.Search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="دامداری مورد نظر خود را انتخاب کنید"
+                android:hint="@string/enter_farm"
+                android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/livestock_image"
@@ -74,7 +75,8 @@
                 style="@style/Theme.App.TextView.Search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="دامداری مورد نظر خود را انتخاب کنید"
+                android:hint="@string/enter_date"
+                android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/date_image"
@@ -92,7 +94,7 @@
             android:layout_marginEnd="72dp"
             android:backgroundTint="@color/persian_green"
             android:fontFamily="@font/anjoman_bold"
-            android:text="دریافت گزارش"
+            android:text="@string/export_report"
             android:textSize="18sp"
             app:cornerRadius="15dp"
             app:layout_constraintLeft_toLeftOf="parent"

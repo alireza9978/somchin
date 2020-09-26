@@ -14,7 +14,7 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.FactorFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.ImportFragment;
-import com.damasahhre.hooftrim.activities.tabs.report_activites.InjeriesFragment;
+import com.damasahhre.hooftrim.activities.tabs.report_activites.InjuriesFragment;
 import com.damasahhre.hooftrim.activities.tabs.report_activites.ReportVisitFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapterLongText;
 import com.damasahhre.hooftrim.constants.Constants;
@@ -44,7 +44,7 @@ public class ReportsFragment extends Fragment {
         adapter.addFragment(new ImportFragment(), getResources().getString(R.string.import_file));
         adapter.addFragment(new ReportVisitFragment(), getResources().getString(R.string.visits));
         adapter.addFragment(new FactorFragment(), getResources().getString(R.string.facor));
-        adapter.addFragment(new InjeriesFragment(), getResources().getString(R.string.injeries));
+        adapter.addFragment(new InjuriesFragment(), getResources().getString(R.string.injeries));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -89,6 +89,22 @@ public class ReportsFragment extends Fragment {
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(Constants.DATE_SELECTION_RESULT);
                     assert container != null;
                     ((FactorFragment) adapter.getItem(2)).setDate(container);
+                }
+            }
+            case Constants.FARM_SELECTION_REPORT_INJURY: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
+                    assert data != null;
+                    int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
+                    ((FactorFragment) adapter.getItem(3)).setFarm(id);
+                }
+                break;
+            }
+            case Constants.DATE_SELECTION_REPORT_INJURY: {
+                if (resultCode == Constants.DATE_SELECTION_OK) {
+                    assert data != null;
+                    DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(Constants.DATE_SELECTION_RESULT);
+                    assert container != null;
+                    ((FactorFragment) adapter.getItem(3)).setDate(container);
                 }
             }
         }

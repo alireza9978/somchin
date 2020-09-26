@@ -32,7 +32,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
+import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_INJURY;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 adapter.getFragment(3).onActivityResult(requestCode, resultCode, data);
                 break;
 
+            case DATE_SELECTION_REPORT_INJURY:
+            case FARM_SELECTION_REPORT_INJURY:
             case DATE_SELECTION_REPORT_FACTOR:
             case FARM_SELECTION_REPORT_FACTOR: {
                 adapter.getFragment(1).onActivityResult(requestCode, resultCode, data);
