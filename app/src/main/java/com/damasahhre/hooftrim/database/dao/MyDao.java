@@ -25,6 +25,14 @@ public interface MyDao {
     public List<FarmWithCows> getFarmWithCows();
 
     @Transaction
+    @Query("SELECT * FROM Cow WHERE Cow.favorite")
+    public List<Cow> getMarkedCows();
+
+    @Transaction
+    @Query("SELECT * FROM Farm WHERE Farm.is_favorite")
+    public List<Farm> getMarkedFarm();
+
+    @Transaction
     @Query("SELECT * FROM Report WHERE Report.cow_id == :cowId")
     public List<CowWithReports> getCowsWithReport(Integer cowId);
 

@@ -101,4 +101,6 @@
     <string name="cure_price">هزینه‌ درمان‌عفونی</string>
     <string name="bed_price">هزینه‌ تخته‌گذاری</string>
     <string name="export_report">export report</string>
+    <string name="no_marked_cow">no marked cow!</string>
+    <string name="no_marked_farm">no marked farm!</string>
 </resources>

@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView nextVisitList;
     private TextView noVisit;
     private RecyclerViewAdapterHomeNextVisit mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -69,7 +68,7 @@ public class HomeFragment extends Fragment {
         farmsGrid.setAdapter(adapterHomeFarm);
 
         nextVisitList.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(requireContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         nextVisitList.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>());
         nextVisitList.setAdapter(mAdapter);

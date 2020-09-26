@@ -36,7 +36,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/anjoman_regular"
             android:gravity="center"
-            android:text="دام نشان نشده‌ای وجود ندارد!"
+            android:text="@string/no_marked_cow"
             android:textColor="@color/hit_gray"
             android:textSize="26sp"
             android:visibility="invisible"
