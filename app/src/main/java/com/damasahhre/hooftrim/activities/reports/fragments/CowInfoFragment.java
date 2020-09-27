@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -63,7 +64,18 @@ public class CowInfoFragment extends Fragment {
         });
 
         ConstraintLayout button = view.findViewById(R.id.next_button);
-        button.setOnClickListener(view1 -> ((AddReportActivity) requireActivity()).next());
+        button.setOnClickListener(view1 -> {
+            if (numberEdit.getText().toString().isEmpty()) {
+                Toast.makeText(requireContext(), R.string.toast_enter_cow_number, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (date_text.getText().toString().isEmpty()) {
+                Toast.makeText(requireContext(), R.string.toast_enter_date, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Constants.hideKeyboard(requireActivity());
+            ((AddReportActivity) requireActivity()).next();
+        });
         return view;
     }
 
@@ -82,6 +94,7 @@ public class CowInfoFragment extends Fragment {
 
     public void setCowNumber(int number) {
         numberEdit.setText("" + number);
+        numberEdit.setEnabled(false);
     }
 
     public void setDate(String date) {
@@ -91,5 +104,8 @@ public class CowInfoFragment extends Fragment {
         }
     }
 
+    public int getNumber(){
+        return Integer.parseInt(numberEdit.getText().toString());
+    }
 
 }

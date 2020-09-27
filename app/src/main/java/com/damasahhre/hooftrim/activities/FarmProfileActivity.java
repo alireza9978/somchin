@@ -77,7 +77,7 @@ public class FarmProfileActivity extends AppCompatActivity {
             });
             List<Cow> cows = dao.getAllCowOfFarm(id);
             runOnUiThread(() -> {
-                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows);
+                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, farm.id);
                 cowsGridView.setAdapter(adapter);
             });
         });

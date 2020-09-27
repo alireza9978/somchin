@@ -74,6 +74,7 @@
     <string name="more_info_reason_4">April</string>
     <string name="more_info_reason_5">May</string>
     <string name="more_info_reason_6">June</string>
+    <string name="more_info_reason_7">July</string>
 
     <string name="reason_1">January</string>
     <string name="reason_2">February</string>
@@ -105,4 +106,13 @@
     <string name="no_marked_farm">no marked farm!</string>
     <string name="no_visit">there is no visit!</string>
     <string name="all_visits">all visits</string>
+
+    <string name="toast_enter_cow_number">enter cow number</string>
+    <string name="toast_enter_date">enter date</string>
+    <string name="toast_select_one">select one of options</string>
+    <string name="toast_select_only_one">select only one part</string>
+    <string name="ok">OK</string>
+    <string name="other_info">other information</string>
+
+
 </resources>

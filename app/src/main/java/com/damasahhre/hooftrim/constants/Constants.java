@@ -1,11 +1,13 @@
 package com.damasahhre.hooftrim.constants;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
@@ -21,6 +23,7 @@ public class Constants {
     //intent to start activity data
     public static final String FARM_ID = "sdaxce";
     public static final String COW_ID = "Addssaxce";
+    public static final String MORE_INFO_STATE = "sdwvvgr";
 
     public static final int CHOOSE_FILE_REQUEST_CODE = 99;
     public static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 98;
@@ -30,6 +33,7 @@ public class Constants {
     public static final int DATE_SELECTION_SEARCH_FARM = 104;
 
     public static final int DATE_SELECTION_REPORT_CREATE = 103;
+    public static final int DATE_SELECTION_REPORT_CREATE_END = 110;
 
     public static final int DATE_SELECTION_REPORT_FACTOR = 105;
     public static final int FARM_SELECTION_REPORT_FACTOR = 106;
@@ -78,6 +82,17 @@ public class Constants {
         }else{
             imageView.setImageDrawable(ContextCompat.getDrawable(context ,R.drawable.ic_previous));
         }
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**

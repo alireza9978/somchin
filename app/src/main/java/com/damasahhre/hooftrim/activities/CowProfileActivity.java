@@ -48,7 +48,6 @@ public class CowProfileActivity extends AppCompatActivity {
         menu = findViewById(R.id.dropdown_menu);
         reports = findViewById(R.id.reports_list);
 
-        adapter = new GridViewAdapterCowProfile(this, new ArrayList<>());
         reports.setAdapter(adapter);
 
 
@@ -64,6 +63,7 @@ public class CowProfileActivity extends AppCompatActivity {
                 } else {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark));
                 }
+                adapter = new GridViewAdapterCowProfile(this, new ArrayList<>(), cow.getId());
                 adapter.setReports(reports);
                 adapter.notifyDataSetChanged();
             });

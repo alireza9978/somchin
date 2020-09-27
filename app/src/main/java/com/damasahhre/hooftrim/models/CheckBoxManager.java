@@ -1,6 +1,7 @@
 package com.damasahhre.hooftrim.models;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.database.models.Report;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class CheckBoxManager {
         moreInfo.add(new CheckBoxItem(R.string.more_info_reason_4));
         moreInfo.add(new CheckBoxItem(R.string.more_info_reason_5));
         moreInfo.add(new CheckBoxItem(R.string.more_info_reason_6));
+        moreInfo.add(new CheckBoxItem(R.string.more_info_reason_7));
         moreInfo.get(0).add(moreInfo.get(1));
         moreInfo.get(0).add(moreInfo.get(2));
         moreInfo.get(0).add(moreInfo.get(3));
@@ -52,6 +54,23 @@ public class CheckBoxManager {
         reasons.get(3).add(reasons.get(4));
         reasons.get(4).add(reasons.get(3));
 
+    }
+
+    public boolean moreInfoSelected(){
+        return moreInfo.get(0).isCheck() || moreInfo.get(1).isCheck() || moreInfo.get(6).isCheck();
+    }
+
+    public boolean reasonSelected() {
+        for (CheckBoxItem item : reasons) {
+            if (item.isCheck() && item.isActive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setBooleans(Report report){
+        //todo set all boolean
     }
 
     public static CheckBoxManager getCheckBoxManager() {

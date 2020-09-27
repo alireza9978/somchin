@@ -97,7 +97,7 @@ public class DateContainer implements Serializable {
 
     public String toStringSmall(Context context) {
         if (mode.equals(RANG)) {
-            if (startDate.equals(endDate)){
+            if (startDate.equals(endDate)) {
                 return startDate.toStringWithoutYear(context);
             }
             return startDate.toStringWithoutYear(context) + "~" + endDate.toStringWithoutYear(context);
@@ -108,12 +108,30 @@ public class DateContainer implements Serializable {
 
     public String toString(Context context) {
         if (mode.equals(RANG)) {
-            if (startDate.equals(endDate)){
+            if (startDate.equals(endDate)) {
                 return startDate.toString(context);
             }
             return startDate.toString(context) + " " + endDate.toString(context);
         } else {
             return startDate.toString(context);
+        }
+    }
+
+    public com.damasahhre.hooftrim.models.MyDate exportStart() {
+        if (startDate.persian) {
+            //todo convert to en
+            return null;
+        } else {
+            return new com.damasahhre.hooftrim.models.MyDate(startDate.day, startDate.month, startDate.year);
+        }
+    }
+
+    public com.damasahhre.hooftrim.models.MyDate exportEnd() {
+        if (endDate.persian) {
+            //todo convert to en
+            return null;
+        } else {
+            return new com.damasahhre.hooftrim.models.MyDate(endDate.day, endDate.month, endDate.year);
         }
     }
 }

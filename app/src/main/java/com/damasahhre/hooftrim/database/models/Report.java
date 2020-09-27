@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.damasahhre.hooftrim.models.MyDate;
+
 import java.util.Date;
 
 @Entity
@@ -12,9 +14,9 @@ public class Report {
     public Integer id;
 
     @ColumnInfo(name = "visit_date")
-    public Date visit;
+    public MyDate visit;
     @ColumnInfo(name = "next_visit_date")
-    public Date nextVisit;
+    public MyDate nextVisit;
 
     @ColumnInfo(name = "leg_area_number")
     public Integer legAreaNumber;

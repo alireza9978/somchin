@@ -23,6 +23,7 @@ import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,7 +134,7 @@ public class HomeFragment extends Fragment {
             }
         });
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<NextReport> reports = dao.getAllNextVisit(new Date());
+            List<NextReport> reports = dao.getAllNextVisit(new MyDate(new Date()));
             if (reports.isEmpty()) {
                 hideVisit();
             } else {

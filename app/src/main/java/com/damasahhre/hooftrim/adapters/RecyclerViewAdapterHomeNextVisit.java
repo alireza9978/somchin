@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.database.models.NextReport;
+import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<Recyc
         NextReport report = nextReports.get(position);
         holder.cowName.setText(R.string.cow_title + report.cowNumber);
         holder.farmName.setText(report.farmName);
-        if (report.nextVisitDate.compareTo(new Date()) == 0) {
+        if (report.nextVisitDate.compareTo(new MyDate(new Date())) == 0) {
             holder.date.setText(R.string.today);
         } else
             holder.date.setText(report.cowNumber);

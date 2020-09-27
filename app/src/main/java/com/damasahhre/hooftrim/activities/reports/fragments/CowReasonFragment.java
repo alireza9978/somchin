@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -28,8 +29,11 @@ public class CowReasonFragment extends Fragment {
         GridViewAdapterReasonAddReport adapter = new GridViewAdapterReasonAddReport(requireContext(), CheckBoxManager.getCheckBoxManager().getReasons());
         gridView.setAdapter(adapter);
 
-
         view.findViewById(R.id.next_button).setOnClickListener(v -> {
+            if (!CheckBoxManager.getCheckBoxManager().reasonSelected()) {
+                Toast.makeText(requireContext(), R.string.toast_select_one, Toast.LENGTH_SHORT).show();
+                return;
+            }
             ((AddReportActivity) requireActivity()).next();
         });
         view.findViewById(R.id.back_button).setOnClickListener(v -> {

@@ -13,6 +13,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithCows;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.models.Report;
+import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,7 @@ public interface MyDao {
     @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
             " FROM Cow, Report, Farm" +
             " WHERE next_visit_date > :now")
-    List<NextReport> getAllNextVisit(Date now);
+    List<NextReport> getAllNextVisit(MyDate now);
 
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();

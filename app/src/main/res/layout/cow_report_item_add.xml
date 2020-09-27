@@ -16,10 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/arrow"
         android:fontFamily="@font/anjoman_regular"
-        android:textColor="@color/black"
-        android:text="گزارش ۱"
+        android:textColor="@color/hit_gray"
+        android:text="@string/add_report"
         android:padding="4dp"
-
         />
 
     <ImageView
@@ -31,8 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_front"
-        app:tint="@color/persian_green"
+        android:src="@drawable/ic_add_reverse"
+        app:tint="@color/hit_gray"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

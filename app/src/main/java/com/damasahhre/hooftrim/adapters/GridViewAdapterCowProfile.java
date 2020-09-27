@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Report;
 
@@ -18,10 +19,12 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
 
     private List<Report> reports;
     private Context context;
+    private int cowId;
 
-    public GridViewAdapterCowProfile(Context context, List<Report> reports) {
+    public GridViewAdapterCowProfile(Context context, List<Report> reports, int cowId) {
         this.reports = reports;
         this.context = context;
+        this.cowId = cowId;
     }
 
     public void setReports(List<Report> reports) {
@@ -30,7 +33,7 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return reports.size();
+        return reports.size() + 1;
     }
 
     @Override
@@ -45,26 +48,49 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Holder holder;
-        Report report = reports.get(i);
-        if (view == null) {
-            view = LayoutInflater.from(context)
-                    .inflate(R.layout.cow_report_item, viewGroup, false);
-            holder = new Holder();
-            holder.view = view;
-            holder.title = view.findViewById(R.id.report_name);
-            view.setTag(holder);
+        if (reports.size() == i) {
+            HolderAdd holder;
+            if (view == null) {
+                view = LayoutInflater.from(context)
+                        .inflate(R.layout.cow_report_item_add, viewGroup, false);
+                holder = new HolderAdd();
+                holder.view = view;
+                view.setTag(holder);
+            } else {
+                holder = (HolderAdd) view.getTag();
+            }
+            holder.view.setOnClickListener(view1 -> {
+                Intent intent = new Intent(context, AddReportActivity.class);
+                intent.putExtra(Constants.COW_ID, cowId);
+                context.startActivity(intent);
+            });
         } else {
-            holder = (Holder) view.getTag();
+            Holder holder;
+            Report report = reports.get(i);
+            if (view == null) {
+                view = LayoutInflater.from(context)
+                        .inflate(R.layout.cow_report_item, viewGroup, false);
+                holder = new Holder();
+                holder.view = view;
+                holder.title = view.findViewById(R.id.report_name);
+                view.setTag(holder);
+            } else {
+                holder = (Holder) view.getTag();
+            }
+
+            holder.view.setOnClickListener((v) -> {
+                //todo change to report summery activity
+//                Intent intent = new Intent(context, Report.class);
+//                intent.putExtra(Constants.FARM_ID, report.id);
+//                context.startActivity(intent);
+            });
+            holder.title.setText("" + report.id);
         }
-        holder.view.setOnClickListener((v) -> {
-            //todo change to report summery activity
-            Intent intent = new Intent(context, Report.class);
-            intent.putExtra(Constants.FARM_ID, report.id);
-            context.startActivity(intent);
-        });
-        holder.title.setText("" + report.id);
         return view;
+    }
+
+    static class HolderAdd {
+        View view;
     }
 
     static class Holder {

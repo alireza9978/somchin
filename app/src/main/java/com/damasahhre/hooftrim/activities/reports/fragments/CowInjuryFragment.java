@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -12,13 +13,15 @@ import androidx.fragment.app.Fragment;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.dialog.SelectFingerDialog;
+
+import java.util.Objects;
 
 
 public class CowInjuryFragment extends Fragment {
 
     private int selected = -1;
     private Boolean rightSide = null;
-    private int fingerNumber;
     private int[] btnIdRight = {R.id.one_right, R.id.two_right, R.id.three_right, R.id.four_right, R.id.five_right, R.id.six_right};
     private int[] imageIdRight = {R.drawable.ic_one_right, R.drawable.ic_two_right, R.drawable.ic_three_right, R.drawable.ic_four_right, R.drawable.ic_five_right, R.drawable.ic_six_right};
     private int[] btnIdLeft = {R.id.one_left, R.id.two_left, R.id.three_left, R.id.four_left, R.id.five_left, R.id.six_left};
@@ -42,10 +45,13 @@ public class CowInjuryFragment extends Fragment {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_zero));
                 selected = 0;
                 rightSide = null;
+                getFingerNumber();
             } else if (selected == 0 && rightSide == null) {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
                 selected = -1;
                 rightSide = null;
+            } else {
+                errorOnlyOne();
             }
         });
         for (int i = 1; i < 7; i++) {
@@ -57,10 +63,13 @@ public class CowInjuryFragment extends Fragment {
                     mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), drawable));
                     selected = finalI;
                     rightSide = Boolean.TRUE;
+                    getFingerNumber();
                 } else if (selected == finalI && rightSide != null && rightSide.equals(Boolean.TRUE)) {
                     mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
                     selected = -1;
                     rightSide = null;
+                } else {
+                    errorOnlyOne();
                 }
             });
         }
@@ -73,10 +82,13 @@ public class CowInjuryFragment extends Fragment {
                     mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), drawable));
                     selected = finalI;
                     rightSide = Boolean.FALSE;
+                    getFingerNumber();
                 } else if (selected == finalI && rightSide != null && rightSide.equals(Boolean.FALSE)) {
                     mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
                     selected = -1;
                     rightSide = null;
+                } else {
+                    errorOnlyOne();
                 }
             });
         }
@@ -85,28 +97,37 @@ public class CowInjuryFragment extends Fragment {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_ten));
                 selected = 10;
                 rightSide = null;
+                getFingerNumber();
             } else if (selected == 10 && rightSide == null) {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
                 selected = -1;
                 rightSide = null;
+            } else {
+                errorOnlyOne();
             }
         });
         view.findViewById(R.id.eleven).setOnClickListener(v -> {
             if (selected == -1) {
                 leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_eleven));
                 selected = 11;
+                getFingerNumber();
             } else if (selected == 11) {
                 leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
                 selected = -1;
+            } else {
+                errorOnlyOne();
             }
         });
         view.findViewById(R.id.twelve).setOnClickListener(v -> {
             if (selected == -1) {
                 leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_twelve));
                 selected = 12;
+                getFingerNumber();
             } else if (selected == 12) {
                 leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
                 selected = -1;
+            } else {
+                errorOnlyOne();
             }
         });
 
@@ -114,27 +135,36 @@ public class CowInjuryFragment extends Fragment {
             if (selected == -1) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_eight));
                 selected = 8;
+                getFingerNumber();
             } else if (selected == 8) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
                 selected = -1;
+            } else {
+                errorOnlyOne();
             }
         });
         view.findViewById(R.id.nine).setOnClickListener(v -> {
             if (selected == -1) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_nine));
                 selected = 9;
+                getFingerNumber();
             } else if (selected == 9) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
                 selected = -1;
+            } else {
+                errorOnlyOne();
             }
         });
         view.findViewById(R.id.seven).setOnClickListener(v -> {
             if (selected == -1) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_seven));
                 selected = 7;
+                getFingerNumber();
             } else if (selected == 7) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
                 selected = -1;
+            } else {
+                errorOnlyOne();
             }
         });
 
@@ -145,6 +175,20 @@ public class CowInjuryFragment extends Fragment {
             ((AddReportActivity) requireActivity()).back();
         });
         return view;
+    }
+
+    public void getFingerNumber() {
+        SelectFingerDialog dialog = new SelectFingerDialog(requireContext());
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+    }
+
+    public int getSelected(){
+        return selected;
+    }
+
+    private void errorOnlyOne() {
+        Toast.makeText(requireContext(), R.string.toast_select_only_one, Toast.LENGTH_SHORT).show();
     }
 
     @Override

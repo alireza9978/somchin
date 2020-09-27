@@ -23,10 +23,12 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
 
     private List<Cow> cows;
     private Context context;
+    private int farmId;
 
-    public GridViewAdapterCowInFarmProfile(Context context, List<Cow> cows) {
+    public GridViewAdapterCowInFarmProfile(Context context, List<Cow> cows, int farmId) {
         this.cows = cows;
         this.context = context;
+        this.farmId = farmId;
     }
 
     @Override
@@ -59,6 +61,7 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             view.setOnClickListener(view1 -> {
                 Intent intent = new Intent(context, AddReportActivity.class);
                 intent.putExtra(Constants.COW_ID, -1);
+                intent.putExtra(Constants.FARM_ID, farmId);
                 context.startActivity(intent);
             });
         } else {

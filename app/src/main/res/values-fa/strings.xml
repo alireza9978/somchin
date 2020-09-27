@@ -73,6 +73,7 @@
     <string name="more_info_reason_4">بدون‌جراحت</string>
     <string name="more_info_reason_5">ژل‌و‌بانداز</string>
     <string name="more_info_reason_6">تخته‌گذاری</string>
+    <string name="more_info_reason_7">سم‌چینی</string>
 
     <string name="reason_1">۱۰۰ روزه</string>
     <string name="reason_2">خشکی</string>
@@ -105,5 +106,12 @@
     <string name="no_marked_farm">دامداری نشان نشده‌ای وجود ندارد!</string>
     <string name="no_visit">بازدیدی ثبت نشده است!</string>
     <string name="all_visits">همه بازدید‌ها</string>
+
+    <string name="toast_enter_cow_number">شماره گاو را وارد کنید</string>
+    <string name="toast_enter_date">تاریخ را وارد کنید</string>
+    <string name="toast_select_one">یکی از موارد را انتخاب کنید</string>
+    <string name="toast_select_only_one">انتخاب دو مورد امکان‌پذیر نیست</string>
+    <string name="ok">تایید</string>
+    <string name="other_info">سایر اعلاعات</string>
 
 </resources>
