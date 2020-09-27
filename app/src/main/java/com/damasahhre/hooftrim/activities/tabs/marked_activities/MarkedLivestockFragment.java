@@ -1,6 +1,7 @@
 package com.damasahhre.hooftrim.activities.tabs.marked_activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,12 @@ public class MarkedLivestockFragment extends Fragment {
     private TextView notFound;
     private GridView markedGridView;
     private GridViewAdapterHomeFarm adapterHomeFarm;
+    private String TAG = "MARKED FARM";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_marked_livestock, container, false);
         notFound = view.findViewById(R.id.no_marked_livestroke_text);
         markedGridView = view.findViewById(R.id.marked_livestocks_grid);
@@ -59,6 +62,7 @@ public class MarkedLivestockFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume: ");
         MyDao dao = DataBase.getInstance(requireContext()).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             List<Farm> farms = dao.getMarkedFarm();

@@ -103,5 +103,7 @@
     <string name="export_report">دریافت گزارش</string>
     <string name="no_marked_cow">گاو نشان نشده‌ای وجود ندارد!</string>
     <string name="no_marked_farm">دامداری نشان نشده‌ای وجود ندارد!</string>
+    <string name="no_visit">بازدیدی ثبت نشده است!</string>
+    <string name="all_visits">همه بازدید‌ها</string>
 
 </resources>

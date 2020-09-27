@@ -41,13 +41,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabAdapterHome adapter;
     private TabLayout tabLayout;
     private DrawerLayout drawerLayout;
-
+    private String TAG = "MAIN ACTIVITY";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i(TAG, "onCreate: ");
+
         ViewPager2 viewPager = findViewById(R.id.pager_id);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setUserInputEnabled(false);
         NavigationView navigationView = findViewById(R.id.navigation);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.i("TAG", "onActivityResult: start " + requestCode);
+        Log.i(TAG, "onActivityResult: start " + requestCode);
 
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(TAG, "onCreate: ");
         if (tabLayout.getSelectedTabPosition() == 2) {
             tabLayout.selectTab(tabLayout.getTabAt(4));
         }

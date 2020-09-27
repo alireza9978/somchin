@@ -46,7 +46,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/anjoman_bold"
-            android:text="all visits"
+            android:text="@string/all_visits"
             android:textColor="@color/selected_tab_home"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"

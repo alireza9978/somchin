@@ -103,4 +103,6 @@
     <string name="export_report">export report</string>
     <string name="no_marked_cow">no marked cow!</string>
     <string name="no_marked_farm">no marked farm!</string>
+    <string name="no_visit">there is no visit!</string>
+    <string name="all_visits">all visits</string>
 </resources>
