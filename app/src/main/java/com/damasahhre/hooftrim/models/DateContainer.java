@@ -6,6 +6,7 @@ import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
 
@@ -83,6 +84,22 @@ public class DateContainer implements Serializable {
             return out;
         }
 
+        public String toStringComa(Context context) {
+            String out = "";
+            if (persian) {
+                out = FormatHelper.toPersianNumber("" + year);
+            } else {
+                out += year;
+            }
+            out = out + "," + Utilities.getMonthName(context, month);
+            if (persian) {
+                out = out + "," + FormatHelper.toPersianNumber("" + day);
+            } else {
+                out = out + "," + day;
+            }
+            return out;
+        }
+
         public String toStringWithoutYear(Context context) {
             String out = Utilities.getMonthName(context, month);
             if (persian) {
@@ -115,6 +132,25 @@ public class DateContainer implements Serializable {
         } else {
             return startDate.toString(context);
         }
+    }
+
+    public String toStringBeauty(Context context) {
+        if (mode.equals(RANG)) {
+            if (startDate.equals(endDate)) {
+                return startDate.toString(context);
+            }
+            return "(" + startDate.toStringComa(context) + "~" + endDate.toStringComa(context) + ")";
+        } else {
+            return "(" + startDate.toStringComa(context) + ")";
+        }
+    }
+
+    public static String toString(com.damasahhre.hooftrim.models.MyDate date) {
+        if (date.compareTo(new com.damasahhre.hooftrim.models.MyDate(new Date())) == 0) {
+            return "today";
+        } else
+            return "other_day";
+
     }
 
     public com.damasahhre.hooftrim.models.MyDate exportStart() {

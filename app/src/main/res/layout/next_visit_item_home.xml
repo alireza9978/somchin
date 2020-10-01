@@ -12,7 +12,7 @@
         android:fontFamily="@font/anjoman_bold"
         android:text="۹۶/۰۵/۱۸"
         android:textColor="@color/selected_tab_home"
-        android:textSize="15sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@id/cattel_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -22,13 +22,12 @@
     <ImageView
         android:id="@+id/cow_image"
         android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="15dp"
         android:src="@drawable/ic_cattel"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cattel_id"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/cattel_id" />
 
     <TextView
         android:id="@+id/farm_title_text"
@@ -37,7 +36,7 @@
         android:fontFamily="@font/anjoman_bold"
         android:text="نام گاوداری"
         android:textColor="@color/hit_gray"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/cattel_id"
         app:layout_constraintTop_toBottomOf="@id/cattel_id"
@@ -53,12 +52,12 @@
         android:text="دام ۱۲۳"
         android:textAlignment="center"
         android:textColor="@color/selected_tab_home"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/cow_image"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/farm_title_text"
         app:layout_constraintEnd_toStartOf="@id/date_string"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@id/cow_image"
-        app:layout_constraintTop_toTopOf="@id/cow_image"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
 

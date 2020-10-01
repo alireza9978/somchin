@@ -7,7 +7,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.Farm;
-import com.damasahhre.hooftrim.database.models.FarmWithCows;
+import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.MyDate;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -51,6 +53,22 @@ public class SplashActivity extends AppCompatActivity {
                 checkConnection();
             }
         }, 1000);
+        MyDao dao = DataBase.getInstance(this).dao();
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            List<Farm> farms = dao.getAll();
+            if (!farms.isEmpty()) {
+                List<Cow> cows = dao.getAllCowOfFarm(farms.get(0).id);
+                if (!cows.isEmpty()) {
+                    Report report = new Report();
+                    report.cowId = cows.get(0).getId();
+                    report.visit = new MyDate(new Date());
+                    report.nextVisit = new MyDate(new Date());
+                    report.nextVisit.setMonth(report.nextVisit.getMonth() + 1);
+//                    dao.insert(report);
+                }
+            }
+        });
+
 
     }
 

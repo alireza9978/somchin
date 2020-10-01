@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.activities.tabs.report_activites;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,11 +21,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
-import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterHomeNextVisit;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisit;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.NextReport;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.DateContainer;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -32,7 +37,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
 
 
 public class ReportVisitFragment extends Fragment {
@@ -46,6 +54,7 @@ public class ReportVisitFragment extends Fragment {
 
     private RecyclerViewAdapterNextVisit mAdapter;
     private TextView dateText;
+    private TextView visitText;
     private TextView noVisit;
     private RecyclerView nextVisitList;
 
@@ -61,6 +70,7 @@ public class ReportVisitFragment extends Fragment {
         calendar = view.findViewById(R.id.calendarView);
         dateText = view.findViewById(R.id.date_text);
         noVisit = view.findViewById(R.id.not_fount_text);
+        visitText = view.findViewById(R.id.visitDate);
         nextVisitList = view.findViewById(R.id.next_visits_list);
 
         String language = Constants.getDefualtlanguage(requireContext());
@@ -81,87 +91,26 @@ public class ReportVisitFragment extends Fragment {
         nextVisitList.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewAdapterNextVisit(new ArrayList<>());
         nextVisitList.setAdapter(mAdapter);
-        //todo read data base
         return view;
+    }
 
-//        calendar.setDayFormatter(day -> {
-//            String temp;
-//            if (finalLanguage.equals("en")) {
-//                temp = "" + day.getDay();
-//            } else {
-//                temp = FormatHelper.toPersianNumber("" + day.getDay());
-//            }
-//            return temp;
-//        });
-//        calendar.setWeekDayFormatter(dayOfWeek -> {
-//            String temp = " ";
-//            if (finalLanguage.equals("en")) {
-//                switch (dayOfWeek) {
-//                    case MONDAY:
-//                        temp = "mon";
-//                        break;
-//                    case TUESDAY:
-//                        temp = "tue";
-//                        break;
-//                    case WEDNESDAY:
-//                        temp = "wed";
-//                        break;
-//                    case THURSDAY:
-//                        temp = "thu";
-//                        break;
-//                    case FRIDAY:
-//                        temp = "fri";
-//                        break;
-//                    case SATURDAY:
-//                        temp = "sat";
-//                        break;
-//                    case SUNDAY:
-//                        temp = "sun";
-//                        break;
-//                }
-//            } else {
-//                switch (dayOfWeek) {
-//                    case MONDAY:
-//                        temp = "ج";
-//                        break;
-//                    case TUESDAY:
-//                        temp = "ش";
-//                        break;
-//                    case WEDNESDAY:
-//                        temp = "ی";
-//                        break;
-//                    case THURSDAY:
-//                        temp = "د";
-//                        break;
-//                    case FRIDAY:
-//                        temp = "س";
-//                        break;
-//                    case SATURDAY:
-//                        temp = "چ";
-//                        break;
-//                    case SUNDAY:
-//                        temp = "پ";
-//                        break;
-//                }
-//            }
-//            Typeface font = ResourcesCompat.getFont(requireContext(), R.font.anjoman_medium);
-//            SpannableString mNewTitle = new SpannableString(temp);
-//
-//            mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            mNewTitle.setSpan(new ForegroundColorSpan(requireContext().getResources().getColor(R.color.calender_blue)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            return mNewTitle;
-//        });
-//        calendar.setOnDateChangedListener((widget, date, selected) -> {
-//            if (selected) {
-//                String temp = date.toString();
-//                Toast.makeText(requireContext(), temp, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        Date date = new Date();
-//        setTopCalendarBar(finalLanguage, date.getYear() + 1900, date.getMonth() + 1, date.getDay());
-//        calendar.setSelectedDate(getToday(finalLanguage));
-//        calendar.setCurrentDate(getToday(finalLanguage));
+    private void setNotFound() {
+        dateText.setVisibility(View.INVISIBLE);
+        nextVisitList.setVisibility(View.INVISIBLE);
+        noVisit.setVisibility(View.VISIBLE);
+    }
+
+    private void setFound() {
+        dateText.setVisibility(View.VISIBLE);
+        nextVisitList.setVisibility(View.VISIBLE);
+        noVisit.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideAll() {
+        dateText.setVisibility(View.INVISIBLE);
+        nextVisitList.setVisibility(View.INVISIBLE);
+        noVisit.setVisibility(View.INVISIBLE);
+        visitText.setVisibility(View.INVISIBLE);
     }
 
     private void setEnglish() {
@@ -186,11 +135,42 @@ public class ReportVisitFragment extends Fragment {
         right.setOnClickListener(v -> calendar.goToNext());
         left.setOnClickListener(v -> calendar.goToPrevious());
         calendar.setOnDateChangedListener((widget, date, selected) -> {
-            if (selected){
 
-            }else{
+            MyDao dao = DataBase.getInstance(context).dao();
+            DateContainer container = new DateContainer(SINGLE,
+                    new DateContainer.MyDate(false, date.getDay(), date.getMonth(), date.getYear()));
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                List<NextReport> list;
+                if (selected) {
+                    if (!date.isBefore(CalendarDay.today())) {
+                        list = dao.getAllNextVisitInDay(container.exportStart());
+                        ((Activity) context).runOnUiThread(() -> {
+                            visitText.setText(R.string.next_visits);
+                        });
+                    } else {
+                        list = dao.getAllVisitInDay(container.exportStart());
+                        ((Activity) context).runOnUiThread(() -> {
+                            visitText.setText(R.string.visits);
+                        });
+                    }
+                    ((Activity) context).runOnUiThread(() -> {
+                        dateText.setText(container.toStringBeauty(context));
+                        mAdapter.setNextReports(list);
+                        mAdapter.notifyDataSetChanged();
+                        if (list.isEmpty()) {
+                            setNotFound();
+                        } else {
+                            setFound();
+                        }
+                    });
+                } else {
+                    ((Activity) context).runOnUiThread(() -> {
+                        dateText.setText("");
+                        hideAll();
+                    });
+                }
+            });
 
-            }
         });
 
 

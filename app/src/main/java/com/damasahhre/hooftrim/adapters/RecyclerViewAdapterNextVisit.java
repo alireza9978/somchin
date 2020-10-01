@@ -37,12 +37,13 @@ public class RecyclerViewAdapterNextVisit extends RecyclerView.Adapter<RecyclerV
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         NextReport report = nextReports.get(position);
-        holder.cowName.setText(R.string.cow_title + report.cowNumber);
+        holder.cowName.setText(R.string.cow_title);
+        holder.cowName.append("" + report.cowNumber);
         holder.farmName.setText(report.farmName);
         if (report.nextVisitDate.compareTo(new MyDate(new Date())) == 0) {
             holder.date.setText(R.string.today);
         } else
-            holder.date.setText(report.cowNumber);
+            holder.date.setText(report.nextVisitDate.toString());
     }
 
     @Override

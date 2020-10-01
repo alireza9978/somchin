@@ -80,6 +80,8 @@ public class FarmProfileActivity extends AppCompatActivity {
                 GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, farm.id);
                 cowsGridView.setAdapter(adapter);
             });
+            //todo query one
+            //todo query two
         });
 
     }

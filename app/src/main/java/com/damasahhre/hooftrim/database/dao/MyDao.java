@@ -4,48 +4,61 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowWithReports;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.FarmWithCows;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.models.MyDate;
 
-import java.util.Date;
 import java.util.List;
 
 @Dao
 public interface MyDao {
 
-    @Transaction
     @Query("SELECT * FROM Farm ")
     public List<FarmWithCows> getFarmWithCows();
 
-    @Transaction
+    @Query("SELECT * FROM Cow WHERE Cow.farm_id == :id")
+    public List<Cow> getNextVisitCows(int id);
+
     @Query("SELECT * FROM Cow WHERE Cow.favorite")
     public List<Cow> getMarkedCows();
 
-    @Transaction
     @Query("SELECT * FROM Farm WHERE Farm.is_favorite")
     public List<Farm> getMarkedFarm();
 
-    @Transaction
     @Query("SELECT * FROM Report WHERE Report.cow_id == :cowId")
     public List<CowWithReports> getCowsWithReport(Integer cowId);
 
-    @Transaction
     @Query("SELECT * FROM Cow WHERE Cow.farm_id == :farmId")
     public List<FarmWithCows> getFarmWithCows(Integer farmId);
 
-    @Transaction
     @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
             " FROM Cow, Report, Farm" +
-            " WHERE next_visit_date > :now")
+            " WHERE nextVisitDate >= :now AND" +
+            " Cow.id == Report.cow_id AND" +
+            " Farm.id == Cow.farm_id")
     List<NextReport> getAllNextVisit(MyDate now);
+
+    @Query("SELECT Report.visit_date AS visitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
+            " FROM Cow, Report, Farm" +
+            " WHERE visitDate == :now AND" +
+            " Cow.id == Report.cow_id AND" +
+            " Farm.id == Cow.farm_id")
+    List<NextReport> getAllVisitInDay(MyDate now);
+
+    @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
+            " FROM Cow, Report, Farm" +
+            " WHERE nextVisitDate == :now AND" +
+            " Cow.id == Report.cow_id AND" +
+            " Farm.id == Cow.farm_id")
+    List<NextReport> getAllNextVisitInDay(MyDate now);
+
 
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();

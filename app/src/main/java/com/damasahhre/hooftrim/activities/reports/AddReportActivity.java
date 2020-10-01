@@ -102,6 +102,8 @@ public class AddReportActivity extends AppCompatActivity {
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleans(report);
                 dao.insert(report);
+                runOnUiThread(this::finish);
+
             });
         } else {
             AppExecutors.getInstance().diskIO().execute(() -> {
@@ -117,6 +119,7 @@ public class AddReportActivity extends AppCompatActivity {
                 report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleans(report);
+                runOnUiThread(this::finish);
             });
         }
     }

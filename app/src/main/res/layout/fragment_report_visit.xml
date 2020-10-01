@@ -80,7 +80,7 @@
             app:mcv_showOtherDates="all" />
 
         <TextView
-            android:id="@+id/visits_title"
+            android:id="@+id/visitDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -98,12 +98,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/anjoman_regular"
-            android:text="(دوشنبه، ۳ شهریور)"
+            android:text=""
             android:textColor="@color/report_gray"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/visits_title"
-            app:layout_constraintStart_toEndOf="@id/visits_title"
-            app:layout_constraintTop_toTopOf="@id/visits_title" />
+            app:layout_constraintBottom_toBottomOf="@id/visitDate"
+            app:layout_constraintStart_toEndOf="@id/visitDate"
+            app:layout_constraintTop_toTopOf="@id/visitDate" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/next_visits_list"
@@ -111,7 +111,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/visits_title"
+            app:layout_constraintTop_toBottomOf="@id/visitDate"
             tools:listitem="@layout/next_visit_item" />
 
         <TextView
@@ -124,7 +124,7 @@
             android:textSize="32sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/visits_title"
+            app:layout_constraintTop_toBottomOf="@id/visitDate"
             app:layout_constraintVertical_bias="0.2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

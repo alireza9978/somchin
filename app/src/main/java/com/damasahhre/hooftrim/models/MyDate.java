@@ -1,5 +1,7 @@
 package com.damasahhre.hooftrim.models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,13 +11,14 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     private int month;
     private int year;
 
-    public MyDate(Date date){
+    public MyDate(Date date) {
         day = date.getDay();
-        month = date.getMonth();
-        year = date.getYear();
+        month = date.getMonth() + 1;
+        year = date.getYear() + 1900;
     }
 
     public MyDate(Long temp) {
+        Log.i("TAG", "MyDate: " + temp);
         String tempDate = "" + temp;
         year = Integer.parseInt(tempDate.substring(0, 4));
         month = Integer.parseInt(tempDate.substring(4, 6));
@@ -72,5 +75,10 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "" + year + "/" + month + "/" + day;
     }
 }

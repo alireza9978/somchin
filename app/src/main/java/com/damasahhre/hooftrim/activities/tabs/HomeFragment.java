@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.activities.tabs;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class HomeFragment extends Fragment {
         MyDao dao = DataBase.getInstance(requireContext()).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             List<Farm> farmList = dao.getAll();
+            //todo replace with 4
             if (farmList.isEmpty()) {
                 hideFarms();
             } else {
@@ -134,7 +136,9 @@ public class HomeFragment extends Fragment {
             }
         });
         AppExecutors.getInstance().diskIO().execute(() -> {
+            //todo replace with 0
             List<NextReport> reports = dao.getAllNextVisit(new MyDate(new Date()));
+            Log.i("TAG", "onResume: " + reports.size());
             if (reports.isEmpty()) {
                 hideVisit();
             } else {
