@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="150dp"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:padding="10dp">
 

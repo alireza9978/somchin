@@ -116,6 +116,7 @@
     <string name="cow_reports">cow reports</string>
     <string name="last_visit">last visit</string>
     <string name="add_new_cow">add new cow</string>
+    <string name="no_visit_short">no visit</string>
 
 
 </resources>

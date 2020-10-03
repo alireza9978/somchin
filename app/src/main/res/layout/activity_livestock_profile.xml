@@ -71,7 +71,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/next_visit_lists"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="170dp"
                 android:overScrollMode="never"
                 android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -210,7 +211,7 @@
                 style="@style/Theme.App.Profile.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/next_visits"
+                android:text="@string/next_visit"
                 app:layout_constraintBottom_toTopOf="@id/next_visit_value"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/system_title"

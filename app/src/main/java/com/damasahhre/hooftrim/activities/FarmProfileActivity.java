@@ -19,6 +19,7 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
 import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
@@ -62,9 +63,8 @@ public class FarmProfileActivity extends AppCompatActivity {
         nextVisitView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         nextVisitView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewAdapterNextVisitFarmProfile(new ArrayList<>());
+        mAdapter = new RecyclerViewAdapterNextVisitFarmProfile(new ArrayList<>(), this);
         nextVisitView.setAdapter(mAdapter);
-
 
     }
 
@@ -78,7 +78,8 @@ public class FarmProfileActivity extends AppCompatActivity {
         super.onResume();
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            Farm farm = dao.getFarm(id);
+            FarmWithNextVisit farmWithNextVisit = dao.getFarmWithNextVisit(id);
+            Farm farm = farmWithNextVisit.farm;
             runOnUiThread(() -> {
                 bookmark.setOnClickListener(view -> {
                     farm.favorite = !farm.favorite;
@@ -88,7 +89,6 @@ public class FarmProfileActivity extends AppCompatActivity {
                         bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark));
                     }
                     AppExecutors.getInstance().diskIO().execute(() -> {
-
                         dao.update(farm);
                     });
                 });
@@ -100,7 +100,10 @@ public class FarmProfileActivity extends AppCompatActivity {
                 title.setText(farm.name);
                 birthCount.setText("" + farm.birthCount);
                 system.setText(farm.controlSystem);
-                nextVisit.setText("Not yet");
+                if (farmWithNextVisit.nextVisit != null)
+                    nextVisit.setText(farmWithNextVisit.nextVisit.toStringWithoutYear(this));
+                else
+                    nextVisit.setText(R.string.no_visit_short);
             });
             List<CowWithLastVisit> cows = dao.getAllCowOfFarmWithLastVisit(id);
             runOnUiThread(() -> {
@@ -117,8 +120,6 @@ public class FarmProfileActivity extends AppCompatActivity {
                     mAdapter.notifyDataSetChanged();
                 }
             });
-            //todo query one
-            //todo query two
         });
     }
 

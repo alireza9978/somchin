@@ -66,5 +66,13 @@ public class Report {
     @ColumnInfo(name = "cow_id")
     public Integer cowId;
 
-
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", visit=" + visit +
+                ", nextVisit=" + nextVisit +
+                ", cowId=" + cowId +
+                '}';
+    }
 }

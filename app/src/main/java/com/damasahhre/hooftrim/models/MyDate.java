@@ -21,7 +21,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     private int year;
 
     public MyDate(Date date) {
-        day = date.getDay();
+        day = date.getDate();
         month = date.getMonth() + 1;
         year = date.getYear() + 1900;
     }

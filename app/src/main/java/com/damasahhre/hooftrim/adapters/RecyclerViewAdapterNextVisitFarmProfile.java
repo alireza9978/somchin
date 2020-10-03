@@ -1,26 +1,31 @@
 package com.damasahhre.hooftrim.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.NextVisit;
-import com.damasahhre.hooftrim.models.MyDate;
 
-import java.util.Date;
 import java.util.List;
 
 public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapter<RecyclerViewAdapterNextVisitFarmProfile.Holder> {
 
     private List<NextVisit> nextVisits;
+    private Context context;
 
-    public RecyclerViewAdapterNextVisitFarmProfile(List<NextVisit> nextVisits) {
+    public RecyclerViewAdapterNextVisitFarmProfile(List<NextVisit> nextVisits, Context context) {
         this.nextVisits = nextVisits;
+        this.context = context;
     }
 
     public void setNextVisits(List<NextVisit> nextVisits) {
@@ -30,9 +35,8 @@ public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapte
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //todo change view
         return new Holder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.next_visit_item, parent, false));
+                .inflate(R.layout.next_visit_item_farm_profile, parent, false));
     }
 
     @Override
@@ -40,6 +44,13 @@ public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapte
         NextVisit visit = nextVisits.get(position);
         holder.cowName.setText(R.string.cow_title);
         holder.cowName.append("" + visit.cowNumber);
+        holder.date.setText(visit.visitDate.toStringWithoutYear(context));
+        Constants.setImageFront(context, holder.arrow);
+//        holder.itemView.setOnClickListener(view -> {
+//            Intent intent = new Intent(context, AddReportActivity.class);
+//            intent.putExtra(Constants.COW_ID, visit.cowId);
+//            context.startActivity(intent);
+//        });
     }
 
     @Override
@@ -50,14 +61,14 @@ public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapte
     static class Holder extends RecyclerView.ViewHolder {
 
         TextView cowName;
-        TextView farmName;
         TextView date;
+        ImageView arrow;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            farmName = itemView.findViewById(R.id.cow_count_text);
+            arrow = itemView.findViewById(R.id.arrow);
             cowName = itemView.findViewById(R.id.cattel_id);
-            date = itemView.findViewById(R.id.date_string);
+            date = itemView.findViewById(R.id.date_text);
         }
     }
 
