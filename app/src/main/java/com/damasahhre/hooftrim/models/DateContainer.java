@@ -8,6 +8,8 @@ import com.damasahhre.hooftrim.constants.Utilities;
 import java.io.Serializable;
 import java.util.Date;
 
+import saman.zamani.persiandate.PersianDate;
+
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
 
 public class DateContainer implements Serializable {
@@ -155,8 +157,9 @@ public class DateContainer implements Serializable {
 
     public com.damasahhre.hooftrim.models.MyDate exportStart() {
         if (startDate.persian) {
-            //todo convert to en
-            return null;
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toGregorian(startDate.year,startDate.month,startDate.day);
+            return new com.damasahhre.hooftrim.models.MyDate(temp[0], temp[1], temp[2]);
         } else {
             return new com.damasahhre.hooftrim.models.MyDate(startDate.day, startDate.month, startDate.year);
         }
@@ -164,8 +167,9 @@ public class DateContainer implements Serializable {
 
     public com.damasahhre.hooftrim.models.MyDate exportEnd() {
         if (endDate.persian) {
-            //todo convert to en
-            return null;
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toGregorian(startDate.year,startDate.month,startDate.day);
+            return new com.damasahhre.hooftrim.models.MyDate(temp[0], temp[1], temp[2]);
         } else {
             return new com.damasahhre.hooftrim.models.MyDate(endDate.day, endDate.month, endDate.year);
         }

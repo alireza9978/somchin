@@ -97,7 +97,7 @@
     <string name="import_text">import</string>
     <string name="select_cow">select cow</string>
     <string name="export_factor">export factor</string>
-    <string name="add_new_cow">add new cow to factor</string>
+    <string name="add_new_cow_factor">add new cow to factor</string>
     <string name="som_cut_price">هزینه‌ سم‌چینی</string>
     <string name="cure_price">هزینه‌ درمان‌عفونی</string>
     <string name="bed_price">هزینه‌ تخته‌گذاری</string>
@@ -113,6 +113,9 @@
     <string name="toast_select_only_one">select only one part</string>
     <string name="ok">OK</string>
     <string name="other_info">other information</string>
+    <string name="cow_reports">cow reports</string>
+    <string name="last_visit">last visit</string>
+    <string name="add_new_cow">add new cow</string>
 
 
 </resources>

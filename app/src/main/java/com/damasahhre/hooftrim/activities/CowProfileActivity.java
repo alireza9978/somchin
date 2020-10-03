@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
@@ -44,9 +46,11 @@ public class CowProfileActivity extends AppCompatActivity {
         bookmark = findViewById(R.id.bookmark_image);
         lastVisit = findViewById(R.id.count_value);
         nextVisit = findViewById(R.id.system_value);
-        exit = findViewById(R.id.back_icon);
         menu = findViewById(R.id.dropdown_menu);
         reports = findViewById(R.id.reports_list);
+        exit = findViewById(R.id.back_icon);
+        exit.setOnClickListener(view -> finish());
+        Constants.setImageBackBorder(this, exit);
 
         reports.setAdapter(adapter);
 
@@ -57,6 +61,7 @@ public class CowProfileActivity extends AppCompatActivity {
             cow = dao.getCow(id);
             List<Report> reports = dao.getAllReportOfCow(cow.getId());
             runOnUiThread(() -> {
+                Log.i("Cow Profile", "onCreate: " + reports.size());
                 title.setText(cow.getNumber(context));
                 if (cow.getFavorite()) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark_fill));
@@ -67,7 +72,19 @@ public class CowProfileActivity extends AppCompatActivity {
                 adapter.setReports(reports);
                 adapter.notifyDataSetChanged();
             });
-
+            LastReport lastVisit = dao.getLastReport(cow.getId());
+            runOnUiThread(() -> {
+                if (lastVisit.nextVisit != null) {
+                    this.nextVisit.setText(lastVisit.nextVisit.toString());
+                }else{
+                    this.nextVisit.setText("null");
+                }
+                if (lastVisit.lastVisit != null) {
+                    this.lastVisit.setText(lastVisit.lastVisit.toString());
+                }else{
+                    this.lastVisit.setText("null");
+                }
+            });
         });
 
         bookmark.setOnClickListener(view -> {

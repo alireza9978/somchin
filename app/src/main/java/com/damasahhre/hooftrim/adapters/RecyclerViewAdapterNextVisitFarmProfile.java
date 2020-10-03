@@ -9,46 +9,42 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.database.models.NextReport;
+import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.Date;
 import java.util.List;
 
-public class RecyclerViewAdapterNextVisit extends RecyclerView.Adapter<RecyclerViewAdapterNextVisit.Holder> {
+public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapter<RecyclerViewAdapterNextVisitFarmProfile.Holder> {
 
-    private List<NextReport> nextReports;
+    private List<NextVisit> nextVisits;
 
-    public RecyclerViewAdapterNextVisit(List<NextReport> nextReports) {
-        this.nextReports = nextReports;
+    public RecyclerViewAdapterNextVisitFarmProfile(List<NextVisit> nextVisits) {
+        this.nextVisits = nextVisits;
     }
 
-    public void setNextReports(List<NextReport> nextReports) {
-        this.nextReports = nextReports;
+    public void setNextVisits(List<NextVisit> nextVisits) {
+        this.nextVisits = nextVisits;
     }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //todo change view
         return new Holder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.next_visit_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        NextReport report = nextReports.get(position);
+        NextVisit visit = nextVisits.get(position);
         holder.cowName.setText(R.string.cow_title);
-        holder.cowName.append("" + report.cowNumber);
-        holder.farmName.setText(report.farmName);
-        if (report.nextVisitDate.compareTo(new MyDate(new Date())) == 0) {
-            holder.date.setText(R.string.today);
-        } else
-            holder.date.setText(report.nextVisitDate.toString());
+        holder.cowName.append("" + visit.cowNumber);
     }
 
     @Override
     public int getItemCount() {
-        return Math.min(nextReports.size(), 3);
+        return Math.min(nextVisits.size(), 3);
     }
 
     static class Holder extends RecyclerView.ViewHolder {

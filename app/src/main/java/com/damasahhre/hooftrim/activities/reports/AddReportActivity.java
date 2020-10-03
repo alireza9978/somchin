@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.activities.reports;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -89,9 +90,11 @@ public class AddReportActivity extends AppCompatActivity {
         });
     }
 
+    private String TAG = "AddReport";
     private void addCowAndReport() {
         MyDao dao = DataBase.getInstance(this).dao();
         if (cow != null) {
+            Log.i(TAG, "addCowAndReport: cow_id = " + cow.getId());
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Report report = new Report();
                 report.visit = one.exportStart();
@@ -107,10 +110,14 @@ public class AddReportActivity extends AppCompatActivity {
             });
         } else {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                int cowNumber = ((CowInfoFragment) adapter.getItem(0)).getNumber();
-                Cow cow = new Cow(cowNumber, false, farmId);
-                dao.insert(cow);
 
+                int cowNumber = ((CowInfoFragment) adapter.getItem(0)).getNumber();
+                Cow cow = dao.getCow(cowNumber,farmId);
+                if (cow == null) {
+                    cow = new Cow(cowNumber, false, farmId);
+                    dao.insert(cow);
+                }
+                cow = dao.getCow(cowNumber,farmId);
                 Report report = new Report();
                 report.visit = one.exportStart();
                 report.nextVisit = two.exportStart();
@@ -119,6 +126,7 @@ public class AddReportActivity extends AppCompatActivity {
                 report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleans(report);
+                dao.insert(report);
                 runOnUiThread(this::finish);
             });
         }

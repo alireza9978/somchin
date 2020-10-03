@@ -7,11 +7,13 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 import com.damasahhre.hooftrim.database.models.CowWithReports;
 import com.damasahhre.hooftrim.database.models.Farm;
-import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.FarmWithCows;
+import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.NextReport;
+import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.models.MyDate;
 
@@ -59,9 +61,29 @@ public interface MyDao {
             " Farm.id == Cow.farm_id")
     List<NextReport> getAllNextVisitInDay(MyDate now);
 
+    @Query("SELECT Report.next_visit_date AS visitDate, Cow.id AS cowId, Cow.number AS cowNumber" +
+            " FROM Cow, Report, Farm" +
+            " WHERE visitDate >= :now AND" +
+            " Cow.id == Report.cow_id AND" +
+            " Farm.id == Cow.farm_id AND" +
+            " Farm.id == :farmId")
+    List<NextVisit> getAllNextVisitFroFarm(MyDate now, Integer farmId);
+
+    @Query("SELECT Report.next_visit_date AS nextVisit, MAX(Report.visit_date) AS lastVisit" +
+            " FROM Report" +
+            " WHERE Report.cow_id == :cowId")
+    LastReport getLastReport(Integer cowId);
 
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();
+
+
+    @Query("SELECT Cow.id AS id, Cow.number AS number, MAX(Report.visit_date) AS lastVisit " +
+            " FROM Cow, Report" +
+            " WHERE Cow.farm_id == :id AND" +
+            " Report.cow_id == Cow.id")
+    List<CowWithLastVisit> getAllCowOfFarmWithLastVisit(Integer id);
+
 
     @Query("SELECT * FROM Cow WHERE Cow.farm_id == :id")
     List<Cow> getAllCowOfFarm(Integer id);
@@ -71,6 +93,9 @@ public interface MyDao {
 
     @Query("SELECT * FROM Farm WHERE Farm.id == :id")
     Farm getFarm(Integer id);
+
+    @Query("SELECT * FROM Cow WHERE Cow.number == :cowNumber AND Cow.farm_id == :farmId")
+    Cow getCow(Integer cowNumber, Integer farmId);
 
     @Query("SELECT * FROM Cow WHERE Cow.id == :id")
     Cow getCow(Integer id);

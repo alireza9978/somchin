@@ -1,9 +1,18 @@
 package com.damasahhre.hooftrim.models;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.view.View;
+
+import com.damasahhre.hooftrim.constants.Utilities;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import saman.zamani.persiandate.PersianDate;
 
 public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
 
@@ -77,8 +86,34 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
         }
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "" + year + "/" + month + "/" + day;
     }
+
+    @NotNull
+    public String toString(Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toJalali(year, month, day);
+            return "" + temp[0] + "/" + temp[1] + "/" + temp[2];
+        } else {
+            return "" + year + "/" + month + "/" + day;
+        }
+    }
+
+    @NotNull
+    public String toStringWithoutYear(Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toJalali(year, month, day);
+            return Utilities.getMonthName(context, temp[1]) + " " + temp[2];
+        } else {
+            return Utilities.getMonthName(context, month) + " " + day;
+        }
+    }
+
 }

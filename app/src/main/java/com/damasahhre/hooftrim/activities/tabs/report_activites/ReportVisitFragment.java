@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
-import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisit;
+import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisitReport;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
@@ -52,7 +52,7 @@ public class ReportVisitFragment extends Fragment {
     private ImageView right;
     private ImageView left;
 
-    private RecyclerViewAdapterNextVisit mAdapter;
+    private RecyclerViewAdapterNextVisitReport mAdapter;
     private TextView dateText;
     private TextView visitText;
     private TextView noVisit;
@@ -89,7 +89,7 @@ public class ReportVisitFragment extends Fragment {
         nextVisitList.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         nextVisitList.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewAdapterNextVisit(new ArrayList<>());
+        mAdapter = new RecyclerViewAdapterNextVisitReport(new ArrayList<>());
         nextVisitList.setAdapter(mAdapter);
         return view;
     }

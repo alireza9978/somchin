@@ -19,22 +19,22 @@
             android:id="@+id/dropdown_menu"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_menu"
-            app:tint="@color/selected_tab_home"
             android:layout_marginEnd="5dp"
             android:padding="10dp"
+            android:src="@drawable/ic_menu"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/back_icon" />
+            app:layout_constraintTop_toTopOf="@id/back_icon"
+            app:tint="@color/selected_tab_home" />
 
         <ImageView
             android:id="@+id/back_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="5dp"
-            android:src="@drawable/ic_next"
-            android:rotationY="180"
+            android:layout_marginTop="30dp"
             android:padding="10dp"
+            android:rotationY="180"
+            android:src="@drawable/ic_next"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,11 +101,14 @@
                 android:layout_height="0dp"
                 android:layout_margin="15dp"
                 android:layout_marginTop="5dp"
+                android:clipToPadding="false"
                 android:numColumns="2"
                 android:overScrollMode="never"
                 android:paddingStart="15dp"
+                android:paddingTop="5dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="5dp"
+                android:paddingBottom="15dp"
+                android:verticalSpacing="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,8 +157,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:foregroundGravity="center"
             android:layout_marginTop="10dp"
+            android:foregroundGravity="center"
             android:paddingBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_livestrok">

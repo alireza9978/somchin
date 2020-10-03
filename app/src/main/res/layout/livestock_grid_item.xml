@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_margin="8dp"
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         android:padding="10dp">
 
@@ -36,19 +37,21 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:fontFamily="@font/anjoman_medium"
+            android:gravity="center_vertical"
+            android:textAlignment="gravity"
             android:textColor="@color/persian_green"
             app:layout_constraintBottom_toBottomOf="@id/cow_icon"
             app:layout_constraintStart_toEndOf="@id/cow_icon"
             app:layout_constraintTop_toTopOf="@id/cow_icon" />
 
-        <TextView
+        <ImageView
             android:id="@+id/arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_margin="15dp"
             android:fontFamily="@font/anjoman_medium"
             android:gravity="center"
-            android:text=">"
+            android:padding="2dp"
             android:textAlignment="center"
             android:textColor="@color/persian_green"
             app:layout_constraintBottom_toBottomOf="@id/cow_icon"
