@@ -117,5 +117,9 @@
     <string name="cow_reports">گزارشات دام</string>
     <string name="last_visit">آخرین بازدید</string>
     <string name="add_new_cow">افزودن گاو جدید</string>
+    <string name="loading">درحال ‌بارگذاری</string>
+    <string name="offline">استفاده آفلاین</string>
+    <string name="check_network">لطفا اتصال اینترنت خود را بررسی کنید</string>
+    <string name="try_again">تلاش دوباره</string>
 
 </resources>

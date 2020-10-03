@@ -79,7 +79,7 @@ public class FarmProfileActivity extends AppCompatActivity {
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             FarmWithNextVisit farmWithNextVisit = dao.getFarmWithNextVisit(id);
-            Farm farm = farmWithNextVisit.farm;
+            Farm farm = dao.getFarm(id);
             runOnUiThread(() -> {
                 bookmark.setOnClickListener(view -> {
                     farm.favorite = !farm.favorite;
@@ -107,10 +107,10 @@ public class FarmProfileActivity extends AppCompatActivity {
             });
             List<CowWithLastVisit> cows = dao.getAllCowOfFarmWithLastVisit(id);
             runOnUiThread(() -> {
-                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, farm.id);
+                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, id);
                 cowsGridView.setAdapter(adapter);
             });
-            List<NextVisit> list = dao.getAllNextVisitFroFarm(new MyDate(new Date()), farm.id);
+            List<NextVisit> list = dao.getAllNextVisitFroFarm(new MyDate(new Date()), id);
             runOnUiThread(() -> {
                 if (list.isEmpty()) {
                     hideVisit();

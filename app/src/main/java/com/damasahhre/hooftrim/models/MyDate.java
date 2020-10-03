@@ -26,8 +26,14 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
         year = date.getYear() + 1900;
     }
 
+    public boolean isToday(){
+        if (compareTo(new MyDate(new Date())) == 0){
+            return true;
+        }
+        return false;
+    }
+
     public MyDate(Long temp) {
-        Log.i("TAG", "MyDate: " + temp);
         String tempDate = "" + temp;
         year = Integer.parseInt(tempDate.substring(0, 4));
         month = Integer.parseInt(tempDate.substring(4, 6));

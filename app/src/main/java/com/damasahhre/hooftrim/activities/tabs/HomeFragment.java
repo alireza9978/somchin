@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
         nextVisitList.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         nextVisitList.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>());
+        mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>(),requireContext());
         nextVisitList.setAdapter(mAdapter);
 
         return view;
@@ -136,13 +136,12 @@ public class HomeFragment extends Fragment {
             }
         });
         AppExecutors.getInstance().diskIO().execute(() -> {
-            //todo replace with 0
             List<NextReport> reports = dao.getAllNextVisit(new MyDate(new Date()));
-            Log.i("TAG", "onResume: " + reports.size());
             if (reports.isEmpty()) {
                 hideVisit();
             } else {
                 requireActivity().runOnUiThread(() -> {
+                    Log.i("TAG", "onResume: " + reports.size());
                     mAdapter.setNextReports(reports);
                     mAdapter.notifyDataSetChanged();
                     showVisit(reports.size() > 3);

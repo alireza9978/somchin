@@ -117,6 +117,10 @@
     <string name="last_visit">last visit</string>
     <string name="add_new_cow">add new cow</string>
     <string name="no_visit_short">no visit</string>
+    <string name="loading">loading</string>
+    <string name="offline">offline</string>
+    <string name="check_network">check internet connection</string>
+    <string name="try_again">try again</string>
 
 
 </resources>

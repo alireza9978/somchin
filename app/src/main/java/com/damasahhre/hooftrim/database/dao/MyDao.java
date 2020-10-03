@@ -41,18 +41,18 @@ public interface MyDao {
     @Query("SELECT * FROM Cow WHERE Cow.farm_id == :farmId")
     public List<FarmWithCows> getFarmWithCows(Integer farmId);
 
-    @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
+    @Query("SELECT Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId, MAX(Report.next_visit_date) AS nextVisitDate" +
             " FROM Cow, Report, Farm" +
-            " WHERE nextVisitDate >= :now AND" +
-            " Cow.id == Report.cow_id AND" +
-            " Farm.id == Cow.farm_id")
+            " WHERE Report.next_visit_date >= :now AND" +
+            " Farm.id == Cow.farm_id AND" +
+            " Cow.id == Report.cow_id GROUP BY Cow.id")
     List<NextReport> getAllNextVisit(MyDate now);
 
     @Query("SELECT Report.visit_date AS visitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
             " FROM Cow, Report, Farm" +
             " WHERE visitDate == :now AND" +
             " Cow.id == Report.cow_id AND" +
-            " Farm.id == Cow.farm_id")
+            " Farm.id == Cow.farm_id ")
     List<NextReport> getAllVisitInDay(MyDate now);
 
     @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
@@ -62,12 +62,12 @@ public interface MyDao {
             " Farm.id == Cow.farm_id")
     List<NextReport> getAllNextVisitInDay(MyDate now);
 
-    @Query("SELECT Report.next_visit_date AS visitDate, Cow.id AS cowId, Cow.number AS cowNumber" +
+    @Query("SELECT MAX(Report.next_visit_date) AS visitDate, Cow.id AS cowId, Cow.number AS cowNumber" +
             " FROM Cow, Report, Farm" +
-            " WHERE visitDate >= :now AND" +
+            " WHERE Report.next_visit_date >= :now AND" +
             " Report.cow_id == Cow.id AND" +
             " Cow.farm_id == Farm.id AND" +
-            " Farm.id == :farmId")
+            " Farm.id == :farmId GROUP BY Cow.id")
     List<NextVisit> getAllNextVisitFroFarm(MyDate now, Integer farmId);
 
     @Query("SELECT Report.next_visit_date AS nextVisit, MAX(Report.visit_date) AS lastVisit" +
@@ -97,7 +97,7 @@ public interface MyDao {
     @Query("SELECT * FROM Farm WHERE Farm.id == :id")
     Farm getFarm(Integer id);
 
-    @Query("SELECT *, MIN(Report.next_visit_date) AS nextVisit " +
+    @Query("SELECT Farm.id AS farmId, MIN(Report.next_visit_date) AS nextVisit " +
             "FROM Farm,Cow,Report " +
             "WHERE Farm.id == :id " +
             "AND Cow.farm_id == Farm.id " +

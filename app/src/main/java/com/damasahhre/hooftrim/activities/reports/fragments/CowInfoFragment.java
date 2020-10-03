@@ -24,6 +24,7 @@ public class CowInfoFragment extends Fragment {
     private ConstraintLayout date_container;
     private TextView date_text;
     private TextView numberEdit;
+    private Integer cowNumber = null;
     private String date;
 
     @Override
@@ -82,6 +83,9 @@ public class CowInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (cowNumber != null) {
+            setCowNumber(cowNumber);
+        }
         if (date != null) {
             if (this.date.length() == 0) {
                 date_container.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.login_input_background));
@@ -92,9 +96,16 @@ public class CowInfoFragment extends Fragment {
         }
     }
 
+
     public void setCowNumber(int number) {
-        numberEdit.setText("" + number);
-        numberEdit.setEnabled(false);
+        if (numberEdit != null) {
+            numberEdit.setText("" + number);
+            numberEdit.setEnabled(false);
+            cowNumber = null;
+        } else {
+            cowNumber = number;
+        }
+
     }
 
     public void setDate(String date) {
@@ -104,7 +115,7 @@ public class CowInfoFragment extends Fragment {
         }
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return Integer.parseInt(numberEdit.getText().toString());
     }
 
