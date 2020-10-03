@@ -36,6 +36,7 @@ public class CowProfileActivity extends AppCompatActivity {
     private Context context;
     private Cow cow;
     private GridViewAdapterCowProfile adapter;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +53,28 @@ public class CowProfileActivity extends AppCompatActivity {
         exit.setOnClickListener(view -> finish());
         Constants.setImageBackBorder(this, exit);
 
-        reports.setAdapter(adapter);
+        id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.COW_ID);
+        exit.setOnClickListener((v) -> finish());
 
 
-        int id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.COW_ID);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             cow = dao.getCow(id);
             List<Report> reports = dao.getAllReportOfCow(cow.getId());
             runOnUiThread(() -> {
-                Log.i("Cow Profile", "onCreate: " + reports.size());
                 title.setText(cow.getNumber(context));
                 if (cow.getFavorite()) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark_fill));
                 } else {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark));
                 }
-                adapter = new GridViewAdapterCowProfile(this, new ArrayList<>(), cow.getId());
-                adapter.setReports(reports);
+                adapter = new GridViewAdapterCowProfile(this,reports, cow.getId());
+                this.reports.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             });
             LastReport lastVisit = dao.getLastReport(cow.getId());
@@ -77,16 +82,15 @@ public class CowProfileActivity extends AppCompatActivity {
                 if (lastVisit.nextVisit != null) {
                     this.nextVisit.setText(lastVisit.nextVisit.toString());
                 }else{
-                    this.nextVisit.setText("null");
+                    this.nextVisit.setText(R.string.no_visit_short);
                 }
                 if (lastVisit.lastVisit != null) {
                     this.lastVisit.setText(lastVisit.lastVisit.toString());
                 }else{
-                    this.lastVisit.setText("null");
+                    this.lastVisit.setText(R.string.no_visit_short);
                 }
             });
         });
-
         bookmark.setOnClickListener(view -> {
             if (cow != null) {
                 cow.setFavorite(!cow.getFavorite());
@@ -100,8 +104,5 @@ public class CowProfileActivity extends AppCompatActivity {
                 }
             }
         });
-        exit.setOnClickListener((v) -> finish());
-
-
     }
 }

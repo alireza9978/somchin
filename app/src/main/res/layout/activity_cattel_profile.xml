@@ -68,18 +68,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <GridView
+            <com.damasahhre.hooftrim.ui_element.ExpandableHeightGridView
                 android:id="@+id/reports_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="15dp"
                 android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false"
                 android:numColumns="2"
                 android:overScrollMode="never"
+                android:paddingTop="10dp"
+                android:clipToPadding="false"
                 android:paddingStart="15dp"
-                android:nestedScrollingEnabled="false"
                 android:paddingEnd="15dp"
-                android:paddingBottom="5dp"
+                android:paddingBottom="10dp"
+                android:verticalSpacing="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -139,8 +142,8 @@
                 style="@style/Theme.App.Profile.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/last_visit"
                 android:layout_marginStart="15dp"
+                android:text="@string/last_visit"
                 app:layout_constraintBottom_toTopOf="@id/count_value"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

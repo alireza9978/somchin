@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.damasahhre.hooftrim.R;
@@ -73,18 +74,21 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
                 holder = new Holder();
                 holder.view = view;
                 holder.title = view.findViewById(R.id.report_name);
+                holder.arrow = view.findViewById(R.id.arrow);
                 view.setTag(holder);
             } else {
                 holder = (Holder) view.getTag();
             }
 
+            Constants.setImageFront(context, holder.arrow);
             holder.view.setOnClickListener((v) -> {
                 //todo change to report summery activity
 //                Intent intent = new Intent(context, Report.class);
 //                intent.putExtra(Constants.FARM_ID, report.id);
 //                context.startActivity(intent);
             });
-            holder.title.setText("" + report.id);
+            holder.title.setText(R.string.report);
+            holder.title.append(" " + report.id);
         }
         return view;
     }
@@ -96,6 +100,7 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
     static class Holder {
         View view;
         TextView title;
+        ImageView arrow;
     }
 
 }
