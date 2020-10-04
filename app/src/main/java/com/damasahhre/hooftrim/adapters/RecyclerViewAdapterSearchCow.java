@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.CowProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.CowForMarked;
 
 import java.util.List;
 
 public class RecyclerViewAdapterSearchCow extends RecyclerView.Adapter<RecyclerViewAdapterSearchCow.Holder> {
 
-    private List<Cow> cows;
+    private List<CowForMarked> cows;
     private Context context;
 
-    public RecyclerViewAdapterSearchCow(List<Cow> cows, Context context) {
+    public RecyclerViewAdapterSearchCow(List<CowForMarked> cows, Context context) {
         this.cows = cows;
         this.context = context;
     }
 
-    public void setCows(List<Cow> cows) {
+    public void setCows(List<CowForMarked> cows) {
         this.cows = cows;
     }
 
@@ -41,13 +41,15 @@ public class RecyclerViewAdapterSearchCow extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        Cow cow = cows.get(position);
-        holder.cowName.setText(cow.getNumber(context));
-        holder.farmName.setText("farm");
-        holder.date.setText("date");
+        CowForMarked cow = cows.get(position);
+        holder.cowName.setText(R.string.cow_title);
+        holder.cowName.append(" " + cow.cowNumber);
+        holder.farmName.setText(cow.farmName);
+        holder.date.setText(cow.lastVisit.toStringWithoutYear(context));
+        Constants.setImageFront(context, holder.arrow);
         holder.itemView.setOnClickListener((v) -> {
             Intent intent = new Intent(context, CowProfileActivity.class);
-            intent.putExtra(Constants.COW_ID, cow.getId());
+            intent.putExtra(Constants.COW_ID, cow.cowId);
             context.startActivity(intent);
         });
     }

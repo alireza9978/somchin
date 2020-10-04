@@ -1,72 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="8dp"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginTop="4dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="4dp"
-    android:paddingLeft="15dp"
-    android:paddingTop="15dp"
-    android:paddingRight="15dp"
-    android:paddingBottom="10dp">
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/cow_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anjoman_semi_bold"
-        android:text="دام ۱۲۳"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        >
 
-    <TextView
-        android:id="@+id/cow_count_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/anjoman_medium"
-        android:text="دامداری البرز"
-        android:textColor="@color/hit_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/cow_name"
-        app:layout_constraintTop_toBottomOf="@id/cow_name" />
+        <TextView
+            android:id="@+id/cow_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/anjoman_semi_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/date_image"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@id/cow_count_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cow_count_text"
-        app:tint="@color/persian_green" />
+        <TextView
+            android:id="@+id/cow_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/anjoman_medium"
+            android:textColor="@color/hit_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cow_name"
+            app:layout_constraintTop_toBottomOf="@id/cow_name" />
 
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:fontFamily="@font/anjoman_medium"
-        android:text="۹ شهریور"
-        android:textColor="@color/persian_green"
-        app:layout_constraintBottom_toBottomOf="@id/date_image"
-        app:layout_constraintStart_toEndOf="@id/date_image"
-        app:layout_constraintTop_toTopOf="@id/date_image" />
+        <ImageView
+            android:id="@+id/date_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_calendar"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/cow_count_text"
+            app:layout_constraintStart_toEndOf="@id/cow_count_text"
+            app:layout_constraintTop_toTopOf="@id/cow_count_text"
+            app:tint="@color/persian_green" />
 
-    <ImageView
-        android:id="@+id/arrow"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="10dp"
-        android:src="@drawable/ic_front"
-        app:tint="@color/persian_green"
-        app:layout_constraintBottom_toBottomOf="@id/date_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/date_image" />
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/anjoman_medium"
+            android:textColor="@color/persian_green"
+            app:layout_constraintBottom_toBottomOf="@id/date_image"
+            app:layout_constraintStart_toEndOf="@id/date_image"
+            app:layout_constraintTop_toTopOf="@id/date_image" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_front"
+            app:layout_constraintBottom_toBottomOf="@id/date_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/date_image"
+            app:tint="@color/persian_green" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

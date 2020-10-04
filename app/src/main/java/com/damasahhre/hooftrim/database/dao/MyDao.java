@@ -7,10 +7,10 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.CowForMarked;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
-import com.damasahhre.hooftrim.database.models.CowWithReports;
 import com.damasahhre.hooftrim.database.models.Farm;
-import com.damasahhre.hooftrim.database.models.FarmWithCows;
+import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
 import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.NextReport;
@@ -23,23 +23,29 @@ import java.util.List;
 @Dao
 public interface MyDao {
 
-    @Query("SELECT * FROM Farm ")
-    public List<FarmWithCows> getFarmWithCows();
+    @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber," +
+            " Farm.name AS farmName, MAX(Report.visit_date) AS lastVisit " +
+            "FROM Cow,Farm,Report " +
+            "WHERE Cow.favorite AND " +
+            "Cow.farm_id == Farm.id AND " +
+            "Report.cow_id == Cow.id GROUP BY Cow.id")
+    List<CowForMarked> getMarkedCows();
 
-    @Query("SELECT * FROM Cow WHERE Cow.farm_id == :id")
-    public List<Cow> getNextVisitCows(int id);
+    @Query("SELECT Farm.id AS farmId, Farm.name AS farmName, COUNT(Cow.id) AS cow_count " +
+            "FROM Farm, Cow " +
+            "WHERE Farm.id == Cow.farm_id GROUP BY Farm.id")
+    List<FarmWithCowCount> getFarmWithCowCount();
 
-    @Query("SELECT * FROM Cow WHERE Cow.favorite")
-    public List<Cow> getMarkedCows();
+    @Query("SELECT Farm.id AS farmId, Farm.name AS farmName, COUNT(Cow.id) AS cow_count " +
+            "FROM Farm,Cow " +
+            "WHERE Farm.is_favorite AND " +
+            "Cow.farm_id == Farm.id GROUP BY Farm.id")
+    List<FarmWithCowCount> getMarkedFarmWithCowCount();
 
-    @Query("SELECT * FROM Farm WHERE Farm.is_favorite")
-    public List<Farm> getMarkedFarm();
-
-    @Query("SELECT * FROM Report WHERE Report.cow_id == :cowId")
-    public List<CowWithReports> getCowsWithReport(Integer cowId);
-
-    @Query("SELECT * FROM Cow WHERE Cow.farm_id == :farmId")
-    public List<FarmWithCows> getFarmWithCows(Integer farmId);
+    @Query("SELECT * " +
+            "FROM Farm " +
+            "WHERE Farm.is_favorite")
+    List<Farm> getMarkedFarm();
 
     @Query("SELECT Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId, MAX(Report.next_visit_date) AS nextVisitDate" +
             " FROM Cow, Report, Farm" +
@@ -77,9 +83,6 @@ public interface MyDao {
 
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();
-
-    @Query("SELECT * FROM Report")
-    List<Report> getAllReports();
 
     @Query("SELECT Cow.id AS id, Cow.number AS number, MAX(Report.visit_date) AS lastVisit " +
             " FROM Cow, Report" +

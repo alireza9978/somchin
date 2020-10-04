@@ -14,21 +14,21 @@ import androidx.core.content.ContextCompat;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.FarmProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 
 import java.util.List;
 
 public class GridViewAdapterHomeFarm extends BaseAdapter {
 
-    private List<Farm> farms;
+    private List<FarmWithCowCount> farms;
     private Context context;
 
-    public GridViewAdapterHomeFarm(Context context, List<Farm> farms) {
+    public GridViewAdapterHomeFarm(Context context, List<FarmWithCowCount> farms) {
         this.farms = farms;
         this.context = context;
     }
 
-    public void setFarms(List<Farm> farms) {
+    public void setFarms(List<FarmWithCowCount> farms) {
         this.farms = farms;
     }
 
@@ -44,18 +44,19 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return farms.get(i).id;
+        return farms.get(i).farmId;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Holder holder;
-        Farm farm = farms.get(i);
+        FarmWithCowCount farm = farms.get(i);
         if (view == null) {
             view = LayoutInflater.from(context)
                     .inflate(R.layout.livestock_grid_item, viewGroup, false);
             holder = new Holder();
             holder.view = view;
+            holder.arrow = view.findViewById(R.id.arrow);
             holder.cowCount = view.findViewById(R.id.cow_count);
             holder.farmTitle = view.findViewById(R.id.farm_text);
             holder.icon = view.findViewById(R.id.cow_icon);
@@ -65,11 +66,12 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
         }
         holder.view.setOnClickListener((v) -> {
             Intent intent = new Intent(context, FarmProfileActivity.class);
-            intent.putExtra(Constants.FARM_ID, farm.id);
+            intent.putExtra(Constants.FARM_ID, farm.farmId);
             context.startActivity(intent);
         });
-        holder.farmTitle.setText(farm.name);
-        holder.cowCount.setText("" + farm.birthCount);
+        holder.farmTitle.setText(farm.farmName);
+        holder.cowCount.setText("" + farm.cowCount);
+        Constants.setImageFront(context, holder.arrow);
         holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cow));
         return view;
     }
@@ -79,6 +81,7 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
         TextView cowCount;
         TextView farmTitle;
         ImageView icon;
+        ImageView arrow;
     }
 
 }

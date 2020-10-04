@@ -22,6 +22,7 @@ import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterHomeNextVisit;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
         nextVisitList.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         nextVisitList.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>(),requireContext());
+        mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>(), requireContext());
         nextVisitList.setAdapter(mAdapter);
 
         return view;
@@ -123,12 +124,28 @@ public class HomeFragment extends Fragment {
         super.onResume();
         MyDao dao = DataBase.getInstance(requireContext()).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<Farm> farmList = dao.getAll();
-            //todo replace with 4
+            List<FarmWithCowCount> farmList = dao.getFarmWithCowCount();
+            List<Farm> farms = dao.getAll();
             if (farmList.isEmpty()) {
                 hideFarms();
             } else {
                 requireActivity().runOnUiThread(() -> {
+                    Log.i("TAG", "onResume: " + farms.size());
+                    ArrayList<FarmWithCowCount> addition = new ArrayList<>();
+                    main:
+                    for (Farm farm: farms){
+                        for (FarmWithCowCount farmWithCowCount: farmList){
+                            if (farm.id.equals(farmWithCowCount.farmId)){
+                                continue main;
+                            }
+                        }
+                        FarmWithCowCount temp = new FarmWithCowCount();
+                        temp.cowCount = 0;
+                        temp.farmId = farm.id;
+                        temp.farmName = farm.name;
+                        addition.add(temp);
+                    }
+                    farmList.addAll(addition);
                     adapterHomeFarm.setFarms(farmList);
                     adapterHomeFarm.notifyDataSetChanged();
                     showFarms();
@@ -141,7 +158,6 @@ public class HomeFragment extends Fragment {
                 hideVisit();
             } else {
                 requireActivity().runOnUiThread(() -> {
-                    Log.i("TAG", "onResume: " + reports.size());
                     mAdapter.setNextReports(reports);
                     mAdapter.notifyDataSetChanged();
                     showVisit(reports.size() > 3);

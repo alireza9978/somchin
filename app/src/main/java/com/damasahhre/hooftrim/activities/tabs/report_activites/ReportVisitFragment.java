@@ -94,6 +94,25 @@ public class ReportVisitFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String language = Constants.getDefualtlanguage(requireContext());
+        if (language.isEmpty()) {
+            language = "en";
+        }
+        if (language.equals("en")){
+            Date date = new Date();
+            CalendarDay today = CalendarDay.today();
+            calendar.setSelectedDate(today);
+            calendar.setCurrentDate(today);
+            setTopCalendarBarEn(date);
+        }else{
+
+        }
+
+    }
+
     private void setNotFound() {
         dateText.setVisibility(View.INVISIBLE);
         nextVisitList.setVisibility(View.INVISIBLE);

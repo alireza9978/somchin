@@ -15,6 +15,7 @@ import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.CowForMarked;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class MarkedCowsFragment extends Fragment {
         super.onResume();
         MyDao dao = DataBase.getInstance(requireContext()).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<Cow> cows = dao.getMarkedCows();
+            List<CowForMarked> cows = dao.getMarkedCows();
             requireActivity().runOnUiThread(() -> {
                 if (cows.isEmpty()) {
                     notFound.setVisibility(View.VISIBLE);

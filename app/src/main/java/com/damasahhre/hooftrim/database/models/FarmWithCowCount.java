@@ -1,12 +1,13 @@
 package com.damasahhre.hooftrim.database.models;
 
-import androidx.room.Embedded;
+import androidx.room.ColumnInfo;
 
 public class FarmWithCowCount {
 
-    @Embedded
-    Farm farm;
+    public Integer farmId;
+    public String farmName;
 
-    Integer count;
+    @ColumnInfo(name = "cow_count")
+    public Integer cowCount;
 
 }
