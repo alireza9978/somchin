@@ -106,6 +106,7 @@
     <string name="no_marked_farm">no marked farm!</string>
     <string name="no_visit">there is no visit!</string>
     <string name="all_visits">all visits</string>
+    <string name="visit_cow">visit from cow</string>
 
     <string name="toast_enter_cow_number">enter cow number</string>
     <string name="toast_enter_date">enter date</string>

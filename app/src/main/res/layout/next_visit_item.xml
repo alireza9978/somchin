@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/gray_border_background">
+    android:background="@drawable/gray_border_background"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp">
 
     <TextView
         android:id="@+id/date_string"
@@ -11,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/anjoman_bold"
-        android:text="۹۶/۰۵/۱۸"
         android:textColor="@color/selected_tab_home"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/cattel_id"
@@ -36,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/anjoman_bold"
-        android:text="نام گاوداری"
         android:textColor="@color/hit_gray"
         android:textSize="14sp"
 
@@ -52,7 +52,6 @@
         android:layout_marginStart="15dp"
         android:fontFamily="@font/anjoman_semi_bold"
         android:gravity="center"
-        android:text=" بازدید از دام شماره ۱۲۳"
         android:textAlignment="center"
         android:textColor="@color/selected_tab_home"
         android:textSize="18sp"

@@ -107,6 +107,7 @@
     <string name="no_visit">بازدیدی ثبت نشده است!</string>
     <string name="no_visit_short">بدون بازدید</string>
     <string name="all_visits">همه بازدید‌ها</string>
+    <string name="visit_cow">بازدید از گاو</string>
 
     <string name="toast_enter_cow_number">شماره گاو را وارد کنید</string>
     <string name="toast_enter_date">تاریخ را وارد کنید</string>
