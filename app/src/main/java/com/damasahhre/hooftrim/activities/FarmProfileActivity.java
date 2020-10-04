@@ -1,6 +1,7 @@
 package com.damasahhre.hooftrim.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisitFarmProfile;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
@@ -106,7 +108,21 @@ public class FarmProfileActivity extends AppCompatActivity {
                     nextVisit.setText(R.string.no_visit_short);
             });
             List<CowWithLastVisit> cows = dao.getAllCowOfFarmWithLastVisit(id);
+            List<Cow> allCows = dao.getAllCowOfFarm(id);
             runOnUiThread(() -> {
+                main:
+                for(Cow cow : allCows){
+                    for (CowWithLastVisit cowWithLastVisit : cows){
+                        if (cow.getId().equals(cowWithLastVisit.getId())){
+                            continue main;
+                        }
+                    }
+                    CowWithLastVisit temp = new CowWithLastVisit();
+                    temp.setId(cow.getId());
+                    temp.setLastVisit(null);
+                    temp.setNumber(cow.getNumber());
+                    cows.add(temp);
+                }
                 GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, id);
                 cowsGridView.setAdapter(adapter);
             });

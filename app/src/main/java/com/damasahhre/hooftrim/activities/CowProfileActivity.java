@@ -67,6 +67,7 @@ public class CowProfileActivity extends AppCompatActivity {
             cow = dao.getCow(id);
             List<Report> reports = dao.getAllReportOfCow(cow.getId());
             runOnUiThread(() -> {
+                Log.i("Cow Profile", "onResume: " + reports.size());
                 title.setText(cow.getNumber(context));
                 if (cow.getFavorite()) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark_fill));
@@ -78,6 +79,7 @@ public class CowProfileActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             });
             LastReport lastVisit = dao.getLastReport(cow.getId());
+
             runOnUiThread(() -> {
                 if (lastVisit.nextVisit != null) {
                     this.nextVisit.setText(lastVisit.nextVisit.toString());

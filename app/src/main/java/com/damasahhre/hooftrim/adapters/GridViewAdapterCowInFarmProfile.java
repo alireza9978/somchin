@@ -92,8 +92,13 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             });
             holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_calendar));
             holder.farmTitle.setText(cow.getNumber(context));
-            holder.cowCount.setText(cow.getLastVisit().toStringWithoutYear(context));
-            holder.cowCount.setTextColor(ContextCompat.getColor(context, R.color.persian_green));
+            if (cow.getLastVisit() == null){
+                holder.cowCount.setText(R.string.no_visit_short);
+                holder.cowCount.setTextColor(ContextCompat.getColor(context, R.color.persian_green));
+            }else {
+                holder.cowCount.setText(cow.getLastVisit().toStringWithoutYear(context));
+                holder.cowCount.setTextColor(ContextCompat.getColor(context, R.color.persian_green));
+            }
             Constants.setImageFront(context, holder.arrow);
             holder.arrow.setColorFilter(ContextCompat.getColor(context, R.color.persian_green), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.icon.setColorFilter(ContextCompat.getColor(context, R.color.persian_green), android.graphics.PorterDuff.Mode.SRC_IN);

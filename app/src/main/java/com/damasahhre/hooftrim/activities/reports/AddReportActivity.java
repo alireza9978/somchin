@@ -98,7 +98,11 @@ public class AddReportActivity extends AppCompatActivity {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Report report = new Report();
                 report.visit = one.exportStart();
-                report.nextVisit = two.exportStart();
+                if (two != null) {
+                    report.nextVisit = two.exportStart();
+                }else{
+                    report.nextVisit = null;
+                }
                 report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
                 report.fingerNumber = this.fingerNumber;
                 report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
@@ -120,7 +124,11 @@ public class AddReportActivity extends AppCompatActivity {
                 cow = dao.getCow(cowNumber,farmId);
                 Report report = new Report();
                 report.visit = one.exportStart();
-                report.nextVisit = two.exportStart();
+                if (two != null) {
+                    report.nextVisit = two.exportStart();
+                }else{
+                    report.nextVisit = null;
+                }
                 report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
                 report.fingerNumber = this.fingerNumber;
                 report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();

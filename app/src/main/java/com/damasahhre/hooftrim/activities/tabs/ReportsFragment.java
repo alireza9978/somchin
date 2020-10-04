@@ -30,6 +30,7 @@ public class ReportsFragment extends Fragment {
     private TabAdapterLongText adapter;
     private TabLayout tabLayout;
     private String TAG = "REPORT FRAGMENT";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,12 +99,13 @@ public class ReportsFragment extends Fragment {
                     assert container != null;
                     ((FactorFragment) adapter.getItem(2)).setDate(container);
                 }
+                break;
             }
             case Constants.FARM_SELECTION_REPORT_INJURY: {
                 if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;
                     int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
-                    ((FactorFragment) adapter.getItem(3)).setFarm(id);
+                    ((InjuriesFragment) adapter.getItem(3)).setFarm(id);
                 }
                 break;
             }
@@ -112,8 +114,9 @@ public class ReportsFragment extends Fragment {
                     assert data != null;
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(Constants.DATE_SELECTION_RESULT);
                     assert container != null;
-                    ((FactorFragment) adapter.getItem(3)).setDate(container);
+                    ((InjuriesFragment) adapter.getItem(3)).setDate(container);
                 }
+                break;
             }
         }
     }

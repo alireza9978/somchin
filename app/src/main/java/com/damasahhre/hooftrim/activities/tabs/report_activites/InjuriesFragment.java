@@ -51,7 +51,7 @@ public class InjuriesFragment extends Fragment {
 
         farmLayout.setOnClickListener(view1 -> {
             Intent intent = new Intent(requireContext(), FarmSelectionActivity.class);
-            requireActivity().startActivityForResult(intent, Constants.FARM_SELECTION_REPORT_FACTOR);
+            requireActivity().startActivityForResult(intent, Constants.FARM_SELECTION_REPORT_INJURY);
         });
 
         Button submit = view.findViewById(R.id.submit);

@@ -84,6 +84,8 @@ public class HomeFragment extends Fragment {
             nextVisitList.setVisibility(View.VISIBLE);
             if (more) {
                 showMore.setVisibility(View.VISIBLE);
+            }else {
+                showMore.setVisibility(View.GONE);
             }
             noVisit.setVisibility(View.INVISIBLE);
 
@@ -95,7 +97,6 @@ public class HomeFragment extends Fragment {
             nextVisitList.setVisibility(View.INVISIBLE);
             showMore.setVisibility(View.INVISIBLE);
             noVisit.setVisibility(View.VISIBLE);
-
         });
     }
 
@@ -126,11 +127,12 @@ public class HomeFragment extends Fragment {
         AppExecutors.getInstance().diskIO().execute(() -> {
             List<FarmWithCowCount> farmList = dao.getFarmWithCowCount();
             List<Farm> farms = dao.getAll();
-            if (farmList.isEmpty()) {
+            if (farms.isEmpty()) {
                 hideFarms();
             } else {
                 requireActivity().runOnUiThread(() -> {
-                    Log.i("TAG", "onResume: " + farms.size());
+                    Log.i("TAG", "onResume all: " + farms.size());
+                    Log.i("TAG", "onResume count: " + farmList.size());
                     ArrayList<FarmWithCowCount> addition = new ArrayList<>();
                     main:
                     for (Farm farm: farms){
