@@ -42,8 +42,8 @@ public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapte
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         NextVisit visit = nextVisits.get(position);
-        holder.cowName.setText(R.string.cow_title);
-        holder.cowName.append("" + visit.cowNumber);
+        holder.cowName.setText(R.string.visit_cow);
+        holder.cowName.append(" " + visit.cowNumber);
         holder.date.setText(visit.visitDate.toStringWithoutYear(context));
         Constants.setImageFront(context, holder.arrow);
 //        holder.itemView.setOnClickListener(view -> {

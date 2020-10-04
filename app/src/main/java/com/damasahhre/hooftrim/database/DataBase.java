@@ -13,7 +13,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.DateConverter;
 
-@Database(entities = {Farm.class, Cow.class, Report.class}, version = 1)
+@Database(entities = {Farm.class, Cow.class, Report.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class DataBase extends RoomDatabase {
     private static DataBase dataBase;

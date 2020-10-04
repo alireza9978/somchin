@@ -89,29 +89,11 @@ public class ReportVisitFragment extends Fragment {
         nextVisitList.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         nextVisitList.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewAdapterNextVisitReport(new ArrayList<>());
+        mAdapter = new RecyclerViewAdapterNextVisitReport(new ArrayList<>(),context);
         nextVisitList.setAdapter(mAdapter);
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        String language = Constants.getDefualtlanguage(requireContext());
-        if (language.isEmpty()) {
-            language = "en";
-        }
-        if (language.equals("en")){
-            Date date = new Date();
-            CalendarDay today = CalendarDay.today();
-            calendar.setSelectedDate(today);
-            calendar.setCurrentDate(today);
-            setTopCalendarBarEn(date);
-        }else{
-
-        }
-
-    }
 
     private void setNotFound() {
         dateText.setVisibility(View.INVISIBLE);
@@ -193,11 +175,28 @@ public class ReportVisitFragment extends Fragment {
         });
 
 
-        Date date = new Date();
         CalendarDay today = CalendarDay.today();
         calendar.setSelectedDate(today);
         calendar.setCurrentDate(today);
-        setTopCalendarBarEn(date);
+        setTopBarNew(today);
+    }
+
+    private void setTopBarNew(CalendarDay date){
+        Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
+        SpannableString mNewTitle = new SpannableString(Utilities.monthToString(date, context));
+
+        mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.black)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        month.setText(mNewTitle);
+
+        font = ResourcesCompat.getFont(context, R.font.anjoman_regular);
+        mNewTitle = new SpannableString(Utilities.yearToString(date, context));
+
+        mNewTitle.setSpan(new AbsoluteSizeSpan(16, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        year.setText(mNewTitle);
     }
 
     private void setTopCalendarBarEn(Date date) {

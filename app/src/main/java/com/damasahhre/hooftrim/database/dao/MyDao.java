@@ -54,14 +54,14 @@ public interface MyDao {
             " Cow.id == Report.cow_id GROUP BY Cow.id")
     List<NextReport> getAllNextVisit(MyDate now);
 
-    @Query("SELECT Report.visit_date AS visitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
+    @Query("SELECT Report.visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId" +
             " FROM Cow, Report, Farm" +
-            " WHERE visitDate == :now AND" +
+            " WHERE nextVisitDate == :now AND" +
             " Cow.id == Report.cow_id AND" +
             " Farm.id == Cow.farm_id ")
     List<NextReport> getAllVisitInDay(MyDate now);
 
-    @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber" +
+    @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber,Cow.id AS cowId" +
             " FROM Cow, Report, Farm" +
             " WHERE nextVisitDate == :now AND" +
             " Cow.id == Report.cow_id AND" +
