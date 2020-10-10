@@ -9,13 +9,11 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -25,7 +23,6 @@ import com.damasahhre.hooftrim.constants.Utilities;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,7 +50,6 @@ public class DateSelectionActivity extends AppCompatActivity {
     private PersianCalendarView calendarView;
     private ImageView right;
     private ImageView left;
-    private ImageView close;
     private TextView startDate;
     private TextView endDate;
     private TextView clear;
@@ -67,7 +63,7 @@ public class DateSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_date_selection);
 
         right = findViewById(R.id.right_arrow);
-        close = findViewById(R.id.close_image);
+        ImageView close = findViewById(R.id.close_image);
         left = findViewById(R.id.left_arrow);
         startDate = findViewById(R.id.start_date);
         endDate = findViewById(R.id.end_date);

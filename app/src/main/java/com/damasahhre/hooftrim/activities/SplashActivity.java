@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,13 +21,10 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.Farm;
-import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
-import com.damasahhre.hooftrim.models.MyDate;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -51,25 +49,14 @@ public class SplashActivity extends AppCompatActivity {
             goApp();
         });
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                checkConnection();
-            }
-        }, 1000);
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             List<Farm> farms = dao.getAll();
-            if (!farms.isEmpty()) {
-                List<Cow> cows = dao.getAllCowOfFarm(farms.get(0).id);
-                if (!cows.isEmpty()) {
-                    Report report = new Report();
-                    report.cowId = cows.get(0).getId();
-                    report.visit = new MyDate(new Date());
-                    report.nextVisit = new MyDate(new Date());
-                    report.nextVisit.setMonth(report.nextVisit.getMonth() + 1);
-//                    dao.insert(report);
+            for (Farm farm : farms) {
+                List<Cow> cows = dao.getAllCowOfFarm(farm.id);
+                for (Cow cow : cows) {
+                    Log.i("SPLASH", "farm = " + farm.id + " cow num = " + cow.getNumber()
+                            + " cow number_str = " + cow.getNumberString());
                 }
             }
         });
@@ -78,6 +65,14 @@ public class SplashActivity extends AppCompatActivity {
         Intent alarmIntent = new Intent(SplashActivity.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);
         startAtMorning();
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                checkConnection();
+            }
+        }, 1000);
 
     }
 

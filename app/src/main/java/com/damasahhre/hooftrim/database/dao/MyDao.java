@@ -23,6 +23,46 @@ import java.util.List;
 @Dao
 public interface MyDao {
 
+    @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit," +
+            " Farm.name AS farmName " +
+            "FROM Cow,Farm,Report " +
+            "WHERE Cow.number_string LIKE :id " +
+            "AND Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == farm.id " +
+            "GROUP BY Cow.id")
+    List<CowForMarked> searchCow(String id);
+
+
+    @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit, Farm.name AS farmName " +
+            "FROM Cow,Farm,Report " +
+            "WHERE Cow.number_string LIKE :id " +
+            "AND Report.visit_date >= :start " +
+            "AND Report.visit_date <= :end " +
+            "AND Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == farm.id " +
+            "GROUP BY Cow.id")
+    List<CowForMarked> searchCow(String id, MyDate start, MyDate end);
+
+    @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit, Farm.name AS farmName " +
+            "FROM Cow,Farm,Report " +
+            "WHERE Cow.number_string LIKE :id " +
+            "AND Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == farm.id " +
+            "AND Farm.id == :farmId " +
+            "GROUP BY Cow.id")
+    List<CowForMarked> searchCow(String id, Integer farmId);
+
+    @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit, Farm.name AS farmName " +
+            "FROM Cow,Farm,Report " +
+            "WHERE Cow.number_string LIKE :id " +
+            "AND Report.visit_date >= :start " +
+            "AND Report.visit_date <= :end " +
+            "AND Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == farm.id " +
+            "AND Farm.id == :farmId " +
+            "GROUP BY Cow.id")
+    List<CowForMarked> searchCow(String id, MyDate start, MyDate end, Integer farmId);
+
     @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber," +
             " Farm.name AS farmName, MAX(Report.visit_date) AS lastVisit " +
             "FROM Cow,Farm,Report " +

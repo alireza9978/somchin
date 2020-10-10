@@ -14,6 +14,8 @@ public class Cow {
     private Integer id;
     @ColumnInfo(name = "number")
     private Integer number;
+    @ColumnInfo(name = "number_string")
+    private String numberString;
     @ColumnInfo(name = "favorite")
     private Boolean favorite;
     @ColumnInfo(name = "farm_id")
@@ -21,6 +23,7 @@ public class Cow {
 
     public Cow(Integer number, Boolean favorite, Integer farm) {
         this.number = number;
+        this.numberString = "" + number;
         this.favorite = favorite;
         this.farm = farm;
     }
@@ -59,6 +62,14 @@ public class Cow {
 
     public Boolean getFavorite() {
         return favorite;
+    }
+
+    public String getNumberString() {
+        return numberString;
+    }
+
+    public void setNumberString(String numberString) {
+        this.numberString = numberString;
     }
 }
 

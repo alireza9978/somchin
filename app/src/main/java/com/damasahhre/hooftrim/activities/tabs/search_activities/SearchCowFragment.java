@@ -2,12 +2,14 @@ package com.damasahhre.hooftrim.activities.tabs.search_activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -22,11 +24,13 @@ import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.CowForMarked;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchCowFragment extends Fragment {
 
@@ -39,7 +43,6 @@ public class SearchCowFragment extends Fragment {
     private ConstraintLayout farmContainer;
     private TextView dateText;
     private ConstraintLayout dateContainer;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerViewAdapterSearchCow mAdapter;
 
     private int farmId = -1;
@@ -62,14 +65,49 @@ public class SearchCowFragment extends Fragment {
         dateText = view.findViewById(R.id.date_text);
 
         cowsList.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(requireContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         cowsList.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewAdapterSearchCow(new ArrayList<>(), requireContext());
         cowsList.setAdapter(mAdapter);
 
         search.setOnClickListener((v) -> {
-            //todo search in database
-            //update adapter
+            MyDao dao = DataBase.getInstance(requireContext()).dao();
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                requireActivity().runOnUiThread(() -> Constants.hideKeyboard(requireActivity()));
+                String cowIdString = cowNumber.getText().toString();
+                if (cowIdString.isEmpty()) {
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "input error", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+                cowIdString = "%" + cowIdString + "%";
+                List<CowForMarked> cows;
+                if (date != null && farmId != -1) {
+                    Log.i("SEARCH", "onCreateView: " + cowIdString);
+                    cows = dao.searchCow(cowIdString, date.exportStart(), date.exportEnd(), farmId);
+                } else {
+                    if (date == null) {
+                        if (farmId == -1) {
+                            Log.i("SEARCH", "onCreateView: single " + cowIdString);
+                            cows = dao.searchCow(cowIdString);
+                        } else {
+                            cows = dao.searchCow(cowIdString, farmId);
+                        }
+                    } else {
+                        cows = dao.searchCow(cowIdString, date.exportStart(), date.exportEnd());
+                    }
+                }
+                requireActivity().runOnUiThread(() -> {
+                    if (cows.isEmpty()) {
+                        notFound();
+                    } else {
+                        found();
+                        mAdapter.setCows(cows);
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+                });
+            });
+
         });
 
         dateContainer.setOnClickListener(view12 -> {
