@@ -1,6 +1,8 @@
 package com.damasahhre.hooftrim.activities;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -21,7 +23,9 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
+import com.damasahhre.hooftrim.service.AlarmReceiver;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -32,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private ConstraintLayout loading_state;
     private ConstraintLayout error_state;
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,25 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
+        /* Retrieve a PendingIntent that will perform a broadcast */
+        Intent alarmIntent = new Intent(SplashActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);
+        startAtMorning();
 
+    }
+
+
+    public void startAtMorning() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        int interval = 24 * 3600 * 1000;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 30);
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval,
+                pendingIntent);
     }
 
 

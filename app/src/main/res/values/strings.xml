@@ -21,9 +21,9 @@
     <string name="show_more">show more ></string>
 
     <string name="import_file">import file</string>
-    <string name="visits">visits</string>
-    <string name="facor">factor</string>
-    <string name="injeries">injeries</string>
+    <string name="visits">Re-check list</string>
+    <string name="facor">Invoice</string>
+    <string name="injeries">Dairy farm digital lesions</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_visits">next visits</string>
@@ -36,8 +36,8 @@
     <string name="today">today</string>
     <string name="enter_farm_name">enter farm name</string>
     <string name="create_farm">create farm</string>
-    <string name="control_system">control system</string>
-    <string name="birth_count">birth count</string>
+    <string name="control_system">Housing system</string>
+    <string name="birth_count">Herd size‌(Dairy cows)</string>
 
     <string name="check_fields">check fields</string>
     <string name="not_found">not found</string>
@@ -68,39 +68,39 @@
     <string name="reason">reason</string>
     <string name="prevois">previeos</string>
 
-    <string name="more_info_reason_1">January</string>
-    <string name="more_info_reason_2">February</string>
-    <string name="more_info_reason_3">March</string>
-    <string name="more_info_reason_4">April</string>
-    <string name="more_info_reason_5">May</string>
-    <string name="more_info_reason_6">June</string>
-    <string name="more_info_reason_7">July</string>
+    <string name="more_info_reason_1">Wound</string>
+    <string name="more_info_reason_2">Point Hemorrhage</string>
+    <string name="more_info_reason_3">Healed lesion</string>
+    <string name="more_info_reason_4">No injuries</string>
+    <string name="more_info_reason_5">Infectious lesion Treatment</string>
+    <string name="more_info_reason_6">Block/shoe</string>
+    <string name="more_info_reason_7">Hoof trimming</string>
 
-    <string name="reason_1">January</string>
-    <string name="reason_2">February</string>
-    <string name="reason_3">March</string>
-    <string name="reason_4">April</string>
-    <string name="reason_5">May</string>
-    <string name="reason_6">June</string>
-    <string name="reason_7">July</string>
-    <string name="reason_8">August</string>
-    <string name="reason_9">September</string>
-    <string name="reason_10">October</string>
+    <string name="reason_1">120 DIM hoof trimming</string>
+    <string name="reason_2">Dry-off hoof trimming</string>
+    <string name="reason_3">Delayed reproduction</string>
+    <string name="reason_4">New case</string>
+    <string name="reason_5">Re-check</string>
+    <string name="reason_6">High locomotion score inspection</string>
+    <string name="reason_7">Referred for lameness</string>
+    <string name="reason_8">Long toe</string>
+    <string name="reason_9">Heifer</string>
+    <string name="reason_10">Group hoof trimming</string>
 
     <string name="more_info">more info</string>
     <string name="create">create</string>
     <string name="more_info_text_add_report">text</string>
-    <string name="injury_area">injury area</string>
+    <string name="injury_area">Affected claw zone</string>
     <string name="select_farm">select farm please</string>
     <string name="farm_list">Farms list</string>
     <string name="import_excel">import your excel file</string>
     <string name="import_text">import</string>
     <string name="select_cow">select cow</string>
-    <string name="export_factor">export factor</string>
+    <string name="export_factor">Invoice</string>
     <string name="add_new_cow_factor">add new cow to factor</string>
-    <string name="som_cut_price">هزینه‌ سم‌چینی</string>
-    <string name="cure_price">هزینه‌ درمان‌عفونی</string>
-    <string name="bed_price">هزینه‌ تخته‌گذاری</string>
+    <string name="som_cut_price">Hoof trimming cost</string>
+    <string name="cure_price">Infectious lesion treatment cost</string>
+    <string name="bed_price">Hoof block application cost</string>
     <string name="export_report">export report</string>
     <string name="no_marked_cow">no marked cow!</string>
     <string name="no_marked_farm">no marked farm!</string>
@@ -113,7 +113,7 @@
     <string name="toast_select_one">select one of options</string>
     <string name="toast_select_only_one">select only one part</string>
     <string name="ok">OK</string>
-    <string name="other_info">other information</string>
+    <string name="other_info">Treatment and severity</string>
     <string name="cow_reports">cow reports</string>
     <string name="last_visit">last visit</string>
     <string name="add_new_cow">add new cow</string>
