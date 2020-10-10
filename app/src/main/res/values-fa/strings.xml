@@ -108,6 +108,7 @@
     <string name="no_visit_short">بدون بازدید</string>
     <string name="all_visits">همه بازدید‌ها</string>
     <string name="visit_cow">بازدید از گاو</string>
+    <string name="visit_cows">بازدید از گاو</string>
 
     <string name="toast_enter_cow_number">شماره گاو را وارد کنید</string>
     <string name="toast_enter_date">تاریخ را وارد کنید</string>
@@ -122,5 +123,7 @@
     <string name="offline">استفاده آفلاین</string>
     <string name="check_network">لطفا اتصال اینترنت خود را بررسی کنید</string>
     <string name="try_again">تلاش دوباره</string>
+    <string name="notification_title">یادآوری بازدید‌های امروز</string>
+    <string name="channel_name">cow visit reminder</string>
 
 </resources>

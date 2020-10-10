@@ -6,7 +6,7 @@
     <string name="sign_in">sign up</string>
 
     <string name="cows">cows</string>
-    <string name="livestrocks">livestrocks</string>
+    <string name="livestrocks">farms</string>
 
     <string name="home">home</string>
     <string name="search">search</string>
@@ -29,9 +29,9 @@
     <string name="next_visits">next visits</string>
     <string name="next_visit">next visit</string>
     <string name="no_next_visit">there is no visit</string>
-    <string name="empty_livestrock_list">no livestrocks</string>
+    <string name="empty_livestrock_list">no farm</string>
     <string name="create_first_livestrock">create your first farm</string>
-    <string name="livestocks">livestocks</string>
+    <string name="livestocks">farms</string>
     <string name="cow_title">cow </string>
     <string name="today">today</string>
     <string name="enter_farm_name">enter farm name</string>
@@ -107,6 +107,7 @@
     <string name="no_visit">there is no visit!</string>
     <string name="all_visits">all visits</string>
     <string name="visit_cow">visit from cow</string>
+    <string name="visit_cows">visit from cows</string>
 
     <string name="toast_enter_cow_number">enter cow number</string>
     <string name="toast_enter_date">enter date</string>
@@ -122,6 +123,8 @@
     <string name="offline">offline</string>
     <string name="check_network">check internet connection</string>
     <string name="try_again">try again</string>
+    <string name="notification_title">Re-check reminder</string>
+    <string name="channel_name">cow visit reminder</string>
 
 
 </resources>

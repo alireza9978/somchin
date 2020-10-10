@@ -54,7 +54,7 @@ public interface MyDao {
             " Cow.id == Report.cow_id GROUP BY Cow.id")
     List<NextReport> getAllNextVisit(MyDate now);
 
-    @Query("SELECT Report.visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId" +
+    @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId" +
             " FROM Cow, Report, Farm" +
             " WHERE nextVisitDate == :now AND" +
             " Cow.id == Report.cow_id AND" +
