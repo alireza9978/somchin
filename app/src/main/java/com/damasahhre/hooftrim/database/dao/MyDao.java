@@ -16,12 +16,14 @@ import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.models.Report;
+import com.damasahhre.hooftrim.database.models.SearchFarm;
 import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.List;
 
 @Dao
 public interface MyDao {
+
 
     @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit," +
             " Farm.name AS farmName " +
@@ -32,6 +34,16 @@ public interface MyDao {
             "GROUP BY Cow.id")
     List<CowForMarked> searchCow(String id);
 
+
+    @Query("SELECT Farm.id AS farmId, Farm.name AS farmName, COUNT(Cow.id) AS cowCount , " +
+            "MAX(Report.visit_date) AS lastVisit  " +
+            "FROM Cow,Farm,Report " +
+            "WHERE Report.visit_date <= :end " +
+            "AND Report.visit_date >= :start " +
+            "AND Cow.farm_id == farm.id " +
+            "AND Report.cow_id == Cow.id " +
+            "GROUP BY Farm.id")
+    List<SearchFarm> searchFarm(MyDate start, MyDate end);
 
     @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit, Farm.name AS farmName " +
             "FROM Cow,Farm,Report " +

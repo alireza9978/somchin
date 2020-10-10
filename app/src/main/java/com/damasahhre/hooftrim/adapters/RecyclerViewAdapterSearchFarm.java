@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.FarmProfileActivity;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.SearchFarm;
 
 import java.util.List;
 
 public class RecyclerViewAdapterSearchFarm extends RecyclerView.Adapter<RecyclerViewAdapterSearchFarm.Holder> {
 
-    private List<Farm> farms;
+    private List<SearchFarm> farms;
     private Context context;
 
-    public RecyclerViewAdapterSearchFarm(List<Farm> farms, Context context) {
+    public RecyclerViewAdapterSearchFarm(List<SearchFarm> farms, Context context) {
         this.farms = farms;
         this.context = context;
     }
 
-    public void setCows(List<Farm> cows) {
+    public void setCows(List<SearchFarm> farms) {
         this.farms = farms;
     }
 
@@ -36,18 +36,19 @@ public class RecyclerViewAdapterSearchFarm extends RecyclerView.Adapter<Recycler
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new Holder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.livestrock_list_item, parent, false));
+                .inflate(R.layout.cow_list_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        Farm farm = farms.get(position);
-        holder.cowCount.setText("1");
-        holder.farmName.setText("farm");
-        holder.date.setText("date");
+        SearchFarm farm = farms.get(position);
+        holder.cowCount.setText("" + farm.cowCount);
+        holder.farmName.setText(farm.farmName);
+        holder.date.setText(farm.lastVisit.toStringWithoutYear(context));
+        Constants.setImageFront(context, holder.arrow);
         holder.itemView.setOnClickListener((v) -> {
             Intent intent = new Intent(context, FarmProfileActivity.class);
-            intent.putExtra(Constants.FARM_ID, farm.id);
+            intent.putExtra(Constants.FARM_ID, farm.farmId);
             context.startActivity(intent);
         });
     }

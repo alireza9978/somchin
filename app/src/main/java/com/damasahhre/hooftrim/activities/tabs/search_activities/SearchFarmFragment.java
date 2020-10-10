@@ -2,11 +2,13 @@ package com.damasahhre.hooftrim.activities.tabs.search_activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -18,9 +20,15 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchFarm;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.CowForMarked;
+import com.damasahhre.hooftrim.database.models.SearchFarm;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFarmFragment extends Fragment {
 
@@ -53,8 +61,24 @@ public class SearchFarmFragment extends Fragment {
         farmsList.setAdapter(mAdapter);
 
         search.setOnClickListener((v) -> {
-            //todo search in database
-            //update adapter
+            MyDao dao = DataBase.getInstance(requireContext()).dao();
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                requireActivity().runOnUiThread(() -> Constants.hideKeyboard(requireActivity()));
+                if (date == null) {
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "input error", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+                List<SearchFarm> farms = dao.searchFarm(date.exportStart(),date.exportEnd());
+                requireActivity().runOnUiThread(() -> {
+                    if (farms.isEmpty()) {
+                        notFound();
+                    } else {
+                        found();
+                        mAdapter.setCows(farms);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+            });
         });
 
         dateContainer.setOnClickListener(view12 -> {
