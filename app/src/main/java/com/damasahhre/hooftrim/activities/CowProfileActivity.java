@@ -81,12 +81,12 @@ public class CowProfileActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 if (lastVisit.nextVisit != null) {
-                    this.nextVisit.setText(lastVisit.nextVisit.toString());
+                    this.nextVisit.setText(lastVisit.nextVisit.toString(context));
                 }else{
                     this.nextVisit.setText(R.string.no_visit_short);
                 }
                 if (lastVisit.lastVisit != null) {
-                    this.lastVisit.setText(lastVisit.lastVisit.toString());
+                    this.lastVisit.setText(lastVisit.lastVisit.toString(context));
                 }else{
                     this.lastVisit.setText(R.string.no_visit_short);
                 }

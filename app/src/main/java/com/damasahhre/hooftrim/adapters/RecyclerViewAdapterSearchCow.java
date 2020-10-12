@@ -35,8 +35,10 @@ public class RecyclerViewAdapterSearchCow extends RecyclerView.Adapter<RecyclerV
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cow_list_item, parent, false));
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.cow_list_item, parent, false);
+        Constants.gridRtl(context, view);
+        return new Holder(view);
     }
 
     @Override

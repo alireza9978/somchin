@@ -55,7 +55,6 @@ public class DateSelectionActivity extends AppCompatActivity {
     private TextView clear;
     private Button submit;
     private boolean rang;
-    private String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +74,7 @@ public class DateSelectionActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.persian_calendar);
 
         Configuration config = context.getResources().getConfiguration();
+        String language;
         if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
             language = "fa";
         } else {
@@ -247,16 +247,17 @@ public class DateSelectionActivity extends AppCompatActivity {
         });
         calendarHandler.setOnDayClickedListener(persianDate -> {
             if (rang) {
+                DateContainer dateContainer = new DateContainer(SINGLE,
+                        new MyDate(true, persianDate.getDayOfMonth(), persianDate.getMonth(), persianDate.getYear()));
                 if (state == 0) {
-                    startDate.setText(persianDate.toString());
+                    startDate.setText(dateContainer.toString(context));
                     startPersianDate = persianDate;
                     endPersianDate = null;
                     endDate.setText("");
                     state = 1;
-                }
-                if (state == 1) {
-                    endDate.setText(persianDate.toString());
-                    endPersianDate = startPersianDate;
+                } else if (state == 1) {
+                    endDate.setText(dateContainer.toString(context));
+                    endPersianDate = persianDate;
                     state = 0;
                 }
             } else {

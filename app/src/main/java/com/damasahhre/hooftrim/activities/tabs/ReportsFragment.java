@@ -29,12 +29,10 @@ public class ReportsFragment extends Fragment {
 
     private TabAdapterLongText adapter;
     private TabLayout tabLayout;
-    private String TAG = "REPORT FRAGMENT";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.activity_reports, container, false);
         view.findViewById(R.id.menu_button).setOnClickListener(v -> {
             ((MainActivity) requireActivity()).openMenu();
@@ -77,7 +75,6 @@ public class ReportsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Log.i(TAG, "onCreateView: ");
         super.onResume();
     }
 
