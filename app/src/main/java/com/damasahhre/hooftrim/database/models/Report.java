@@ -48,7 +48,6 @@ public class Report {
     public Boolean referenceCauseReferential;
     @ColumnInfo(name = "reference_cause_lagged")
     public Boolean referenceCauseLagged;
-
     @ColumnInfo(name = "reference_cause_heifer")
     public Boolean referenceCauseHeifer;
     @ColumnInfo(name = "reference_cause_long_hoof")

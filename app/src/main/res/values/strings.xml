@@ -125,6 +125,8 @@
     <string name="try_again">try again</string>
     <string name="notification_title">Re-check reminder</string>
     <string name="channel_name">cow visit reminder</string>
+    <string name="edit">edit</string>
+    <string name="remove">remove</string>
 
 
 </resources>

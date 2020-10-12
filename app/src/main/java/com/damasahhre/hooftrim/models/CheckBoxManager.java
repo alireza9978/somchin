@@ -70,7 +70,25 @@ public class CheckBoxManager {
     }
 
     public void setBooleans(Report report){
-        //todo set all boolean
+        report.referenceCauseHundredDays = reasons.get(0).isCheck();
+        report.referenceCauseDryness = reasons.get(1).isCheck();
+        report.referenceCauseLagged = reasons.get(2).isCheck();
+        report.referenceCauseNewLimp = reasons.get(3).isCheck();
+        report.referenceCauseLimpVisit = reasons.get(4).isCheck();
+        report.referenceCauseHighScore = reasons.get(5).isCheck();
+        report.referenceCauseReferential = reasons.get(6).isCheck();
+        report.referenceCauseLongHoof = reasons.get(7).isCheck();
+        report.referenceCauseHeifer = reasons.get(8).isCheck();
+        report.referenceCauseGroupHoofTrim = reasons.get(9).isCheck();
+
+        report.otherInfoWound = moreInfo.get(0).isCheck();
+        report.otherInfoGel = moreInfo.get(1).isCheck();
+        report.otherInfoBoarding = moreInfo.get(2).isCheck();
+        report.otherInfoEcchymosis = moreInfo.get(3).isCheck();
+        report.otherInfoNoInjury = moreInfo.get(4).isCheck();
+        report.otherInfoRecovered = moreInfo.get(5).isCheck();
+        report.otherInfoHoofTrim = moreInfo.get(6).isCheck();
+
     }
 
     public static CheckBoxManager getCheckBoxManager() {
