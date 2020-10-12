@@ -21,6 +21,7 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
 
@@ -55,8 +56,10 @@ public class SplashActivity extends AppCompatActivity {
             for (Farm farm : farms) {
                 List<Cow> cows = dao.getAllCowOfFarm(farm.id);
                 for (Cow cow : cows) {
-                    Log.i("SPLASH", "farm = " + farm.id + " cow num = " + cow.getNumber()
-                            + " cow number_str = " + cow.getNumberString());
+                    List<Report> reports = dao.getAllReportOfCow(cow.getId());
+                    for(Report report : reports){
+                        Log.i("SPLASH", "farm = " + farm.id + " cow num = " + cow.getNumber() + " " + report.toString());
+                    }
                 }
             }
         });
@@ -65,6 +68,7 @@ public class SplashActivity extends AppCompatActivity {
         Intent alarmIntent = new Intent(SplashActivity.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);
         startAtMorning();
+
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {

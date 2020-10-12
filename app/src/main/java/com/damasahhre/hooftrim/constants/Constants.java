@@ -1,8 +1,10 @@
 package com.damasahhre.hooftrim.constants;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
@@ -45,7 +48,7 @@ public class Constants {
     public static final int DATE_SELECTION_FAIL = 400;
     public static final String DATE_SELECTION_RESULT = "res_xc";
 
-    public static class DateSelectionMode{
+    public static class DateSelectionMode {
         public static String SINGLE = "asdasdngy";
         public static String RANG = "vuwasdngy";
     }
@@ -57,30 +60,30 @@ public class Constants {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static void setImageFront(Context context, ImageView imageView){
+    public static void setImageFront(Context context, ImageView imageView) {
         Configuration config = context.getResources().getConfiguration();
-        if(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
-        }else{
-            imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_back));
-        }
-    }
-
-    public static void setImageBack(Context context, ImageView imageView){
-        Configuration config = context.getResources().getConfiguration();
-        if(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
-        }else{
-            imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_front));
         }
     }
 
-    public static void setImageBackBorder(Context context,ImageView imageView){
+    public static void setImageBack(Context context, ImageView imageView) {
         Configuration config = context.getResources().getConfiguration();
-        if(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
+        } else {
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
+        }
+    }
+
+    public static void setImageBackBorder(Context context, ImageView imageView) {
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_next));
-        }else{
-            imageView.setImageDrawable(ContextCompat.getDrawable(context ,R.drawable.ic_previous));
+        } else {
+            imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_previous));
         }
     }
 
@@ -95,12 +98,33 @@ public class Constants {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    public static boolean checkPermission(Context context) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) context,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+
+            return true;
+        }
+        return false;
+    }
+
+    public static void gridRtl(Context context, View view) {
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        } else {
+            view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        }
+    }
+
     /**
      * گرفتن کلید ارتباط با سرور
      */
     public static String getDefualtlanguage(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(LANGUAGE_STORAGE, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(LANGUAGE_DATA,"");
+        return sharedPreferences.getString(LANGUAGE_DATA, "");
     }
 
     /**

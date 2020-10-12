@@ -23,6 +23,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
 
+
 public class FactorFragment extends Fragment {
 
     private ConstraintLayout farmLayout;
@@ -75,7 +76,23 @@ public class FactorFragment extends Fragment {
         });
 
         Button submit = view.findViewById(R.id.submit);
+        submit.setOnClickListener(view1 -> {
+            if (Constants.checkPermission(requireContext())) {
+                return;
+            }
+            MyDao dao = DataBase.getInstance(requireContext()).dao();
+            AppExecutors.getInstance().diskIO().execute(() -> {
 
+//                for (int i = 0; i < yourArraylist.size(); i++) {
+//
+//                    Row row = sheet.createRow(i);
+//                    row.createCell(CELL_INDEX_0).setCellValue(VALUE_YOU_WANT_TO_KEEP_ON_1ST_COLUMN);
+//                    row.createCell(CELL_INDEX_1).setCellValue(VALUE_YOU_WANT_TO_KEEP_ON_2ND_COLUMN);
+//                }
+            });
+
+
+        });
         setBackgrounds();
 
         return view;

@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i(TAG, "onCreate: ");
-
         ViewPager2 viewPager = findViewById(R.id.pager_id);
         viewPager.setOffscreenPageLimit(4);
         viewPager.setUserInputEnabled(false);
@@ -69,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.i(TAG, "onActivityResult: start " + requestCode);
-
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case Constants.DATE_SELECTION_SEARCH_COW:
@@ -96,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onCreate: ");
+        Log.i("RTL", "onResume: 0");
         if (tabLayout.getSelectedTabPosition() == 2) {
             tabLayout.selectTab(tabLayout.getTabAt(4));
         }

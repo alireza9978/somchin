@@ -63,6 +63,7 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
         if (cows.size() == i) {
             view = LayoutInflater.from(context)
                     .inflate(R.layout.add_grid_item, viewGroup, false);
+            Constants.gridRtl(context,view);
             view.setOnClickListener(view1 -> {
                 Intent intent = new Intent(context, AddReportActivity.class);
                 intent.putExtra(Constants.COW_ID, -1);
@@ -74,6 +75,7 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             if (view == null) {
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.livestock_grid_item, viewGroup, false);
+                Constants.gridRtl(context,view);
                 holder = new Holder();
                 holder.view = view;
                 holder.cowCount = view.findViewById(R.id.cow_count);

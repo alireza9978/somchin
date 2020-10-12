@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,10 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
         if (view == null) {
             view = LayoutInflater.from(context)
                     .inflate(R.layout.livestock_grid_item, viewGroup, false);
+
+            Constants.gridRtl(context,view);
+
+            view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             holder = new Holder();
             holder.view = view;
             holder.arrow = view.findViewById(R.id.arrow);

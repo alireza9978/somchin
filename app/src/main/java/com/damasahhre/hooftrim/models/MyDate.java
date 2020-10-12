@@ -26,8 +26,8 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
         year = date.getYear() + 1900;
     }
 
-    public boolean isToday(){
-        if (compareTo(new MyDate(new Date())) == 0){
+    public boolean isToday() {
+        if (compareTo(new MyDate(new Date())) == 0) {
             return true;
         }
         return false;
@@ -98,6 +98,17 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
         return "" + year + "/" + month + "/" + day;
     }
 
+    public String convertDay(Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toJalali(year, month, day);
+            return "" + temp[2];
+        } else {
+            return "" + day;
+        }
+    }
+
     @NotNull
     public String toString(Context context) {
         Configuration config = context.getResources().getConfiguration();
@@ -115,6 +126,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
         Configuration config = context.getResources().getConfiguration();
         if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
             PersianDate pdate = new PersianDate();
+            Log.i("TAG", "toStringWithoutYear: " + year + " " + month + " " + day);
             int[] temp = pdate.toJalali(year, month, day);
             return Utilities.getMonthName(context, temp[1]) + " " + temp[2];
         } else {

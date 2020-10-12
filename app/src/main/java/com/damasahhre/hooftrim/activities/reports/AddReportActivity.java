@@ -192,6 +192,7 @@ public class AddReportActivity extends AppCompatActivity {
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
                     assert container != null;
                     one = container;
+                    Log.i(TAG, "onActivityResult: " + one.exportStart());
                     ((CowInfoFragment) adapter.getItem(0)).setDate(container.toString(this));
                 }
                 break;
@@ -202,6 +203,7 @@ public class AddReportActivity extends AppCompatActivity {
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
                     assert container != null;
                     two = container;
+                    Log.i(TAG, "onActivityResult: " + two.exportStart());
                     ((MoreInfoFragment) adapter.getItem(3)).setDate(container.toString(this));
                 }
                 break;

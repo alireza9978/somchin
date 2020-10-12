@@ -35,8 +35,10 @@ public class RecyclerViewAdapterNextVisitReport extends RecyclerView.Adapter<Rec
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Holder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.next_visit_item_report, parent, false));
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.next_visit_item_report, parent, false);
+        Constants.gridRtl(context, view);
+        return new Holder(view);
     }
 
     @Override

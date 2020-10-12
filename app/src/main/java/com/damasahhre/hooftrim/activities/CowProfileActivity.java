@@ -67,7 +67,6 @@ public class CowProfileActivity extends AppCompatActivity {
             cow = dao.getCow(id);
             List<Report> reports = dao.getAllReportOfCow(cow.getId());
             runOnUiThread(() -> {
-                Log.i("Cow Profile", "onResume: " + reports.size());
                 title.setText(cow.getNumber(context));
                 if (cow.getFavorite()) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark_fill));

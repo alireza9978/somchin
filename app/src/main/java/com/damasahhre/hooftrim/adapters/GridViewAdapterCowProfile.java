@@ -54,6 +54,8 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
             if (view == null) {
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.cow_report_item_add, viewGroup, false);
+
+
                 holder = new HolderAdd();
                 holder.view = view;
                 view.setTag(holder);

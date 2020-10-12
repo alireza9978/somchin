@@ -131,8 +131,6 @@ public class HomeFragment extends Fragment {
                 hideFarms();
             } else {
                 requireActivity().runOnUiThread(() -> {
-                    Log.i("TAG", "onResume all: " + farms.size());
-                    Log.i("TAG", "onResume count: " + farmList.size());
                     ArrayList<FarmWithCowCount> addition = new ArrayList<>();
                     main:
                     for (Farm farm: farms){
@@ -156,6 +154,7 @@ public class HomeFragment extends Fragment {
         });
         AppExecutors.getInstance().diskIO().execute(() -> {
             List<NextReport> reports = dao.getAllNextVisit(new MyDate(new Date()));
+            Log.i("Visit", "onResume: " + reports.size());
             if (reports.isEmpty()) {
                 hideVisit();
             } else {
