@@ -13,14 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".activities.reports.MoreInfoActivity"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.damasahhre.hooftrim.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <activity android:name=".activities.reports.MoreInfoActivity" />
         <activity android:name=".activities.FarmSelectionActivity" />
         <activity android:name=".activities.DateSelectionActivity" />
         <activity android:name=".activities.menu.ContactActivity" />
         <activity android:name=".activities.MainActivity" />
         <activity
             android:name=".activities.reports.AddReportActivity"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activities.FarmProfileActivity" />
         <activity android:name=".activities.CowProfileActivity" />
         <activity android:name=".activities.tabs.AddLivestockActivity" />
@@ -34,17 +44,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".service.AlarmReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <!-- Will not be called unless the application explicitly enables it -->
-        <receiver android:name=".service.DeviceBootReceiver"
+        <receiver
+            android:name=".service.DeviceBootReceiver"
             android:enabled="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
