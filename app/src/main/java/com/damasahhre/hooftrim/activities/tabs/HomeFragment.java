@@ -88,7 +88,6 @@ public class HomeFragment extends Fragment {
                 showMore.setVisibility(View.GONE);
             }
             noVisit.setVisibility(View.INVISIBLE);
-
         });
     }
 

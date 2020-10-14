@@ -56,9 +56,6 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
             view = LayoutInflater.from(context)
                     .inflate(R.layout.livestock_grid_item, viewGroup, false);
 
-            Constants.gridRtl(context,view);
-
-            view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             holder = new Holder();
             holder.view = view;
             holder.arrow = view.findViewById(R.id.arrow);
@@ -78,6 +75,8 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
         holder.cowCount.setText("" + farm.cowCount);
         Constants.setImageFront(context, holder.arrow);
         holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cow));
+        Constants.gridRtl(context,view);
+
         return view;
     }
 

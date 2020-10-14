@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         NextReport report = nextReports.get(position);
+        Log.i("VISIT", "onBindViewHolder: " + report.cowNumber);
         holder.cowName.setText(R.string.cow_title);
         holder.cowName.append(" " + report.cowNumber);
         holder.farmName.setText(report.farmName);

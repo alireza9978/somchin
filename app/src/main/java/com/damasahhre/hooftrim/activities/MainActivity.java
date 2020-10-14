@@ -35,6 +35,7 @@ import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_INJURY;
+import static com.damasahhre.hooftrim.constants.Constants.getDefualtlanguage;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private DrawerLayout drawerLayout;
     private String TAG = "MAIN ACTIVITY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case Constants.CHOOSE_FILE_REQUEST_CODE: {
-                Log.i("TAG", "onActivityResult: re");
                 break;
             }
         }
@@ -92,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("RTL", "onResume: 0");
         if (tabLayout.getSelectedTabPosition() == 2) {
             tabLayout.selectTab(tabLayout.getTabAt(4));
         }
@@ -124,14 +124,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.about_us:
             case R.id.user_guid:
                 return true;
-            case R.id.username:
+            case R.id.username: {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.contact:
-                Intent i = new Intent(this, ContactActivity.class);
-                startActivity(i);
+            }
+            case R.id.contact: {
+                Intent intent = new Intent(this, ContactActivity.class);
+                startActivity(intent);
                 return true;
+            }
+            case R.id.lang: {
+                if(getDefualtlanguage(this).equals("fa")){
+                    Constants.setLanguage(this,"en");
+                }else{
+                    Constants.setLanguage(this,"fa");
+                }
+                Intent intent = new Intent(this, SplashActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            }
         }
         return false;
     }

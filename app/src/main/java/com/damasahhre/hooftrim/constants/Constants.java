@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -61,8 +62,7 @@ public class Constants {
     }
 
     public static void setImageFront(Context context, ImageView imageView) {
-        Configuration config = context.getResources().getConfiguration();
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        if (Constants.getDefualtlanguage(context).equals("fa")) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
@@ -70,8 +70,8 @@ public class Constants {
     }
 
     public static void setImageBack(Context context, ImageView imageView) {
-        Configuration config = context.getResources().getConfiguration();
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+
+        if (Constants.getDefualtlanguage(context).equals("fa")) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
@@ -79,8 +79,7 @@ public class Constants {
     }
 
     public static void setImageBackBorder(Context context, ImageView imageView) {
-        Configuration config = context.getResources().getConfiguration();
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        if (Constants.getDefualtlanguage(context).equals("fa")) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_next));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_previous));
@@ -111,10 +110,9 @@ public class Constants {
     }
 
     public static void gridRtl(Context context, View view) {
-        Configuration config = context.getResources().getConfiguration();
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        if(getDefualtlanguage(context).equals("fa")){
             view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        } else {
+        }else{
             view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
         }
     }

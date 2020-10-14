@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisitReport;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -72,8 +73,7 @@ public class ReportVisitFragment extends Fragment {
         visitText = view.findViewById(R.id.visitDate);
         nextVisitList = view.findViewById(R.id.next_visits_list);
 
-        Configuration config = context.getResources().getConfiguration();
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+        if (Constants.getDefualtlanguage(context).equals("fa")) {
             setPersian();
         } else {
             setEnglish();

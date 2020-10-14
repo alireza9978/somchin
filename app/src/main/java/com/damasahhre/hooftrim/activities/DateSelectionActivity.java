@@ -73,13 +73,8 @@ public class DateSelectionActivity extends AppCompatActivity {
         calendar = findViewById(R.id.calendarView);
         calendarView = findViewById(R.id.persian_calendar);
 
-        Configuration config = context.getResources().getConfiguration();
-        String language;
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-            language = "fa";
-        } else {
-            language = "en";
-        }
+        String language = Constants.getDefualtlanguage(context);
+
 
         String action = getIntent().getAction();
         assert action != null;
