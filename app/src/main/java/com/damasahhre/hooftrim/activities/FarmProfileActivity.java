@@ -30,6 +30,7 @@ import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
+import com.damasahhre.hooftrim.database.models.MyReport;
 import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
@@ -155,7 +156,7 @@ public class FarmProfileActivity extends AppCompatActivity {
 
     }
 
-    void showMenu() {
+    private void showMenu() {
         outside.setVisibility(View.VISIBLE);
         menuLayout.setVisibility(View.VISIBLE);
         menu.setVisibility(View.INVISIBLE);
@@ -258,7 +259,7 @@ public class FarmProfileActivity extends AppCompatActivity {
 
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<Report> reports = dao.getAllReportFarm(id);
+            List<MyReport> reports = dao.getAllMyReportFarm(id);
             runOnUiThread(() -> {
                 //add headers
                 Row row = sheet.createRow(0);
@@ -268,11 +269,12 @@ public class FarmProfileActivity extends AppCompatActivity {
                 }
                 //add reports
                 for (int i = 0; i < reports.size(); i++) {
-                    Report report = reports.get(i);
+                    MyReport myReport = reports.get(i);
+                    Report report = myReport.report;
                     row = sheet.createRow(i + 1);
 
                     Cell cell = row.createCell(0);
-                    cell.setCellValue(report.cowId);
+                    cell.setCellValue(myReport.cowNumber);
 
                     int[] date = report.visit.convert(this);
                     cell = row.createCell(1);

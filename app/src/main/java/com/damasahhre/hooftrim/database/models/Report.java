@@ -4,9 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.models.MyDate;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 @Entity
 public class Report {
@@ -38,6 +39,32 @@ public class Report {
     @ColumnInfo(name = "other_info_hoof_trim")
     public Boolean otherInfoHoofTrim;
 
+    public ArrayList<Integer> getSelectedOtherInfo() {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (otherInfoWound) {
+            list.add(R.string.more_info_reason_1);
+        }
+        if (otherInfoGel) {
+            list.add(R.string.more_info_reason_5);
+        }
+        if (otherInfoBoarding) {
+            list.add(R.string.more_info_reason_6);
+        }
+        if (otherInfoEcchymosis) {
+            list.add(R.string.more_info_reason_2);
+        }
+        if (otherInfoNoInjury) {
+            list.add(R.string.more_info_reason_4);
+        }
+        if (otherInfoRecovered) {
+            list.add(R.string.more_info_reason_3);
+        }
+        if (otherInfoHoofTrim) {
+            list.add(R.string.more_info_reason_7);
+        }
+        return list;
+    }
+
     @ColumnInfo(name = "reference_cause_hundred_days")
     public Boolean referenceCauseHundredDays;
     @ColumnInfo(name = "reference_cause_dryness")
@@ -58,6 +85,41 @@ public class Report {
     public Boolean referenceCauseLimpVisit;
     @ColumnInfo(name = "reference_cause_group_hoof_trim")
     public Boolean referenceCauseGroupHoofTrim;
+
+    public ArrayList<Integer> getSelectedReason() {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (referenceCauseHundredDays) {
+            list.add(R.string.reason_1);
+        }
+        if (referenceCauseDryness) {
+            list.add(R.string.reason_2);
+        }
+        if (referenceCauseHighScore) {
+            list.add(R.string.reason_6);
+        }
+        if (referenceCauseReferential) {
+            list.add(R.string.reason_7);
+        }
+        if (referenceCauseLagged) {
+            list.add(R.string.reason_4);
+        }
+        if (referenceCauseHeifer) {
+            list.add(R.string.reason_9);
+        }
+        if (referenceCauseLongHoof) {
+            list.add(R.string.reason_8);
+        }
+        if (referenceCauseNewLimp) {
+            list.add(R.string.reason_4);
+        }
+        if (referenceCauseLimpVisit) {
+            list.add(R.string.reason_5);
+        }
+        if (referenceCauseGroupHoofTrim) {
+            list.add(R.string.reason_10);
+        }
+        return list;
+    }
 
     @ColumnInfo(name = "description")
     public String description;

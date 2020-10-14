@@ -1,11 +1,11 @@
 <resources>
-    
+
     <array name="spinner_value">
         <item>Mercury</item>
         <item>Venus</item>
         <item>Earth</item>
     </array>
-    
+
     <string name="app_name">SomChin</string>
     <string name="logo_content">logo image</string>
 
@@ -154,5 +154,6 @@
     <string name="ten">10</string>
     <string name="eleven">11</string>
     <string name="twelve">12</string>
+    <string name="finger">finger</string>
 
 </resources>

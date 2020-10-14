@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.ReportSummery;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Report;
@@ -85,10 +86,9 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
 
             Constants.setImageFront(context, holder.arrow);
             holder.view.setOnClickListener((v) -> {
-                //todo change to report summery activity
-//                Intent intent = new Intent(context, Report.class);
-//                intent.putExtra(Constants.FARM_ID, report.id);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, ReportSummery.class);
+                intent.putExtra(Constants.REPORT_ID, report.id);
+                context.startActivity(intent);
             });
             holder.title.setText(R.string.report);
             holder.title.append(" " + report.id);

@@ -30,6 +30,7 @@ public class Constants {
 
     //intent to start activity data
     public static final String FARM_ID = "sdaxce";
+    public static final String REPORT_ID = "sda32xc2e";
     public static final String COW_ID = "Addssaxce";
     public static final String MORE_INFO_STATE = "sdwvvgr";
 

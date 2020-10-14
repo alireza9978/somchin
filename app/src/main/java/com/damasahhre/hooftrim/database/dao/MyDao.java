@@ -13,6 +13,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
 import com.damasahhre.hooftrim.database.models.LastReport;
+import com.damasahhre.hooftrim.database.models.MyReport;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.models.Report;
@@ -151,6 +152,12 @@ public interface MyDao {
 
     @Query("SELECT * FROM Cow,Report WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id")
     List<Report> getAllReportFarm(Integer id);
+
+    @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id")
+    List<MyReport> getAllMyReportFarm(Integer id);
+
+    @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.id == :id")
+    MyReport myReportWithCow(Integer id);
 
     @Query("SELECT * FROM Farm WHERE Farm.id == :id")
     Farm getFarm(Integer id);

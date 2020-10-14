@@ -13,14 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
+        <activity android:name=".activities.ReportSummery"></activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.damasahhre.hooftrim.provider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <activity android:name=".activities.reports.MoreInfoActivity" />
@@ -49,9 +51,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-
-        <!-- Will not be called unless the application explicitly enables it -->
+        </receiver> <!-- Will not be called unless the application explicitly enables it -->
         <receiver
             android:name=".service.DeviceBootReceiver"
             android:enabled="false">
@@ -59,7 +59,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
