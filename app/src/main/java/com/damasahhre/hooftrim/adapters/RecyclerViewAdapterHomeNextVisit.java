@@ -42,7 +42,6 @@ public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         NextReport report = nextReports.get(position);
-        Log.i("VISIT", "onBindViewHolder: " + report.cowNumber);
         holder.cowName.setText(R.string.cow_title);
         holder.cowName.append(" " + report.cowNumber);
         holder.farmName.setText(report.farmName);
@@ -50,7 +49,7 @@ public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<Recyc
             holder.date.setText(R.string.today);
             holder.date.setTextColor(context.getResources().getColor(R.color.red));
         }else {
-            holder.date.setText(report.nextVisitDate.toString());
+            holder.date.setText(report.nextVisitDate.toString(context));
             holder.date.setTextColor(context.getResources().getColor(R.color.black));
         }
         holder.itemView.setOnClickListener(view -> {

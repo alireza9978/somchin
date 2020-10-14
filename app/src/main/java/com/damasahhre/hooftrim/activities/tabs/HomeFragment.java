@@ -26,6 +26,7 @@ import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
+import com.damasahhre.hooftrim.ui_element.ExpandableHeightGridView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,7 +71,7 @@ public class HomeFragment extends Fragment {
         adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), new ArrayList<>());
         farmsGrid.setAdapter(adapterHomeFarm);
 
-        nextVisitList.setHasFixedSize(true);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         nextVisitList.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewAdapterHomeNextVisit(new ArrayList<>(), requireContext());
@@ -158,9 +159,10 @@ public class HomeFragment extends Fragment {
                 hideVisit();
             } else {
                 requireActivity().runOnUiThread(() -> {
-                    mAdapter.setNextReports(reports);
-                    mAdapter.notifyDataSetChanged();
                     showVisit(reports.size() > 3);
+                    mAdapter.setNextReports(reports);
+                    nextVisitList.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
                 });
             }
         });
