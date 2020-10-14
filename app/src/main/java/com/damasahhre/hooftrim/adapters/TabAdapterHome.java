@@ -22,6 +22,7 @@ import com.damasahhre.hooftrim.activities.tabs.HomeFragment;
 import com.damasahhre.hooftrim.activities.tabs.MarkedFragment;
 import com.damasahhre.hooftrim.activities.tabs.ReportsFragment;
 import com.damasahhre.hooftrim.activities.tabs.SearchFragment;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -50,6 +51,7 @@ public class TabAdapterHome extends FragmentStateAdapter {
                 tab.setCustomView(getSelectedTabView(tab.getPosition()));
                 if (tab.getPosition() == 2) {
                     Intent intent = new Intent(context, AddLivestockActivity.class);
+                    intent.putExtra(Constants.ADD_FARM_MODE, Constants.FARM_CREATE);
                     context.startActivity(intent);
                 } else {
                     pager.setCurrentItem(tab.getPosition(), true);

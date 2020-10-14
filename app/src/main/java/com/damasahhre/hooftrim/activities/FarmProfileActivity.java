@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.tabs.AddLivestockActivity;
 import com.damasahhre.hooftrim.adapters.GridViewAdapterCowInFarmProfile;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisitFarmProfile;
 import com.damasahhre.hooftrim.constants.Constants;
@@ -29,6 +31,7 @@ import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
 import com.damasahhre.hooftrim.database.models.NextVisit;
+import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
 
@@ -42,11 +45,41 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+
+import static com.damasahhre.hooftrim.R.string.eight;
+import static com.damasahhre.hooftrim.R.string.eleven;
+import static com.damasahhre.hooftrim.R.string.five;
+import static com.damasahhre.hooftrim.R.string.four;
+import static com.damasahhre.hooftrim.R.string.more_info;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_1;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_2;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_3;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_4;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_5;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_6;
+import static com.damasahhre.hooftrim.R.string.more_info_reason_7;
+import static com.damasahhre.hooftrim.R.string.next_visit;
+import static com.damasahhre.hooftrim.R.string.nine;
+import static com.damasahhre.hooftrim.R.string.one;
+import static com.damasahhre.hooftrim.R.string.reason_1;
+import static com.damasahhre.hooftrim.R.string.reason_10;
+import static com.damasahhre.hooftrim.R.string.reason_2;
+import static com.damasahhre.hooftrim.R.string.reason_3;
+import static com.damasahhre.hooftrim.R.string.reason_4;
+import static com.damasahhre.hooftrim.R.string.reason_5;
+import static com.damasahhre.hooftrim.R.string.reason_6;
+import static com.damasahhre.hooftrim.R.string.reason_7;
+import static com.damasahhre.hooftrim.R.string.reason_8;
+import static com.damasahhre.hooftrim.R.string.reason_9;
+import static com.damasahhre.hooftrim.R.string.seven;
+import static com.damasahhre.hooftrim.R.string.six;
+import static com.damasahhre.hooftrim.R.string.ten;
+import static com.damasahhre.hooftrim.R.string.three;
+import static com.damasahhre.hooftrim.R.string.twelve;
+import static com.damasahhre.hooftrim.R.string.two;
+import static com.damasahhre.hooftrim.R.string.zero;
 
 public class FarmProfileActivity extends AppCompatActivity {
 
@@ -59,6 +92,9 @@ public class FarmProfileActivity extends AppCompatActivity {
     private GridView cowsGridView;
     private RecyclerView nextVisitView;
     private RecyclerViewAdapterNextVisitFarmProfile mAdapter;
+    private ImageView menu;
+    private ConstraintLayout menuLayout;
+    private ImageView outside;
     private int id;
 
     @Override
@@ -66,6 +102,9 @@ public class FarmProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_livestock_profile);
 
+        menu = findViewById(R.id.dropdown_menu);
+        menuLayout = findViewById(R.id.menu_layout);
+        outside = findViewById(R.id.outside);
         title = findViewById(R.id.title_livestrok);
         visitTitle = findViewById(R.id.next_visit_title);
         birthCount = findViewById(R.id.count_value);
@@ -85,8 +124,47 @@ public class FarmProfileActivity extends AppCompatActivity {
         mAdapter = new RecyclerViewAdapterNextVisitFarmProfile(new ArrayList<>(), this);
         nextVisitView.setAdapter(mAdapter);
 
-        export();
+        menu.setOnClickListener(view -> showMenu());
+        outside.setOnClickListener(view -> hideMenu());
+        ConstraintLayout edit = findViewById(R.id.item_one);
+        ConstraintLayout remove = findViewById(R.id.item_two);
+        ConstraintLayout share = findViewById(R.id.item_three);
+        edit.setOnClickListener(view -> {
+            hideMenu();
+            Intent intent = new Intent(this, AddLivestockActivity.class);
+            intent.putExtra(Constants.FARM_ID, id);
+            intent.putExtra(Constants.ADD_FARM_MODE, Constants.EDIT_FARM);
+            startActivity(intent);
+        });
+        remove.setOnClickListener(view -> {
+            MyDao dao = DataBase.getInstance(this).dao();
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                Farm farm = dao.getFarm(id);
+                dao.deleteFarm(farm);
+                runOnUiThread(() -> {
+                    hideMenu();
+                    finish();
+                });
+            });
+        });
+        share.setOnClickListener(view -> {
+            export();
+            hideMenu();
+        });
 
+
+    }
+
+    void showMenu() {
+        outside.setVisibility(View.VISIBLE);
+        menuLayout.setVisibility(View.VISIBLE);
+        menu.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideMenu() {
+        menu.setVisibility(View.VISIBLE);
+        outside.setVisibility(View.GONE);
+        menuLayout.setVisibility(View.GONE);
     }
 
     private void hideVisit() {
@@ -164,81 +242,181 @@ public class FarmProfileActivity extends AppCompatActivity {
     }
 
     public void export() {
+
+        if (Constants.checkPermission(this))
+            return;
+
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Sample sheet");
-        //todo export farm info to file
-        Map<String, Object[]> data = new HashMap<>();
-        data.put("1", new Object[]{"Emp No.", "Name", "Salary"});
-        data.put("2", new Object[]{1d, "John", 1500000d});
-        data.put("3", new Object[]{2d, "Sam", 800000d});
-        data.put("4", new Object[]{3d, "Dean", 700000d});
 
-        Set<String> keyset = data.keySet();
-        int rownum = 0;
-        for (String key : keyset) {
-            Row row = sheet.createRow(rownum++);
-            Object[] objArr = data.get(key);
-            int cellnum = 0;
-            assert objArr != null;
-            for (Object obj : objArr) {
-                Cell cell = row.createCell(cellnum++);
-                if (obj instanceof Date)
-                    cell.setCellValue((Date) obj);
-                else if (obj instanceof Boolean)
-                    cell.setCellValue((Boolean) obj);
-                else if (obj instanceof String)
-                    cell.setCellValue((String) obj);
-                else if (obj instanceof Double)
-                    cell.setCellValue((Double) obj);
-            }
-        }
+        Integer[] headers = {R.string.cow_number, R.string.day, R.string.month, R.string.year,
+                reason_1, reason_2, reason_3, reason_4, reason_5, reason_6, reason_7, reason_8,
+                reason_9, reason_10, zero, one, two, three, four, five, six, seven, eight, nine,
+                ten, eleven, twelve, more_info_reason_1, more_info_reason_2, more_info_reason_7,
+                more_info_reason_5, more_info_reason_6, more_info_reason_4, more_info_reason_3,
+                next_visit, more_info};
 
-        try {
-
-            //todo replace with farm name
-            String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", "alireza");
-            File file = new File(storage);
-            if (file.exists()) {
-                if (file.delete()) {
-                    Log.i("TAG", "export: deleted ok");
-                } else {
-                    Log.i("TAG", "export: deleted fuck");
+        MyDao dao = DataBase.getInstance(this).dao();
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            List<Report> reports = dao.getAllReportFarm(id);
+            runOnUiThread(() -> {
+                //add headers
+                Row row = sheet.createRow(0);
+                for (int i = 0; i < headers.length; i++) {
+                    Cell cell = row.createCell(i);
+                    cell.setCellValue(getString(headers[i]));
                 }
-            }
-            if (file.createNewFile()) {
-                FileOutputStream out = new FileOutputStream(file);
-                workbook.write(out);
-                out.close();
-                Log.i("TAG", "export: Excel written successfully..");
-            } else {
-                Log.i("TAG", "export: Excel written fuck..");
-            }
+                //add reports
+                for (int i = 0; i < reports.size(); i++) {
+                    Report report = reports.get(i);
+                    row = sheet.createRow(i + 1);
 
-            Uri uri;
-            if (Build.VERSION.SDK_INT < 24) {
-                uri = Uri.fromFile(file);
-            } else {
-                uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
-            }
+                    Cell cell = row.createCell(0);
+                    cell.setCellValue(report.cowId);
 
-            Intent intent = ShareCompat.IntentBuilder.from(this)
-                    .setType("*/*")
-                    .setStream(uri)
-                    .setChooserTitle("Choose bar")
-                    .createChooserIntent()
-                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    int[] date = report.visit.convert(this);
+                    cell = row.createCell(1);
+                    cell.setCellValue(date[2]);
 
-//            Intent sendIntent = new Intent();
-//            sendIntent.setAction(Intent.ACTION_SEND);
-//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file.getAbsolutePath()));
-//            sendIntent.setType("*/*");
-//
-//            Intent shareIntent = Intent.createChooser(sendIntent, null);
-            startActivity(intent);
+                    cell = row.createCell(2);
+                    cell.setCellValue(date[1]);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    cell = row.createCell(3);
+                    cell.setCellValue(date[0]);
+
+                    cell = row.createCell(4);
+                    if (report.referenceCauseHundredDays)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(5);
+                    if (report.referenceCauseDryness)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(6);
+                    if (report.referenceCauseLagged)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(7);
+                    if (report.referenceCauseHighScore)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(8);
+                    if (report.referenceCauseReferential)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(9);
+                    if (report.referenceCauseHeifer)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(10);
+                    if (report.referenceCauseLongHoof)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(11);
+                    if (report.referenceCauseNewLimp)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(12);
+                    if (report.referenceCauseLimpVisit)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(13);
+                    if (report.referenceCauseGroupHoofTrim)
+                        cell.setCellValue("*");
+
+                    for (int k = 0; k < 13; k++) {
+                        cell = row.createCell(k + 14);
+                        if (report.legAreaNumber == k)
+                            cell.setCellValue(report.fingerNumber);
+                    }
+
+                    cell = row.createCell(28);
+                    if (report.otherInfoWound)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(29);
+                    if (report.otherInfoEcchymosis)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(30);
+                    if (report.otherInfoHoofTrim)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(31);
+                    if (report.otherInfoGel)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(32);
+                    if (report.otherInfoBoarding)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(33);
+                    if (report.otherInfoNoInjury)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(34);
+                    if (report.otherInfoRecovered)
+                        cell.setCellValue("*");
+
+                    cell = row.createCell(35);
+                    if (report.nextVisit != null)
+                        cell.setCellValue(report.nextVisit.toString(this));
+
+                    cell = row.createCell(36);
+                    cell.setCellValue(report.description);
+
+                }
+            });
+        });
+
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            Farm farm = dao.getFarm(id);
+            runOnUiThread(() -> {
+                try {
+
+                    String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", farm.name);
+                    File file = new File(storage);
+                    if (file.exists()) {
+                        if (file.delete()) {
+                            Log.i("TAG", "export: deleted ok");
+                        } else {
+                            Log.i("TAG", "export: deleted fuck");
+                        }
+                    }
+                    if (file.createNewFile()) {
+                        FileOutputStream out = new FileOutputStream(file);
+                        workbook.write(out);
+                        out.close();
+                        Log.i("TAG", "export: Excel written successfully..");
+                    } else {
+                        Log.i("TAG", "export: Excel written fuck..");
+                    }
+
+                    Uri uri;
+                    if (Build.VERSION.SDK_INT < 24) {
+                        uri = Uri.fromFile(file);
+                    } else {
+                        uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
+                    }
+
+                    Intent intent = ShareCompat.IntentBuilder.from(this)
+                            .setType("*/*")
+                            .setStream(uri)
+                            .setChooserTitle("Choose bar")
+                            .createChooserIntent()
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    startActivity(intent);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            });
+        });
+
+
     }
 
 }

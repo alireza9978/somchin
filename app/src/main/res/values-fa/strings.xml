@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">سمچین</string>
     <string name="logo_content">logo image</string>
 
@@ -46,6 +47,7 @@
     <string name="enter_farm">دامداری مورد نظر خود را انتخاب کنید</string>
     <string name="enter_date">بازه‌ی زمانی برای جستجو را وارد کنید</string>
     <string name="enter_cow_number">شماره دام مورد نظر خود را وارد کنید</string>
+    <string name="cow_number">شماره گاو</string>
     <string name="enter_cow_number_report">شماره گاو را وارد کنید</string>
     <string name="enter_date_report">تاریخ بازدید را وارد کنید</string>
     <string name="information">اطلاعات اولیه</string>
@@ -128,5 +130,23 @@
     <string name="edit">ویرایش</string>
     <string name="remove">حذف</string>
     <string name="change_language">change language to English</string>
+    <string name="export">خروجی</string>
+    <string name="day">روز</string>
+    <string name="month">ماه</string>
+    <string name="year">سال</string>
+
+    <string name="zero">۰</string>
+    <string name="one">۱</string>
+    <string name="two">۲</string>
+    <string name="three">۳</string>
+    <string name="four">۴</string>
+    <string name="five">۵</string>
+    <string name="six">۶</string>
+    <string name="seven">۷</string>
+    <string name="eight">۸</string>
+    <string name="nine">۹</string>
+    <string name="ten">۱۰</string>
+    <string name="eleven">۱۱</string>
+    <string name="twelve">۱۲</string>
 
 </resources>

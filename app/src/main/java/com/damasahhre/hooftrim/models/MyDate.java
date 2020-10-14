@@ -1,9 +1,7 @@
 package com.damasahhre.hooftrim.models;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.util.Log;
-import android.view.View;
 
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.Utilities;
@@ -106,6 +104,15 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
             return "" + temp[2];
         } else {
             return "" + day;
+        }
+    }
+
+    public int[] convert(Context context) {
+        if (Constants.getDefualtlanguage(context).equals("fa")) {
+            PersianDate pdate = new PersianDate();
+            return pdate.toJalali(year, month, day);
+        } else {
+            return new int[]{year, month, day};
         }
     }
 

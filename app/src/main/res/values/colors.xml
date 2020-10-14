@@ -16,6 +16,7 @@
     <color name="polar">#EFFBF9</color>
     <!--background-->
     <color name="athens_gray">#F1F1F6</color>
+    <color name="athens_gray_alpha">#aaF1F1F6</color>
     <!--text-->
     <color name="hit_gray">#A0ABB4</color>
 

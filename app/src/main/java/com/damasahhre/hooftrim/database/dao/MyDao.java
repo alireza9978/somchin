@@ -149,6 +149,9 @@ public interface MyDao {
     @Query("SELECT * FROM Report WHERE Report.cow_id == :id")
     List<Report> getAllReportOfCow(Integer id);
 
+    @Query("SELECT * FROM Cow,Report WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id")
+    List<Report> getAllReportFarm(Integer id);
+
     @Query("SELECT * FROM Farm WHERE Farm.id == :id")
     Farm getFarm(Integer id);
 
@@ -187,7 +190,6 @@ public interface MyDao {
     @Update
     void update(Report report);
 
-
     @Insert
     void insert(Report report);
 
@@ -196,7 +198,6 @@ public interface MyDao {
 
     @Insert
     void insert(Cow Cow);
-
 
     @Insert
     void insertAll(Report... reports);

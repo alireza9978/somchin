@@ -20,6 +20,10 @@ import com.damasahhre.hooftrim.R;
 
 public class Constants {
 
+    public static String ADD_FARM_MODE = "SADASDXCVV";
+    public static String FARM_CREATE = "CREATE_NEW_FARM";
+    public static String EDIT_FARM = "EDIT_OLD_FARM";
+
     public static String NO_LANGUAGE = "en";
     private static String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static String LANGUAGE_DATA = "someWhereInDarkness12";
