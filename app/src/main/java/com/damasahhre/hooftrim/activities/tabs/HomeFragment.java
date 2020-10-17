@@ -26,7 +26,6 @@ import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.NextReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
-import com.damasahhre.hooftrim.ui_element.ExpandableHeightGridView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -85,7 +84,7 @@ public class HomeFragment extends Fragment {
             nextVisitList.setVisibility(View.VISIBLE);
             if (more) {
                 showMore.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 showMore.setVisibility(View.GONE);
             }
             noVisit.setVisibility(View.INVISIBLE);
@@ -133,9 +132,9 @@ public class HomeFragment extends Fragment {
                 requireActivity().runOnUiThread(() -> {
                     ArrayList<FarmWithCowCount> addition = new ArrayList<>();
                     main:
-                    for (Farm farm: farms){
-                        for (FarmWithCowCount farmWithCowCount: farmList){
-                            if (farm.id.equals(farmWithCowCount.farmId)){
+                    for (Farm farm : farms) {
+                        for (FarmWithCowCount farmWithCowCount : farmList) {
+                            if (farm.id.equals(farmWithCowCount.farmId)) {
                                 continue main;
                             }
                         }

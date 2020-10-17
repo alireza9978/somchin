@@ -17,7 +17,7 @@ public class MoreInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_more_info);
         State state = (State) Objects.requireNonNull(getIntent().getExtras()).get(Constants.MORE_INFO_STATE);
         assert state != null;
-        switch (state){
+        switch (state) {
             case info:
                 break;
             case reason:

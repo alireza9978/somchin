@@ -29,6 +29,14 @@ public class DateContainer implements Serializable {
         this.endDate = endDate;
     }
 
+    public static String toString(com.damasahhre.hooftrim.models.MyDate date) {
+        if (date.compareTo(new com.damasahhre.hooftrim.models.MyDate(new Date())) == 0) {
+            return "today";
+        } else
+            return "other_day";
+
+    }
+
     public String getMode() {
         return mode;
     }
@@ -51,6 +59,59 @@ public class DateContainer implements Serializable {
 
     public void setEndDate(MyDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String toStringSmall(Context context) {
+        if (mode.equals(RANG)) {
+            if (startDate.equals(endDate)) {
+                return startDate.toStringWithoutYear(context);
+            }
+            return startDate.toStringWithoutYear(context) + "~" + endDate.toStringWithoutYear(context);
+        } else {
+            return startDate.toStringWithoutYear(context);
+        }
+    }
+
+    public String toString(Context context) {
+        if (mode.equals(RANG)) {
+            if (startDate.equals(endDate)) {
+                return startDate.toString(context);
+            }
+            return startDate.toString(context) + " " + endDate.toString(context);
+        } else {
+            return startDate.toString(context);
+        }
+    }
+
+    public String toStringBeauty(Context context) {
+        if (mode.equals(RANG)) {
+            if (startDate.equals(endDate)) {
+                return startDate.toString(context);
+            }
+            return "(" + startDate.toStringComa(context) + "~" + endDate.toStringComa(context) + ")";
+        } else {
+            return "(" + startDate.toStringComa(context) + ")";
+        }
+    }
+
+    public com.damasahhre.hooftrim.models.MyDate exportStart() {
+        if (startDate.persian) {
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toGregorian(startDate.year, startDate.month, startDate.day);
+            return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
+        } else {
+            return new com.damasahhre.hooftrim.models.MyDate(startDate.day, startDate.month, startDate.year);
+        }
+    }
+
+    public com.damasahhre.hooftrim.models.MyDate exportEnd() {
+        if (endDate.persian) {
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toGregorian(startDate.year, startDate.month, startDate.day);
+            return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
+        } else {
+            return new com.damasahhre.hooftrim.models.MyDate(endDate.day, endDate.month, endDate.year);
+        }
     }
 
     public static class MyDate implements Serializable {
@@ -113,66 +174,5 @@ public class DateContainer implements Serializable {
             return out;
         }
 
-    }
-
-    public String toStringSmall(Context context) {
-        if (mode.equals(RANG)) {
-            if (startDate.equals(endDate)) {
-                return startDate.toStringWithoutYear(context);
-            }
-            return startDate.toStringWithoutYear(context) + "~" + endDate.toStringWithoutYear(context);
-        } else {
-            return startDate.toStringWithoutYear(context);
-        }
-    }
-
-    public String toString(Context context) {
-        if (mode.equals(RANG)) {
-            if (startDate.equals(endDate)) {
-                return startDate.toString(context);
-            }
-            return startDate.toString(context) + " " + endDate.toString(context);
-        } else {
-            return startDate.toString(context);
-        }
-    }
-
-    public String toStringBeauty(Context context) {
-        if (mode.equals(RANG)) {
-            if (startDate.equals(endDate)) {
-                return startDate.toString(context);
-            }
-            return "(" + startDate.toStringComa(context) + "~" + endDate.toStringComa(context) + ")";
-        } else {
-            return "(" + startDate.toStringComa(context) + ")";
-        }
-    }
-
-    public static String toString(com.damasahhre.hooftrim.models.MyDate date) {
-        if (date.compareTo(new com.damasahhre.hooftrim.models.MyDate(new Date())) == 0) {
-            return "today";
-        } else
-            return "other_day";
-
-    }
-
-    public com.damasahhre.hooftrim.models.MyDate exportStart() {
-        if (startDate.persian) {
-            PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toGregorian(startDate.year,startDate.month,startDate.day);
-            return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
-        } else {
-            return new com.damasahhre.hooftrim.models.MyDate(startDate.day, startDate.month, startDate.year);
-        }
-    }
-
-    public com.damasahhre.hooftrim.models.MyDate exportEnd() {
-        if (endDate.persian) {
-            PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toGregorian(startDate.year,startDate.month,startDate.day);
-            return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
-        } else {
-            return new com.damasahhre.hooftrim.models.MyDate(endDate.day, endDate.month, endDate.year);
-        }
     }
 }

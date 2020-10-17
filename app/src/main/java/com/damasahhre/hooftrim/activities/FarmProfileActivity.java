@@ -251,8 +251,9 @@ public class FarmProfileActivity extends AppCompatActivity {
         HSSFSheet sheet = workbook.createSheet("Sample sheet");
 
         Integer[] headers = {R.string.cow_number, R.string.day, R.string.month, R.string.year,
-                reason_1, reason_2, reason_3, reason_4, reason_5, reason_6, reason_7, reason_8,
-                reason_9, reason_10, zero, one, two, three, four, five, six, seven, eight, nine,
+                reason_1, reason_2, reason_3,
+                reason_6, reason_7, reason_9, reason_8, reason_4,
+                reason_5, reason_10, zero, one, two, three, four, five, six, seven, eight, nine,
                 ten, eleven, twelve, more_info_reason_1, more_info_reason_2, more_info_reason_7,
                 more_info_reason_5, more_info_reason_6, more_info_reason_4, more_info_reason_3,
                 next_visit, more_info};
@@ -332,39 +333,39 @@ public class FarmProfileActivity extends AppCompatActivity {
                             cell.setCellValue(report.fingerNumber);
                     }
 
-                    cell = row.createCell(28);
+                    cell = row.createCell(27);
                     if (report.otherInfoWound)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(29);
+                    cell = row.createCell(28);
                     if (report.otherInfoEcchymosis)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(30);
+                    cell = row.createCell(29);
                     if (report.otherInfoHoofTrim)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(31);
+                    cell = row.createCell(30);
                     if (report.otherInfoGel)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(32);
+                    cell = row.createCell(31);
                     if (report.otherInfoBoarding)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(33);
+                    cell = row.createCell(32);
                     if (report.otherInfoNoInjury)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(34);
+                    cell = row.createCell(33);
                     if (report.otherInfoRecovered)
                         cell.setCellValue("*");
 
-                    cell = row.createCell(35);
+                    cell = row.createCell(34);
                     if (report.nextVisit != null)
                         cell.setCellValue(report.nextVisit.toString(this));
 
-                    cell = row.createCell(36);
+                    cell = row.createCell(35);
                     cell.setCellValue(report.description);
 
                 }

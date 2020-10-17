@@ -1,6 +1,6 @@
 package com.damasahhre.hooftrim.activities.reports;
 
-enum  State {
+enum State {
 
     info, reason, injury, moreInfo;
 

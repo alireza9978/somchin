@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -55,6 +54,10 @@ public class DateSelectionActivity extends AppCompatActivity {
     private TextView clear;
     private Button submit;
     private boolean rang;
+    private int state = 0;
+    private PersianDate monthDate;
+    private PersianDate startPersianDate;
+    private PersianDate endPersianDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,11 +231,6 @@ public class DateSelectionActivity extends AppCompatActivity {
         mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         year.setText(mNewTitle);
     }
-
-    private int state = 0;
-    private PersianDate monthDate;
-    private PersianDate startPersianDate;
-    private PersianDate endPersianDate;
 
     private void setPersian() {
         PersianCalendarHandler calendarHandler = calendarView.getCalendar();

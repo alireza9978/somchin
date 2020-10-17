@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +44,10 @@ public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<Recyc
         holder.cowName.setText(R.string.cow_title);
         holder.cowName.append(" " + report.cowNumber);
         holder.farmName.setText(report.farmName);
-        if (report.nextVisitDate.isToday()){
+        if (report.nextVisitDate.isToday()) {
             holder.date.setText(R.string.today);
             holder.date.setTextColor(context.getResources().getColor(R.color.red));
-        }else {
+        } else {
             holder.date.setText(report.nextVisitDate.toString(context));
             holder.date.setTextColor(context.getResources().getColor(R.color.black));
         }

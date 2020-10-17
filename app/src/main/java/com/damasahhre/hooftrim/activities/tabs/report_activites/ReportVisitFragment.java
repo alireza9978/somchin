@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities.tabs.report_activites;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;

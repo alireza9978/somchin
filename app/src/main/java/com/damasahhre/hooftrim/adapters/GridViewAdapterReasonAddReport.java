@@ -59,9 +59,9 @@ public class GridViewAdapterReasonAddReport extends BaseAdapter {
         holder.name.setText(item.getName());
         if (item.isActive()) {
             holder.item.setChecked(item.isCheck());
-            if (item.isCheck()){
+            if (item.isCheck()) {
                 holder.name.setTextColor(context.getResources().getColor(R.color.black));
-            }else{
+            } else {
                 holder.name.setTextColor(context.getResources().getColor(R.color.report_gray));
             }
             holder.view.setEnabled(true);

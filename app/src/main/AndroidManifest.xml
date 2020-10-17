@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".activities.ReportSummery"></activity>
+        <activity android:name=".activities.reports.ReportSummery" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

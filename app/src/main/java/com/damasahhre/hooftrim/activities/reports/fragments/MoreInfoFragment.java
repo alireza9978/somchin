@@ -28,6 +28,13 @@ public class MoreInfoFragment extends Fragment {
     private TextView date_text;
     private String date;
 
+    public MoreInfoFragment(String date) {
+        this.date = date;
+    }
+
+    public MoreInfoFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +80,7 @@ public class MoreInfoFragment extends Fragment {
         }
     }
 
-    public String getMoreInfo(){
+    public String getMoreInfo() {
         return moreInfo.getText().toString();
     }
 

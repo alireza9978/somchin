@@ -1,12 +1,12 @@
 package com.damasahhre.hooftrim.activities.tabs;
 
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;

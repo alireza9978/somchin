@@ -32,6 +32,7 @@ public class CheckBoxItem {
             item.setActive(false);
         }
     }
+
     public void enableOther() {
         for (CheckBoxItem item : disable) {
             item.setActive(true);

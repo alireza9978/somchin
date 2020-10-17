@@ -1,9 +1,7 @@
 package com.damasahhre.hooftrim.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -17,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
-import com.damasahhre.hooftrim.constants.Constants;
 
 
 /**
@@ -53,13 +50,6 @@ public class SelectFingerDialog extends Dialog {
                 Toast.makeText(context, "value error", Toast.LENGTH_SHORT).show();
             }
         });
-        this.setOnDismissListener(dialogInterface -> Constants.hideKeyboard((Activity) context));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart: ");
     }
 
     public SelectFingerDialog(@NonNull Context context, int themeResId) {
@@ -68,6 +58,12 @@ public class SelectFingerDialog extends Dialog {
 
     protected SelectFingerDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart: ");
     }
 
     @Override

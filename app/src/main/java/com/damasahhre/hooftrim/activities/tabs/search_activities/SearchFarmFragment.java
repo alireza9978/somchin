@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities.tabs.search_activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchFarm;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
-import com.damasahhre.hooftrim.database.models.CowForMarked;
 import com.damasahhre.hooftrim.database.models.SearchFarm;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
@@ -68,7 +66,7 @@ public class SearchFarmFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "input error", Toast.LENGTH_SHORT).show());
                     return;
                 }
-                List<SearchFarm> farms = dao.searchFarm(date.exportStart(),date.exportEnd());
+                List<SearchFarm> farms = dao.searchFarm(date.exportStart(), date.exportEnd());
                 requireActivity().runOnUiThread(() -> {
                     if (farms.isEmpty()) {
                         notFound();

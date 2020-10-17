@@ -14,7 +14,6 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
-import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowForMarked;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 

@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
                 List<Cow> cows = dao.getAllCowOfFarm(farm.id);
                 for (Cow cow : cows) {
                     List<Report> reports = dao.getAllReportOfCow(cow.getId());
-                    for(Report report : reports){
+                    for (Report report : reports) {
                         Log.i("SPLASH", "farm = " + farm.id + " cow num = " + cow.getNumber() + " " + report.toString());
                     }
                 }

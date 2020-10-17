@@ -26,11 +26,11 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/ic_add_reverse"
-        app:tint="@color/hit_gray"
         app:layout_constraintBottom_toTopOf="@id/farm_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/hit_gray" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

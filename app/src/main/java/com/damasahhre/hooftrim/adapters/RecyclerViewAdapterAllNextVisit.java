@@ -44,10 +44,10 @@ public class RecyclerViewAdapterAllNextVisit extends RecyclerView.Adapter<Recycl
         holder.cowName.setText(R.string.visit_cow);
         holder.cowName.append(" " + report.cowNumber);
         holder.farmName.setText(report.farmName);
-        if (report.nextVisitDate.isToday()){
+        if (report.nextVisitDate.isToday()) {
             holder.date.setText(R.string.today);
             holder.date.setTextColor(context.getResources().getColor(R.color.red));
-        }else {
+        } else {
             holder.date.setText(report.nextVisitDate.toString());
             holder.date.setTextColor(context.getResources().getColor(R.color.black));
         }

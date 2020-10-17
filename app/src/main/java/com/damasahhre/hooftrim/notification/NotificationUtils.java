@@ -2,9 +2,7 @@ package com.damasahhre.hooftrim.notification;
 
 import android.app.ActivityManager;
 import android.app.NotificationManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.os.Build;
 
 import java.util.List;
 

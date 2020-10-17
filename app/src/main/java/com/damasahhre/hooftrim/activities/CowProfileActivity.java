@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,7 +71,7 @@ public class CowProfileActivity extends AppCompatActivity {
                 } else {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bookmark));
                 }
-                adapter = new GridViewAdapterCowProfile(this,reports, cow.getId());
+                adapter = new GridViewAdapterCowProfile(this, reports, cow.getId());
                 this.reports.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             });
@@ -82,12 +80,12 @@ public class CowProfileActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (lastVisit.nextVisit != null) {
                     this.nextVisit.setText(lastVisit.nextVisit.toString(context));
-                }else{
+                } else {
                     this.nextVisit.setText(R.string.no_visit_short);
                 }
                 if (lastVisit.lastVisit != null) {
                     this.lastVisit.setText(lastVisit.lastVisit.toString(context));
-                }else{
+                } else {
                     this.lastVisit.setText(R.string.no_visit_short);
                 }
             });

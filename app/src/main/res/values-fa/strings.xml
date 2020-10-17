@@ -150,4 +150,13 @@
     <string name="twelve">۱۲</string>
     <string name="finger">انگشت</string>
 
+    <string name="injury_row_0">فلگمون بین انگشتی</string>
+    <string name="injury_row_1">درماتیت انگشتی</string>
+    <string name="injury_row_2">زخم کف سم</string>
+    <string name="injury_row_3">زخم خط سفید</string>
+    <string name="injury_row_4">زخم پنجه</string>
+    <string name="injury_row_5">زخم پاشنه</string>
+    <string name="injury_row_6">ترک دیواره</string>
+    <string name="injury_row_7">ناحیه 9</string>
+
 </resources>

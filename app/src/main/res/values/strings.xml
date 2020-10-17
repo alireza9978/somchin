@@ -156,4 +156,13 @@
     <string name="twelve">12</string>
     <string name="finger">finger</string>
 
+    <string name="injury_row_0">Interdigital necrobacillosis</string>
+    <string name="injury_row_1">Digital dermatitis</string>
+    <string name="injury_row_2">Sole ulcer</string>
+    <string name="injury_row_3">White line disease</string>
+    <string name="injury_row_4">Toe ulcer</string>
+    <string name="injury_row_5">Heel erosion</string>
+    <string name="injury_row_6">Vertical and horizontal fissure</string>
+    <string name="injury_row_7">zone 9</string>
+
 </resources>

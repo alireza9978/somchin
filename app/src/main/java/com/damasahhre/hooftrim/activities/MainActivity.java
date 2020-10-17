@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -43,6 +42,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private DrawerLayout drawerLayout;
     private String TAG = "MAIN ACTIVITY";
+
+    public static void applyFontToMenu(Menu m, Context mContext) {
+        for (int i = 0; i < m.size(); i++) {
+            applyFontToMenuItem(m.getItem(i), mContext);
+        }
+    }
+
+    public static void applyFontToMenuItem(MenuItem mi, Context mContext) {
+        if (mi.hasSubMenu())
+            for (int i = 0; i < mi.getSubMenu().size(); i++) {
+                applyFontToMenuItem(mi.getSubMenu().getItem(i), mContext);
+            }
+        Typeface font = ResourcesCompat.getFont(mContext, R.font.anjoman_medium);
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+
+        mNewTitle.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mi.setTitle(mNewTitle);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,25 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public static void applyFontToMenu(Menu m, Context mContext) {
-        for (int i = 0; i < m.size(); i++) {
-            applyFontToMenuItem(m.getItem(i), mContext);
-        }
-    }
-
-    public static void applyFontToMenuItem(MenuItem mi, Context mContext) {
-        if (mi.hasSubMenu())
-            for (int i = 0; i < mi.getSubMenu().size(); i++) {
-                applyFontToMenuItem(mi.getSubMenu().getItem(i), mContext);
-            }
-        Typeface font = ResourcesCompat.getFont(mContext, R.font.anjoman_medium);
-        SpannableString mNewTitle = new SpannableString(mi.getTitle());
-
-        mNewTitle.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mi.setTitle(mNewTitle);
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -135,10 +134,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.lang: {
-                if(getDefualtlanguage(this).equals("fa")){
-                    Constants.setLanguage(this,"en");
-                }else{
-                    Constants.setLanguage(this,"fa");
+                if (getDefualtlanguage(this).equals("fa")) {
+                    Constants.setLanguage(this, "en");
+                } else {
+                    Constants.setLanguage(this, "fa");
                 }
                 Intent intent = new Intent(this, SplashActivity.class);
                 startActivity(intent);
@@ -147,6 +146,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         return false;
+    }
+
+    public void openMenu() {
+        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     public static class CustomTypefaceSpan extends TypefaceSpan {
@@ -188,10 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public void updateMeasureState(TextPaint paint) {
             applyCustomTypeFace(paint, newType);
         }
-    }
-
-    public void openMenu() {
-        drawerLayout.openDrawer(GravityCompat.START);
     }
 
 }

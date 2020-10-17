@@ -2,10 +2,6 @@ package com.damasahhre.hooftrim.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.ColorFilter;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +15,6 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.CowProfileActivity;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 
 import java.util.List;
@@ -63,9 +58,10 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
         if (cows.size() == i) {
             view = LayoutInflater.from(context)
                     .inflate(R.layout.add_grid_item, viewGroup, false);
-            Constants.gridRtl(context,view);
+            Constants.gridRtl(context, view);
             view.setOnClickListener(view1 -> {
                 Intent intent = new Intent(context, AddReportActivity.class);
+                intent.putExtra(Constants.REPORT_MODE, Constants.REPORT_CREATE);
                 intent.putExtra(Constants.COW_ID, -1);
                 intent.putExtra(Constants.FARM_ID, farmId);
                 context.startActivity(intent);
@@ -75,7 +71,7 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             if (view == null) {
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.livestock_grid_item, viewGroup, false);
-                Constants.gridRtl(context,view);
+                Constants.gridRtl(context, view);
                 holder = new Holder();
                 holder.view = view;
                 holder.cowCount = view.findViewById(R.id.cow_count);
@@ -94,10 +90,10 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             });
             holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_calendar));
             holder.farmTitle.setText(cow.getNumber(context));
-            if (cow.getLastVisit() == null){
+            if (cow.getLastVisit() == null) {
                 holder.cowCount.setText(R.string.no_visit_short);
                 holder.cowCount.setTextColor(ContextCompat.getColor(context, R.color.persian_green));
-            }else {
+            } else {
                 holder.cowCount.setText(cow.getLastVisit().toStringWithoutYear(context));
                 holder.cowCount.setTextColor(ContextCompat.getColor(context, R.color.persian_green));
             }

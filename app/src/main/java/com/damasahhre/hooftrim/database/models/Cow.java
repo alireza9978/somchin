@@ -40,12 +40,12 @@ public class Cow {
         return number;
     }
 
-    public String getNumber(Context context) {
-        return context.getString(R.string.cow_title) + number;
-    }
-
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public String getNumber(Context context) {
+        return context.getString(R.string.cow_title) + number;
     }
 
     public Integer getFarm() {
@@ -56,12 +56,12 @@ public class Cow {
         this.farm = farm;
     }
 
-    public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
-    }
-
     public Boolean getFavorite() {
         return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
     }
 
     public String getNumberString() {

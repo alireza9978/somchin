@@ -1,6 +1,5 @@
 package com.damasahhre.hooftrim.activities.tabs.report_activites;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +11,23 @@ import androidx.fragment.app.Fragment;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import java.util.List;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class ImportFragment extends Fragment {
+
+    private PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+        }
+
+        @Override
+        public void onPermissionDenied(List<String> deniedPermissions) {
+        }
+
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,17 +46,6 @@ public class ImportFragment extends Fragment {
 
         return view;
     }
-
-    private PermissionListener permissionlistener = new PermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-        }
-
-        @Override
-        public void onPermissionDenied(List<String> deniedPermissions) {
-        }
-
-    };
 
     @Override
     public void onResume() {

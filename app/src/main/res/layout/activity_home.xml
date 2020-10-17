@@ -80,9 +80,9 @@
                 android:text="@string/no_next_visit"
                 android:textSize="32sp"
                 android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.damasahhre.hooftrim.ui_element.ExpandableHeightRecyclerView

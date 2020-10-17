@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
             android:id="@+id/username"
@@ -21,9 +19,8 @@
             android:title="@string/about_us" />
         <item
             android:id="@+id/lang"
-            android:actionLayout="@layout/lang_layout"
-            android:title="@string/change_language"
-             />
+            android:icon="@drawable/ic_language"
+            android:title="@string/change_language" />
 
     </group>
 

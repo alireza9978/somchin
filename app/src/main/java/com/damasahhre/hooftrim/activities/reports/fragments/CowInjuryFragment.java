@@ -30,6 +30,18 @@ public class CowInjuryFragment extends Fragment {
     private ImageView rightImage;
     private ImageView leftImage;
 
+    public CowInjuryFragment(int selected, Boolean rightSide) {
+        this.selected = selected;
+        if (selected == 0 || selected >= 7) {
+            this.rightSide = null;
+        } else {
+            this.rightSide = rightSide;
+        }
+    }
+
+    public CowInjuryFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -180,11 +192,16 @@ public class CowInjuryFragment extends Fragment {
     public void getFingerNumber() {
         SelectFingerDialog dialog = new SelectFingerDialog(requireContext());
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setOnDismissListener(dialogInterface -> Constants.hideKeyboard(requireActivity()));
         dialog.show();
     }
 
-    public int getSelected(){
+    public int getSelected() {
         return selected;
+    }
+
+    public Boolean getRightSide() {
+        return rightSide;
     }
 
     private void errorOnlyOne() {

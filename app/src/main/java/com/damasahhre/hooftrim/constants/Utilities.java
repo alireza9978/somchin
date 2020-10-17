@@ -120,6 +120,13 @@ public class Utilities {
         return "" + year;
     }
 
+    public static String getCurrentShamsiDate() {
+        Locale loc = new Locale("en_US");
+        SolarCalendar sc = new SolarCalendar();
+        return String.valueOf(sc.year) + "/" + String.format(loc, "%02d",
+                sc.month) + "/" + String.format(loc, "%02d", sc.date);
+    }
+
     public static class SolarCalendar {
 
         public String strWeekDay = "";
@@ -334,12 +341,5 @@ public class Utilities {
 
         }
 
-    }
-
-    public static String getCurrentShamsiDate() {
-        Locale loc = new Locale("en_US");
-        SolarCalendar sc = new SolarCalendar();
-        return String.valueOf(sc.year) + "/" + String.format(loc, "%02d",
-                sc.month) + "/" + String.format(loc, "%02d", sc.date);
     }
 }

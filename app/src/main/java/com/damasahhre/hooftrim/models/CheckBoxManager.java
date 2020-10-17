@@ -56,7 +56,25 @@ public class CheckBoxManager {
 
     }
 
-    public boolean moreInfoSelected(){
+    public static CheckBoxManager getCheckBoxManager() {
+        if (checkBoxManager == null) {
+            checkBoxManager = new CheckBoxManager();
+        }
+        return checkBoxManager;
+    }
+
+    private void reset() {
+        for (CheckBoxItem item : moreInfo) {
+            item.setCheck(false);
+            item.setActive(true);
+        }
+        for (CheckBoxItem item : reasons) {
+            item.setCheck(false);
+            item.setActive(true);
+        }
+    }
+
+    public boolean moreInfoSelected() {
         return !(moreInfo.get(0).isCheck() || moreInfo.get(1).isCheck() || moreInfo.get(6).isCheck());
     }
 
@@ -69,7 +87,29 @@ public class CheckBoxManager {
         return false;
     }
 
-    public void setBooleans(Report report){
+    public void setBooleansFromReport(Report report) {
+        reset();
+        reasons.get(0).setCheck(report.referenceCauseHundredDays);
+        reasons.get(1).setCheck(report.referenceCauseDryness);
+        reasons.get(2).setCheck(report.referenceCauseLagged);
+        reasons.get(3).setCheck(report.referenceCauseNewLimp);
+        reasons.get(4).setCheck(report.referenceCauseLimpVisit);
+        reasons.get(5).setCheck(report.referenceCauseHighScore);
+        reasons.get(6).setCheck(report.referenceCauseReferential);
+        reasons.get(7).setCheck(report.referenceCauseLongHoof);
+        reasons.get(8).setCheck(report.referenceCauseHeifer);
+        reasons.get(9).setCheck(report.referenceCauseGroupHoofTrim);
+
+        moreInfo.get(0).setCheck(report.otherInfoWound);
+        moreInfo.get(1).setCheck(report.otherInfoGel);
+        moreInfo.get(2).setCheck(report.otherInfoBoarding);
+        moreInfo.get(3).setCheck(report.otherInfoEcchymosis);
+        moreInfo.get(4).setCheck(report.otherInfoNoInjury);
+        moreInfo.get(5).setCheck(report.otherInfoRecovered);
+        moreInfo.get(6).setCheck(report.otherInfoHoofTrim);
+    }
+
+    public void setBooleansOnReport(Report report) {
         report.referenceCauseHundredDays = reasons.get(0).isCheck();
         report.referenceCauseDryness = reasons.get(1).isCheck();
         report.referenceCauseLagged = reasons.get(2).isCheck();
@@ -88,14 +128,7 @@ public class CheckBoxManager {
         report.otherInfoNoInjury = moreInfo.get(4).isCheck();
         report.otherInfoRecovered = moreInfo.get(5).isCheck();
         report.otherInfoHoofTrim = moreInfo.get(6).isCheck();
-
-    }
-
-    public static CheckBoxManager getCheckBoxManager() {
-        if (checkBoxManager == null) {
-            checkBoxManager = new CheckBoxManager();
-        }
-        return checkBoxManager;
+        reset();
     }
 
     public ArrayList<CheckBoxItem> getReasons() {

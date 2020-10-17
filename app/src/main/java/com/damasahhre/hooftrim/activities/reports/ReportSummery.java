@@ -1,5 +1,6 @@
-package com.damasahhre.hooftrim.activities;
+package com.damasahhre.hooftrim.activities.reports;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,30 +28,65 @@ public class ReportSummery extends AppCompatActivity {
     private ImageView outside;
     private ImageView menu;
     private ConstraintLayout menuLayout;
-
+    private TextView cowText;
+    private ExpandableHeightGridView reasonsGrid;
+    private ExpandableHeightGridView moreInfoGrid;
+    private TextView area;
+    private TextView lastVisit;
+    private TextView description;
+    private GridViewAdapterItemInSummery reasonAdapter;
+    private GridViewAdapterItemInSummery moreInfoAdapter;
+    private Integer reportId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_summery);
 
-        Integer reportId = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.REPORT_ID);
+        reportId = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.REPORT_ID);
 
         ImageView back = findViewById(R.id.back_icon);
         Constants.setImageBackBorder(this, back);
         menuLayout = findViewById(R.id.menu_layout);
         outside = findViewById(R.id.outside);
         menu = findViewById(R.id.dropdown_menu);
-        TextView cowText = findViewById(R.id.cow_title);
-        ExpandableHeightGridView reasonsGrid = findViewById(R.id.reason_grid);
-        ExpandableHeightGridView moreInfoGrid = findViewById(R.id.more_info_grid);
-        TextView area = findViewById(R.id.area_text);
-        TextView lastVisit = findViewById(R.id.last_visit_text);
-        TextView description = findViewById(R.id.description_text);
+        cowText = findViewById(R.id.cow_title);
+        reasonsGrid = findViewById(R.id.reason_grid);
+        moreInfoGrid = findViewById(R.id.more_info_grid);
+        area = findViewById(R.id.area_text);
+        lastVisit = findViewById(R.id.last_visit_text);
+        description = findViewById(R.id.description_text);
 
-        GridViewAdapterItemInSummery reasonAdapter = new GridViewAdapterItemInSummery(this, new ArrayList<>());
-        GridViewAdapterItemInSummery moreInfoAdapter = new GridViewAdapterItemInSummery(this, new ArrayList<>());
+        reasonAdapter = new GridViewAdapterItemInSummery(this, new ArrayList<>());
+        moreInfoAdapter = new GridViewAdapterItemInSummery(this, new ArrayList<>());
 
+        MyDao dao = DataBase.getInstance(this).dao();
+
+        back.setOnClickListener(view -> finish());
+        menu.setOnClickListener(view -> showMenu());
+        outside.setOnClickListener(view -> hideMenu());
+        ConstraintLayout edit = findViewById(R.id.item_one);
+        ConstraintLayout remove = findViewById(R.id.item_two);
+        edit.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AddReportActivity.class);
+            intent.putExtra(Constants.REPORT_MODE, Constants.EDIT_REPORT);
+            intent.putExtra(Constants.REPORT_ID, reportId);
+            startActivity(intent);
+            hideMenu();
+        });
+        remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
+            Report report = dao.getReport(reportId);
+            dao.deleteReport(report);
+            runOnUiThread(() -> {
+                hideMenu();
+                finish();
+            });
+        }));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             MyReport myReport = dao.myReportWithCow(reportId);
@@ -83,18 +119,6 @@ public class ReportSummery extends AppCompatActivity {
                 moreInfoGrid.setAdapter(moreInfoAdapter);
                 moreInfoAdapter.notifyDataSetChanged();
             });
-        });
-
-        back.setOnClickListener(view -> finish());
-        menu.setOnClickListener(view -> showMenu());
-        outside.setOnClickListener(view -> hideMenu());
-        ConstraintLayout edit = findViewById(R.id.item_one);
-        ConstraintLayout remove = findViewById(R.id.item_two);
-        edit.setOnClickListener(view -> {
-            hideMenu();
-        });
-        remove.setOnClickListener(view -> {
-            hideMenu();
         });
     }
 

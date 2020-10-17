@@ -4,8 +4,6 @@ import androidx.room.TypeConverter;
 
 import com.damasahhre.hooftrim.models.MyDate;
 
-import java.util.Date;
-
 
 public class DateConverter {
     @TypeConverter

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,14 @@ public class CowInfoFragment extends Fragment {
     private TextView numberEdit;
     private Integer cowNumber = null;
     private String date;
+
+    public CowInfoFragment(Integer cowNumber, String date) {
+        this.cowNumber = cowNumber;
+        this.date = date;
+    }
+
+    public CowInfoFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

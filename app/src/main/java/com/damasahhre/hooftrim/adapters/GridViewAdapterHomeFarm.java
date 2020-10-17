@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +74,7 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
         holder.cowCount.setText("" + farm.cowCount);
         Constants.setImageFront(context, holder.arrow);
         holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cow));
-        Constants.gridRtl(context,view);
+        Constants.gridRtl(context, view);
 
         return view;
     }

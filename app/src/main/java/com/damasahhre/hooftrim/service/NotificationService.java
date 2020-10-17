@@ -20,10 +20,10 @@ import com.damasahhre.hooftrim.activities.SplashActivity;
 
 public class NotificationService extends IntentService {
 
-    private NotificationManager notificationManager;
-    private PendingIntent pendingIntent;
     private static int NOTIFICATION_ID = 1;
     Notification notification;
+    private NotificationManager notificationManager;
+    private PendingIntent pendingIntent;
 
     public NotificationService(String name) {
         super(name);

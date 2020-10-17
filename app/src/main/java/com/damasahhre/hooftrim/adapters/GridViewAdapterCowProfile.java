@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.ReportSummery;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
+import com.damasahhre.hooftrim.activities.reports.ReportSummery;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Report;
 
@@ -64,6 +64,7 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
             }
             holder.view.setOnClickListener(view1 -> {
                 Intent intent = new Intent(context, AddReportActivity.class);
+                intent.putExtra(Constants.REPORT_MODE, Constants.REPORT_CREATE);
                 intent.putExtra(Constants.COW_ID, cowId);
                 context.startActivity(intent);
             });
@@ -73,7 +74,7 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
             if (view == null) {
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.cow_report_item, viewGroup, false);
-                Constants.gridRtl(context,view);
+                Constants.gridRtl(context, view);
 
                 holder = new Holder();
                 holder.view = view;
