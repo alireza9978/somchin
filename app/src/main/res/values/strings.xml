@@ -165,4 +165,19 @@
     <string name="injury_row_6">Vertical and horizontal fissure</string>
     <string name="injury_row_7">zone 9</string>
 
+    <string name="column_name_1">AVG operation in day</string>
+    <string name="column_name_2">New case</string>
+    <string name="column_name_3">Re-check</string>
+    <string name="column_name_4">120 DIM hoof trimming</string>
+    <string name="column_name_5">Dry-off hoof trimming</string>
+    <string name="column_name_6">Delayed reproduction</string>
+    <string name="column_name_7">Group hoof trimming</string>
+    <string name="column_name_8">Long toe</string>
+    <string name="column_name_9">Hoof Trim</string>
+    <string name="column_name_10">High locomotion score inspection</string>
+    <string name="column_name_11">Heifer</string>
+    <string name="column_name_12">Referred for lameness</string>
+    <string name="column_name_13">Block/shoe</string>
+
+
 </resources>

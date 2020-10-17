@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import saman.zamani.persiandate.PersianDate;
 
@@ -139,4 +140,18 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyDate myDate = (MyDate) o;
+        return day == myDate.day &&
+                month == myDate.month &&
+                year == myDate.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, month, year);
+    }
 }

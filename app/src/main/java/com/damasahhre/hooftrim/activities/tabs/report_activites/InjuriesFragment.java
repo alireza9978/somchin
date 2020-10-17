@@ -26,6 +26,7 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.InjuryDao;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.InjureyReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
 
@@ -38,6 +39,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InjuriesFragment extends Fragment {
 
@@ -81,6 +83,7 @@ public class InjuriesFragment extends Fragment {
             if (farmId == -1) {
                 return;
             }
+
             export();
         });
 
@@ -120,9 +123,6 @@ public class InjuriesFragment extends Fragment {
     public void export() {
 
         InjuryDao dao = DataBase.getInstance(requireContext()).injuryDao();
-        AppExecutors.getInstance().diskIO().execute(() -> {
-
-        });
 
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("one");
@@ -138,18 +138,76 @@ public class InjuriesFragment extends Fragment {
                 R.string.injury_row_6,
                 R.string.injury_row_7
         };
+        Integer[] rowsNameTwo = {
+                R.string.column_name_1,
+                R.string.column_name_2,
+                R.string.column_name_3,
+                R.string.column_name_4,
+                R.string.column_name_5,
+                R.string.column_name_6,
+                R.string.column_name_7,
+                R.string.column_name_8,
+                R.string.column_name_9,
+                R.string.column_name_10,
+                R.string.column_name_11,
+                R.string.column_name_12,
+                R.string.column_name_13
+        };
 
         AppExecutors.getInstance().diskIO().execute(() -> {
-//            ArrayList<Integer> arrayList = getInjuries(dao);
             ArrayList<Integer> arrayList = new ArrayList<>();
-            arrayList.add(dao.felemons(farmId, date.exportStart(), date.exportEnd()).count);
+            arrayList.add(dao.felemons(farmId, date.exportStart(), date.exportEnd()));
             arrayList.add(dao.deramatit(farmId, date.exportStart(), date.exportEnd()));
-            arrayList.add(dao.woundHoofBottom(farmId, date.exportStart(), date.exportEnd()));
-            arrayList.add(dao.whiteLineWound(farmId, date.exportStart(), date.exportEnd()));
-            arrayList.add(dao.pangeWound(farmId, date.exportStart(), date.exportEnd()));
-            arrayList.add(dao.pashneWound(farmId, date.exportStart(), date.exportEnd()));
+            List<InjureyReport> bottom = dao.woundHoofBottom(farmId, date.exportStart(), date.exportEnd());
+            arrayList.add(bottom.size());
+            int count = 0;
+            List<InjureyReport> white = dao.whiteLineWound(farmId, date.exportStart(), date.exportEnd());
+            for (InjureyReport temp : white) {
+                for (InjureyReport bot : bottom) {
+                    if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
+                        count++;
+                    }
+                }
+            }
+            arrayList.add(white.size() - count);
+            count = 0;
+            List<InjureyReport> pange = dao.pangeWound(farmId, date.exportStart(), date.exportEnd());
+            for (InjureyReport temp : pange) {
+                for (InjureyReport bot : bottom) {
+                    if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
+                        count++;
+                    }
+                }
+            }
+            arrayList.add(pange.size() - count);
+            count = 0;
+            List<InjureyReport> pashne = dao.pashneWound(farmId, date.exportStart(), date.exportEnd());
+            for (InjureyReport temp : pashne) {
+                for (InjureyReport bot : bottom) {
+                    if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
+                        count++;
+                    }
+                }
+            }
+            arrayList.add(pashne.size() - count);
             arrayList.add(dao.wallWound(farmId, date.exportStart(), date.exportEnd()));
             arrayList.add(dao.reigenNine(farmId, date.exportStart(), date.exportEnd()));
+
+            ArrayList<Double> secondPart = new ArrayList<>();
+            double dayCount = date.getRange();
+            secondPart.add(dao.box(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.visit(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.newLimp(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.sadRoze(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.dryness(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.delayed(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.group(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.high(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.refrence(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.heifer(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.longHoof(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.somChini(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            secondPart.add(dao.boarding(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
 
             requireActivity().runOnUiThread(() -> {
                 //add headers
@@ -170,6 +228,18 @@ public class InjuriesFragment extends Fragment {
                     } else {
                         cell.setCellValue(arrayList.get(i));
 
+                    }
+                }
+                for (int i = 0; i < 13; i++) {
+                    row = sheet.createRow(i + 9);
+                    Cell cell = row.createCell(0);
+                    cell.setCellValue(getString(rowsNameTwo[i]));
+                    cell = row.createCell(1);
+                    if (secondPart.get(i) == null) {
+                        Log.i("report", "export 2 : " + i);
+                        cell.setCellValue(0);
+                    } else {
+                        cell.setCellValue(secondPart.get(i));
                     }
                 }
 
@@ -219,19 +289,5 @@ public class InjuriesFragment extends Fragment {
 
 
     }
-
-    private ArrayList<Integer> getInjuries(InjuryDao dao) {
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(dao.felemons(farmId, date.exportStart(), date.exportEnd()).count);
-        arrayList.add(dao.deramatit(farmId, date.exportStart(), date.exportEnd()));
-        arrayList.add(dao.woundHoofBottom(farmId, date.exportStart(), date.exportEnd()));
-        arrayList.add(dao.whiteLineWound(farmId, date.exportStart(), date.exportEnd()));
-        arrayList.add(dao.pangeWound(farmId, date.exportStart(), date.exportEnd()));
-        arrayList.add(dao.pashneWound(farmId, date.exportStart(), date.exportEnd()));
-        arrayList.add(dao.wallWound(farmId, date.exportStart(), date.exportEnd()));
-        arrayList.add(dao.reigenNine(farmId, date.exportStart(), date.exportEnd()));
-        return arrayList;
-    }
-
 
 }

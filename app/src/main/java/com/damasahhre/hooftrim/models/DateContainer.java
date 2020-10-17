@@ -6,7 +6,9 @@ import com.damasahhre.hooftrim.constants.FormatHelper;
 import com.damasahhre.hooftrim.constants.Utilities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import saman.zamani.persiandate.PersianDate;
 
@@ -27,6 +29,38 @@ public class DateContainer implements Serializable {
         this.mode = mode;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public int getRange() {
+        if (startDate.persian) {
+            PersianDate pdate = new PersianDate();
+            int[] temp = pdate.toGregorian(startDate.year, startDate.month, startDate.day);
+            int[] tempEnd = pdate.toGregorian(endDate.year, endDate.month, endDate.day);
+
+            Calendar startCal = new GregorianCalendar();
+            Calendar endCal = new GregorianCalendar();
+
+            startCal.set(temp[0], temp[1], temp[2]);
+            endCal.set(tempEnd[0], tempEnd[1], tempEnd[2]);
+
+            endCal.add(Calendar.YEAR, -startCal.get(Calendar.YEAR));
+            endCal.add(Calendar.MONTH, -startCal.get(Calendar.MONTH));
+            endCal.add(Calendar.DATE, -startCal.get(Calendar.DATE));
+
+            return endCal.get(Calendar.DAY_OF_YEAR);
+
+        } else {
+            Calendar startCal = new GregorianCalendar();
+            Calendar endCal = new GregorianCalendar();
+
+            startCal.set(startDate.year, startDate.month, startDate.day);
+            endCal.set(startDate.year, startDate.month, startDate.day);
+
+            endCal.add(Calendar.YEAR, -startCal.get(Calendar.YEAR));
+            endCal.add(Calendar.MONTH, -startCal.get(Calendar.MONTH));
+            endCal.add(Calendar.DATE, -startCal.get(Calendar.DATE));
+            return endCal.get(Calendar.DAY_OF_YEAR);
+        }
     }
 
     public static String toString(com.damasahhre.hooftrim.models.MyDate date) {
@@ -107,7 +141,7 @@ public class DateContainer implements Serializable {
     public com.damasahhre.hooftrim.models.MyDate exportEnd() {
         if (endDate.persian) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toGregorian(startDate.year, startDate.month, startDate.day);
+            int[] temp = pdate.toGregorian(endDate.year, endDate.month, endDate.day);
             return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
         } else {
             return new com.damasahhre.hooftrim.models.MyDate(endDate.day, endDate.month, endDate.year);

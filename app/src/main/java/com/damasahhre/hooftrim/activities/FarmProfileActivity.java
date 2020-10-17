@@ -141,6 +141,12 @@ public class FarmProfileActivity extends AppCompatActivity {
             MyDao dao = DataBase.getInstance(this).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Farm farm = dao.getFarm(id);
+                List<Cow> cows = dao.getAllCowOfFarm(id);
+                for (Cow cow : cows) {
+                    for (Report report : dao.getAllReportOfCow(cow.getId()))
+                        dao.deleteReport(report);
+                    dao.deleteCow(cow);
+                }
                 dao.deleteFarm(farm);
                 runOnUiThread(() -> {
                     hideMenu();

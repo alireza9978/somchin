@@ -159,4 +159,19 @@
     <string name="injury_row_6">ترک دیواره</string>
     <string name="injury_row_7">ناحیه 9</string>
 
+    <string name="column_name_1">میانگین عملیات در روز</string>
+    <string name="column_name_2">بازدید</string>
+    <string name="column_name_3">لنگش جدید</string>
+    <string name="column_name_4">صد‌روزه</string>
+    <string name="column_name_5">خشکی</string>
+    <string name="column_name_6">عقب‌مانده تولید مثلی</string>
+    <string name="column_name_7">سم‌چینی گروهی</string>
+    <string name="column_name_8">سم بلند</string>
+    <string name="column_name_9">سم‌چینی</string>
+    <string name="column_name_10">اسکوربالا</string>
+    <string name="column_name_11">تلیسه</string>
+    <string name="column_name_12">ارجاعی</string>
+    <string name="column_name_13">تخته گذاری</string>
+
+
 </resources>
