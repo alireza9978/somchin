@@ -178,6 +178,17 @@
     <string name="column_name_11">Heifer</string>
     <string name="column_name_12">Referred for lameness</string>
     <string name="column_name_13">Block/shoe</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="password">password</string>
+    <string name="old_password">old password</string>
+    <string name="new_password">new password</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="edit_password">edit password</string>
+    <string name="email">email</string>
+    <string name="username">username</string>
+    <string name="save">save</string>
+    <string name="more_info_text_one">In first filed you should enter primary information of the cow like cow ID and date</string>
+    <string name="more_info_three">In the third field, you can mark the affected zone in case of new lesions or re-checks and then fill the digit number. Numbering the digits in this application starts from one for lateral right forelimb digit following a ‘S’ Pattern as the medial right forelimb (2), medial left forelimb (3), lateral left forelimb (4), lateral right hindlimb (5), medial right hindlimb (6), medial left hindlimb (7) and lateral left hindlimb (8)</string>
 
 
 </resources>

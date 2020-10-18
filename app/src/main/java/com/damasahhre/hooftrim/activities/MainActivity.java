@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,6 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode);
         switch (requestCode) {
             case Constants.DATE_SELECTION_SEARCH_COW:
             case Constants.FARM_SELECTION_SEARCH_COW:
@@ -98,11 +101,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case DATE_SELECTION_REPORT_INJURY:
             case FARM_SELECTION_REPORT_INJURY:
             case DATE_SELECTION_REPORT_FACTOR:
-            case FARM_SELECTION_REPORT_FACTOR: {
+            case FARM_SELECTION_REPORT_FACTOR:{
                 adapter.getFragment(1).onActivityResult(requestCode, resultCode, data);
                 break;
             }
-            case Constants.CHOOSE_FILE_REQUEST_CODE: {
+            default:{
+                adapter.getFragment(1).onActivityResult(CHOOSE_FILE_REQUEST_CODE, resultCode, data);
                 break;
             }
         }

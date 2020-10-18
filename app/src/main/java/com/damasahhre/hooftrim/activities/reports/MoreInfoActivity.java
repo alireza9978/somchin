@@ -25,14 +25,24 @@ public class MoreInfoActivity extends AppCompatActivity {
             case info:
                 findViewById(R.id.one).setVisibility(View.VISIBLE);
                 break;
-            case reason:
-                findViewById(R.id.two).setVisibility(View.VISIBLE);
+            case reason: {
+                if(Constants.getDefualtlanguage(this).equals("fa")){
+                    findViewById(R.id.two_fa).setVisibility(View.VISIBLE);
+                }else {
+                    findViewById(R.id.two).setVisibility(View.VISIBLE);
+                }
                 break;
+            }
             case injury:
                 findViewById(R.id.three).setVisibility(View.VISIBLE);
                 break;
             case moreInfo:
-                findViewById(R.id.four).setVisibility(View.VISIBLE);
+                if(Constants.getDefualtlanguage(this).equals("fa")){
+                    findViewById(R.id.four_fa).setVisibility(View.VISIBLE);
+                }else {
+                    findViewById(R.id.four).setVisibility(View.VISIBLE);
+                }
+
                 break;
         }
 

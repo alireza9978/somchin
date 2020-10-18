@@ -23,6 +23,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
+import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
+
 public class ReportsFragment extends Fragment {
 
 
@@ -80,6 +82,11 @@ public class ReportsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
+            case CHOOSE_FILE_REQUEST_CODE: {
+                assert data != null;
+                ((ImportFragment) adapter.getItem(0)).importFile(data);
+                break;
+            }
             case Constants.FARM_SELECTION_REPORT_FACTOR: {
                 if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;

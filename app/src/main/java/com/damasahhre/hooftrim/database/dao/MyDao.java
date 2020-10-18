@@ -201,7 +201,13 @@ public interface MyDao {
     void insert(Farm farm);
 
     @Insert
+    long insertGetId(Farm farm);
+
+    @Insert
     void insert(Cow Cow);
+
+    @Insert
+    long insertGetId(Cow Cow);
 
     @Insert
     void insertAll(Report... reports);
