@@ -24,6 +24,9 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 
 import java.util.Calendar;
 import java.util.List;
@@ -41,6 +44,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+
+        AppCenter.start(getApplication(), "f4c019af-38a5-44af-b87a-22c2e0dc8f27",
+                Analytics.class, Crashes.class);
+
         loading_state = findViewById(R.id.splash_loading_container);
         error_state = findViewById(R.id.offline_splash_loading_container);
         findViewById(R.id.retry).setOnClickListener(v -> {
