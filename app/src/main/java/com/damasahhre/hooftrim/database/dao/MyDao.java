@@ -150,9 +150,6 @@ public interface MyDao {
     @Query("SELECT * FROM Report WHERE Report.cow_id == :id")
     List<Report> getAllReportOfCow(Integer id);
 
-    @Query("SELECT * FROM Cow,Report WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id")
-    List<Report> getAllReportFarm(Integer id);
-
     @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id")
     List<MyReport> getAllMyReportFarm(Integer id);
 
