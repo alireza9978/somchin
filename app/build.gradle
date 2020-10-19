@@ -84,7 +84,6 @@ dependencies {
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
     implementation 'gun0912.ted:tedpermission:2.2.3'
 
-    implementation 'com.github.roojin:persian-calendar-view:1.2.2'
     implementation "com.mikepenz:materialdrawer:6.1.2"
 
 //required support lib modules

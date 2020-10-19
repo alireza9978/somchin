@@ -10,6 +10,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.Utilities;
 import com.damasahhre.hooftrim.models.DateContainer;
+import com.dariushm2.PersianCaldroid.caldroidfragment.PersianCaldroidFragment;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -29,9 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import ir.mirrajabi.persiancalendar.PersianCalendarView;
-import ir.mirrajabi.persiancalendar.core.PersianCalendarHandler;
-import ir.mirrajabi.persiancalendar.core.models.PersianDate;
+import calendar.PersianDate;
 
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
@@ -46,7 +46,7 @@ public class DateSelectionActivity extends AppCompatActivity {
     private TextView month;
     private TextView year;
     private MaterialCalendarView calendar;
-    private PersianCalendarView calendarView;
+    private FrameLayout calendarView;
     private ImageView right;
     private ImageView left;
     private TextView startDate;
@@ -74,7 +74,7 @@ public class DateSelectionActivity extends AppCompatActivity {
         month = findViewById(R.id.month_title);
         year = findViewById(R.id.year_title);
         calendar = findViewById(R.id.calendarView);
-        calendarView = findViewById(R.id.persian_calendar);
+        calendarView = findViewById(R.id.persianCaldroid);
 
         String language = Constants.getDefualtlanguage(context);
 
@@ -212,79 +212,52 @@ public class DateSelectionActivity extends AppCompatActivity {
     }
 
     private void setTopBarFa(PersianDate persianDate) {
-        String monthName = getPersianMonthName(persianDate.getMonth());
-        String yearName = "" + persianDate.getYear();
+        month.setVisibility(View.INVISIBLE);
 
-        Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
-        SpannableString mNewTitle = new SpannableString(monthName);
-
-        mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.black)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        month.setText(mNewTitle);
-
-        font = ResourcesCompat.getFont(context, R.font.anjoman_regular);
-        mNewTitle = new SpannableString(yearName);
-
-        mNewTitle.setSpan(new AbsoluteSizeSpan(16, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        year.setText(mNewTitle);
     }
 
     private void setPersian() {
-        PersianCalendarHandler calendarHandler = calendarView.getCalendar();
-        calendarHandler.setOnMonthChangedListener(persianDate -> {
-            monthDate = persianDate;
-            setTopBarFa(persianDate);
-        });
-        calendarHandler.setOnDayClickedListener(persianDate -> {
-            if (rang) {
-                DateContainer dateContainer = new DateContainer(SINGLE,
-                        new MyDate(true, persianDate.getDayOfMonth(), persianDate.getMonth(), persianDate.getYear()));
-                if (state == 0) {
-                    startDate.setText(dateContainer.toString(context));
+
+        PersianCaldroidFragment persianCaldroidFragment = new PersianCaldroidFragment();
+        persianCaldroidFragment.setOnDateClickListener(new PersianCaldroidFragment.OnDateClickListener() {
+            @Override
+            public void onDateClick(PersianDate persianDate) {
+                if (rang) {
+                    DateContainer dateContainer = new DateContainer(SINGLE,
+                            new MyDate(true, persianDate.getDayOfMonth(), persianDate.getMonth(), persianDate.getYear()));
+                    if (state == 0) {
+                        startDate.setText(dateContainer.toString(context));
+                        startPersianDate = persianDate;
+                        endPersianDate = null;
+                        endDate.setText("");
+                        state = 1;
+                    } else if (state == 1) {
+                        endDate.setText(dateContainer.toString(context));
+                        endPersianDate = persianDate;
+                        state = 0;
+                    }
+                } else {
                     startPersianDate = persianDate;
-                    endPersianDate = null;
-                    endDate.setText("");
-                    state = 1;
-                } else if (state == 1) {
-                    endDate.setText(dateContainer.toString(context));
-                    endPersianDate = persianDate;
-                    state = 0;
                 }
-            } else {
-                startPersianDate = persianDate;
             }
         });
-        left.setOnClickListener(v -> {
-            if (monthDate == null) {
-                monthDate = calendarHandler.getToday();
+        persianCaldroidFragment.setOnChangeMonthListener(new PersianCaldroidFragment.OnChangeMonthListener() {
+            @Override
+            public void onChangeMonth() {
+
+                // Do something when user switches to previous or next month
+
             }
-            int month = monthDate.getMonth() + 1;
-            int year = monthDate.getYear();
-            if (month > 12) {
-                month = 1;
-                year += 1;
-            }
-            monthDate.setMonth(month);
-            monthDate.setYear(year);
-            calendarView.goToDate(monthDate);
         });
-        right.setOnClickListener(v -> {
-            if (monthDate == null) {
-                monthDate = calendarHandler.getToday();
-            }
-            int month = monthDate.getMonth() - 1;
-            int year = monthDate.getYear();
-            if (month == 0) {
-                month = 12;
-                year -= 1;
-            }
-            monthDate.setMonth(month);
-            monthDate.setYear(year);
-            calendarView.goToDate(monthDate);
-        });
+        
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(
+                        R.id.persianCaldroid,
+                        persianCaldroidFragment,
+                        PersianCaldroidFragment.class.getName()
+                ).commit();
+
         submit.setOnClickListener((v) -> {
             Intent intent = new Intent();
             DateContainer container = null;
@@ -304,17 +277,18 @@ public class DateSelectionActivity extends AppCompatActivity {
             finish();
         });
         clear.setOnClickListener(v -> {
-            if (rang) {
-                state = 0;
-                calendarView.goToToday();
-                startPersianDate = calendarHandler.getToday();
-                startDate.setText(startPersianDate.toString());
-                endDate.setText("");
-            } else {
-                calendarView.goToToday();
-            }
+//            if (rang) {
+//                state = 0;
+////                calendarView.goToToday();
+////                startPersianDate = calendarHandler.getToday();
+//                startDate.setText(startPersianDate.toString());
+//                endDate.setText("");
+//            } else {
+////                calendarView.goToToday();
+//            }
         });
-        setTopBarFa(calendarHandler.getToday());
+
+        findViewById(R.id.top_of_calendar).setVisibility(View.GONE);
     }
 
     private String getPersianMonthName(int month) {

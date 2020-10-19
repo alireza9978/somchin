@@ -125,7 +125,7 @@
     </style>
 
     <style name="Theme.App.TextView.Body.TabView.Selected" parent="Theme.App">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/persian_green</item>
         <item name="android:gravity">center</item>
         <item name="fontFamily">@font/anjoman_bold</item>
