@@ -67,6 +67,7 @@
 
     <ImageView
         android:id="@+id/login_logo"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:background="@drawable/login_logo_background"

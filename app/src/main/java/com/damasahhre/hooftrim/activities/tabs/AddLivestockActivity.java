@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.activities.tabs;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ public class AddLivestockActivity extends AppCompatActivity {
             EditText farmTitle = findViewById(R.id.farm_title_input);
             EditText controlSystem = findViewById(R.id.control_system_input);
             EditText birth = findViewById(R.id.something_count);
-            FancyButton submit = findViewById(R.id.submit);
+            Button submit = findViewById(R.id.submit);
             if (mode.equals(Constants.FARM_CREATE)) {
                 submit.setOnClickListener((View v) -> {
                     String title = farmTitle.getText().toString();

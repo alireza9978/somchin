@@ -7,6 +7,7 @@
 
     <ImageView
         android:id="@+id/arrow"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="15dp"
@@ -24,6 +25,7 @@
 
     <ImageView
         android:id="@+id/cow_image"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_marginStart="15dp"
@@ -35,6 +37,7 @@
 
     <ImageView
         android:id="@+id/calendar_icon"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_marginStart="15dp"

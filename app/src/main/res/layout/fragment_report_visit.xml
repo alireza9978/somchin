@@ -41,6 +41,7 @@
 
             <ImageView
                 android:id="@+id/right_arrow"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
@@ -54,6 +55,7 @@
 
             <ImageView
                 android:id="@+id/left_arrow"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"

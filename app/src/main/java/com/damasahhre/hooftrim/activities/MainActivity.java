@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case DATE_SELECTION_REPORT_INJURY:
             case FARM_SELECTION_REPORT_INJURY:
             case DATE_SELECTION_REPORT_FACTOR:
-            case FARM_SELECTION_REPORT_FACTOR:{
+            case FARM_SELECTION_REPORT_FACTOR: {
                 adapter.getFragment(1).onActivityResult(requestCode, resultCode, data);
                 break;
             }
-            default:{
+            default: {
                 adapter.getFragment(1).onActivityResult(CHOOSE_FILE_REQUEST_CODE, resultCode, data);
                 break;
             }

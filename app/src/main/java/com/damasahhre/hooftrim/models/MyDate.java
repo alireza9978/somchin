@@ -40,10 +40,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     }
 
     public boolean isToday() {
-        if (compareTo(new MyDate(new Date())) == 0) {
-            return true;
-        }
-        return false;
+        return compareTo(new MyDate(new Date())) == 0;
     }
 
     public int getDay() {

@@ -29,6 +29,7 @@
 
         <ImageView
             android:id="@+id/cow_count_image"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_cow"
@@ -50,6 +51,7 @@
 
         <ImageView
             android:id="@+id/date_image"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="20dp"
@@ -72,6 +74,7 @@
 
         <ImageView
             android:id="@+id/arrow"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"

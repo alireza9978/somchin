@@ -31,6 +31,14 @@ public class DateContainer implements Serializable {
         this.endDate = endDate;
     }
 
+    public static String toString(com.damasahhre.hooftrim.models.MyDate date) {
+        if (date.compareTo(new com.damasahhre.hooftrim.models.MyDate(new Date())) == 0) {
+            return "today";
+        } else
+            return "other_day";
+
+    }
+
     public int getRange() {
         if (startDate.persian) {
             PersianDate pdate = new PersianDate();
@@ -61,14 +69,6 @@ public class DateContainer implements Serializable {
             endCal.add(Calendar.DATE, -startCal.get(Calendar.DATE));
             return endCal.get(Calendar.DAY_OF_YEAR);
         }
-    }
-
-    public static String toString(com.damasahhre.hooftrim.models.MyDate date) {
-        if (date.compareTo(new com.damasahhre.hooftrim.models.MyDate(new Date())) == 0) {
-            return "today";
-        } else
-            return "other_day";
-
     }
 
     public String getMode() {

@@ -109,7 +109,7 @@ public interface InjuryDao {
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "GROUP BY Report.cow_id")
-    List<Integer> box(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> box(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -118,7 +118,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_limp_visit " +
             "GROUP BY Report.cow_id")
-    List<Integer> visit(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> visit(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -127,7 +127,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_new_limp " +
             "GROUP BY Report.cow_id")
-    List<Integer> newLimp(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> newLimp(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -136,7 +136,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_hundred_days " +
             "GROUP BY Report.cow_id")
-    List<Integer> sadRoze(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> sadRoze(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -145,7 +145,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_dryness " +
             "GROUP BY Report.cow_id")
-    List<Integer> dryness(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> dryness(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -154,7 +154,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_lagged " +
             "GROUP BY Report.cow_id")
-    List<Integer> delayed(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> delayed(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -163,7 +163,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_group_hoof_trim " +
             "GROUP BY Report.cow_id")
-    List<Integer> group(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> group(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -172,7 +172,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_high_score " +
             "GROUP BY Report.cow_id")
-    List<Integer> high(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> high(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -181,7 +181,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_referential " +
             "GROUP BY Report.cow_id")
-    List<Integer> refrence(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> refrence(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -190,7 +190,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_heifer " +
             "GROUP BY Report.cow_id")
-    List<Integer> heifer(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> heifer(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -199,7 +199,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_long_hoof " +
             "GROUP BY Report.cow_id")
-    List<Integer> longHoof(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> longHoof(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -208,7 +208,7 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.other_info_hoof_trim " +
             "GROUP BY Report.cow_id")
-    List<Integer> somChini(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> somChini(Integer farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -217,6 +217,6 @@ public interface InjuryDao {
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.other_info_boarding " +
             "GROUP BY Report.cow_id")
-    List<Integer> boarding(Integer farmId, MyDate date,MyDate endDate);
+    List<Integer> boarding(Integer farmId, MyDate date, MyDate endDate);
 
 }

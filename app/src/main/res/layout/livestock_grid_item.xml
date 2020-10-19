@@ -25,6 +25,7 @@
 
         <ImageView
             android:id="@+id/cow_icon"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="20dp"
             android:layout_height="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +48,7 @@
 
         <ImageView
             android:id="@+id/arrow"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="10dp"

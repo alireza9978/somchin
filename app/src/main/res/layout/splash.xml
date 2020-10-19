@@ -19,6 +19,7 @@
 
         <ImageView
             android:id="@+id/error_image"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -123,6 +124,7 @@
 
     <ImageView
         android:id="@+id/splash_logo"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:background="@drawable/splash_logo_background"

@@ -24,6 +24,7 @@
 
             <ImageView
                 android:id="@+id/cow_name_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="25dp"
@@ -65,9 +66,11 @@
 
             <ImageView
                 android:id="@+id/livestock_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="25dp"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_cow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +105,7 @@
 
             <ImageView
                 android:id="@+id/date_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="25dp"
@@ -135,6 +139,7 @@
             android:backgroundTint="@color/persian_green"
             android:fontFamily="@font/anjoman_bold"
             android:text="@string/search"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:cornerRadius="15dp"
             app:layout_constraintLeft_toLeftOf="parent"

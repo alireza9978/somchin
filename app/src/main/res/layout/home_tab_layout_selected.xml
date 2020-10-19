@@ -22,6 +22,7 @@
 
     <ImageView
         android:id="@+id/item_image"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="20dp"
         android:layout_height="20dp"
         app:layout_constraintBottom_toTopOf="@id/item_name"

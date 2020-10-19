@@ -2,6 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/persian_green</item>
+        <item name="colorAccent">@color/persian_green</item>
+    </style>
+
+    <style name="Theme.App.TransBack" parent="Theme.App">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="Theme.App.Profile.Title" parent="Theme.App">
@@ -69,6 +74,10 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:cursorVisible">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.App.ImageView.Edit" parent="Theme.App">
         <item name="android:background">@android:color/transparent</item>
     </style>
 

@@ -29,6 +29,7 @@
 
         <ImageView
             android:id="@+id/arrow"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="17dp"

@@ -49,6 +49,7 @@
 
             <ImageView
                 android:id="@+id/info_icon"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="35dp"
@@ -85,6 +86,7 @@
 
                 <ImageView
                     android:id="@+id/date_image"
+                    style="@style/Theme.App.ImageView.Edit"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="25dp"
@@ -135,6 +137,8 @@
 
                 <TextView
                     android:id="@+id/next_text"
+                    style="@style/Theme.App.TransBack"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/anjoman_medium"
@@ -163,8 +167,10 @@
 
                 <TextView
                     android:id="@+id/back_text"
+                    style="@style/Theme.App.TransBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:fontFamily="@font/anjoman_medium"
                     android:paddingEnd="20dp"
                     android:text="@string/prevois"
@@ -178,6 +184,7 @@
 
                 <ImageView
                     android:id="@+id/back_icon"
+                    style="@style/Theme.App.ImageView.Edit"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="10dp"

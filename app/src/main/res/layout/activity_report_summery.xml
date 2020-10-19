@@ -12,6 +12,7 @@
 
         <ImageView
             android:id="@+id/dropdown_menu"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="5dp"
@@ -23,6 +24,7 @@
 
         <ImageView
             android:id="@+id/back_icon"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -248,6 +250,7 @@
 
                 <ImageView
                     android:id="@+id/item_one_image"
+                    style="@style/Theme.App.ImageView.Edit"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="10dp"
@@ -283,6 +286,7 @@
 
                 <ImageView
                     android:id="@+id/item_two_image"
+                    style="@style/Theme.App.ImageView.Edit"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="10dp"
@@ -311,6 +315,7 @@
 
         <ImageView
             android:id="@+id/outside"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="11dp"

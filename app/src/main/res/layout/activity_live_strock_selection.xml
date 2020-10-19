@@ -20,6 +20,7 @@
 
             <ImageView
                 android:id="@+id/close_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"

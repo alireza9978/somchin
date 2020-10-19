@@ -73,7 +73,6 @@ public class GridViewAdapterReasonAddReport extends BaseAdapter {
             holder.view.setEnabled(false);
             holder.item.setEnabled(false);
             holder.name.setEnabled(false);
-            ;
         }
         holder.item.setOnCheckedChangeListener((compoundButton, b) -> {
             item.setCheck(b);

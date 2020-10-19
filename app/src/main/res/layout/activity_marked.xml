@@ -47,14 +47,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_toolbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@color/hit_gray"
-            app:layout_constraintBottom_toBottomOf="@id/marked_tab_layout_id"
-            app:layout_constraintLeft_toLeftOf="@id/marked_tab_layout_id"
-            app:layout_constraintRight_toRightOf="@id/marked_tab_layout_id" />
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/marked_tab_layout_id"
             android:layout_width="match_parent"
@@ -83,6 +75,13 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/hit_gray"
+            app:layout_constraintBottom_toBottomOf="@id/marked_tab_layout_id"
+            app:layout_constraintStart_toStartOf="@id/marked_tab_layout_id"
+            app:layout_constraintEnd_toEndOf="@id/marked_tab_layout_id" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/marked_pager_id"

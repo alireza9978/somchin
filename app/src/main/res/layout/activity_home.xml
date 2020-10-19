@@ -165,6 +165,7 @@
 
         <ImageView
             android:id="@+id/down_arrow"
+            style="@style/Theme.App.ImageView.Edit"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginTop="5dp"

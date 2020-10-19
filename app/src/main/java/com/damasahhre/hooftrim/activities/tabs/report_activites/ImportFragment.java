@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.damasahhre.hooftrim.R;
@@ -32,8 +33,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import mehdi.sakout.fancybuttons.FancyButton;
 
 import static com.damasahhre.hooftrim.R.string.eight;
 import static com.damasahhre.hooftrim.R.string.eleven;
@@ -75,7 +74,7 @@ public class ImportFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_import, container, false);
 
-        FancyButton button = view.findViewById(R.id.import_button);
+        ConstraintLayout button = view.findViewById(R.id.import_button);
         button.setOnClickListener(view1 -> {
             showFileChooser();
         });

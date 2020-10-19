@@ -21,6 +21,7 @@
 
     <ImageView
         android:id="@+id/cow_image"
+        style="@style/Theme.App.ImageView.Edit"
         android:layout_width="30dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"

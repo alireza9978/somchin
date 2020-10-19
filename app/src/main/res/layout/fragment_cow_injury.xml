@@ -273,6 +273,7 @@
 
             <ImageView
                 android:id="@+id/main_som"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="250dp"
@@ -284,6 +285,7 @@
 
             <ImageView
                 android:id="@+id/left_som"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -294,6 +296,7 @@
 
             <ImageView
                 android:id="@+id/right_som"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:padding="8dp"
@@ -315,6 +318,7 @@
 
             <TextView
                 android:id="@+id/next_text"
+                style="@style/Theme.App.TransBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/anjoman_medium"
@@ -330,6 +334,7 @@
 
             <ImageView
                 android:id="@+id/next_icon"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
@@ -354,6 +359,8 @@
 
             <TextView
                 android:id="@+id/back_text"
+                style="@style/Theme.App.TransBack"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/anjoman_medium"
@@ -369,6 +376,7 @@
 
             <ImageView
                 android:id="@+id/back_icon"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="10dp"

@@ -25,6 +25,7 @@
 
             <ImageView
                 android:id="@+id/livestock_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="25dp"
@@ -62,6 +63,7 @@
 
             <ImageView
                 android:id="@+id/date_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="25dp"
@@ -113,6 +115,7 @@
 
             <ImageView
                 android:id="@+id/cow_name_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="15dp"
@@ -152,6 +155,7 @@
 
             <ImageView
                 android:id="@+id/som_cut_price_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
@@ -190,6 +194,7 @@
 
             <ImageView
                 android:id="@+id/cure_price_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
@@ -226,6 +231,7 @@
 
             <ImageView
                 android:id="@+id/som_bed_price_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
@@ -264,6 +270,7 @@
 
             <ImageView
                 android:id="@+id/add_cow_name_image"
+                style="@style/Theme.App.ImageView.Edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
@@ -308,6 +315,7 @@
             android:backgroundTint="@color/persian_green"
             android:fontFamily="@font/anjoman_bold"
             android:text="@string/export_factor"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
