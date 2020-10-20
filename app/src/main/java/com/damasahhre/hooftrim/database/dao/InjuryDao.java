@@ -219,4 +219,76 @@ public interface InjuryDao {
             "GROUP BY Report.cow_id")
     List<Integer> boarding(Integer farmId, MyDate date, MyDate endDate);
 
+
+    //
+    //
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_boarding ")
+    List<Integer> boardingFactorAll(Integer farmId, MyDate date, MyDate endDate);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Cow.number == :cowNumber " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_boarding ")
+    List<Integer> boardingFactor(Integer farmId, MyDate date, MyDate endDate, Integer cowNumber);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_hoof_trim ")
+    List<Integer> hoofTrimFactorAll(Integer farmId, MyDate date, MyDate endDate);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Cow.number == :cowNumber " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_hoof_trim ")
+    List<Integer> hoofTrimFactor(Integer farmId, MyDate date, MyDate endDate, Integer cowNumber);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_gel ")
+    List<Integer> gelFactorAll(Integer farmId, MyDate date, MyDate endDate);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Cow.number == :cowNumber " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_gel ")
+    List<Integer> gelFactor(Integer farmId, MyDate date, MyDate endDate, Integer cowNumber);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.reference_cause_limp_visit ")
+    List<Integer> visitFactorAll(Integer farmId, MyDate date, MyDate endDate);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Cow.number == :cowNumber " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.reference_cause_limp_visit ")
+    List<Integer> visitFactor(Integer farmId, MyDate date, MyDate endDate, Integer cowNumber);
+
 }

@@ -101,11 +101,11 @@ public class CheckBoxManager {
         reasons.get(9).setCheck(report.referenceCauseGroupHoofTrim);
 
         moreInfo.get(0).setCheck(report.otherInfoWound);
-        moreInfo.get(1).setCheck(report.otherInfoGel);
-        moreInfo.get(2).setCheck(report.otherInfoBoarding);
-        moreInfo.get(3).setCheck(report.otherInfoEcchymosis);
-        moreInfo.get(4).setCheck(report.otherInfoNoInjury);
-        moreInfo.get(5).setCheck(report.otherInfoRecovered);
+        moreInfo.get(1).setCheck(report.otherInfoEcchymosis);
+        moreInfo.get(2).setCheck(report.otherInfoRecovered);
+        moreInfo.get(3).setCheck(report.otherInfoNoInjury);
+        moreInfo.get(4).setCheck(report.otherInfoGel);
+        moreInfo.get(5).setCheck(report.otherInfoBoarding);
         moreInfo.get(6).setCheck(report.otherInfoHoofTrim);
     }
 
@@ -122,11 +122,11 @@ public class CheckBoxManager {
         report.referenceCauseGroupHoofTrim = reasons.get(9).isCheck();
 
         report.otherInfoWound = moreInfo.get(0).isCheck();
-        report.otherInfoGel = moreInfo.get(1).isCheck();
-        report.otherInfoBoarding = moreInfo.get(2).isCheck();
-        report.otherInfoEcchymosis = moreInfo.get(3).isCheck();
-        report.otherInfoNoInjury = moreInfo.get(4).isCheck();
-        report.otherInfoRecovered = moreInfo.get(5).isCheck();
+        report.otherInfoEcchymosis = moreInfo.get(1).isCheck();
+        report.otherInfoRecovered = moreInfo.get(2).isCheck();
+        report.otherInfoNoInjury = moreInfo.get(3).isCheck();
+        report.otherInfoGel = moreInfo.get(4).isCheck();
+        report.otherInfoBoarding = moreInfo.get(5).isCheck();
         report.otherInfoHoofTrim = moreInfo.get(6).isCheck();
         reset();
     }
