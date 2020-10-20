@@ -170,6 +170,8 @@
                 style="@style/Theme.App.EditText.Report.Price"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:maxLines="2"
+                android:lines="2"
                 android:gravity="start|center_vertical"
                 android:hint="@string/som_cut_price"
                 app:layout_constraintBottom_toBottomOf="parent"

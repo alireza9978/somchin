@@ -27,10 +27,6 @@ public class RecyclerViewAdapterAllNextVisit extends RecyclerView.Adapter<Recycl
         this.context = context;
     }
 
-    public void setNextReports(List<NextReport> nextReports) {
-        this.nextReports = nextReports;
-    }
-
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,7 +56,7 @@ public class RecyclerViewAdapterAllNextVisit extends RecyclerView.Adapter<Recycl
 
     @Override
     public int getItemCount() {
-        return Math.min(nextReports.size(), 3);
+        return nextReports.size();
     }
 
     static class Holder extends RecyclerView.ViewHolder {

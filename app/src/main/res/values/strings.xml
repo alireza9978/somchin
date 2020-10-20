@@ -53,7 +53,7 @@
     <string name="enter_farm">please select farm</string>
     <string name="enter_date">enter searching date</string>
     <string name="enter_cow_number">enter cow number</string>
-    <string name="enter_cow_number_coma">enter cow number: 12,3,…</string>
+    <string name="enter_cow_number_coma">enter cow numbers: 12,3,…</string>
     <string name="cow_number">cow number</string>
     <string name="enter_date_report">enter visit date</string>
     <string name="enter_next_visit_date">enter next visit date</string>

@@ -17,22 +17,25 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.MyDate;
 import com.jaiselrahman.filepicker.activity.FilePickerActivity;
 import com.jaiselrahman.filepicker.config.Configurations;
 import com.jaiselrahman.filepicker.model.MediaFile;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import static com.damasahhre.hooftrim.R.string.eight;
 import static com.damasahhre.hooftrim.R.string.eleven;
@@ -75,9 +78,7 @@ public class ImportFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_import, container, false);
 
         ConstraintLayout button = view.findViewById(R.id.import_button);
-        button.setOnClickListener(view1 -> {
-            showFileChooser();
-        });
+        button.setOnClickListener(view1 -> showFileChooser());
 
 
         return view;
@@ -110,8 +111,12 @@ public class ImportFragment extends Fragment {
             try {
 
                 FileInputStream excelFile = new FileInputStream(new File(Environment.getExternalStorageDirectory().toString() + "/" + file.getBucketName(), file.getName()));
-                Workbook workbook = new XSSFWorkbook(excelFile);
-                Sheet datatypeSheet = workbook.getSheetAt(0);
+                // Create a POIFSFileSystem object
+                POIFSFileSystem myFileSystem = new POIFSFileSystem(excelFile);
+
+                // Create a workbook using the File System
+                HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+                Sheet datatypeSheet = myWorkBook.getSheetAt(0);
 
                 Integer[] headers = {R.string.cow_number, R.string.day, R.string.month, R.string.year,
                         reason_1, reason_2, reason_3,
@@ -129,17 +134,181 @@ public class ImportFragment extends Fragment {
                                 + " find : " + cell.getStringCellValue(), Toast.LENGTH_LONG).show();
                         return;
                     }
+                    count++;
                 }
                 MyDao dao = DataBase.getInstance(requireContext()).dao();
                 AppExecutors.getInstance().diskIO().execute(() -> {
                     Farm farm = new Farm();
                     farm.name = file.getName().substring(0, file.getName().indexOf("."));
+                    farm.favorite = false;
+                    farm.birthCount = 0;
                     farm.id = (int) dao.insertGetId(farm);
 
-                    ArrayList<Cow> cows = new ArrayList<Cow>();
                     HashSet<Integer> cowNumbers = new HashSet<>();
-                    for (Row currentRow : datatypeSheet) {
-                        cowNumbers.add((int) currentRow.getCell(0).getNumericCellValue());
+                    ArrayList<Cow> cows = new ArrayList<>();
+                    ArrayList<Report> reports = new ArrayList<>();
+
+                    Iterator<Row> rows = datatypeSheet.iterator();
+                    rows.next();
+                    while (rows.hasNext()) {
+                        Row row = rows.next();
+                        Report report = new Report();
+                        report.cowId = (int) row.getCell(0).getNumericCellValue();
+                        cowNumbers.add(report.cowId);
+                        report.visit = new MyDate((int) row.getCell(1).getNumericCellValue(),
+                                (int) row.getCell(2).getNumericCellValue(),
+                                (int) row.getCell(3).getNumericCellValue());
+                        for (int i = 4; i < 14; i++) {
+                            Cell cell = row.getCell(i);
+                            if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                                String star = cell.getStringCellValue();
+                                if (star != null && !star.isEmpty() && star.equals("*")) {
+
+                                    switch (i) {
+                                        case 4:
+                                            report.referenceCauseHundredDays = true;
+                                            break;
+                                        case 5:
+                                            report.referenceCauseDryness = true;
+                                            break;
+                                        case 6:
+                                            report.referenceCauseLagged = true;
+                                            break;
+                                        case 7:
+                                            report.referenceCauseNewLimp = true;
+                                            break;
+                                        case 8:
+                                            report.referenceCauseLimpVisit = true;
+                                            break;
+                                        case 9:
+                                            report.referenceCauseHighScore = true;
+                                            break;
+                                        case 10:
+                                            report.referenceCauseReferential = true;
+                                            break;
+                                        case 11:
+                                            report.referenceCauseLongHoof = true;
+                                            break;
+                                        case 12:
+                                            report.referenceCauseHeifer = true;
+                                            break;
+                                        case 13:
+                                            report.referenceCauseGroupHoofTrim = true;
+                                            break;
+                                    }
+                                }
+                            } else {
+
+                                switch (i) {
+                                    case 4:
+                                        report.referenceCauseHundredDays = false;
+                                        break;
+                                    case 5:
+                                        report.referenceCauseDryness = false;
+                                        break;
+                                    case 6:
+                                        report.referenceCauseLagged = false;
+                                        break;
+                                    case 7:
+                                        report.referenceCauseNewLimp = false;
+                                        break;
+                                    case 8:
+                                        report.referenceCauseLimpVisit = false;
+                                        break;
+                                    case 9:
+                                        report.referenceCauseHighScore = false;
+                                        break;
+                                    case 10:
+                                        report.referenceCauseReferential = false;
+                                        break;
+                                    case 11:
+                                        report.referenceCauseLongHoof = false;
+                                        break;
+                                    case 12:
+                                        report.referenceCauseHeifer = false;
+                                        break;
+                                    case 13:
+                                        report.referenceCauseGroupHoofTrim = false;
+                                        break;
+                                }
+                            }
+                        }
+                        for (int i = 14; i < 27; i++) {
+                            Cell cell = row.getCell(i);
+                            if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                                report.fingerNumber = (int) cell.getNumericCellValue();
+                                report.legAreaNumber = i - 14;
+                                report.rightSide = report.fingerNumber % 2 == 0;
+                                break;
+                            }
+                        }
+                        for (int i = 27; i < 34; i++) {
+                            Cell cell = row.getCell(i);
+                            if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                                String star = cell.getStringCellValue();
+                                if (star != null && !star.isEmpty() && star.equals("*")) {
+                                    switch (i) {
+                                        case 27:
+                                            report.otherInfoWound = true;
+                                            break;
+                                        case 28:
+                                            report.otherInfoEcchymosis = true;
+                                            break;
+                                        case 29:
+                                            report.otherInfoHoofTrim = true;
+                                            break;
+                                        case 30:
+                                            report.otherInfoGel = true;
+                                            break;
+                                        case 31:
+                                            report.otherInfoBoarding = true;
+                                            break;
+                                        case 32:
+                                            report.otherInfoNoInjury = true;
+                                            break;
+                                        case 33:
+                                            report.otherInfoRecovered = true;
+                                            break;
+                                    }
+                                }
+                            } else {
+                                switch (i) {
+                                    case 27:
+                                        report.otherInfoWound = false;
+                                        break;
+                                    case 28:
+                                        report.otherInfoEcchymosis = false;
+                                        break;
+                                    case 29:
+                                        report.otherInfoHoofTrim = false;
+                                        break;
+                                    case 30:
+                                        report.otherInfoGel = false;
+                                        break;
+                                    case 31:
+                                        report.otherInfoBoarding = false;
+                                        break;
+                                    case 32:
+                                        report.otherInfoNoInjury = false;
+                                        break;
+                                    case 33:
+                                        report.otherInfoRecovered = false;
+                                        break;
+                                }
+                            }
+                        }
+                        Cell nextVisitCell = row.getCell(34);
+                        if (nextVisitCell.getCellType() == Cell.CELL_TYPE_STRING) {
+                            String[] date = nextVisitCell.getStringCellValue().split("/");
+                            report.nextVisit = new MyDate(Integer.parseInt(date[0]),
+                                    Integer.parseInt(date[1]),
+                                    Integer.parseInt(date[2]));
+                        }
+                        Cell moreInfo = row.getCell(35);
+                        if (nextVisitCell.getCellType() == Cell.CELL_TYPE_STRING) {
+                            report.description = moreInfo.getStringCellValue();
+                        }
+                        reports.add(report);
                     }
                     for (Integer cowNumber : cowNumbers) {
                         cows.add(new Cow(cowNumber, false, farm.id));
@@ -147,9 +316,18 @@ public class ImportFragment extends Fragment {
                     for (Cow cow : cows) {
                         cow.setId((int) dao.insertGetId(cow));
                     }
-                    requireActivity().runOnUiThread(() -> {
-                        Toast.makeText(requireContext(), "imported", Toast.LENGTH_LONG).show();
-                    });
+                    main:
+                    for (Report report : reports) {
+                        for (Cow cow : cows) {
+                            if (report.cowId.equals(cow.getNumber())) {
+                                report.cowId = cow.getId();
+                                dao.insert(report);
+                                continue main;
+                            }
+                        }
+                    }
+
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "imported", Toast.LENGTH_LONG).show());
                 });
 
 
