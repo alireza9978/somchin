@@ -9,31 +9,27 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.DataBase;
-import com.damasahhre.hooftrim.database.dao.MyDao;
-import com.damasahhre.hooftrim.database.models.Cow;
-import com.damasahhre.hooftrim.database.models.Farm;
-import com.damasahhre.hooftrim.database.models.Report;
-import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * صفحه‌ی اغازین برنامه
+ */
 public class SplashActivity extends AppCompatActivity {
 
     private ConstraintLayout loading_state;
@@ -50,24 +46,12 @@ public class SplashActivity extends AppCompatActivity {
 
         loading_state = findViewById(R.id.splash_loading_container);
         error_state = findViewById(R.id.offline_splash_loading_container);
-        findViewById(R.id.retry).setOnClickListener(v -> {
-            checkConnection();
-        });
+        findViewById(R.id.retry).setOnClickListener(v -> checkConnection());
         findViewById(R.id.work_offline).setOnClickListener(v -> {
-            goApp();
-        });
-
-        MyDao dao = DataBase.getInstance(this).dao();
-        AppExecutors.getInstance().diskIO().execute(() -> {
-            List<Farm> farms = dao.getAll();
-            for (Farm farm : farms) {
-                List<Cow> cows = dao.getAllCowOfFarm(farm.id);
-                for (Cow cow : cows) {
-                    List<Report> reports = dao.getAllReportOfCow(cow.getId());
-                    for (Report report : reports) {
-                        Log.i("SPLASH", "farm = " + farm.id + " cow num = " + cow.getNumber() + " " + report.toString());
-                    }
-                }
+            if (Constants.getToken(this).equals(Constants.NO_TOKEN)) {
+                Toast.makeText(this, "you need to login for offline mode", Toast.LENGTH_LONG).show();
+            } else {
+                goApp();
             }
         });
 
@@ -76,7 +60,6 @@ public class SplashActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);
         startAtMorning();
 
-
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -84,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
                 checkConnection();
             }
         }, 1000);
-
+        changeState(0);
     }
 
 
@@ -142,12 +125,15 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void checkConnection() {
-        goApp();
-//        if (!Constants.isNetworkAvailable()) {
-//            changeState(1);
-//        } else {
-//            goApp();
-//        }
+        if (!Constants.isNetworkAvailable(this)) {
+            changeState(1);
+        } else {
+            if (Constants.getToken(this).equals(Constants.NO_TOKEN)) {
+                goLogin();
+            } else {
+                goApp();
+            }
+        }
     }
 
     private void changeState(int state) {

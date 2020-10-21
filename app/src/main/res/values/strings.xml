@@ -20,7 +20,6 @@
     <string name="report">report</string>
     <string name="marked">marked</string>
 
-    <string name="user_name">username</string>
     <string name="help">help</string>
     <string name="contact_us">contact us</string>
     <string name="about_us">about us</string>
@@ -104,7 +103,7 @@
 
     <string name="more_info">more info</string>
     <string name="create">create</string>
-    <string name="more_info_text_add_report">text</string>
+    <string name="more_info_text_add_report">In this part you should select at least on of options from Wound,Point Hemorrhage or Hoof trimming.</string>
     <string name="injury_area">Affected claw zone</string>
     <string name="select_farm">select farm please</string>
     <string name="farm_list">Farms list</string>
@@ -196,6 +195,10 @@
     <string name="save">save</string>
     <string name="more_info_text_one">In first filed you should enter primary information of the cow like cow ID and date</string>
     <string name="more_info_three">In the third field, you can mark the affected zone in case of new lesions or re-checks and then fill the digit number. Numbering the digits in this application starts from one for lateral right forelimb digit following a ‘S’ Pattern as the medial right forelimb (2), medial left forelimb (3), lateral left forelimb (4), lateral right hindlimb (5), medial right hindlimb (6), medial left hindlimb (7) and lateral left hindlimb (8)</string>
+    <string name="forget_password">forgot password?</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="reset_password">Request new password</string>
+    <string name="reset_password_text">We send you an email that allows you to reset your password</string>
 
 
 </resources>

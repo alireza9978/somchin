@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.activities.login_fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,10 @@ public class LoginFragment extends Fragment {
 
         view.findViewById(R.id.submit).setOnClickListener(v -> {
 
+        });
+        view.findViewById(R.id.forgot_password).setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ForgetPasswordActivity.class);
+            startActivity(intent);
         });
 
         return view;

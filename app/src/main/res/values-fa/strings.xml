@@ -15,7 +15,7 @@
     <string name="marked">نشان شده‌ها</string>
 
     <!--    menu -->
-    <string name="user_name">نام کاربری</string>
+    <string name="username">نام‌کاربری</string>
     <string name="help">راهنمای‌برنامه</string>
     <string name="contact_us">تماس با‌ما</string>
     <string name="about_us">درباره‌ما</string>
@@ -186,10 +186,13 @@
     <string name="confirm_password">تکرار رمزعبور جدید</string>
     <string name="edit_password">تغییر رمز عبور</string>
     <string name="email">ایمیل</string>
-    <string name="username">نام‌کاربری</string>
     <string name="save">ذخیره</string>
     <string name="more_info_text_one">در این قسمت شماره دامی که وارد باکس سم‌چینی شده است، وارد کنید. تاریخ به صورت پیش‌فرض در روزی که اطلاعات را وارد می‌ کنید.تعریف شده است.امکان ویرایش آن وجود دارد.</string>
     <string name="more_info_three">در صورتی که در دام جراحت جدید مشاهده کردید، ناحیه درگیر را در این قسمت علامت بزنید.</string>
+    <string name="forget_password">فراموشی رمز عبور؟</string>
+    <string name="forgot_password">فراموشی رمز عبور</string>
+    <string name="reset_password">درخواست رمز عبور جدید</string>
+    <string name="reset_password_text">ایمیلی برای شما ارسال شد که اجازه میدهد رمزعبور خود را تغییر دهید</string>
 
 
 </resources>
