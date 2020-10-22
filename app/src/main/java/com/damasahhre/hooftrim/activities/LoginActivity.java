@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -72,6 +73,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+
+    /**
+     * بازکردن صفحه اصلی
+     */
+    public void goApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**

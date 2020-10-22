@@ -2,20 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.App.MainConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.reports.fragments.CowInjuryFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/Theme.App.MainConstraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="15dp"
-            >
+            android:paddingBottom="15dp">
 
             <TextView
                 android:id="@+id/info_title"

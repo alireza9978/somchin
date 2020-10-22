@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.App.MainConstraint.Login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.login_fragments.SignUpFragment">
@@ -12,6 +13,7 @@
         android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/Theme.App.MainConstraint.Login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="5dp">

@@ -2,7 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.App.MainConstraint"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +44,6 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/anjoman_semi_bold"
-            android:text="گزارش ۱ دام ۱۲۳"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +113,6 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="ناحیه ۴، انگشت ۱"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -186,7 +186,6 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="۹ شهریور ۱۳۹۹"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -266,8 +265,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:paddingStart="10dp"
+
                     android:paddingEnd="10dp"
                     android:text="@string/edit"
+                    android:textColor="@color/hit_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/item_one_image"
@@ -303,7 +304,9 @@
                     android:gravity="start"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+
                     android:text="@string/remove"
+                    android:textColor="@color/hit_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/item_two_image"

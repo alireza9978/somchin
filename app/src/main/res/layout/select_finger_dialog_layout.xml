@@ -4,7 +4,8 @@
     android:layout_width="300dp"
     android:layout_height="250dp"
     android:layout_gravity="center"
-    android:background="@drawable/dialoge_back">
+    android:background="@drawable/dialoge_back"
+    android:paddingTop="12dp">
 
     <TextView
         android:id="@+id/select_finger_title"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:fontFamily="@font/anjoman_medium"
-        android:text="شماره انگشت را وارد کنید"
+        android:text="@string/enter_finger_number"
         android:textAlignment="center"
         android:textColor="@color/report_gray"
         android:textSize="18sp"

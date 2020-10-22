@@ -199,6 +199,7 @@
     <string name="forgot_password">Forgot password</string>
     <string name="reset_password">Request new password</string>
     <string name="reset_password_text">We send you an email that allows you to reset your password</string>
+    <string name="enter_finger_number">شماره انگشت را وارد کنید</string>
 
 
 </resources>

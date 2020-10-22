@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,11 @@ import com.damasahhre.hooftrim.models.MyDate;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import org.threeten.bp.format.TextStyle;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import saman.zamani.persiandate.PersianDate;
 
@@ -68,6 +72,7 @@ public class ReportVisitFragment extends Fragment {
         year = view.findViewById(R.id.year_title);
         calendar = view.findViewById(R.id.calendarView);
         dateText = view.findViewById(R.id.date_text);
+        dateText.setTextColor(getResources().getColor(R.color.hit_gray));
         noVisit = view.findViewById(R.id.not_fount_text);
         visitText = view.findViewById(R.id.visitDate);
         nextVisitList = view.findViewById(R.id.next_visits_list);
@@ -112,6 +117,15 @@ public class ReportVisitFragment extends Fragment {
 
     private void setEnglish() {
         calendar.setTopbarVisible(false);
+        calendar.setWeekDayFormatter(dayOfWeek -> {
+            Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
+            SpannableString mNewTitle = new SpannableString(dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
+
+            mNewTitle.setSpan(new AbsoluteSizeSpan(20, true), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mNewTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.hit_gray)), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mNewTitle.setSpan(new MainActivity.CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return mNewTitle;
+        });
         calendar.setOnMonthChangedListener((widget, date) -> {
             Typeface font = ResourcesCompat.getFont(context, R.font.anjoman_bold);
             SpannableString mNewTitle = new SpannableString(Utilities.monthToString(date, context));
@@ -148,6 +162,8 @@ public class ReportVisitFragment extends Fragment {
                     }
                     ((Activity) context).runOnUiThread(() -> {
                         dateText.setText(container.toStringBeauty(context));
+                        dateText.setVisibility(View.VISIBLE);
+                        Log.i("TAG", "setEnglish: " + "here");
                         mAdapter.setNextReports(list);
                         mAdapter.notifyDataSetChanged();
                         if (list.isEmpty()) {

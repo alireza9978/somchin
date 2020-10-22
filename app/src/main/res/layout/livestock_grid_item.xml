@@ -11,6 +11,7 @@
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
+        style="@style/Theme.App.MainConstraint"
         android:padding="10dp">
 
         <TextView

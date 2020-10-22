@@ -64,7 +64,9 @@ public class SplashActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                checkConnection();
+                runOnUiThread(() -> {
+                    checkConnection();
+                });
             }
         }, 1000);
         changeState(0);
