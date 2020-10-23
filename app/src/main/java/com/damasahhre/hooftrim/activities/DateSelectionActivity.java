@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.damasahhre.hooftrim.R;
@@ -46,7 +47,6 @@ public class DateSelectionActivity extends AppCompatActivity {
     private TextView month;
     private TextView year;
     private MaterialCalendarView calendar;
-    private FrameLayout calendarView;
     private ImageView right;
     private ImageView left;
     private TextView startDate;
@@ -55,9 +55,9 @@ public class DateSelectionActivity extends AppCompatActivity {
     private Button submit;
     private boolean rang;
     private int state = 0;
-    private PersianDate monthDate;
     private PersianDate startPersianDate;
     private PersianDate endPersianDate;
+    private PersianCaldroidFragment persianCaldroidFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class DateSelectionActivity extends AppCompatActivity {
         month = findViewById(R.id.month_title);
         year = findViewById(R.id.year_title);
         calendar = findViewById(R.id.calendarView);
-        calendarView = findViewById(R.id.persianCaldroid);
+        FrameLayout calendarView = findViewById(R.id.persianCaldroid);
 
         String language = Constants.getDefualtlanguage(context);
 
@@ -110,6 +110,22 @@ public class DateSelectionActivity extends AppCompatActivity {
 
         close.setOnClickListener(view -> finish());
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String language = Constants.getDefualtlanguage(context);
+
+        if (language.equals("fa")) {
+            View view = persianCaldroidFragment.getView();
+            if (view != null) {
+                AppCompatImageView next = view.findViewById(R.id.next);
+                AppCompatImageView prev = view.findViewById(R.id.prev);
+                next.setColorFilter(getResources().getColor(R.color.calender_blue));
+                prev.setColorFilter(getResources().getColor(R.color.calender_blue));
+            }
+        }
     }
 
     private void setEnglish() {
@@ -211,45 +227,42 @@ public class DateSelectionActivity extends AppCompatActivity {
         year.setText(mNewTitle);
     }
 
-    private void setTopBarFa(PersianDate persianDate) {
-        month.setVisibility(View.INVISIBLE);
-
-    }
-
     private void setPersian() {
 
-        PersianCaldroidFragment persianCaldroidFragment = new PersianCaldroidFragment();
-        persianCaldroidFragment.setOnDateClickListener(new PersianCaldroidFragment.OnDateClickListener() {
-            @Override
-            public void onDateClick(PersianDate persianDate) {
-                if (rang) {
-                    DateContainer dateContainer = new DateContainer(SINGLE,
-                            new MyDate(true, persianDate.getDayOfMonth(), persianDate.getMonth(), persianDate.getYear()));
-                    if (state == 0) {
-                        startDate.setText(dateContainer.toString(context));
-                        startPersianDate = persianDate;
-                        endPersianDate = null;
-                        endDate.setText("");
-                        state = 1;
-                    } else if (state == 1) {
-                        endDate.setText(dateContainer.toString(context));
-                        endPersianDate = persianDate;
-                        state = 0;
-                    }
-                } else {
+        persianCaldroidFragment = new PersianCaldroidFragment();
+        persianCaldroidFragment.setOnDateClickListener(persianDate -> {
+            if (rang) {
+                DateContainer dateContainer = new DateContainer(SINGLE,
+                        new MyDate(true, persianDate.getDayOfMonth(), persianDate.getMonth(), persianDate.getYear()));
+                if (state == 0) {
+                    startDate.setText(dateContainer.toString(context));
                     startPersianDate = persianDate;
+                    endPersianDate = null;
+                    endDate.setText("");
+                    state = 1;
+                } else if (state == 1) {
+                    if (startPersianDate.after(persianDate)) {
+                        endPersianDate = startPersianDate;
+                        startPersianDate = persianDate;
+                        startDate.setText(dateContainer.toString(context));
+                        dateContainer = new DateContainer(SINGLE,
+                                new MyDate(true, endPersianDate.getDayOfMonth(), endPersianDate.getMonth(), endPersianDate.getYear()));
+                    } else {
+                        endPersianDate = persianDate;
+                    }
+                    endDate.setText(dateContainer.toString(context));
+                    state = 0;
                 }
+            } else {
+                startPersianDate = persianDate;
             }
         });
-        persianCaldroidFragment.setOnChangeMonthListener(new PersianCaldroidFragment.OnChangeMonthListener() {
-            @Override
-            public void onChangeMonth() {
+        persianCaldroidFragment.setOnChangeMonthListener(() -> {
 
-                // Do something when user switches to previous or next month
+            // Do something when user switches to previous or next month
 
-            }
         });
-        
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(
@@ -277,62 +290,17 @@ public class DateSelectionActivity extends AppCompatActivity {
             finish();
         });
         clear.setOnClickListener(v -> {
-//            if (rang) {
-//                state = 0;
-////                calendarView.goToToday();
-////                startPersianDate = calendarHandler.getToday();
-//                startDate.setText(startPersianDate.toString());
-//                endDate.setText("");
-//            } else {
-////                calendarView.goToToday();
-//            }
+            if (rang) {
+                state = 0;
+                startPersianDate = null;
+                startDate.setText("");
+                endDate.setText("");
+            } else {
+                persianCaldroidFragment.selectDay(new PersianDate());
+            }
         });
 
         findViewById(R.id.top_of_calendar).setVisibility(View.GONE);
     }
-
-    private String getPersianMonthName(int month) {
-        String strMonth = " ";
-        switch (month) {
-            case 1:
-                strMonth = "فروردين";
-                break;
-            case 2:
-                strMonth = "ارديبهشت";
-                break;
-            case 3:
-                strMonth = "خرداد";
-                break;
-            case 4:
-                strMonth = "تير";
-                break;
-            case 5:
-                strMonth = "مرداد";
-                break;
-            case 6:
-                strMonth = "شهريور";
-                break;
-            case 7:
-                strMonth = "مهر";
-                break;
-            case 8:
-                strMonth = "آبان";
-                break;
-            case 9:
-                strMonth = "آذر";
-                break;
-            case 10:
-                strMonth = "دي";
-                break;
-            case 11:
-                strMonth = "بهمن";
-                break;
-            case 12:
-                strMonth = "اسفند";
-                break;
-        }
-        return strMonth;
-    }
-
 
 }

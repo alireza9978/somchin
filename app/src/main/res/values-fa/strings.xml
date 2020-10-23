@@ -194,6 +194,8 @@
     <string name="reset_password">درخواست رمز عبور جدید</string>
     <string name="reset_password_text">ایمیلی برای شما ارسال شد که اجازه میدهد رمزعبور خود را تغییر دهید</string>
     <string name="enter_finger_number">شماره انگشت را وارد کنید</string>
+    <string name="date_selection">انتخاب تاریخ</string>
+    <string name="clear">پاک کردن</string>
 
 
 </resources>
