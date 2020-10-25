@@ -199,6 +199,7 @@
     <string name="finger_number">۱~۸</string>
     <string name="add_new_injury">ثبت جراحت جدید برای این دام</string>
     <string name="cant_select">امکان انتخاب همزمان وجود ندارد</string>
+    <string name="data_added">داده با موفقیت اضافه شد</string>
 
 
 </resources>

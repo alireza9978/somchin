@@ -205,6 +205,7 @@
     <string name="finger_number">1~8</string>
     <string name="add_new_injury">add new injury for this cow</string>
     <string name="cant_select">can\'t select at same time</string>
+    <string name="data_added">data added successfully</string>
 
 
 </resources>

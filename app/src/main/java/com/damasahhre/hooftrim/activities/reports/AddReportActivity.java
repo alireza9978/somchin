@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -201,7 +202,10 @@ public class AddReportActivity extends AppCompatActivity {
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                 report.id = reportId;
                 dao.update(report);
-                runOnUiThread(this::finish);
+                runOnUiThread(() -> {
+                    Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                    finish();
+                });
             });
         } else {
             if (cow != null) {
@@ -221,7 +225,10 @@ public class AddReportActivity extends AppCompatActivity {
                     report.cowId = cow.getId();
                     CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                     dao.insert(report);
-                    runOnUiThread(this::finish);
+                    runOnUiThread(() -> {
+                        Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                        finish();
+                    });
 
                 });
             } else {
@@ -248,7 +255,10 @@ public class AddReportActivity extends AppCompatActivity {
                     report.cowId = cow.getId();
                     CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                     dao.insert(report);
-                    runOnUiThread(this::finish);
+                    runOnUiThread(() -> {
+                        Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                        finish();
+                    });
                 });
             }
         }
@@ -274,6 +284,7 @@ public class AddReportActivity extends AppCompatActivity {
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReportFast(report);
                 dao.insert(report);
                 runOnUiThread(() -> {
+                    Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
                     state = State.reason;
                     this.fingerNumber = -1;
                     ((CowInjuryFragment) adapter.getItem(2)).reset();
@@ -306,6 +317,7 @@ public class AddReportActivity extends AppCompatActivity {
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReportFast(report);
                 dao.insert(report);
                 runOnUiThread(() -> {
+                    Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
                     state = State.reason;
                     this.fingerNumber = -1;
                     ((CowInjuryFragment) adapter.getItem(2)).reset();

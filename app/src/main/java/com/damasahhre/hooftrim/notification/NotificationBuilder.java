@@ -29,7 +29,7 @@ public class NotificationBuilder {
     public static void make(Context context) {
         MyDao myDao = DataBase.getInstance(context).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<NextReport> reports = myDao.getAllVisitInDay(new MyDate(new Date()));
+            List<NextReport> reports = myDao.getAllVisitInDayNotification(new MyDate(new Date()));
             if (!reports.isEmpty()) {
                 for (NextReport report : reports) {
                     createNotificationChannel(context);

@@ -100,7 +100,7 @@ public interface MyDao {
             "WHERE Farm.is_favorite")
     List<Farm> getMarkedFarm();
 
-    @Query("SELECT Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId, MAX(Report.next_visit_date) AS nextVisitDate" +
+    @Query("SELECT Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId, MIN(Report.next_visit_date) AS nextVisitDate" +
             " FROM Cow, Report, Farm" +
             " WHERE Report.next_visit_date >= :now AND" +
             " Farm.id == Cow.farm_id AND" +
@@ -113,6 +113,14 @@ public interface MyDao {
             " Cow.id == Report.cow_id AND" +
             " Farm.id == Cow.farm_id ")
     List<NextReport> getAllVisitInDay(MyDate now);
+
+    @Query("SELECT MAX(Report.next_visit_date) AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber, Cow.id AS cowId" +
+            " FROM Cow, Report, Farm" +
+            " WHERE Report.next_visit_date >= :now AND" +
+            " Cow.id == Report.cow_id AND" +
+            " Farm.id == Cow.farm_id " +
+            "GROUP BY Report.cow_id")
+    List<NextReport> getAllVisitInDayNotification(MyDate now);
 
     @Query("SELECT Report.next_visit_date AS nextVisitDate, Farm.name AS farmName, Cow.number AS cowNumber,Cow.id AS cowId" +
             " FROM Cow, Report, Farm" +
