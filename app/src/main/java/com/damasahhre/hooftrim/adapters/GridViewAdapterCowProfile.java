@@ -14,6 +14,7 @@ import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.activities.reports.ReportSummery;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Report;
+import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 import java.util.List;
 

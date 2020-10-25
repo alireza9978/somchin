@@ -27,9 +27,11 @@ public class MoreInfoFragment extends Fragment {
     private ConstraintLayout date_container;
     private TextView date_text;
     private String date;
+    private String description;
 
-    public MoreInfoFragment(String date) {
+    public MoreInfoFragment(String date, String description) {
         this.date = date;
+        this.description = description;
     }
 
     public MoreInfoFragment() {
@@ -78,6 +80,17 @@ public class MoreInfoFragment extends Fragment {
             }
             date_text.setText(date);
         }
+        if (description != null) {
+            if (moreInfo != null) {
+                moreInfo.setText(description);
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        description = getMoreInfo();
     }
 
     public String getMoreInfo() {

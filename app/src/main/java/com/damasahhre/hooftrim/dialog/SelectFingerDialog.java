@@ -2,6 +2,7 @@ package com.damasahhre.hooftrim.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +24,7 @@ import com.damasahhre.hooftrim.models.CheckBoxManager;
 public class SelectFingerDialog extends Dialog {
 
 
-    public SelectFingerDialog(@NonNull final Context context) {
+    public SelectFingerDialog(@NonNull final Context context, boolean editMode) {
         super(context);
         setContentView(R.layout.select_finger_dialog_layout);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
@@ -36,7 +37,36 @@ public class SelectFingerDialog extends Dialog {
         gridView.setAdapter(adapter);
 
         Button newInput = findViewById(R.id.new_input);
+        if (editMode) {
+            newInput.setVisibility(View.GONE);
+        }else{
+            newInput.setOnClickListener(view -> {
+                int number = -1;
+                if (edit.getText().toString().isEmpty()) {
+                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+                } else {
+                    number = Integer.parseInt(edit.getText().toString());
+                }
+                if (number >= 1 && number <= 8) {
+                    dismiss();
+                    ((AddReportActivity) context).setFingerNumber(number);
+                    ((AddReportActivity) context).addCowAndReportFast();
+                } else {
+                    Toast.makeText(context, "value error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
         Button ok = findViewById(R.id.ok);
+
+        {
+            int number = ((AddReportActivity) context).getFingerNumber();
+            if (number != -1) {
+                edit.setText("" + number);
+            }
+        }
+
 
         ok.setOnClickListener(v -> {
             int number = -1;

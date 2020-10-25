@@ -29,14 +29,24 @@ public class CowInjuryFragment extends Fragment {
     private ImageView mainImage;
     private ImageView rightImage;
     private ImageView leftImage;
+    private boolean edit = false;
 
     public CowInjuryFragment(int selected, Boolean rightSide) {
+        this.edit = true;
         this.selected = selected;
         if (selected == 0 || selected >= 7) {
             this.rightSide = null;
         } else {
             this.rightSide = rightSide;
         }
+    }
+
+    public void reset(){
+        selected = -1;
+        rightSide = null;
+        mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
+        rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
+        leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
     }
 
     public CowInjuryFragment() {
@@ -180,17 +190,13 @@ public class CowInjuryFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.next_button).setOnClickListener(v -> {
-            ((AddReportActivity) requireActivity()).next();
-        });
-        view.findViewById(R.id.back_button).setOnClickListener(v -> {
-            ((AddReportActivity) requireActivity()).back();
-        });
+        view.findViewById(R.id.next_button).setOnClickListener(v -> ((AddReportActivity) requireActivity()).next());
+        view.findViewById(R.id.back_button).setOnClickListener(v -> ((AddReportActivity) requireActivity()).back());
         return view;
     }
 
     public void getFingerNumber() {
-        SelectFingerDialog dialog = new SelectFingerDialog(requireContext());
+        SelectFingerDialog dialog = new SelectFingerDialog(requireContext(),edit);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setOnDismissListener(dialogInterface -> Constants.hideKeyboard(requireActivity()));
         dialog.show();

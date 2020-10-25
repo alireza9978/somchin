@@ -39,7 +39,7 @@ public class AddReportActivity extends AppCompatActivity {
     private TabAdapterReport adapter;
     private TabLayout tabLayout;
     private StepperIndicator stepperIndicator;
-    private int fingerNumber;
+    private int fingerNumber = -1;
     private DateContainer one;
     private DateContainer two;
     private int farmId;
@@ -99,11 +99,11 @@ public class AddReportActivity extends AppCompatActivity {
                     tabLayout = new TabLayout(this);
                     state = State.info;
                     adapter = new TabAdapterReport(this, getSupportFragmentManager());
-                    adapter.addFragment(new CowInfoFragment(cow.getNumber(), report.visit.toString(this)));
+                    adapter.addFragment(new CowInfoFragment(cow.getNumber(), one.toString(this)));
                     adapter.addFragment(new CowReasonFragment());
                     adapter.addFragment(new CowInjuryFragment(report.legAreaNumber, report.rightSide));
                     if (two != null)
-                        adapter.addFragment(new MoreInfoFragment(two.toString(this)));
+                        adapter.addFragment(new MoreInfoFragment(two.toString(this), report.description));
                     else
                         adapter.addFragment(new MoreInfoFragment());
 
@@ -127,8 +127,7 @@ public class AddReportActivity extends AppCompatActivity {
 
             });
         } else if (mode.equals(Constants.REPORT_CREATE)) {
-            Log.i("ADD_REPORT", "onCreate: add mode");
-
+            CheckBoxManager.getCheckBoxManager().reset();
             int id = bundle.getInt(Constants.COW_ID, -1);
             if (id == -1) {
                 farmId = bundle.getInt(Constants.FARM_ID);
@@ -204,8 +203,6 @@ public class AddReportActivity extends AppCompatActivity {
                 dao.update(report);
                 runOnUiThread(this::finish);
             });
-
-
         } else {
             if (cow != null) {
                 AppExecutors.getInstance().diskIO().execute(() -> {
@@ -257,6 +254,69 @@ public class AddReportActivity extends AppCompatActivity {
         }
     }
 
+    public void addCowAndReportFast() {
+        Log.i("ADD_REPORT", "onCreate: fast");
+        MyDao dao = DataBase.getInstance(this).dao();
+        if (cow != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                Report report = new Report();
+                report.visit = one.exportStart();
+                if (two != null) {
+                    report.nextVisit = two.exportStart();
+                } else {
+                    report.nextVisit = null;
+                }
+                report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
+                report.fingerNumber = this.fingerNumber;
+                report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
+                report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                report.cowId = cow.getId();
+                CheckBoxManager.getCheckBoxManager().setBooleansOnReportFast(report);
+                dao.insert(report);
+                runOnUiThread(() -> {
+                    state = State.reason;
+                    this.fingerNumber = -1;
+                    ((CowInjuryFragment) adapter.getItem(2)).reset();
+                    tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
+                    stepperIndicator.setCurrentStep(State.getNumber(state));
+                });
+            });
+        } else {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                int cowNumber = ((CowInfoFragment) adapter.getItem(0)).getNumber();
+                Cow cow = dao.getCow(cowNumber, farmId);
+                if (cow == null) {
+                    cow = new Cow(cowNumber, false, farmId);
+                    dao.insert(cow);
+                }
+                cow = dao.getCow(cowNumber, farmId);
+                this.cow = cow;
+                Report report = new Report();
+                report.visit = one.exportStart();
+                if (two != null) {
+                    report.nextVisit = two.exportStart();
+                } else {
+                    report.nextVisit = null;
+                }
+                report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
+                report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
+                report.fingerNumber = this.fingerNumber;
+                report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                report.cowId = cow.getId();
+                CheckBoxManager.getCheckBoxManager().setBooleansOnReportFast(report);
+                dao.insert(report);
+                runOnUiThread(() -> {
+                    state = State.reason;
+                    this.fingerNumber = -1;
+                    ((CowInjuryFragment) adapter.getItem(2)).reset();
+                    tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
+                    stepperIndicator.setCurrentStep(State.getNumber(state));
+                });
+            });
+        }
+    }
+
+
     public void next() {
         switch (state) {
             case info:
@@ -296,6 +356,10 @@ public class AddReportActivity extends AppCompatActivity {
 
     public void setFingerNumber(int fingerNumber) {
         this.fingerNumber = fingerNumber;
+    }
+
+    public int getFingerNumber() {
+        return fingerNumber;
     }
 
     @Override

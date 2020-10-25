@@ -72,7 +72,7 @@ public class CheckBoxManager {
         return checkBoxManager;
     }
 
-    private void reset() {
+    public void reset() {
         for (CheckBoxItem item : moreInfo) {
             item.setCheck(false);
             item.setActive(true);
@@ -81,6 +81,13 @@ public class CheckBoxManager {
             item.setCheck(false);
             item.setActive(true);
         }
+        for (CheckBoxItem item : dialog) {
+            item.setCheck(false);
+            item.setActive(true);
+        }
+    }
+
+    private void resetFast(){
         for (CheckBoxItem item : dialog) {
             item.setCheck(false);
             item.setActive(true);
@@ -120,6 +127,21 @@ public class CheckBoxManager {
         dialog.get(2).setCheck(report.otherInfoGel);
         dialog.get(3).setCheck(report.otherInfoBoarding);
         moreInfo.get(2).setCheck(report.otherInfoHoofTrim);
+        for (CheckBoxItem item: reasons){
+            if (item.isCheck()){
+                item.disableOther();
+            }
+        }
+        for (CheckBoxItem item: dialog){
+            if (item.isCheck()){
+                item.disableOther();
+            }
+        }
+        for (CheckBoxItem item: moreInfo){
+            if (item.isCheck()){
+                item.disableOther();
+            }
+        }
     }
 
     public void setBooleansOnReport(Report report) {
@@ -140,9 +162,32 @@ public class CheckBoxManager {
         report.otherInfoNoInjury = moreInfo.get(1).isCheck();
         report.otherInfoGel = dialog.get(2).isCheck();
         report.otherInfoBoarding = dialog.get(3).isCheck();
-        report.otherInfoHoofTrim = moreInfo.get(3).isCheck();
+        report.otherInfoHoofTrim = moreInfo.get(2).isCheck();
         reset();
     }
+
+    public void setBooleansOnReportFast(Report report) {
+        report.referenceCauseHundredDays = reasons.get(0).isCheck();
+        report.referenceCauseDryness = reasons.get(1).isCheck();
+        report.referenceCauseLagged = reasons.get(2).isCheck();
+        report.referenceCauseNewLimp = dialog.get(0).isCheck();
+        report.referenceCauseLimpVisit = dialog.get(1).isCheck();
+        report.referenceCauseHighScore = reasons.get(3).isCheck();
+        report.referenceCauseReferential = reasons.get(4).isCheck();
+        report.referenceCauseLongHoof = reasons.get(5).isCheck();
+        report.referenceCauseHeifer = reasons.get(6).isCheck();
+        report.referenceCauseGroupHoofTrim = reasons.get(7).isCheck();
+
+        report.otherInfoWound = dialog.get(0).isCheck();
+        report.otherInfoEcchymosis = dialog.get(1).isCheck();
+        report.otherInfoRecovered = moreInfo.get(0).isCheck();
+        report.otherInfoNoInjury = moreInfo.get(1).isCheck();
+        report.otherInfoGel = dialog.get(2).isCheck();
+        report.otherInfoBoarding = dialog.get(3).isCheck();
+        report.otherInfoHoofTrim = moreInfo.get(2).isCheck();
+        resetFast();
+    }
+
 
     public ArrayList<CheckBoxItem> getReasons() {
         return reasons;
