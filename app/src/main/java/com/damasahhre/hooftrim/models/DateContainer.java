@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import saman.zamani.persiandate.PersianDate;
 
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
+import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
 
 public class DateContainer implements Serializable {
 
@@ -29,6 +30,13 @@ public class DateContainer implements Serializable {
         this.mode = mode;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public static DateContainer getToday(Context context, boolean persian) {
+        Date date = new Date();
+        com.damasahhre.hooftrim.models.MyDate myDate = new com.damasahhre.hooftrim.models.MyDate(date);
+        int[] dateConverted = myDate.convert(context);
+        return new DateContainer(SINGLE, new MyDate(persian, dateConverted[2], dateConverted[1], dateConverted[0]));
     }
 
     public static String toString(com.damasahhre.hooftrim.models.MyDate date) {

@@ -2,12 +2,10 @@ package com.damasahhre.hooftrim.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +13,8 @@ import androidx.annotation.Nullable;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
+import com.damasahhre.hooftrim.adapters.GridViewAdapterReasonAddReport;
+import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 
 /**
@@ -22,7 +22,6 @@ import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
  */
 public class SelectFingerDialog extends Dialog {
 
-    String TAG = "ErrorDialog";
 
     public SelectFingerDialog(@NonNull final Context context) {
         super(context);
@@ -31,11 +30,14 @@ public class SelectFingerDialog extends Dialog {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
         setCancelable(false);
 
-        RelativeLayout relativeLayout = new RelativeLayout(context);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        relativeLayout.setLayoutParams(layoutParams);
         EditText edit = findViewById(R.id.input);
+        GridView gridView = findViewById(R.id.grid);
+        GridViewAdapterReasonAddReport adapter = new GridViewAdapterReasonAddReport(context, CheckBoxManager.getCheckBoxManager().getDialog());
+        gridView.setAdapter(adapter);
+
+        Button newInput = findViewById(R.id.new_input);
         Button ok = findViewById(R.id.ok);
+
         ok.setOnClickListener(v -> {
             int number = -1;
             if (edit.getText().toString().isEmpty()) {
@@ -63,7 +65,6 @@ public class SelectFingerDialog extends Dialog {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart: ");
     }
 
     @Override

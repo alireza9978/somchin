@@ -50,7 +50,7 @@
     <string name="enter_cow_number_coma">شماره دام‌ها را وارد کنید. ۱۲,۲۳,…</string>
     <string name="cow_number">شماره گاو</string>
     <string name="enter_cow_number_report">شماره گاو را وارد کنید</string>
-    <string name="enter_date_report">تاریخ بازدید را وارد کنید</string>
+    <string name="enter_date_report">تاریخ</string>
     <string name="information">اطلاعات اولیه</string>
 
     <string name="empty"> </string>
@@ -124,7 +124,7 @@
     <string name="toast_select_one">یکی از موارد را انتخاب کنید</string>
     <string name="toast_select_only_one">انتخاب دو مورد امکان‌پذیر نیست</string>
     <string name="ok">تایید</string>
-    <string name="other_info">سایر اعلاعات</string>
+    <string name="other_info">سایر اطلاعات</string>
     <string name="cow_reports">گزارشات دام</string>
     <string name="last_visit">آخرین بازدید</string>
     <string name="add_new_cow">افزودن گاو جدید</string>
@@ -196,6 +196,9 @@
     <string name="enter_finger_number">شماره انگشت را وارد کنید</string>
     <string name="date_selection">انتخاب تاریخ</string>
     <string name="clear">پاک کردن</string>
+    <string name="finger_number">۱~۸</string>
+    <string name="add_new_injury">ثبت جراحت جدید برای این دام</string>
+    <string name="cant_select">امکان انتخاب همزمان وجود ندارد</string>
 
 
 </resources>

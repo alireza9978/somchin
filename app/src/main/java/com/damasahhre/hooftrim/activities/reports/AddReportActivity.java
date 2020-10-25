@@ -52,8 +52,17 @@ public class AddReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_report);
         Bundle bundle = Objects.requireNonNull(getIntent().getExtras());
         mode = bundle.getString(Constants.REPORT_MODE);
-
         assert mode != null;
+
+        boolean persian = Constants.getDefualtlanguage(this).equals("fa");
+        stepperIndicator = findViewById(R.id.state_indicator);
+        if (persian) {
+            stepperIndicator.setRotation(180);
+            stepperIndicator.setRotationX(180);
+            stepperIndicator.setShowDoneIcon(false);
+        }
+
+
         if (mode.equals(Constants.EDIT_REPORT)) {
             Log.i("ADD_REPORT", "onCreate: edit mode");
             reportId = bundle.getInt(Constants.REPORT_ID);
@@ -103,7 +112,6 @@ public class AddReportActivity extends AppCompatActivity {
                     viewPager.setEnableSwipe(false);
                     tabLayout.setupWithViewPager(viewPager);
 
-                    stepperIndicator = findViewById(R.id.state_indicator);
                     ImageView moreInfo = findViewById(R.id.info_image);
                     ImageView exit = findViewById(R.id.close_image);
 
@@ -139,7 +147,6 @@ public class AddReportActivity extends AppCompatActivity {
             viewPager.setEnableSwipe(false);
             tabLayout.setupWithViewPager(viewPager);
 
-            stepperIndicator = findViewById(R.id.state_indicator);
             ImageView moreInfo = findViewById(R.id.info_image);
             ImageView exit = findViewById(R.id.close_image);
 
@@ -155,11 +162,17 @@ public class AddReportActivity extends AppCompatActivity {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 if (id != -1) {
                     cow = dao.getCow(id);
-                    if (cow != null)
-                        ((CowInfoFragment) adapter.getItem(0)).setCowNumber(cow.getNumber());
+                    runOnUiThread(() -> {
+                        if (cow != null)
+                            ((CowInfoFragment) adapter.getItem(0)).setCowNumber(cow.getNumber());
+                    });
                 } else {
                     cow = null;
                 }
+                runOnUiThread(() -> {
+                    one = DateContainer.getToday(this, persian);
+                    ((CowInfoFragment) adapter.getItem(0)).setDate(one.toString(this));
+                });
             });
 
 
@@ -259,7 +272,7 @@ public class AddReportActivity extends AppCompatActivity {
                 addCowAndReport();
                 return;
         }
-        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)));
+        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
         stepperIndicator.setCurrentStep(State.getNumber(state));
     }
 
@@ -277,7 +290,7 @@ public class AddReportActivity extends AppCompatActivity {
                 state = State.injury;
                 break;
         }
-        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)));
+        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
         stepperIndicator.setCurrentStep(State.getNumber(state));
     }
 

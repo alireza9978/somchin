@@ -54,7 +54,7 @@
     <string name="enter_cow_number">enter cow number</string>
     <string name="enter_cow_number_coma">enter cow numbers: 12,3,…</string>
     <string name="cow_number">cow number</string>
-    <string name="enter_date_report">enter visit date</string>
+    <string name="enter_date_report">date</string>
     <string name="enter_next_visit_date">enter next visit date</string>
     <string name="enter_cow_number_report">enter cow number</string>
     <string name="next">next</string>
@@ -202,6 +202,9 @@
     <string name="enter_finger_number">enter finger number</string>
     <string name="date_selection">date selection</string>
     <string name="clear">clear</string>
+    <string name="finger_number">1~8</string>
+    <string name="add_new_injury">add new injury for this cow</string>
+    <string name="cant_select">can\'t select at same time</string>
 
 
 </resources>

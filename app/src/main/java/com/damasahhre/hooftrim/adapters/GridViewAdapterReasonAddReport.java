@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.models.CheckBoxItem;
@@ -67,10 +68,23 @@ public class GridViewAdapterReasonAddReport extends BaseAdapter {
             holder.view.setEnabled(true);
             holder.item.setEnabled(true);
             holder.name.setEnabled(true);
+            holder.view.setOnClickListener(view1 -> {
+                boolean b = !item.isCheck();
+                item.setCheck(b);
+                if (b) {
+                    item.disableOther();
+                } else {
+                    item.enableOther();
+                }
+                notifyDataSetChanged();
+            });
         } else {
-            holder.name.setTextColor(context.getResources().getColor(R.color.hit_gray));
+            holder.name.setTextColor(context.getResources().getColor(R.color.athens_gray));
             holder.item.setChecked(false);
-            holder.view.setEnabled(false);
+            holder.view.setEnabled(true);
+            holder.view.setOnClickListener(view1 -> {
+                Toast.makeText(context,context.getResources().getString(R.string.cant_select),Toast.LENGTH_SHORT).show();
+            });
             holder.item.setEnabled(false);
             holder.name.setEnabled(false);
         }
