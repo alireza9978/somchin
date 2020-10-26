@@ -300,9 +300,9 @@ public class ImportFragment extends Fragment {
                         Cell nextVisitCell = row.getCell(34);
                         if (nextVisitCell.getCellType() == Cell.CELL_TYPE_STRING) {
                             String[] date = nextVisitCell.getStringCellValue().split("/");
-                            report.nextVisit = new MyDate(Integer.parseInt(date[0]),
+                            report.nextVisit = new MyDate(Integer.parseInt(date[2]),
                                     Integer.parseInt(date[1]),
-                                    Integer.parseInt(date[2]));
+                                    Integer.parseInt(date[0]));
                         }
                         Cell moreInfo = row.getCell(35);
                         if (nextVisitCell.getCellType() == Cell.CELL_TYPE_STRING) {

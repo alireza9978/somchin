@@ -95,7 +95,7 @@ public class CheckBoxManager {
     }
 
     public boolean moreInfoSelected() {
-        return !(moreInfo.get(0).isCheck() || moreInfo.get(1).isCheck() || moreInfo.get(6).isCheck());
+        return !(dialog.get(2).isCheck() || dialog.get(3).isCheck() || moreInfo.get(2).isCheck());
     }
 
     public boolean reasonSelected() {

@@ -100,7 +100,7 @@ public class ReportSummery extends AppCompatActivity {
                 area.setText(getString(R.string.injury_area) + " " + report.legAreaNumber +
                         ", " + getString(R.string.finger) + " " + report.fingerNumber);
                 DateContainer container;
-                if (Constants.getDefualtlanguage(this).equals("fa")) {
+                if (Constants.getDefaultLanguage(this).equals("fa")) {
                     int[] temp = report.visit.convert(this);
                     DateContainer.MyDate date = new DateContainer.MyDate(true, temp[2], temp[1], temp[0]);
                     container = new DateContainer(Constants.DateSelectionMode.SINGLE, date);

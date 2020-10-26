@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.LoginActivity;
+import com.damasahhre.hooftrim.constants.Constants;
 
 public class LoginFragment extends Fragment {
 
@@ -17,6 +19,8 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment_login, container, false);
+
+        EditText password = view.findViewById(R.id.password_input);
 
         view.findViewById(R.id.submit).setOnClickListener(v -> {
             ((LoginActivity) requireActivity()).goApp();

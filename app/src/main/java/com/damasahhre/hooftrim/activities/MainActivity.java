@@ -36,7 +36,7 @@ import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_INJURY;
-import static com.damasahhre.hooftrim.constants.Constants.getDefualtlanguage;
+import static com.damasahhre.hooftrim.constants.Constants.getDefaultLanguage;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.lang: {
-                if (getDefualtlanguage(this).equals("fa")) {
+                if (getDefaultLanguage(this).equals("fa")) {
                     Constants.setLanguage(this, "en");
                 } else {
                     Constants.setLanguage(this, "fa");

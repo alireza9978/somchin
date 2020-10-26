@@ -55,7 +55,7 @@ public class AddReportActivity extends AppCompatActivity {
         mode = bundle.getString(Constants.REPORT_MODE);
         assert mode != null;
 
-        boolean persian = Constants.getDefualtlanguage(this).equals("fa");
+        boolean persian = Constants.getDefaultLanguage(this).equals("fa");
         stepperIndicator = findViewById(R.id.state_indicator);
         if (persian) {
             stepperIndicator.setRotation(180);
@@ -73,7 +73,7 @@ public class AddReportActivity extends AppCompatActivity {
                 DateContainer container;
                 DateContainer container_two;
                 int[] temp = report.visit.convert(this);
-                if (Constants.getDefualtlanguage(this).equals("fa")) {
+                if (Constants.getDefaultLanguage(this).equals("fa")) {
                     DateContainer.MyDate date = new DateContainer.MyDate(true, temp[2], temp[1], temp[0]);
                     container = new DateContainer(Constants.DateSelectionMode.SINGLE, date);
                 } else {
@@ -83,7 +83,7 @@ public class AddReportActivity extends AppCompatActivity {
                 one = container;
                 if (report.nextVisit != null) {
                     temp = report.nextVisit.convert(this);
-                    if (Constants.getDefualtlanguage(this).equals("fa")) {
+                    if (Constants.getDefaultLanguage(this).equals("fa")) {
                         DateContainer.MyDate date = new DateContainer.MyDate(true, temp[2], temp[1], temp[0]);
                         container_two = new DateContainer(Constants.DateSelectionMode.SINGLE, date);
                     } else {
@@ -124,8 +124,6 @@ public class AddReportActivity extends AppCompatActivity {
                     });
 
                 });
-
-
             });
         } else if (mode.equals(Constants.REPORT_CREATE)) {
             CheckBoxManager.getCheckBoxManager().reset();

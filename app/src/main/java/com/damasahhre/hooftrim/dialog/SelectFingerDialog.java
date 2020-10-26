@@ -43,11 +43,15 @@ public class SelectFingerDialog extends Dialog {
             newInput.setOnClickListener(view -> {
                 int number = -1;
                 if (edit.getText().toString().isEmpty()) {
-                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.empty_error), Toast.LENGTH_SHORT).show();
                 } else {
                     number = Integer.parseInt(edit.getText().toString());
                 }
                 if (number >= 1 && number <= 8) {
+                    if (CheckBoxManager.getCheckBoxManager().moreInfoSelected()) {
+                        Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     dismiss();
                     ((AddReportActivity) context).setFingerNumber(number);
                     ((AddReportActivity) context).addCowAndReportFast();

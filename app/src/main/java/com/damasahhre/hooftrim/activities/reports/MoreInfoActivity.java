@@ -26,7 +26,7 @@ public class MoreInfoActivity extends AppCompatActivity {
                 findViewById(R.id.one).setVisibility(View.VISIBLE);
                 break;
             case reason: {
-                if (Constants.getDefualtlanguage(this).equals("fa")) {
+                if (Constants.getDefaultLanguage(this).equals("fa")) {
                     findViewById(R.id.two_fa).setVisibility(View.VISIBLE);
                 } else {
                     findViewById(R.id.two).setVisibility(View.VISIBLE);
@@ -37,7 +37,7 @@ public class MoreInfoActivity extends AppCompatActivity {
                 findViewById(R.id.three).setVisibility(View.VISIBLE);
                 break;
             case moreInfo:
-                if (Constants.getDefualtlanguage(this).equals("fa")) {
+                if (Constants.getDefaultLanguage(this).equals("fa")) {
                     findViewById(R.id.four_fa).setVisibility(View.VISIBLE);
                 } else {
                     findViewById(R.id.four).setVisibility(View.VISIBLE);

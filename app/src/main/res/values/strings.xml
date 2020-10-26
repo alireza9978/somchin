@@ -44,7 +44,7 @@
     <string name="create_farm">create farm</string>
     <string name="control_system">Housing system</string>
     <string name="birth_count">Herd size‌(Dairy cows)</string>
-
+    <string name="empty_error">empty input</string>
     <string name="check_fields">check fields</string>
     <string name="not_found">not found</string>
     <string name="cows_list">cows list</string>
@@ -206,6 +206,7 @@
     <string name="add_new_injury">add new injury for this cow</string>
     <string name="cant_select">can\'t select at same time</string>
     <string name="data_added">data added successfully</string>
+    <string name="tripel_error">select at least one out of three options(Wound, Point Hemorrhage, Hoof trimming)</string>
 
 
 </resources>

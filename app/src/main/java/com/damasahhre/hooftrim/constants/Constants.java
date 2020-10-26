@@ -44,7 +44,7 @@ public class Constants {
     public static String REPORT_CREATE = "CREATE_NEW_REPORT";
     public static String EDIT_REPORT = "EDIT_OLD_REPORT";
 
-    public static String NO_LANGUAGE = "en";
+    public static String NO_LANGUAGE = "asdcexxcNoLang";
     private static String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static String LANGUAGE_DATA = "someWhereInDarkness12";
 
@@ -60,7 +60,7 @@ public class Constants {
     }
 
     public static void setImageFront(Context context, ImageView imageView) {
-        if (Constants.getDefualtlanguage(context).equals("fa")) {
+        if (Constants.getDefaultLanguage(context).equals("fa")) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
@@ -69,7 +69,7 @@ public class Constants {
 
     public static void setImageBack(Context context, ImageView imageView) {
 
-        if (Constants.getDefualtlanguage(context).equals("fa")) {
+        if (Constants.getDefaultLanguage(context).equals("fa")) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_front));
@@ -77,7 +77,7 @@ public class Constants {
     }
 
     public static void setImageBackBorder(Context context, ImageView imageView) {
-        if (Constants.getDefualtlanguage(context).equals("fa")) {
+        if (Constants.getDefaultLanguage(context).equals("fa")) {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_next));
         } else {
             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_previous));
@@ -108,7 +108,7 @@ public class Constants {
     }
 
     public static void gridRtl(Context context, View view) {
-        if (getDefualtlanguage(context).equals("fa")) {
+        if (getDefaultLanguage(context).equals("fa")) {
             view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         } else {
             view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
@@ -138,9 +138,9 @@ public class Constants {
     /**
      * گرفتن کلید ارتباط با سرور
      */
-    public static String getDefualtlanguage(Context context) {
+    public static String getDefaultLanguage(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(LANGUAGE_STORAGE, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(LANGUAGE_DATA, "");
+        return sharedPreferences.getString(LANGUAGE_DATA, NO_LANGUAGE);
     }
 
     /**

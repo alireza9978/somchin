@@ -41,6 +41,14 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
+        if (Constants.getDefaultLanguage(this).equals(Constants.NO_LANGUAGE)) {
+            Constants.setLanguage(this, "fa");
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
         AppCenter.start(getApplication(), "f4c019af-38a5-44af-b87a-22c2e0dc8f27",
                 Analytics.class, Crashes.class);
 
@@ -65,7 +73,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 runOnUiThread(() -> {
-                    checkConnection();
+                    goApp();
+//                    checkConnection();
                 });
             }
         }, 1000);
@@ -93,7 +102,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public Context updateBaseContextLocale(Context context) {
-        String language = Constants.getDefualtlanguage(context);
+        String language = Constants.getDefaultLanguage(context);
         if (language.isEmpty()) {
             //when first time enter into app (get the device language and set it
             language = Locale.getDefault().getLanguage();

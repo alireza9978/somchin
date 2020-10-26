@@ -76,7 +76,7 @@ public class DateSelectionActivity extends AppCompatActivity {
         calendar = findViewById(R.id.calendarView);
         FrameLayout calendarView = findViewById(R.id.persianCaldroid);
 
-        String language = Constants.getDefualtlanguage(context);
+        String language = Constants.getDefaultLanguage(context);
 
 
         String action = getIntent().getAction();
@@ -115,7 +115,7 @@ public class DateSelectionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String language = Constants.getDefualtlanguage(context);
+        String language = Constants.getDefaultLanguage(context);
 
         if (language.equals("fa")) {
             View view = persianCaldroidFragment.getView();

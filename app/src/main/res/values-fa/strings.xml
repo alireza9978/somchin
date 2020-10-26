@@ -53,6 +53,7 @@
     <string name="enter_date_report">تاریخ</string>
     <string name="information">اطلاعات اولیه</string>
 
+    <string name="empty_error">ورودی خالی است</string>
     <string name="empty"> </string>
     <string name="count">تعداد</string>
     <string name="price">قیمت واحد</string>
@@ -98,7 +99,7 @@
     <string name="more_info">توضیحات بیشتر</string>
     <string name="enter_next_visit_date">تاریخ بازدید بعدی را انتخاب کنید</string>
     <string name="create">ثبت دام</string>
-    <string name="more_info_text_add_report">در این قسمت حتما باید یکی از گزینه‌ّای زخم، خونمردگی یا سم‌چینی را علامت بزنید.</string>
+    <string name="more_info_text_add_report">در این قسمت حتما باید یکی از گزینه‌های زخم، خونمردگی یا سم‌چینی را علامت بزنید.</string>
     <string name="injury_area">ناحیه درگیر</string>
     <string name="select_farm">دامداری مورد نظر خود را انتخاب کنید</string>
     <string name="farm_list">لیست دامداری‌ها</string>
@@ -200,6 +201,7 @@
     <string name="add_new_injury">ثبت جراحت جدید برای این دام</string>
     <string name="cant_select">امکان انتخاب همزمان وجود ندارد</string>
     <string name="data_added">داده با موفقیت اضافه شد</string>
+    <string name="tripel_error">یکی از موارد زخم خونمردگی یا سم‌چینی را انتخاب کنید</string>
 
 
 </resources>
