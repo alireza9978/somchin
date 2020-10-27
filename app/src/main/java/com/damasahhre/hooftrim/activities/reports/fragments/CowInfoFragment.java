@@ -27,7 +27,7 @@ public class CowInfoFragment extends Fragment {
     private Integer cowNumber = null;
     private String date;
 
-    public CowInfoFragment(Integer cowNumber, String date) {
+    public void setCowInfoFragment(Integer cowNumber, String date) {
         this.cowNumber = cowNumber;
         this.date = date;
     }

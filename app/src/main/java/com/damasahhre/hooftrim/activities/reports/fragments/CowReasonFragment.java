@@ -18,6 +18,8 @@ import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 public class CowReasonFragment extends Fragment {
 
+    private GridViewAdapterReasonAddReport adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class CowReasonFragment extends Fragment {
         Constants.setImageBack(requireContext(), view.findViewById(R.id.back_icon));
 
         GridView gridView = view.findViewById(R.id.reason_container);
-        GridViewAdapterReasonAddReport adapter = new GridViewAdapterReasonAddReport(requireContext(), CheckBoxManager.getCheckBoxManager().getReasons());
+        adapter = new GridViewAdapterReasonAddReport(requireContext(), CheckBoxManager.getCheckBoxManager().getReasons());
         gridView.setAdapter(adapter);
 
         view.findViewById(R.id.next_button).setOnClickListener(v -> {
@@ -41,5 +43,11 @@ public class CowReasonFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

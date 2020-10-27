@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -31,6 +30,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import org.jetbrains.annotations.NotNull;
+
 import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabAdapterHome adapter;
     private TabLayout tabLayout;
     private DrawerLayout drawerLayout;
-    private String TAG = "MAIN ACTIVITY";
 
     public static void applyFontToMenu(Menu m, Context mContext) {
         for (int i = 0; i < m.size(); i++) {
@@ -84,29 +84,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         applyFontToMenu(navigationView.getMenu(), this);
         navigationView.setNavigationItemSelectedListener(this);
-        tabLayout.selectTab(tabLayout.getTabAt(4));
+        tabLayout.selectTab(tabLayout.getTabAt(0));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode);
         switch (requestCode) {
             case Constants.DATE_SELECTION_SEARCH_COW:
             case Constants.FARM_SELECTION_SEARCH_COW:
             case Constants.DATE_SELECTION_SEARCH_FARM:
-                adapter.getFragment(3).onActivityResult(requestCode, resultCode, data);
+                adapter.getFragment(1).onActivityResult(requestCode, resultCode, data);
                 break;
 
             case DATE_SELECTION_REPORT_INJURY:
             case FARM_SELECTION_REPORT_INJURY:
             case DATE_SELECTION_REPORT_FACTOR:
             case FARM_SELECTION_REPORT_FACTOR: {
-                adapter.getFragment(1).onActivityResult(requestCode, resultCode, data);
+                adapter.getFragment(3).onActivityResult(requestCode, resultCode, data);
                 break;
             }
             default: {
-                adapter.getFragment(1).onActivityResult(CHOOSE_FILE_REQUEST_CODE, resultCode, data);
+                adapter.getFragment(3).onActivityResult(CHOOSE_FILE_REQUEST_CODE, resultCode, data);
                 break;
             }
         }
@@ -187,12 +186,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         @Override
-        public void updateDrawState(TextPaint ds) {
+        public void updateDrawState(@NotNull TextPaint ds) {
             applyCustomTypeFace(ds, newType);
         }
 
         @Override
-        public void updateMeasureState(TextPaint paint) {
+        public void updateMeasureState(@NotNull TextPaint paint) {
             applyCustomTypeFace(paint, newType);
         }
     }

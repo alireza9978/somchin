@@ -28,6 +28,7 @@ public class MoreInfoFragment extends Fragment {
     private TextView date_text;
     private String date;
     private String description;
+    private GridViewAdapterReasonAddReport adapter;
 
     public MoreInfoFragment(String date, String description) {
         this.date = date;
@@ -53,7 +54,7 @@ public class MoreInfoFragment extends Fragment {
         });
 
         GridView gridView = view.findViewById(R.id.reason_container);
-        GridViewAdapterReasonAddReport adapter = new GridViewAdapterReasonAddReport(requireContext(), CheckBoxManager.getCheckBoxManager().getMoreInfo());
+        adapter = new GridViewAdapterReasonAddReport(requireContext(), CheckBoxManager.getCheckBoxManager().getMoreInfo());
         gridView.setAdapter(adapter);
 
         view.findViewById(R.id.next_button).setOnClickListener(v -> {
@@ -85,6 +86,7 @@ public class MoreInfoFragment extends Fragment {
                 moreInfo.setText(description);
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

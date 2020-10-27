@@ -1,45 +1,95 @@
 package com.damasahhre.hooftrim.adapters;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.damasahhre.hooftrim.activities.reports.fragments.CowInfoFragment;
+import com.damasahhre.hooftrim.activities.reports.fragments.CowInjuryFragment;
+import com.damasahhre.hooftrim.activities.reports.fragments.CowReasonFragment;
+import com.damasahhre.hooftrim.activities.reports.fragments.MoreInfoFragment;
 
 
 /**
  * مدیریت کننده اطلاعات در لیست
  * پایین صفحه اصلی
  */
-public class TabAdapterReport extends FragmentStatePagerAdapter {
+public class TabAdapterReport extends FragmentStateAdapter {
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private LayoutInflater inflater;
-    private Context context;
+    private Fragment[] fragments = new Fragment[4];
+    private int cowNumber;
+    private int legAreaNumber;
+    private String date;
+    private String nextDate;
+    private String description;
+    private boolean rightSide;
+    private final boolean edit;
 
-    public TabAdapterReport(Context context, FragmentManager fm) {
-        super(fm);
-        inflater = LayoutInflater.from(context);
-        this.context = context;
+    public TabAdapterReport(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
+        this.edit = false;
+    }
+
+    public TabAdapterReport(@NonNull FragmentActivity fragmentActivity, int cowNumber, String date,
+                            String nextDate, int legAreaNumber, boolean rightSide, String description) {
+        super(fragmentActivity);
+        this.edit = true;
+        this.description = description;
+        this.cowNumber = cowNumber;
+        this.date = date;
+        this.nextDate = nextDate;
+        this.legAreaNumber = legAreaNumber;
+        this.rightSide = rightSide;
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        if (fragments[position] == null)
+            switch (position) {
+                case 3: {
+                    if (edit) {
+                        fragments[3] = new MoreInfoFragment(nextDate, description);
+                    } else {
+                        fragments[3] = new MoreInfoFragment();
+                    }
+                    break;
+                }
+                case 2: {
+                    if (edit) {
+                        fragments[2] = new CowInjuryFragment(legAreaNumber, rightSide);
+                    } else {
+                        fragments[2] = new CowInjuryFragment();
+                    }
+                    break;
+                }
+                case 1: {
+                    fragments[1] = new CowReasonFragment();
+                    break;
+                }
+                case 0: {
+                    if (edit) {
+                        fragments[0] = new CowInfoFragment();
+                        ((CowInfoFragment) fragments[0]).setCowInfoFragment(cowNumber, date);
+                    } else {
+                        fragments[0] = new CowInfoFragment();
+                    }
+                    break;
+                }
+            }
+        return fragments[position];
+    }
+
+    public Fragment getFragment(int position) {
+        if (fragments[position] == null) {
+            return createFragment(position);
+        }
+        return fragments[position];
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+    public int getItemCount() {
+        return 4;
     }
-
-    public void addFragment(Fragment fragment) {
-        mFragmentList.add(fragment);
-    }
-
-    @Override
-    public int getCount() {
-        return mFragmentList.size();
-    }
-
-
 }

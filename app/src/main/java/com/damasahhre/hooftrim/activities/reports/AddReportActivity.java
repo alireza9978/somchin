@@ -8,12 +8,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.badoualy.stepperindicator.StepperIndicator;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.reports.fragments.CowInfoFragment;
 import com.damasahhre.hooftrim.activities.reports.fragments.CowInjuryFragment;
-import com.damasahhre.hooftrim.activities.reports.fragments.CowReasonFragment;
 import com.damasahhre.hooftrim.activities.reports.fragments.MoreInfoFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapterReport;
 import com.damasahhre.hooftrim.constants.Constants;
@@ -24,8 +24,6 @@ import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.CheckBoxManager;
 import com.damasahhre.hooftrim.models.DateContainer;
-import com.damasahhre.hooftrim.ui_element.MyViewPager;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
@@ -38,7 +36,6 @@ public class AddReportActivity extends AppCompatActivity {
     private State state;
     private Cow cow;
     private TabAdapterReport adapter;
-    private TabLayout tabLayout;
     private StepperIndicator stepperIndicator;
     private int fingerNumber = -1;
     private DateContainer one;
@@ -46,6 +43,7 @@ public class AddReportActivity extends AppCompatActivity {
     private int farmId;
     private String mode;
     private Integer reportId;
+    private ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +60,9 @@ public class AddReportActivity extends AppCompatActivity {
             stepperIndicator.setRotationX(180);
             stepperIndicator.setShowDoneIcon(false);
         }
-
+        viewPager = findViewById(R.id.pager_id);
 
         if (mode.equals(Constants.EDIT_REPORT)) {
-            Log.i("ADD_REPORT", "onCreate: edit mode");
             reportId = bundle.getInt(Constants.REPORT_ID);
             MyDao dao = DataBase.getInstance(this).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
@@ -93,25 +90,21 @@ public class AddReportActivity extends AppCompatActivity {
                     two = container_two;
                 }
                 cow = dao.getCow(report.cowId);
+
                 runOnUiThread(() -> {
                     CheckBoxManager.getCheckBoxManager().setBooleansFromReport(report);
                     fingerNumber = report.fingerNumber;
 
-                    tabLayout = new TabLayout(this);
                     state = State.info;
-                    adapter = new TabAdapterReport(this, getSupportFragmentManager());
-                    adapter.addFragment(new CowInfoFragment(cow.getNumber(), one.toString(this)));
-                    adapter.addFragment(new CowReasonFragment());
-                    adapter.addFragment(new CowInjuryFragment(report.legAreaNumber, report.rightSide));
+                    String next = null;
                     if (two != null)
-                        adapter.addFragment(new MoreInfoFragment(two.toString(this), report.description));
-                    else
-                        adapter.addFragment(new MoreInfoFragment());
+                        next = two.toString(this);
+                    adapter = new TabAdapterReport(this, cow.getNumber(),
+                            one.toString(this), next,
+                            report.legAreaNumber, report.rightSide,report.description);
 
-                    MyViewPager viewPager = findViewById(R.id.pager_id);
                     viewPager.setAdapter(adapter);
-                    viewPager.setEnableSwipe(false);
-                    tabLayout.setupWithViewPager(viewPager);
+                    viewPager.setUserInputEnabled(false);
 
                     ImageView moreInfo = findViewById(R.id.info_image);
                     ImageView exit = findViewById(R.id.close_image);
@@ -132,18 +125,12 @@ public class AddReportActivity extends AppCompatActivity {
                 farmId = bundle.getInt(Constants.FARM_ID);
             }
 
-            tabLayout = new TabLayout(this);
             state = State.info;
-            adapter = new TabAdapterReport(this, getSupportFragmentManager());
-            adapter.addFragment(new CowInfoFragment());
-            adapter.addFragment(new CowReasonFragment());
-            adapter.addFragment(new CowInjuryFragment());
-            adapter.addFragment(new MoreInfoFragment());
+            adapter = new TabAdapterReport(this);
 
-            MyViewPager viewPager = findViewById(R.id.pager_id);
+            viewPager.setOffscreenPageLimit(2);
+            viewPager.setUserInputEnabled(false);
             viewPager.setAdapter(adapter);
-            viewPager.setEnableSwipe(false);
-            tabLayout.setupWithViewPager(viewPager);
 
             ImageView moreInfo = findViewById(R.id.info_image);
             ImageView exit = findViewById(R.id.close_image);
@@ -162,14 +149,14 @@ public class AddReportActivity extends AppCompatActivity {
                     cow = dao.getCow(id);
                     runOnUiThread(() -> {
                         if (cow != null)
-                            ((CowInfoFragment) adapter.getItem(0)).setCowNumber(cow.getNumber());
+                            ((CowInfoFragment) adapter.getFragment(0)).setCowNumber(cow.getNumber());
                     });
                 } else {
                     cow = null;
                 }
                 runOnUiThread(() -> {
                     one = DateContainer.getToday(this, persian);
-                    ((CowInfoFragment) adapter.getItem(0)).setDate(one.toString(this));
+                    ((CowInfoFragment) adapter.getFragment(0)).setDate(one.toString(this));
                 });
             });
 
@@ -192,16 +179,16 @@ public class AddReportActivity extends AppCompatActivity {
                 } else {
                     report.nextVisit = null;
                 }
-                report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
-                report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
+                report.legAreaNumber = ((CowInjuryFragment) adapter.getFragment(2)).getSelected();
+                report.rightSide = ((CowInjuryFragment) adapter.getFragment(2)).getRightSide();
                 report.fingerNumber = this.fingerNumber;
-                report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                report.description = ((MoreInfoFragment) adapter.getFragment(3)).getMoreInfo();
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                 report.id = reportId;
                 dao.update(report);
                 runOnUiThread(() -> {
-                    Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
                     finish();
                 });
             });
@@ -216,15 +203,15 @@ public class AddReportActivity extends AppCompatActivity {
                     } else {
                         report.nextVisit = null;
                     }
-                    report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
+                    report.legAreaNumber = ((CowInjuryFragment) adapter.getFragment(2)).getSelected();
                     report.fingerNumber = this.fingerNumber;
-                    report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
-                    report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                    report.rightSide = ((CowInjuryFragment) adapter.getFragment(2)).getRightSide();
+                    report.description = ((MoreInfoFragment) adapter.getFragment(3)).getMoreInfo();
                     report.cowId = cow.getId();
                     CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                     dao.insert(report);
                     runOnUiThread(() -> {
-                        Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
                         finish();
                     });
 
@@ -232,7 +219,7 @@ public class AddReportActivity extends AppCompatActivity {
             } else {
                 AppExecutors.getInstance().diskIO().execute(() -> {
                     Log.i("ADD_REPORT", "onCreate: 2");
-                    int cowNumber = ((CowInfoFragment) adapter.getItem(0)).getNumber();
+                    int cowNumber = ((CowInfoFragment) adapter.getFragment(0)).getNumber();
                     Cow cow = dao.getCow(cowNumber, farmId);
                     if (cow == null) {
                         cow = new Cow(cowNumber, false, farmId);
@@ -246,15 +233,15 @@ public class AddReportActivity extends AppCompatActivity {
                     } else {
                         report.nextVisit = null;
                     }
-                    report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
-                    report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
+                    report.legAreaNumber = ((CowInjuryFragment) adapter.getFragment(2)).getSelected();
+                    report.rightSide = ((CowInjuryFragment) adapter.getFragment(2)).getRightSide();
                     report.fingerNumber = this.fingerNumber;
-                    report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                    report.description = ((MoreInfoFragment) adapter.getFragment(3)).getMoreInfo();
                     report.cowId = cow.getId();
                     CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                     dao.insert(report);
                     runOnUiThread(() -> {
-                        Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
                         finish();
                     });
                 });
@@ -274,25 +261,25 @@ public class AddReportActivity extends AppCompatActivity {
                 } else {
                     report.nextVisit = null;
                 }
-                report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
+                report.legAreaNumber = ((CowInjuryFragment) adapter.getFragment(2)).getSelected();
                 report.fingerNumber = this.fingerNumber;
-                report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
-                report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                report.rightSide = ((CowInjuryFragment) adapter.getFragment(2)).getRightSide();
+                report.description = ((MoreInfoFragment) adapter.getFragment(3)).getMoreInfo();
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReportFast(report);
                 dao.insert(report);
                 runOnUiThread(() -> {
-                    Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
                     state = State.reason;
                     this.fingerNumber = -1;
-                    ((CowInjuryFragment) adapter.getItem(2)).reset();
-                    tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
+                    ((CowInjuryFragment) adapter.getFragment(2)).reset();
+                    viewPager.setCurrentItem(State.getNumber(state));
                     stepperIndicator.setCurrentStep(State.getNumber(state));
                 });
             });
         } else {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                int cowNumber = ((CowInfoFragment) adapter.getItem(0)).getNumber();
+                int cowNumber = ((CowInfoFragment) adapter.getFragment(0)).getNumber();
                 Cow cow = dao.getCow(cowNumber, farmId);
                 if (cow == null) {
                     cow = new Cow(cowNumber, false, farmId);
@@ -307,19 +294,19 @@ public class AddReportActivity extends AppCompatActivity {
                 } else {
                     report.nextVisit = null;
                 }
-                report.legAreaNumber = ((CowInjuryFragment) adapter.getItem(2)).getSelected();
-                report.rightSide = ((CowInjuryFragment) adapter.getItem(2)).getRightSide();
+                report.legAreaNumber = ((CowInjuryFragment) adapter.getFragment(2)).getSelected();
+                report.rightSide = ((CowInjuryFragment) adapter.getFragment(2)).getRightSide();
                 report.fingerNumber = this.fingerNumber;
-                report.description = ((MoreInfoFragment) adapter.getItem(3)).getMoreInfo();
+                report.description = ((MoreInfoFragment) adapter.getFragment(3)).getMoreInfo();
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReportFast(report);
                 dao.insert(report);
                 runOnUiThread(() -> {
-                    Toast.makeText(this,R.string.data_added,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
                     state = State.reason;
                     this.fingerNumber = -1;
-                    ((CowInjuryFragment) adapter.getItem(2)).reset();
-                    tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
+                    ((CowInjuryFragment) adapter.getFragment(2)).reset();
+                    viewPager.setCurrentItem(State.getNumber(state));
                     stepperIndicator.setCurrentStep(State.getNumber(state));
                 });
             });
@@ -342,7 +329,7 @@ public class AddReportActivity extends AppCompatActivity {
                 addCowAndReport();
                 return;
         }
-        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
+        viewPager.setCurrentItem(State.getNumber(state));
         stepperIndicator.setCurrentStep(State.getNumber(state));
     }
 
@@ -360,7 +347,7 @@ public class AddReportActivity extends AppCompatActivity {
                 state = State.injury;
                 break;
         }
-        tabLayout.selectTab(tabLayout.getTabAt(State.getNumber(state)), false);
+        viewPager.setCurrentItem(State.getNumber(state));
         stepperIndicator.setCurrentStep(State.getNumber(state));
     }
 
@@ -383,7 +370,7 @@ public class AddReportActivity extends AppCompatActivity {
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
                     assert container != null;
                     one = container;
-                    ((CowInfoFragment) adapter.getItem(0)).setDate(container.toString(this));
+                    ((CowInfoFragment) adapter.getFragment(0)).setDate(container.toString(this));
                 }
                 break;
             }
@@ -393,7 +380,7 @@ public class AddReportActivity extends AppCompatActivity {
                     DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
                     assert container != null;
                     two = container;
-                    ((MoreInfoFragment) adapter.getItem(3)).setDate(container.toString(this));
+                    ((MoreInfoFragment) adapter.getFragment(3)).setDate(container.toString(this));
                 }
                 break;
             }
