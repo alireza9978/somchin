@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
+import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchFarm;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -61,7 +62,7 @@ public class SearchFarmFragment extends Fragment {
         search.setOnClickListener((v) -> {
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
-                requireActivity().runOnUiThread(() -> Constants.hideKeyboard(requireActivity()));
+                requireActivity().runOnUiThread(() -> ((MainActivity) requireActivity()).hideKeyboard());
                 if (date == null) {
                     requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "input error", Toast.LENGTH_SHORT).show());
                     return;

@@ -20,9 +20,9 @@ public class CheckBoxManager {
         dialog.add(new CheckBoxItem(R.string.more_info_reason_2));
         dialog.add(new CheckBoxItem(R.string.more_info_reason_5));
         dialog.add(new CheckBoxItem(R.string.more_info_reason_6));
+        dialog.add(new CheckBoxItem(R.string.more_info_reason_3));
 
         moreInfo = new ArrayList<>();
-        moreInfo.add(new CheckBoxItem(R.string.more_info_reason_3));
         moreInfo.add(new CheckBoxItem(R.string.more_info_reason_4));
         moreInfo.add(new CheckBoxItem(R.string.more_info_reason_7));
 
@@ -47,21 +47,21 @@ public class CheckBoxManager {
         dialog.get(1).add(dialog.get(0));//visit langesh -> new langesh
 
         dialog.get(2).add(dialog.get(3));//zakhm -> khon morde
-        dialog.get(2).add(moreInfo.get(0));//zakhm -> behbod yafte
-        dialog.get(2).add(moreInfo.get(1));//zakhm -> no injury
+        dialog.get(2).add(dialog.get(6));//zakhm -> behbod yafte
+        dialog.get(2).add(moreInfo.get(0));//zakhm -> no injury
 
         dialog.get(3).add(dialog.get(2));//khon morde -> zakhm
         dialog.get(3).add(dialog.get(4));//khon morde -> jel band
-        dialog.get(3).add(moreInfo.get(1));//khon morde -> no injury
+        dialog.get(3).add(moreInfo.get(0));//khon morde -> no injury
 
-        moreInfo.get(0).add(dialog.get(2));//healed -> wound
-        moreInfo.get(0).add(dialog.get(4));//healed -> jel
-        moreInfo.get(0).add(dialog.get(5));//healed -> bed
+        dialog.get(6).add(dialog.get(2));//healed -> wound
+        dialog.get(6).add(dialog.get(4));//healed -> jel
+        dialog.get(6).add(dialog.get(5));//healed -> bed
 
-        moreInfo.get(1).add(dialog.get(2));//no injury -> wound
-        moreInfo.get(1).add(dialog.get(3));//no injury -> khon morde
-        moreInfo.get(1).add(dialog.get(4));//no injury -> jel
-        moreInfo.get(1).add(dialog.get(5));//no injury -> bed
+        moreInfo.get(0).add(dialog.get(2));//no injury -> wound
+        moreInfo.get(0).add(dialog.get(3));//no injury -> khon morde
+        moreInfo.get(0).add(dialog.get(4));//no injury -> jel
+        moreInfo.get(0).add(dialog.get(5));//no injury -> bed
 
     }
 
@@ -87,7 +87,7 @@ public class CheckBoxManager {
         }
     }
 
-    private void resetFast(){
+    private void resetFast() {
         for (CheckBoxItem item : dialog) {
             item.setCheck(false);
             item.setActive(true);
@@ -95,7 +95,7 @@ public class CheckBoxManager {
     }
 
     public boolean moreInfoSelected() {
-        return !(dialog.get(2).isCheck() || dialog.get(3).isCheck() || moreInfo.get(2).isCheck());
+        return !(dialog.get(2).isCheck() || dialog.get(3).isCheck() || moreInfo.get(1).isCheck());
     }
 
     public boolean reasonSelected() {
@@ -122,23 +122,23 @@ public class CheckBoxManager {
 
         dialog.get(0).setCheck(report.otherInfoWound);
         dialog.get(1).setCheck(report.otherInfoEcchymosis);
-        moreInfo.get(0).setCheck(report.otherInfoRecovered);
-        moreInfo.get(1).setCheck(report.otherInfoNoInjury);
+        dialog.get(6).setCheck(report.otherInfoRecovered);
+        moreInfo.get(0).setCheck(report.otherInfoNoInjury);
         dialog.get(2).setCheck(report.otherInfoGel);
         dialog.get(3).setCheck(report.otherInfoBoarding);
-        moreInfo.get(2).setCheck(report.otherInfoHoofTrim);
-        for (CheckBoxItem item: reasons){
-            if (item.isCheck()){
+        moreInfo.get(1).setCheck(report.otherInfoHoofTrim);
+        for (CheckBoxItem item : reasons) {
+            if (item.isCheck()) {
                 item.disableOther();
             }
         }
-        for (CheckBoxItem item: dialog){
-            if (item.isCheck()){
+        for (CheckBoxItem item : dialog) {
+            if (item.isCheck()) {
                 item.disableOther();
             }
         }
-        for (CheckBoxItem item: moreInfo){
-            if (item.isCheck()){
+        for (CheckBoxItem item : moreInfo) {
+            if (item.isCheck()) {
                 item.disableOther();
             }
         }
@@ -158,11 +158,11 @@ public class CheckBoxManager {
 
         report.otherInfoWound = dialog.get(0).isCheck();
         report.otherInfoEcchymosis = dialog.get(1).isCheck();
-        report.otherInfoRecovered = moreInfo.get(0).isCheck();
-        report.otherInfoNoInjury = moreInfo.get(1).isCheck();
+        report.otherInfoRecovered = dialog.get(6).isCheck();
+        report.otherInfoNoInjury = moreInfo.get(0).isCheck();
         report.otherInfoGel = dialog.get(2).isCheck();
         report.otherInfoBoarding = dialog.get(3).isCheck();
-        report.otherInfoHoofTrim = moreInfo.get(2).isCheck();
+        report.otherInfoHoofTrim = moreInfo.get(1).isCheck();
         reset();
     }
 
@@ -180,11 +180,11 @@ public class CheckBoxManager {
 
         report.otherInfoWound = dialog.get(0).isCheck();
         report.otherInfoEcchymosis = dialog.get(1).isCheck();
-        report.otherInfoRecovered = moreInfo.get(0).isCheck();
-        report.otherInfoNoInjury = moreInfo.get(1).isCheck();
+        report.otherInfoRecovered = dialog.get(6).isCheck();
+        report.otherInfoNoInjury = moreInfo.get(0).isCheck();
         report.otherInfoGel = dialog.get(2).isCheck();
         report.otherInfoBoarding = dialog.get(3).isCheck();
-        report.otherInfoHoofTrim = moreInfo.get(2).isCheck();
+        report.otherInfoHoofTrim = moreInfo.get(1).isCheck();
         resetFast();
     }
 

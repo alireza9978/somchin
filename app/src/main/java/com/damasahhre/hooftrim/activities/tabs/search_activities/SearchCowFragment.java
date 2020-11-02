@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
 import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
+import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -73,7 +74,7 @@ public class SearchCowFragment extends Fragment {
         search.setOnClickListener((v) -> {
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
-                requireActivity().runOnUiThread(() -> Constants.hideKeyboard(requireActivity()));
+                requireActivity().runOnUiThread(() -> ((MainActivity)requireActivity()).hideKeyboard());
                 String cowIdString = cowNumber.getText().toString();
                 if (cowIdString.isEmpty()) {
                     requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "input error", Toast.LENGTH_SHORT).show());

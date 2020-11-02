@@ -101,7 +101,7 @@ public class AddReportActivity extends AppCompatActivity {
                         next = two.toString(this);
                     adapter = new TabAdapterReport(this, cow.getNumber(),
                             one.toString(this), next,
-                            report.legAreaNumber, report.rightSide,report.description);
+                            report.legAreaNumber, report.rightSide, report.description);
 
                     viewPager.setAdapter(adapter);
                     viewPager.setUserInputEnabled(false);
@@ -270,7 +270,7 @@ public class AddReportActivity extends AppCompatActivity {
                 dao.insert(report);
                 runOnUiThread(() -> {
                     Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
-                    state = State.reason;
+                    state = State.injury;
                     this.fingerNumber = -1;
                     ((CowInjuryFragment) adapter.getFragment(2)).reset();
                     viewPager.setCurrentItem(State.getNumber(state));
@@ -303,7 +303,7 @@ public class AddReportActivity extends AppCompatActivity {
                 dao.insert(report);
                 runOnUiThread(() -> {
                     Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
-                    state = State.reason;
+                    state = State.injury;
                     this.fingerNumber = -1;
                     ((CowInjuryFragment) adapter.getFragment(2)).reset();
                     viewPager.setCurrentItem(State.getNumber(state));
@@ -313,6 +313,15 @@ public class AddReportActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideKeyboard();
+    }
+
+    public void hideKeyboard(){
+        Constants.hideKeyboard(this, findViewById(R.id.root).getWindowToken());
+    }
 
     public void next() {
         switch (state) {

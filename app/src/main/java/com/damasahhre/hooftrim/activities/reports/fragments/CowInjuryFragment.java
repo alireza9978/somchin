@@ -41,7 +41,7 @@ public class CowInjuryFragment extends Fragment {
         }
     }
 
-    public void reset(){
+    public void reset() {
         selected = -1;
         rightSide = null;
         mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
@@ -196,9 +196,14 @@ public class CowInjuryFragment extends Fragment {
     }
 
     public void getFingerNumber() {
-        SelectFingerDialog dialog = new SelectFingerDialog(requireContext(),edit);
+        SelectFingerDialog dialog = new SelectFingerDialog(requireContext(), edit);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setOnDismissListener(dialogInterface -> Constants.hideKeyboard(requireActivity()));
+        dialog.setOnDismissListener(dialogInterface -> {
+            if (((AddReportActivity) requireActivity()).getFingerNumber() == -1){
+                reset();
+            }
+            ((AddReportActivity) requireActivity()).hideKeyboard();
+        });
         dialog.show();
     }
 

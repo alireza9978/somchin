@@ -45,7 +45,7 @@ public class ReportsFragment extends Fragment {
         adapter = new TabAdapterLongText(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new ImportFragment(), getResources().getString(R.string.import_file));
         adapter.addFragment(new ReportVisitFragment(), getResources().getString(R.string.visits));
-        adapter.addFragment(new FactorFragment(), getResources().getString(R.string.facor));
+        adapter.addFragment(new FactorFragment(), getResources().getString(R.string.factor));
         adapter.addFragment(new InjuriesFragment(), getResources().getString(R.string.injeries));
 
         viewPager.setAdapter(adapter);

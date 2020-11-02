@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mi.setTitle(mNewTitle);
     }
 
+    public void hideKeyboard(){
+        Constants.hideKeyboard(this, findViewById(R.id.root).getWindowToken());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

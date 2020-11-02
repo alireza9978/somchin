@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.IBinder;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -84,15 +85,21 @@ public class Constants {
         }
     }
 
-    public static void hideKeyboard(Activity activity) {
+    public static void hideKeyboard(Activity activity, IBinder token) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
+        imm.hideSoftInputFromWindow(token, 0);
+    }
+
+    public static boolean checkPermissionRead(Context context) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) context,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
+            return true;
         }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        return false;
     }
 
     public static boolean checkPermission(Context context) {

@@ -3,7 +3,6 @@ package com.damasahhre.hooftrim.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -15,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.adapters.GridViewAdapterReasonAddReport;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 
@@ -27,9 +27,6 @@ public class SelectFingerDialog extends Dialog {
     public SelectFingerDialog(@NonNull final Context context, boolean editMode) {
         super(context);
         setContentView(R.layout.select_finger_dialog_layout);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
-        setCancelable(false);
 
         EditText edit = findViewById(R.id.input);
         GridView gridView = findViewById(R.id.grid);
@@ -39,11 +36,12 @@ public class SelectFingerDialog extends Dialog {
         Button newInput = findViewById(R.id.new_input);
         if (editMode) {
             newInput.setVisibility(View.GONE);
-        }else{
+        } else {
             newInput.setOnClickListener(view -> {
+                Constants.hideKeyboard((AddReportActivity) context, findViewById(R.id.root).getWindowToken());
                 int number = -1;
                 if (edit.getText().toString().isEmpty()) {
-                    Toast.makeText(context,context.getString(R.string.empty_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.empty_error), Toast.LENGTH_SHORT).show();
                 } else {
                     number = Integer.parseInt(edit.getText().toString());
                 }
@@ -73,6 +71,7 @@ public class SelectFingerDialog extends Dialog {
 
 
         ok.setOnClickListener(v -> {
+            Constants.hideKeyboard((AddReportActivity) context, findViewById(R.id.root).getWindowToken());
             int number = -1;
             if (edit.getText().toString().isEmpty()) {
                 Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();

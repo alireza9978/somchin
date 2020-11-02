@@ -15,10 +15,10 @@
     <string name="cows">cows</string>
     <string name="livestrocks">farms</string>
 
-    <string name="home">home</string>
-    <string name="search">search</string>
-    <string name="report">report</string>
-    <string name="marked">marked</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="report">Report</string>
+    <string name="marked">Marked</string>
 
     <string name="help">help</string>
     <string name="contact_us">contact us</string>
@@ -28,13 +28,13 @@
 
     <string name="import_file">import file</string>
     <string name="visits">Re-check list</string>
-    <string name="facor">Invoice</string>
+    <string name="factor">Invoice</string>
     <string name="injeries">Dairy farm digital lesions</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="next_visits">next visits</string>
+    <string name="next_visits">Re-check list</string>
     <string name="next_visit">next visit</string>
-    <string name="no_next_visit">there is no visit</string>
+    <string name="no_next_visit">Nothing available</string>
     <string name="empty_livestrock_list">no farm</string>
     <string name="create_first_livestrock">create your first farm</string>
     <string name="livestocks">farms</string>
@@ -50,8 +50,11 @@
     <string name="cows_list">cows list</string>
     <string name="submit">submit</string>
     <string name="enter_farm">please select farm</string>
+    <string name="enter_farm_search">Search by farm</string>
     <string name="enter_date">enter searching date</string>
+    <string name="enter_date_search">Search by date</string>
     <string name="enter_cow_number">enter cow number</string>
+    <string name="enter_cow_number_search">Search by cow</string>
     <string name="enter_cow_number_coma">enter cow numbers: 12,3,…</string>
     <string name="cow_number">cow number</string>
     <string name="enter_date_report">date</string>
