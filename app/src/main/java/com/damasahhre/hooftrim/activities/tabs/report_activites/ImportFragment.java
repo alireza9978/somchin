@@ -27,9 +27,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -82,41 +82,38 @@ public class ImportFragment extends Fragment {
     }
 
     public void showFileChooser() {
-        if(Constants.checkPermissionRead(requireContext())){
+        if (Constants.checkPermissionRead(requireContext())) {
             return;
         }
 
-        Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-        chooseFile.setType("*/*");
+        Intent chooseFile = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        chooseFile.addCategory(Intent.CATEGORY_OPENABLE);
+        chooseFile.setType("application/*");
         chooseFile = Intent.createChooser(chooseFile, "Choose a file");
         startActivityForResult(chooseFile, Constants.CHOOSE_FILE_REQUEST_CODE);
     }
 
     public void importFile(Intent intent) {
-        Uri fileUri = intent.getData();
-        String filePath;
-        if (fileUri == null) {
-            Toast.makeText(requireContext(), "file not found", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            filePath = fileUri.getPath();
-            if (filePath == null) {
-                Toast.makeText(requireContext(), "file error", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
+
+
         try {
-            String[] temp = filePath.split(":");
-            filePath = temp[temp.length - 1];
-            temp = filePath.split("/");
-            String fileName = temp[temp.length - 1];
-            if (!(fileName.endsWith(".xls") || fileName.endsWith(".xlsx"))) {
-                Toast.makeText(requireContext(), "file format error", Toast.LENGTH_SHORT).show();
+            if (intent == null || intent.getData() == null) {
                 return;
             }
-            FileInputStream excelFile = new FileInputStream(new File(filePath));
-            // Create a POIFSFileSystem object
-            POIFSFileSystem myFileSystem = new POIFSFileSystem(excelFile);
+            Uri fileUri = intent.getData();
+            InputStream stream;
+            try {
+                if (fileUri == null) {
+                    Toast.makeText(requireContext(), "no file selected", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                stream = requireContext().getContentResolver().openInputStream(fileUri);
+            } catch (FileNotFoundException e) {
+                Toast.makeText(requireContext(), "file not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(stream);
 
             // Create a workbook using the File System
             HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
@@ -143,7 +140,7 @@ public class ImportFragment extends Fragment {
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Farm farm = new Farm();
-                farm.name = fileName.substring(0, fileName.indexOf("."));
+                farm.name = "imported farm";
                 farm.favorite = false;
                 farm.birthCount = 0;
                 farm.id = (int) dao.insertGetId(farm);
@@ -334,8 +331,8 @@ public class ImportFragment extends Fragment {
                 requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "imported", Toast.LENGTH_LONG).show());
             });
 
-
         } catch (IOException e) {
+            Toast.makeText(requireContext(), "reading error", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 

@@ -128,7 +128,7 @@ public class Constants {
      */
     public static String getToken(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(TOKEN_STORAGE, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(TOKEN_DATA,NO_TOKEN);
+        return sharedPreferences.getString(TOKEN_DATA, NO_TOKEN);
     }
 
     /**
