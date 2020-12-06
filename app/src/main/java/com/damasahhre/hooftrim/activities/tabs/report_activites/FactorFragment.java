@@ -62,7 +62,7 @@ public class FactorFragment extends Fragment {
     private ConstraintLayout priceBoardLayout;
     private EditText priceBoardText;
 
-    private int farmId = -1;
+    private long farmId = -1;
     private DateContainer date = null;
 
     @Override
@@ -283,14 +283,14 @@ public class FactorFragment extends Fragment {
 
     }
 
-    public void setFarm(int id) {
+    public void setFarm(long id) {
         this.farmId = id;
         MyDao dao = DataBase.getInstance(requireContext()).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             Farm farm = dao.getFarm(id);
             if (farm != null)
                 requireActivity().runOnUiThread(() -> {
-                    farmText.setText(farm.name);
+                    farmText.setText(farm.getName());
                     if (farmText.getText().toString().isEmpty()) {
                         farmLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.login_input_background));
                     } else {

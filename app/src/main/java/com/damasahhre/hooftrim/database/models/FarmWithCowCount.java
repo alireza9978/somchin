@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 
 public class FarmWithCowCount {
 
-    public Integer farmId;
+    public Long farmId;
     public String farmName;
 
     @ColumnInfo(name = "cow_count")

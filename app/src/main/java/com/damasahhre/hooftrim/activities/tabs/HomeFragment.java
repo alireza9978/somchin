@@ -133,14 +133,14 @@ public class HomeFragment extends Fragment {
                     main:
                     for (Farm farm : farms) {
                         for (FarmWithCowCount farmWithCowCount : farmList) {
-                            if (farm.id.equals(farmWithCowCount.farmId)) {
+                            if (farm.getId().equals(farmWithCowCount.farmId)) {
                                 continue main;
                             }
                         }
                         FarmWithCowCount temp = new FarmWithCowCount();
                         temp.cowCount = 0;
-                        temp.farmId = farm.id;
-                        temp.farmName = farm.name;
+                        temp.farmId = farm.getId();
+                        temp.farmName = farm.getName();
                         addition.add(temp);
                     }
                     farmList.addAll(addition);

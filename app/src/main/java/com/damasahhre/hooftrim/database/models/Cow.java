@@ -11,7 +11,7 @@ import com.damasahhre.hooftrim.R;
 @Entity
 public class Cow {
     @PrimaryKey
-    private Integer id;
+    private Long id;
     @ColumnInfo(name = "number")
     private Integer number;
     @ColumnInfo(name = "number_string")
@@ -19,20 +19,31 @@ public class Cow {
     @ColumnInfo(name = "favorite")
     private Boolean favorite;
     @ColumnInfo(name = "farm_id")
-    private Integer farm;
+    private Long farm;
+    @ColumnInfo(name = "sync")
+    private Boolean sync;
 
-    public Cow(Integer number, Boolean favorite, Integer farm) {
+    public Boolean getSync() {
+        return sync;
+    }
+
+    public void setSync(Boolean sync) {
+        this.sync = sync;
+    }
+
+    public Cow(Integer number, Boolean favorite, Long farm, Boolean sync) {
         this.number = number;
         this.numberString = "" + number;
         this.favorite = favorite;
         this.farm = farm;
+        this.sync = sync;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,11 +59,11 @@ public class Cow {
         return context.getString(R.string.cow_title) + number;
     }
 
-    public Integer getFarm() {
+    public Long getFarm() {
         return farm;
     }
 
-    public void setFarm(Integer farm) {
+    public void setFarm(Long farm) {
         this.farm = farm;
     }
 

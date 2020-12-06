@@ -34,7 +34,7 @@ public class CowProfileActivity extends AppCompatActivity {
     private Context context;
     private Cow cow;
     private GridViewAdapterCowProfile adapter;
-    private int id;
+    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +94,6 @@ public class CowProfileActivity extends AppCompatActivity {
             if (cow != null) {
                 cow.setFavorite(!cow.getFavorite());
                 AppExecutors.getInstance().diskIO().execute(() -> {
-                    cow.sync = false;
                     dao.update(cow);
                 });
                 if (cow.getFavorite()) {

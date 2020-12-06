@@ -23,9 +23,9 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
 
     private List<CowWithLastVisit> cows;
     private Context context;
-    private int farmId;
+    private long farmId;
 
-    public GridViewAdapterCowInFarmProfile(Context context, List<CowWithLastVisit> cows, int farmId) {
+    public GridViewAdapterCowInFarmProfile(Context context, List<CowWithLastVisit> cows, long farmId) {
         this.cows = cows;
         this.context = context;
         this.farmId = farmId;

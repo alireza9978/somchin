@@ -55,13 +55,13 @@ public class MarkedLivestockFragment extends Fragment {
                 main:
                 for (Farm farm : farmList) {
                     for (FarmWithCowCount farmWithCowCount : farms) {
-                        if (farm.id.equals(farmWithCowCount.farmId)) {
+                        if (farm.getId().equals(farmWithCowCount.farmId)) {
                             continue main;
                         }
                     }
                     FarmWithCowCount temp = new FarmWithCowCount();
-                    temp.farmName = farm.name;
-                    temp.farmId = farm.id;
+                    temp.farmName = farm.getName();
+                    temp.farmId = farm.getId();
                     temp.cowCount = 0;
                     addition.add(temp);
                 }

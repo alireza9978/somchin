@@ -62,7 +62,7 @@ public interface MyDao {
             "AND Cow.farm_id == farm.id " +
             "AND Farm.id == :farmId " +
             "GROUP BY Cow.id")
-    List<CowForMarked> searchCow(String id, Integer farmId);
+    List<CowForMarked> searchCow(String id, Long farmId);
 
     @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit, Farm.name AS farmName " +
             "FROM Cow,Farm,Report " +
@@ -73,7 +73,7 @@ public interface MyDao {
             "AND Cow.farm_id == farm.id " +
             "AND Farm.id == :farmId " +
             "GROUP BY Cow.id")
-    List<CowForMarked> searchCow(String id, MyDate start, MyDate end, Integer farmId);
+    List<CowForMarked> searchCow(String id, MyDate start, MyDate end, Long farmId);
 
     @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber," +
             " Farm.name AS farmName, MAX(Report.visit_date) AS lastVisit " +
@@ -134,54 +134,63 @@ public interface MyDao {
             " Report.cow_id == Cow.id AND" +
             " Cow.farm_id == Farm.id AND" +
             " Farm.id == :farmId GROUP BY Cow.id")
-    List<NextVisit> getAllNextVisitFroFarm(MyDate now, Integer farmId);
+    List<NextVisit> getAllNextVisitFroFarm(MyDate now, Long farmId);
 
     @Query("SELECT Report.next_visit_date AS nextVisit, MAX(Report.visit_date) AS lastVisit" +
             " FROM Report" +
             " WHERE Report.cow_id == :cowId")
-    LastReport getLastReport(Integer cowId);
+    LastReport getLastReport(Long cowId);
 
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();
+
+    @Query("SELECT * FROM Farm WHERE Farm.sync")
+    List<Farm> getAllFarmToSync();
+
+    @Query("SELECT * FROM Cow WHERE Cow.sync")
+    List<Cow> getAllCowToSync();
+
+    @Query("SELECT * FROM Report WHERE Report.sync")
+    List<Report> getAllReportToSync();
 
     @Query("SELECT Cow.id AS id, Cow.number AS number, MAX(Report.visit_date) AS lastVisit " +
             " FROM Cow, Report" +
             " WHERE Cow.farm_id == :id AND" +
             " Report.cow_id == Cow.id GROUP BY Cow.id")
-    List<CowWithLastVisit> getAllCowOfFarmWithLastVisit(Integer id);
+    List<CowWithLastVisit> getAllCowOfFarmWithLastVisit(Long id);
 
 
     @Query("SELECT * FROM Cow WHERE Cow.farm_id == :id")
-    List<Cow> getAllCowOfFarm(Integer id);
+    List<Cow> getAllCowOfFarm(Long id);
 
     @Query("SELECT * FROM Report WHERE Report.cow_id == :id")
-    List<Report> getAllReportOfCow(Integer id);
+    List<Report> getAllReportOfCow(Long id);
 
     @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id")
-    List<MyReport> getAllMyReportFarm(Integer id);
+    List<MyReport> getAllMyReportFarm(Long id);
 
     @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.id == :id")
-    MyReport myReportWithCow(Integer id);
+    MyReport myReportWithCow(Long id);
 
     @Query("SELECT * FROM Farm WHERE Farm.id == :id")
-    Farm getFarm(Integer id);
+    Farm getFarm(Long id);
 
     @Query("SELECT Farm.id AS farmId, MIN(Report.next_visit_date) AS nextVisit " +
             "FROM Farm,Cow,Report " +
             "WHERE Farm.id == :id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Report.cow_id == Cow.id")
-    FarmWithNextVisit getFarmWithNextVisit(Integer id);
+    FarmWithNextVisit getFarmWithNextVisit(Long id);
 
 
     @Query("SELECT * FROM Cow WHERE Cow.number == :cowNumber AND Cow.farm_id == :farmId")
-    Cow getCow(Integer cowNumber, Integer farmId);
+    Cow getCow(Integer cowNumber, Long farmId);
 
     @Query("SELECT * FROM Cow WHERE Cow.id == :id")
-    Cow getCow(Integer id);
+    Cow getCow(Long id);
 
     @Query("SELECT * FROM Report WHERE Report.id == :id")
-    Report getReport(Integer id);
+    Report getReport(Long id);
 
     @Delete
     void deleteCow(Cow... cows);
@@ -209,6 +218,9 @@ public interface MyDao {
 
     @Insert
     long insertGetId(Farm farm);
+
+    @Insert
+    long insertGetId(Report report);
 
     @Insert
     void insert(Cow Cow);

@@ -40,9 +40,9 @@ public class AddReportActivity extends AppCompatActivity {
     private int fingerNumber = -1;
     private DateContainer one;
     private DateContainer two;
-    private int farmId;
+    private Long farmId;
     private String mode;
-    private Integer reportId;
+    private Long reportId;
     private ViewPager2 viewPager;
 
     @Override
@@ -63,7 +63,7 @@ public class AddReportActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager_id);
 
         if (mode.equals(Constants.EDIT_REPORT)) {
-            reportId = bundle.getInt(Constants.REPORT_ID);
+            reportId = bundle.getLong(Constants.REPORT_ID);
             MyDao dao = DataBase.getInstance(this).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Report report = dao.getReport(reportId);
@@ -120,9 +120,9 @@ public class AddReportActivity extends AppCompatActivity {
             });
         } else if (mode.equals(Constants.REPORT_CREATE)) {
             CheckBoxManager.getCheckBoxManager().reset();
-            int id = bundle.getInt(Constants.COW_ID, -1);
+            long id = bundle.getLong(Constants.COW_ID, -1);
             if (id == -1) {
-                farmId = bundle.getInt(Constants.FARM_ID);
+                farmId = bundle.getLong(Constants.FARM_ID);
             }
 
             state = State.info;
@@ -222,7 +222,7 @@ public class AddReportActivity extends AppCompatActivity {
                     int cowNumber = ((CowInfoFragment) adapter.getFragment(0)).getNumber();
                     Cow cow = dao.getCow(cowNumber, farmId);
                     if (cow == null) {
-                        cow = new Cow(cowNumber, false, farmId);
+                        cow = new Cow(cowNumber, false, farmId, true);
                         dao.insert(cow);
                     }
                     cow = dao.getCow(cowNumber, farmId);
@@ -282,7 +282,7 @@ public class AddReportActivity extends AppCompatActivity {
                 int cowNumber = ((CowInfoFragment) adapter.getFragment(0)).getNumber();
                 Cow cow = dao.getCow(cowNumber, farmId);
                 if (cow == null) {
-                    cow = new Cow(cowNumber, false, farmId);
+                    cow = new Cow(cowNumber, false, farmId, true);
                     dao.insert(cow);
                 }
                 cow = dao.getCow(cowNumber, farmId);
@@ -319,7 +319,7 @@ public class AddReportActivity extends AppCompatActivity {
         hideKeyboard();
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         Constants.hideKeyboard(this, findViewById(R.id.root).getWindowToken());
     }
 

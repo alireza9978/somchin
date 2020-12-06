@@ -141,11 +141,8 @@ public class ImportFragment extends Fragment {
             }
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
-                Farm farm = new Farm();
-                farm.name = "imported farm";
-                farm.favorite = false;
-                farm.birthCount = 0;
-                farm.id = (int) dao.insertGetId(farm);
+                Farm farm = new Farm("imported farm", 0, "", false, true);
+                farm.setId(dao.insertGetId(farm));
 
                 HashSet<Integer> cowNumbers = new HashSet<>();
                 ArrayList<Cow> cows = new ArrayList<>();
@@ -156,8 +153,8 @@ public class ImportFragment extends Fragment {
                 while (rows.hasNext()) {
                     Row row = rows.next();
                     Report report = new Report();
-                    report.cowId = (int) row.getCell(0).getNumericCellValue();
-                    cowNumbers.add(report.cowId);
+                    report.cowId = (long) row.getCell(0).getNumericCellValue();
+                    cowNumbers.add(report.cowId.intValue());
                     if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
                         PersianDate pdate = new PersianDate();
                         int[] dateArray = pdate.toGregorian((int) row.getCell(3).getNumericCellValue(),
@@ -330,14 +327,15 @@ public class ImportFragment extends Fragment {
                     reports.add(report);
                 }
                 for (Integer cowNumber : cowNumbers) {
-                    cows.add(new Cow(cowNumber, false, farm.id));
+                    cows.add(new Cow(cowNumber, false, farm.getId(), true));
                 }
                 for (Cow cow : cows) {
-                    cow.setId((int) dao.insertGetId(cow));
+                    cow.setId(dao.insertGetId(cow));
                 }
                 main:
                 for (Report report : reports) {
                     for (Cow cow : cows) {
+                        //todo check
                         if (report.cowId.equals(cow.getNumber())) {
                             report.cowId = cow.getId();
                             dao.insert(report);

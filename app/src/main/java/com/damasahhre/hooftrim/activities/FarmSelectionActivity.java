@@ -51,7 +51,7 @@ public class FarmSelectionActivity extends AppCompatActivity {
 
     }
 
-    public void selectedFarm(int id) {
+    public void selectedFarm(Long id) {
         Intent intent = new Intent();
         intent.putExtra(Constants.FARM_ID, id);
         setResult(Constants.DATE_SELECTION_OK, intent);

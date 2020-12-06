@@ -71,7 +71,7 @@ public class SearchFragment extends Fragment {
             case Constants.FARM_SELECTION_SEARCH_COW: {
                 if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;
-                    int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
+                    long id = Objects.requireNonNull(data.getExtras()).getLong(Constants.FARM_ID);
                     ((SearchCowFragment) adapter.getItem(0)).setFarm(id);
                 }
                 break;

@@ -36,14 +36,14 @@ public class ReportSummery extends AppCompatActivity {
     private TextView description;
     private GridViewAdapterItemInSummery reasonAdapter;
     private GridViewAdapterItemInSummery moreInfoAdapter;
-    private Integer reportId;
+    private Long reportId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_summery);
 
-        reportId = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.REPORT_ID);
+        reportId = Objects.requireNonNull(getIntent().getExtras()).getLong(Constants.REPORT_ID);
 
         ImageView back = findViewById(R.id.back_icon);
         Constants.setImageBackBorder(this, back);

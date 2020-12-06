@@ -12,7 +12,10 @@ import java.util.ArrayList;
 @Entity
 public class Report {
     @PrimaryKey
-    public Integer id;
+    public Long id;
+
+    @ColumnInfo(name = "sync")
+    public Boolean sync;
 
     @ColumnInfo(name = "visit_date")
     public MyDate visit;
@@ -63,7 +66,7 @@ public class Report {
     @ColumnInfo(name = "description")
     public String description;
     @ColumnInfo(name = "cow_id")
-    public Integer cowId;
+    public Long cowId;
 
     public ArrayList<Integer> getSelectedOtherInfo() {
         ArrayList<Integer> list = new ArrayList<>();

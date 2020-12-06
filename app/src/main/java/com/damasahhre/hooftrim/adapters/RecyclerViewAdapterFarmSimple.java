@@ -39,8 +39,8 @@ public class RecyclerViewAdapterFarmSimple extends RecyclerView.Adapter<Recycler
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Farm farm = farms.get(position);
-        holder.farmName.setText(farm.name);
-        holder.itemView.setOnClickListener(view -> ((FarmSelectionActivity) context).selectedFarm(farm.id));
+        holder.farmName.setText(farm.getName());
+        holder.itemView.setOnClickListener(view -> ((FarmSelectionActivity) context).selectedFarm(farm.getId()));
     }
 
     @Override

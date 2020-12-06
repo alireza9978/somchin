@@ -17,8 +17,6 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
 import java.util.Objects;
 
-import mehdi.sakout.fancybuttons.FancyButton;
-
 public class AddLivestockActivity extends AppCompatActivity {
 
 
@@ -46,11 +44,7 @@ public class AddLivestockActivity extends AppCompatActivity {
                         return;
                     }
                     int count = Integer.parseInt(countString);
-                    Farm farm = new Farm();
-                    farm.favorite = false;
-                    farm.controlSystem = system;
-                    farm.birthCount = count;
-                    farm.name = title;
+                    Farm farm = new Farm(title, count, system, false, true);
                     MyDao dao = DataBase.getInstance(this).dao();
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         dao.insert(farm);
@@ -59,16 +53,16 @@ public class AddLivestockActivity extends AppCompatActivity {
                 });
             }
             if (mode.equals(Constants.EDIT_FARM)) {
-                int id = getIntent().getExtras().getInt(Constants.FARM_ID);
+                long id = getIntent().getExtras().getLong(Constants.FARM_ID);
                 submit.setText(getString(R.string.edit));
                 MyDao dao = DataBase.getInstance(this).dao();
                 AppExecutors.getInstance().diskIO().execute(() -> {
                     Farm farm = dao.getFarm(id);
                     runOnUiThread(() -> {
-                        farmTitle.setText(farm.name);
+                        farmTitle.setText(farm.getName());
                         farmTitle.setEnabled(false);
-                        controlSystem.setText(farm.controlSystem);
-                        birth.setText("" + farm.birthCount);
+                        controlSystem.setText(farm.getControlSystem());
+                        birth.setText("" + farm.getBirthCount());
                     });
                 });
 
@@ -83,8 +77,8 @@ public class AddLivestockActivity extends AppCompatActivity {
                     int count = Integer.parseInt(countString);
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         Farm farm = dao.getFarm(id);
-                        farm.controlSystem = system;
-                        farm.birthCount = count;
+                        farm.setControlSystem(system);
+                        farm.setBirthCount(count);
                         dao.update(farm);
                         runOnUiThread(this::finish);
                     });

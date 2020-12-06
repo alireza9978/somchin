@@ -96,7 +96,7 @@ public class FarmProfileActivity extends AppCompatActivity {
     private ImageView menu;
     private ConstraintLayout menuLayout;
     private ImageView outside;
-    private int id;
+    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,8 +189,8 @@ public class FarmProfileActivity extends AppCompatActivity {
             Farm farm = dao.getFarm(id);
             runOnUiThread(() -> {
                 bookmark.setOnClickListener(view -> {
-                    farm.favorite = !farm.favorite;
-                    if (farm.favorite) {
+                    farm.setFavorite(!farm.getFavorite());
+                    if (farm.getFavorite()) {
                         bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark_fill));
                     } else {
                         bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark));
@@ -199,14 +199,14 @@ public class FarmProfileActivity extends AppCompatActivity {
                         dao.update(farm);
                     });
                 });
-                if (farm.favorite) {
+                if (farm.getFavorite()) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(FarmProfileActivity.this, R.drawable.ic_bookmark_fill));
                 } else {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(FarmProfileActivity.this, R.drawable.ic_bookmark));
                 }
-                title.setText(farm.name);
-                birthCount.setText("" + farm.birthCount);
-                system.setText(farm.controlSystem);
+                title.setText(farm.getName());
+                birthCount.setText("" + farm.getBirthCount());
+                system.setText(farm.getControlSystem());
                 if (farmWithNextVisit.nextVisit != null)
                     nextVisit.setText(farmWithNextVisit.nextVisit.toStringWithoutYear(this));
                 else
@@ -384,7 +384,7 @@ public class FarmProfileActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 try {
 
-                    String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", farm.name);
+                    String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", farm.getName());
                     File file = new File(storage);
                     if (file.exists()) {
                         if (file.delete()) {

@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,15 +18,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.Report;
+import com.damasahhre.hooftrim.database.models.SyncModel;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.MyDate;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
+import com.google.gson.Gson;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * صفحه‌ی اغازین برنامه
@@ -68,16 +76,43 @@ public class SplashActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);
         startAtMorning();
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(() -> {
-                    goApp();
-                });
-            }
-        }, 1000);
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(() -> {
+//
+//
+//                    goApp();
+//                });
+//            }
+//        }, 1000);
         changeState(0);
+
+        MyDao dao = DataBase.getInstance(this).dao();
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            Farm farm = new Farm("pedram", 10, "kiri", true, true);
+            farm.setId(dao.insertGetId(farm));
+            Cow cow = new Cow(1000, false, farm.getId(), true);
+            cow.setId(dao.insertGetId(cow));
+            Report report = new Report();
+            report.cowId = cow.getId();
+            report.sync = true;
+            report.visit = new MyDate(2, 2, 2020);
+            report.nextVisit = new MyDate(2, 3, 2020);
+            report.id = dao.insertGetId(report);
+            SyncModel syncModel = new SyncModel();
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                syncModel.farms = dao.getAllFarmToSync();
+                syncModel.cows = dao.getAllCowToSync();
+                syncModel.reports = dao.getAllReportToSync();
+                Gson gson = new Gson();
+                Log.i("SPLASH", "onCreate: " + gson.toJson(syncModel));
+            });
+
+
+        });
+
     }
 
 

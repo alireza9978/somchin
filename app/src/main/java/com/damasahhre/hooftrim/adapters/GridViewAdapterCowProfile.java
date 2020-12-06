@@ -14,7 +14,6 @@ import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.activities.reports.ReportSummery;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.Report;
-import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 import java.util.List;
 
@@ -22,9 +21,9 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
 
     private List<Report> reports;
     private Context context;
-    private int cowId;
+    private long cowId;
 
-    public GridViewAdapterCowProfile(Context context, List<Report> reports, int cowId) {
+    public GridViewAdapterCowProfile(Context context, List<Report> reports, long cowId) {
         this.reports = reports;
         this.context = context;
         this.cowId = cowId;

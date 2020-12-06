@@ -46,7 +46,7 @@ public class SearchCowFragment extends Fragment {
     private ConstraintLayout dateContainer;
     private RecyclerViewAdapterSearchCow mAdapter;
 
-    private int farmId = -1;
+    private long farmId = -1;
     private DateContainer date = null;
 
     @Override
@@ -155,14 +155,14 @@ public class SearchCowFragment extends Fragment {
 
     }
 
-    public void setFarm(int id) {
+    public void setFarm(long id) {
         this.farmId = id;
         MyDao dao = DataBase.getInstance(requireContext()).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
             Farm farm = dao.getFarm(id);
             if (farm != null)
                 requireActivity().runOnUiThread(() -> {
-                    farmName.setText(farm.name);
+                    farmName.setText(farm.getName());
                     if (farmName.getText().toString().isEmpty()) {
                         farmContainer.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.login_input_background));
                     } else {
