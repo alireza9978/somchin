@@ -143,8 +143,9 @@ public class FarmProfileActivity extends AppCompatActivity {
                 Farm farm = dao.getFarm(id);
                 List<Cow> cows = dao.getAllCowOfFarm(id);
                 for (Cow cow : cows) {
-                    for (Report report : dao.getAllReportOfCow(cow.getId()))
-                        dao.deleteReport(report);
+                    for (Report report : dao.getAllReportOfCow(cow.getId())) {
+                        dao.update(report);
+                    }
                     dao.deleteCow(cow);
                 }
                 dao.deleteFarm(farm);

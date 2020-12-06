@@ -86,7 +86,7 @@ public class AddLivestockActivity extends AppCompatActivity {
                         farm.controlSystem = system;
                         farm.birthCount = count;
                         dao.update(farm);
-                        runOnUiThread(() -> finish());
+                        runOnUiThread(this::finish);
                     });
                 });
                 controlSystem.requestFocus();

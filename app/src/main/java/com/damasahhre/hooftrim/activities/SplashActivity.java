@@ -74,7 +74,6 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 runOnUiThread(() -> {
                     goApp();
-//                    checkConnection();
                 });
             }
         }, 1000);

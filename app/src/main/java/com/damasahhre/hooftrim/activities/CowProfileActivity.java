@@ -94,6 +94,7 @@ public class CowProfileActivity extends AppCompatActivity {
             if (cow != null) {
                 cow.setFavorite(!cow.getFavorite());
                 AppExecutors.getInstance().diskIO().execute(() -> {
+                    cow.sync = false;
                     dao.update(cow);
                 });
                 if (cow.getFavorite()) {

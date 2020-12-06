@@ -35,7 +35,6 @@ public interface MyDao {
             "GROUP BY Cow.id")
     List<CowForMarked> searchCow(String id);
 
-
     @Query("SELECT Farm.id AS farmId, Farm.name AS farmName, COUNT(Cow.id) AS cowCount , " +
             "MAX(Report.visit_date) AS lastVisit  " +
             "FROM Cow,Farm,Report " +
