@@ -31,7 +31,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         ImageView close = findViewById(R.id.close_image);
         close.setOnClickListener(view -> finish());
         Constants.setImageBack(this, close);
-
+        ForgetPasswordActivity activity = this;
         EditText email = findViewById(R.id.email_input);
 
         findViewById(R.id.submit).setOnClickListener(v -> {
@@ -48,8 +48,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Response response) {
-                    //todo check response and finish
-                    Log.i("HTTP_LOGIN", "onResponse: " + response.toString());
+                    if (response.isSuccessful()) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(getApplicationContext(), R.string.forget_sended, Toast.LENGTH_LONG).show();
+                        });
+                    } else {
+                        Requests.toastMessage(response, activity);
+                    }
                 }
             });
         });

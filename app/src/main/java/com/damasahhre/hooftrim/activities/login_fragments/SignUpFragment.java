@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.activities.login_fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.ValidateActivity;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.server.Requests;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -34,7 +37,7 @@ public class SignUpFragment extends Fragment {
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
             }
-            Requests.login(user, pass, new Callback() {
+            Requests.signUp(user, pass, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     e.printStackTrace();
@@ -43,7 +46,13 @@ public class SignUpFragment extends Fragment {
 
                 @Override
                 public void onResponse(Response response) {
-                    Log.i("HTTP_LOGIN", "onResponse: " + response.toString());
+                    if (response.isSuccessful()) {
+                        Intent intent = new Intent(requireContext(), ValidateActivity.class);
+                        intent.putExtra(Constants.EMAIL, user);
+                        requireActivity().startActivity(intent);
+                    } else {
+                        Requests.toastMessage(response, requireActivity());
+                    }
                 }
             });
         });

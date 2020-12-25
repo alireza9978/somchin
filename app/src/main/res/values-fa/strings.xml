@@ -205,6 +205,15 @@
     <string name="cant_select">امکان انتخاب همزمان وجود ندارد</string>
     <string name="data_added">داده با موفقیت اضافه شد</string>
     <string name="tripel_error">یکی از موارد زخم خونمردگی یا سم‌چینی را انتخاب کنید</string>
+    <string name="no_connection">عدم اتصال به اینترنت</string>
+    <string name="password_changed">رمزعبور تغییر کرد</string>
+    <string name="request_error">خطای ارتباط</string>
+    <string name="confirm_email">ایمیلی برای شما ارسال شده است که حاوی لینک تایید است. برای ادامه کار لازم است آن را تایید کنید. سپس دکمه بعدی را بزنید. اگر ایمیلی دریافت نکردید دکمه ارسال مجدد را بزنید.</string>
+    <string name="resend">ارسال مجدد ایمیل</string>
+    <string name="resended">ایمیل جدید‌ی برای شما ارسال شد</string>
+    <string name="forget_sended">رمزعبور جدید برای شما ارسال شد</string>
+    <string name="not_confirmed">ایمیل شما تایید شده نیست</string>
+    <string name="login_pls">می‌توانید وارد برنامه بشوید</string>
 
 
 </resources>

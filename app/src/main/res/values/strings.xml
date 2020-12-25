@@ -210,6 +210,15 @@
     <string name="cant_select">can\'t select at same time</string>
     <string name="data_added">data added successfully</string>
     <string name="tripel_error">select at least one out of three options(Wound, Point Hemorrhage, Hoof trimming)</string>
+    <string name="no_connection">no internet conncetion</string>
+    <string name="password_changed">Password changed</string>
+    <string name="request_error">request error</string>
+    <string name="confirm_email">we send you an email that contains confirm link. to continue confirm that is your email. then click next. if you didn\'t get any email click resend button.</string>
+    <string name="resend">resend email</string>
+    <string name="resended">we send you another email</string>
+    <string name="forget_sended">we send your new password</string>
+    <string name="not_confirmed">your email is not confirmed</string>
+    <string name="login_pls">you can login in app</string>
 
 
 </resources>

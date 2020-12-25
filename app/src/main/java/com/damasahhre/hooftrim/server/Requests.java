@@ -1,23 +1,40 @@
 package com.damasahhre.hooftrim.server;
 
+import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class Requests {
 
     private static final String TAG = "REQUESTS";
-    private static final String BASE_URL = "http://";
+    private static final String BASE_URL = "http://130.185.77.250/";
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static void isConfirmed(String email, Callback callback){
+    public static void toastMessage(Response response, Activity activity) {
+        activity.runOnUiThread(() -> {
+            try {
+                JSONObject jsonObject = new JSONObject(response.body().string());
+                String message = (String) jsonObject.get("message");
+                Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void isConfirmed(String email, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
@@ -78,21 +95,19 @@ public class Requests {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "forget: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/sign_up/")
+                .url(BASE_URL + "user/forget_password/")
                 .method("POST", body)
                 .build();
         client.newCall(request).enqueue(callback);
     }
 
-    public static void resend(String email, String password, Callback callback) {
+    public static void resend(String email, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
             object.put("email", email);
-            object.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -140,5 +155,6 @@ public class Requests {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
 
 }
