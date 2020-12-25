@@ -29,7 +29,7 @@
     <string name="import_file">import file</string>
     <string name="visits">Re-check list</string>
     <string name="factor">Invoice</string>
-    <string name="injeries">Dairy farm digital lesions</string>
+    <string name="injeries">Herd digital lesions</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_visits">Re-check list</string>
@@ -93,13 +93,13 @@
     <string name="more_info_reason_6">Block/shoe</string>
     <string name="more_info_reason_7">Hoof trimming</string>
 
-    <string name="reason_1">120 DIM hoof trimming</string>
-    <string name="reason_2">Dry-off hoof trimming</string>
+    <string name="reason_1">120 DIM</string>
+    <string name="reason_2">Dry-off</string>
     <string name="reason_3">Delayed reproduction</string>
     <string name="reason_4">New case</string>
     <string name="reason_5">Re-check</string>
-    <string name="reason_6">High locomotion score inspection</string>
-    <string name="reason_7">Referred for lameness</string>
+    <string name="reason_6">High locomotion score</string>
+    <string name="reason_7">Lame cows</string>
     <string name="reason_8">Long toe</string>
     <string name="reason_9">Heifer</string>
     <string name="reason_10">Group hoof trimming</string>
@@ -116,8 +116,8 @@
     <string name="export_factor">Invoice</string>
     <string name="add_new_cow_factor">add new cow to factor</string>
     <string name="som_cut_price">Hoof trimming cost</string>
-    <string name="cure_price">Infectious lesion treatment cost</string>
-    <string name="bed_price">Hoof block application cost</string>
+    <string name="cure_price">Infectious lesion cost</string>
+    <string name="bed_price">Hoof block cost</string>
     <string name="export_report">export report</string>
     <string name="no_marked_cow">no marked cow!</string>
     <string name="no_marked_farm">no marked farm!</string>
@@ -177,15 +177,15 @@
     <string name="column_name_1">AVG operation in day</string>
     <string name="column_name_2">New case</string>
     <string name="column_name_3">Re-check</string>
-    <string name="column_name_4">120 DIM hoof trimming</string>
-    <string name="column_name_5">Dry-off hoof trimming</string>
+    <string name="column_name_4">120 DIM</string>
+    <string name="column_name_5">Dry-off</string>
     <string name="column_name_6">Delayed reproduction</string>
     <string name="column_name_7">Group hoof trimming</string>
     <string name="column_name_8">Long toe</string>
     <string name="column_name_9">Hoof Trim</string>
-    <string name="column_name_10">High locomotion score inspection</string>
+    <string name="column_name_10">High locomotion score</string>
     <string name="column_name_11">Heifer</string>
-    <string name="column_name_12">Referred for lameness</string>
+    <string name="column_name_12">Lame cows</string>
     <string name="column_name_13">Block/shoe</string>
     <string name="edit_profile">edit profile</string>
     <string name="password">password</string>
@@ -219,6 +219,8 @@
     <string name="forget_sended">we send your new password</string>
     <string name="not_confirmed">your email is not confirmed</string>
     <string name="login_pls">you can login in app</string>
-
+    <string name="about_us_text">Data recording and analysis is one of the most important parts of the managerial systems in dairy farms. Modern dairy farming needs applied information that arise from time consuming data recording systems and needs more up to date digital recordings. Herd health is an essential part in maintaining dairy productions and sustainable dairy farming. Infertility, mastitis and lameness consider as the most important causes of economic losses that need constant monitoring and recording.
+        Hoof trimming assist (HTA®) is a multimedia application for recording data by hoof trimming chute. By its user friendly design you can record basic dairy information like (dairy production, parity, reason for hoof trimming….), hoof lesions information like number of affected digit or affected region and type of lesion like hemorrhage or wound and so many other useful information. You can create report of hoof trimmings, lesions, costs, bills etc. on excel and other formats. Excel output of application can easily import on different dairy cow management systems.</string>
+    <string name="about_us_text_bot">Get HTA® do more precise work on hoof trimming and recording</string>
 
 </resources>

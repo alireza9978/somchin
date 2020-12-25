@@ -1,8 +1,11 @@
 package com.damasahhre.hooftrim.activities.tabs.report_activites;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +25,19 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 
 import saman.zamani.persiandate.PersianDate;
 
@@ -103,6 +108,7 @@ public class ImportFragment extends Fragment {
                 return;
             }
             Uri fileUri = intent.getData();
+            String fileName = null;
             InputStream stream;
             try {
                 if (fileUri == null) {
@@ -110,16 +116,38 @@ public class ImportFragment extends Fragment {
                     return;
                 }
                 stream = requireContext().getContentResolver().openInputStream(fileUri);
+
+                if (Objects.equals(fileUri.getScheme(), "file")) {
+                    fileName = fileUri.getLastPathSegment();
+                } else {
+                    try (Cursor cursor = requireContext().getContentResolver().query(fileUri, new String[]{
+                            MediaStore.Images.ImageColumns.DISPLAY_NAME
+                    }, null, null, null)) {
+                        if (cursor != null && cursor.moveToFirst()) {
+                            fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
+                            Log.d("IMPORTS", "name is " + fileName);
+                        }
+                    }
+                }
+
             } catch (FileNotFoundException e) {
                 Toast.makeText(requireContext(), "file not found", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            POIFSFileSystem myFileSystem = new POIFSFileSystem(stream);
+            assert stream != null;
+            assert fileName != null;
+            Sheet datatypeSheet = null;
+            if (fileName.endsWith(".xls")) {
+                POIFSFileSystem myFileSystem = new POIFSFileSystem(stream);
+                HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+                datatypeSheet = myWorkBook.getSheetAt(0);
+            } else if (fileName.endsWith(".xlsx")) {
+                OPCPackage opcPackage = OPCPackage.open(stream);
+                XSSFWorkbook myWorkBook = new XSSFWorkbook(opcPackage);
+                datatypeSheet = myWorkBook.getSheetAt(0);
+            }
 
-            // Create a workbook using the File System
-            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
-            Sheet datatypeSheet = myWorkBook.getSheetAt(0);
 
             Integer[] headers = {R.string.cow_number, R.string.day, R.string.month, R.string.year,
                     reason_1, reason_2, reason_3,
@@ -140,6 +168,7 @@ public class ImportFragment extends Fragment {
                 count++;
             }
             MyDao dao = DataBase.getInstance(requireContext()).dao();
+            Sheet finalDatatypeSheet = datatypeSheet;
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Farm farm = new Farm("imported farm", 0, "", false, true);
                 farm.setId(dao.insertGetId(farm));
@@ -148,7 +177,7 @@ public class ImportFragment extends Fragment {
                 ArrayList<Cow> cows = new ArrayList<>();
                 ArrayList<Report> reports = new ArrayList<>();
 
-                Iterator<Row> rows = datatypeSheet.iterator();
+                Iterator<Row> rows = finalDatatypeSheet.iterator();
                 rows.next();
                 while (rows.hasNext()) {
                     Row row = rows.next();
@@ -347,7 +376,7 @@ public class ImportFragment extends Fragment {
                 requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "imported", Toast.LENGTH_LONG).show());
             });
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             Toast.makeText(requireContext(), "reading error", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
