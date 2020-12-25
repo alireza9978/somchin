@@ -5,7 +5,7 @@ import com.damasahhre.hooftrim.models.MyDate;
 public class NextVisit {
 
     public Integer cowNumber;
-    public Integer cowId;
+    public Long cowId;
     public MyDate visitDate;
 
 }

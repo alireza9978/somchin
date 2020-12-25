@@ -82,5 +82,17 @@ public class Cow {
     public void setNumberString(String numberString) {
         this.numberString = numberString;
     }
+
+    @Override
+    public String toString() {
+        return "Cow{" +
+                "id=" + id +
+                ", number=" + number +
+                ", numberString='" + numberString + '\'' +
+                ", favorite=" + favorite +
+                ", farm=" + farm +
+                ", sync=" + sync +
+                '}';
+    }
 }
 

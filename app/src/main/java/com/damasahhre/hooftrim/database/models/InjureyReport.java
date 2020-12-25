@@ -4,7 +4,7 @@ import com.damasahhre.hooftrim.models.MyDate;
 
 public class InjureyReport {
 
-    public Integer cowId;
+    public Long cowId;
     public MyDate date;
     public Integer fingerNumber;
 

@@ -90,7 +90,7 @@ public class ReportsFragment extends Fragment {
             case Constants.FARM_SELECTION_REPORT_FACTOR: {
                 if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;
-                    int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
+                    long id = Objects.requireNonNull(data.getExtras()).getLong(Constants.FARM_ID);
                     ((FactorFragment) adapter.getItem(2)).setFarm(id);
                 }
                 break;
@@ -107,7 +107,7 @@ public class ReportsFragment extends Fragment {
             case Constants.FARM_SELECTION_REPORT_INJURY: {
                 if (resultCode == Constants.DATE_SELECTION_OK) {
                     assert data != null;
-                    int id = Objects.requireNonNull(data.getExtras()).getInt(Constants.FARM_ID);
+                    long id = Objects.requireNonNull(data.getExtras()).getLong(Constants.FARM_ID);
                     ((InjuriesFragment) adapter.getItem(3)).setFarm(id);
                 }
                 break;

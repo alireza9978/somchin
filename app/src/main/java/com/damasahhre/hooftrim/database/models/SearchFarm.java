@@ -4,7 +4,7 @@ import com.damasahhre.hooftrim.models.MyDate;
 
 public class SearchFarm {
 
-    public Integer farmId;
+    public Long farmId;
     public Integer cowCount;
     public MyDate lastVisit;
     public String farmName;

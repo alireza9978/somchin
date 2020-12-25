@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,12 +18,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.Farm;
+import com.damasahhre.hooftrim.database.models.Report;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,6 +70,23 @@ public class SplashActivity extends AppCompatActivity {
                 goApp();
             }
         });
+
+//        MyDao dao = DataBase.getInstance(this).dao();
+//        AppExecutors.getInstance().diskIO().execute(() -> {
+//            List<Farm> farms = dao.getAll();
+//
+//            for (Farm farm : farms) {
+//                Log.i("SPLASH", farm.toString());
+//                List<Cow> cows = dao.getAllCowOfFarm(farms.get(0).getId());
+//                for (Cow cow : cows) {
+//                    Log.i("SPLASH", cow.toString());
+//                    List<Report> reports = dao.getAllReportOfCow(cow.getId());
+//                    for (Report report : reports) {
+//                        Log.i("SPLASH", report.toString());
+//                    }
+//                }
+//            }
+//        });
 
         /* Retrieve a PendingIntent that will perform a broadcast */
         Intent alarmIntent = new Intent(SplashActivity.this, AlarmReceiver.class);

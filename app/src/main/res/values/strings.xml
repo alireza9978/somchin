@@ -222,5 +222,6 @@
     <string name="about_us_text">Data recording and analysis is one of the most important parts of the managerial systems in dairy farms. Modern dairy farming needs applied information that arise from time consuming data recording systems and needs more up to date digital recordings. Herd health is an essential part in maintaining dairy productions and sustainable dairy farming. Infertility, mastitis and lameness consider as the most important causes of economic losses that need constant monitoring and recording.
         Hoof trimming assist (HTA®) is a multimedia application for recording data by hoof trimming chute. By its user friendly design you can record basic dairy information like (dairy production, parity, reason for hoof trimming….), hoof lesions information like number of affected digit or affected region and type of lesion like hemorrhage or wound and so many other useful information. You can create report of hoof trimmings, lesions, costs, bills etc. on excel and other formats. Excel output of application can easily import on different dairy cow management systems.</string>
     <string name="about_us_text_bot">Get HTA® do more precise work on hoof trimming and recording</string>
+    <string name="old_next_visit">next visit date</string>
 
 </resources>

@@ -61,7 +61,7 @@ import static com.damasahhre.hooftrim.R.string.more_info_reason_4;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_5;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_6;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_7;
-import static com.damasahhre.hooftrim.R.string.next_visit;
+import static com.damasahhre.hooftrim.R.string.old_next_visit;
 import static com.damasahhre.hooftrim.R.string.nine;
 import static com.damasahhre.hooftrim.R.string.one;
 import static com.damasahhre.hooftrim.R.string.reason_1;
@@ -118,7 +118,7 @@ public class FarmProfileActivity extends AppCompatActivity {
         exit.setOnClickListener(view -> finish());
         Constants.setImageBackBorder(this, exit);
 
-        id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.FARM_ID);
+        id = Objects.requireNonNull(getIntent().getExtras()).getLong(Constants.FARM_ID);
         nextVisitView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         nextVisitView.setLayoutManager(layoutManager);
@@ -262,8 +262,8 @@ public class FarmProfileActivity extends AppCompatActivity {
                 reason_6, reason_7, reason_9, reason_8, reason_4,
                 reason_5, reason_10, zero, one, two, three, four, five, six, seven, eight, nine,
                 ten, eleven, twelve, more_info_reason_1, more_info_reason_2, more_info_reason_7,
-                more_info_reason_5, more_info_reason_6, more_info_reason_4, more_info_reason_3,
-                next_visit, more_info};
+                more_info_reason_5, more_info_reason_6, more_info_reason_4,
+                old_next_visit, more_info, more_info_reason_3};
 
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
@@ -365,16 +365,15 @@ public class FarmProfileActivity extends AppCompatActivity {
                         cell.setCellValue("*");
 
                     cell = row.createCell(33);
-                    if (report.otherInfoRecovered)
-                        cell.setCellValue("*");
-
-                    cell = row.createCell(34);
                     if (report.nextVisit != null)
                         cell.setCellValue(report.nextVisit.toString(this));
 
-                    cell = row.createCell(35);
+                    cell = row.createCell(34);
                     cell.setCellValue(report.description);
 
+                    cell = row.createCell(35);
+                    if (report.otherInfoRecovered)
+                        cell.setCellValue("*");
                 }
             });
         });

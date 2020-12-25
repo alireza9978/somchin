@@ -51,7 +51,7 @@ public class CowProfileActivity extends AppCompatActivity {
         exit.setOnClickListener(view -> finish());
         Constants.setImageBackBorder(this, exit);
 
-        id = Objects.requireNonNull(getIntent().getExtras()).getInt(Constants.COW_ID);
+        id = Objects.requireNonNull(getIntent().getExtras()).getLong(Constants.COW_ID);
         exit.setOnClickListener((v) -> finish());
 
 

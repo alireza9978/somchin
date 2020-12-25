@@ -53,8 +53,8 @@ import static com.damasahhre.hooftrim.R.string.more_info_reason_4;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_5;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_6;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_7;
-import static com.damasahhre.hooftrim.R.string.next_visit;
 import static com.damasahhre.hooftrim.R.string.nine;
+import static com.damasahhre.hooftrim.R.string.old_next_visit;
 import static com.damasahhre.hooftrim.R.string.one;
 import static com.damasahhre.hooftrim.R.string.reason_1;
 import static com.damasahhre.hooftrim.R.string.reason_10;
@@ -154,11 +154,12 @@ public class ImportFragment extends Fragment {
                     reason_6, reason_7, reason_9, reason_8, reason_4,
                     reason_5, reason_10, zero, one, two, three, four, five, six, seven, eight, nine,
                     ten, eleven, twelve, more_info_reason_1, more_info_reason_2, more_info_reason_7,
-                    more_info_reason_5, more_info_reason_6, more_info_reason_4, more_info_reason_3,
-                    next_visit, more_info};
+                    more_info_reason_5, more_info_reason_6, more_info_reason_4,
+                    old_next_visit, more_info, more_info_reason_3};
 
             //read headers
             int count = 0;
+            assert datatypeSheet != null;
             for (Cell cell : datatypeSheet.getRow(0)) {
                 if (!cell.getStringCellValue().equals(getString(headers[count]))) {
                     Toast.makeText(requireContext(), "expected : " + getString(headers[count])
@@ -169,8 +170,9 @@ public class ImportFragment extends Fragment {
             }
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             Sheet finalDatatypeSheet = datatypeSheet;
+            String finalFileName = fileName;
             AppExecutors.getInstance().diskIO().execute(() -> {
-                Farm farm = new Farm("imported farm", 0, "", false, true);
+                Farm farm = new Farm(finalFileName, 0, "", Boolean.FALSE, Boolean.TRUE);
                 farm.setId(dao.insertGetId(farm));
 
                 HashSet<Integer> cowNumbers = new HashSet<>();
@@ -182,18 +184,18 @@ public class ImportFragment extends Fragment {
                 while (rows.hasNext()) {
                     Row row = rows.next();
                     Report report = new Report();
-                    report.cowId = (long) row.getCell(0).getNumericCellValue();
+                    report.cowId = Long.parseLong(row.getCell(0).getStringCellValue());
                     cowNumbers.add(report.cowId.intValue());
                     if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
                         PersianDate pdate = new PersianDate();
-                        int[] dateArray = pdate.toGregorian((int) row.getCell(3).getNumericCellValue(),
-                                (int) row.getCell(2).getNumericCellValue(),
-                                (int) row.getCell(1).getNumericCellValue());
+                        int[] dateArray = pdate.toGregorian(Integer.parseInt(row.getCell(3).getStringCellValue()),
+                                Integer.parseInt(row.getCell(2).getStringCellValue()),
+                                Integer.parseInt(row.getCell(1).getStringCellValue()));
                         report.visit = new MyDate(dateArray[2], dateArray[1], dateArray[0]);
                     } else {
-                        report.visit = new MyDate((int) row.getCell(1).getNumericCellValue(),
-                                (int) row.getCell(2).getNumericCellValue(),
-                                (int) row.getCell(3).getNumericCellValue());
+                        report.visit = new MyDate(Integer.parseInt(row.getCell(1).getStringCellValue()),
+                                Integer.parseInt(row.getCell(2).getStringCellValue()),
+                                Integer.parseInt(row.getCell(3).getStringCellValue()));
                     }
                     for (int i = 4; i < 14; i++) {
                         Cell cell = row.getCell(i);
@@ -273,13 +275,13 @@ public class ImportFragment extends Fragment {
                     for (int i = 14; i < 27; i++) {
                         Cell cell = row.getCell(i);
                         if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                            report.fingerNumber = (int) cell.getNumericCellValue();
+                            report.fingerNumber = Integer.parseInt(cell.getStringCellValue());
                             report.legAreaNumber = i - 14;
                             report.rightSide = report.fingerNumber % 2 == 0;
                             break;
                         }
                     }
-                    for (int i = 27; i < 34; i++) {
+                    for (int i = 27; i < 33; i++) {
                         Cell cell = row.getCell(i);
                         if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                             String star = cell.getStringCellValue();
@@ -303,9 +305,6 @@ public class ImportFragment extends Fragment {
                                     case 32:
                                         report.otherInfoNoInjury = true;
                                         break;
-                                    case 33:
-                                        report.otherInfoRecovered = true;
-                                        break;
                                 }
                             }
                         } else {
@@ -328,30 +327,34 @@ public class ImportFragment extends Fragment {
                                 case 32:
                                     report.otherInfoNoInjury = false;
                                     break;
-                                case 33:
-                                    report.otherInfoRecovered = false;
-                                    break;
                             }
                         }
                     }
-                    Cell nextVisitCell = row.getCell(34);
+                    Cell nextVisitCell = row.getCell(33);
                     if (nextVisitCell.getCellType() == Cell.CELL_TYPE_STRING) {
-                        String[] date = nextVisitCell.getStringCellValue().split("/");
-                        if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
-                            PersianDate pdate = new PersianDate();
-                            int[] dateArray = pdate.toGregorian(Integer.parseInt(date[0]),
-                                    Integer.parseInt(date[1]),
-                                    Integer.parseInt(date[2]));
-                            report.nextVisit = new MyDate(dateArray[2], dateArray[1], dateArray[0]);
-                        } else {
-                            report.nextVisit = new MyDate(Integer.parseInt(date[2]),
-                                    Integer.parseInt(date[1]),
-                                    Integer.parseInt(date[0]));
+                        if (!nextVisitCell.getStringCellValue().isEmpty()) {
+                            String[] date = nextVisitCell.getStringCellValue().split("/");
+                            if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
+                                PersianDate pdate = new PersianDate();
+                                int[] dateArray = pdate.toGregorian(Integer.parseInt(date[0]),
+                                        Integer.parseInt(date[1]),
+                                        Integer.parseInt(date[2]));
+                                report.nextVisit = new MyDate(dateArray[2], dateArray[1], dateArray[0]);
+                            } else {
+                                report.nextVisit = new MyDate(Integer.parseInt(date[2]),
+                                        Integer.parseInt(date[1]),
+                                        Integer.parseInt(date[0]));
+                            }
                         }
                     }
-                    Cell moreInfo = row.getCell(35);
+                    Cell moreInfo = row.getCell(34);
                     if (nextVisitCell.getCellType() == Cell.CELL_TYPE_STRING) {
                         report.description = moreInfo.getStringCellValue();
+                    }
+                    Cell cell = row.getCell(35);
+                    if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                        String star = cell.getStringCellValue();
+                        report.otherInfoRecovered = star != null && !star.isEmpty() && star.equals("*");
                     }
                     reports.add(report);
                 }

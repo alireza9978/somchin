@@ -29,6 +29,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_visits">بازدید‌های بعدی</string>
     <string name="next_visit">بازدید‌ بعدی</string>
+    <string name="old_next_visit">تاریخ بازدید</string>
 
     <string name="no_next_visit">بازدیدی ثبت نشده است!</string>
     <string name="empty_livestrock_list">لیست دامداری‌ها خالی است!</string>
@@ -51,7 +52,7 @@
     <string name="enter_cow_number">شماره دام مورد نظر خود را وارد کنید</string>
     <string name="enter_cow_number_search">شماره دام مورد نظر خود را وارد کنید</string>
     <string name="enter_cow_number_coma">شماره دام‌ها را وارد کنید. ۱۲,۲۳,…</string>
-    <string name="cow_number">شماره گاو</string>
+    <string name="cow_number">شماره دام</string>
     <string name="enter_cow_number_report">شماره گاو را وارد کنید</string>
     <string name="enter_date_report">تاریخ</string>
     <string name="information">اطلاعات اولیه</string>
@@ -81,25 +82,25 @@
     <string name="prevois">قبلی</string>
 
     <string name="more_info_reason_1">زخم</string>
-    <string name="more_info_reason_2">خونمردگی</string>
-    <string name="more_info_reason_3">بهبودیافته</string>
-    <string name="more_info_reason_4">بدون‌جراحت</string>
-    <string name="more_info_reason_5">ژل‌و‌بانداز</string>
-    <string name="more_info_reason_6">تخته‌گذاری</string>
-    <string name="more_info_reason_7">سم‌چینی</string>
+    <string name="more_info_reason_2">خون مردگی</string>
+    <string name="more_info_reason_3">بهبود یافته</string>
+    <string name="more_info_reason_4">بدون جراحت</string>
+    <string name="more_info_reason_5">ژل و بانداژ</string>
+    <string name="more_info_reason_6">تخته گذاری</string>
+    <string name="more_info_reason_7">سم چینی</string>
 
-    <string name="reason_1">۱۰۰ روزه</string>
+    <string name="reason_1">100 روزه</string>
     <string name="reason_2">خشکی</string>
-    <string name="reason_3">عقب‌مانده تولید‌مثلی</string>
-    <string name="reason_4">لنگش‌جدید</string>
-    <string name="reason_5">بازدید‌لنگش</string>
-    <string name="reason_6">اسکوربالا</string>
+    <string name="reason_3">عقب مانده تولید مثلی</string>
+    <string name="reason_4">لنگش جدید</string>
+    <string name="reason_5">بازدید لنگش</string>
+    <string name="reason_6">اسکور بالا</string>
     <string name="reason_7">ارجاعی</string>
-    <string name="reason_8">سم‌بلند</string>
+    <string name="reason_8">سم بلند</string>
     <string name="reason_9">تلیسه</string>
-    <string name="reason_10">سم‌چینی‌گروهی</string>
+    <string name="reason_10">سم چینی گروهی</string>
 
-    <string name="more_info">توضیحات بیشتر</string>
+    <string name="more_info">توضیحات</string>
     <string name="enter_next_visit_date">تاریخ بازدید بعدی را انتخاب کنید</string>
     <string name="create">ثبت دام</string>
     <string name="more_info_text_add_report">در این قسمت حتما باید یکی از گزینه‌های زخم، خونمردگی یا سم‌چینی را علامت بزنید.</string>
@@ -146,19 +147,19 @@
     <string name="month">ماه</string>
     <string name="year">سال</string>
 
-    <string name="zero">۰</string>
-    <string name="one">۱</string>
-    <string name="two">۲</string>
-    <string name="three">۳</string>
-    <string name="four">۴</string>
-    <string name="five">۵</string>
-    <string name="six">۶</string>
-    <string name="seven">۷</string>
-    <string name="eight">۸</string>
-    <string name="nine">۹</string>
-    <string name="ten">۱۰</string>
-    <string name="eleven">۱۱</string>
-    <string name="twelve">۱۲</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="ten">10</string>
+    <string name="eleven">11</string>
+    <string name="twelve">12</string>
     <string name="finger">انگشت</string>
 
     <string name="injury_row_0">فلگمون بین انگشتی</string>

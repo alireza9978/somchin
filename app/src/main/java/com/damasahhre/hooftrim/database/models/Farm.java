@@ -89,4 +89,15 @@ public class Farm {
         return gson.toJsonTree(this);
     }
 
+    @Override
+    public String toString() {
+        return "Farm{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthCount=" + birthCount +
+                ", controlSystem='" + controlSystem + '\'' +
+                ", favorite=" + favorite +
+                ", sync=" + sync +
+                '}';
+    }
 }
