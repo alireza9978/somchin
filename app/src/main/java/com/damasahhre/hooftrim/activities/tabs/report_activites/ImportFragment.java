@@ -138,14 +138,17 @@ public class ImportFragment extends Fragment {
             assert stream != null;
             assert fileName != null;
             Sheet datatypeSheet = null;
+            String farmName = "imported";
             if (fileName.endsWith(".xls")) {
                 POIFSFileSystem myFileSystem = new POIFSFileSystem(stream);
                 HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
                 datatypeSheet = myWorkBook.getSheetAt(0);
+                farmName = fileName.substring(0, fileName.length() - 4);
             } else if (fileName.endsWith(".xlsx")) {
                 OPCPackage opcPackage = OPCPackage.open(stream);
                 XSSFWorkbook myWorkBook = new XSSFWorkbook(opcPackage);
                 datatypeSheet = myWorkBook.getSheetAt(0);
+                farmName = fileName.substring(0, fileName.length() - 5);
             }
 
 
@@ -170,9 +173,9 @@ public class ImportFragment extends Fragment {
             }
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             Sheet finalDatatypeSheet = datatypeSheet;
-            String finalFileName = fileName;
+            String finalFarmName = farmName;
             AppExecutors.getInstance().diskIO().execute(() -> {
-                Farm farm = new Farm(finalFileName, 0, "", Boolean.FALSE, Boolean.TRUE);
+                Farm farm = new Farm(finalFarmName, 0, "", Boolean.FALSE, Boolean.TRUE);
                 farm.setId(dao.insertGetId(farm));
 
                 HashSet<Integer> cowNumbers = new HashSet<>();
@@ -202,7 +205,6 @@ public class ImportFragment extends Fragment {
                         if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                             String star = cell.getStringCellValue();
                             if (star != null && !star.isEmpty() && star.equals("*")) {
-
                                 switch (i) {
                                     case 4:
                                         report.referenceCauseHundredDays = true;
@@ -235,9 +237,41 @@ public class ImportFragment extends Fragment {
                                         report.referenceCauseGroupHoofTrim = true;
                                         break;
                                 }
+                            } else {
+                                switch (i) {
+                                    case 4:
+                                        report.referenceCauseHundredDays = false;
+                                        break;
+                                    case 5:
+                                        report.referenceCauseDryness = false;
+                                        break;
+                                    case 6:
+                                        report.referenceCauseLagged = false;
+                                        break;
+                                    case 7:
+                                        report.referenceCauseNewLimp = false;
+                                        break;
+                                    case 8:
+                                        report.referenceCauseLimpVisit = false;
+                                        break;
+                                    case 9:
+                                        report.referenceCauseHighScore = false;
+                                        break;
+                                    case 10:
+                                        report.referenceCauseReferential = false;
+                                        break;
+                                    case 11:
+                                        report.referenceCauseLongHoof = false;
+                                        break;
+                                    case 12:
+                                        report.referenceCauseHeifer = false;
+                                        break;
+                                    case 13:
+                                        report.referenceCauseGroupHoofTrim = false;
+                                        break;
+                                }
                             }
                         } else {
-
                             switch (i) {
                                 case 4:
                                     report.referenceCauseHundredDays = false;
@@ -274,11 +308,14 @@ public class ImportFragment extends Fragment {
                     }
                     for (int i = 14; i < 27; i++) {
                         Cell cell = row.getCell(i);
-                        if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                            report.fingerNumber = Integer.parseInt(cell.getStringCellValue());
-                            report.legAreaNumber = i - 14;
-                            report.rightSide = report.fingerNumber % 2 == 0;
-                            break;
+                        if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                            String value = cell.getStringCellValue();
+                            if (value != null && !value.isEmpty()) {
+                                report.fingerNumber = Integer.parseInt(value);
+                                report.legAreaNumber = i - 14;
+                                report.rightSide = report.fingerNumber % 2 == 0;
+                                break;
+                            }
                         }
                     }
                     for (int i = 27; i < 33; i++) {
@@ -304,6 +341,27 @@ public class ImportFragment extends Fragment {
                                         break;
                                     case 32:
                                         report.otherInfoNoInjury = true;
+                                        break;
+                                }
+                            } else {
+                                switch (i) {
+                                    case 27:
+                                        report.otherInfoWound = false;
+                                        break;
+                                    case 28:
+                                        report.otherInfoEcchymosis = false;
+                                        break;
+                                    case 29:
+                                        report.otherInfoHoofTrim = false;
+                                        break;
+                                    case 30:
+                                        report.otherInfoGel = false;
+                                        break;
+                                    case 31:
+                                        report.otherInfoBoarding = false;
+                                        break;
+                                    case 32:
+                                        report.otherInfoNoInjury = false;
                                         break;
                                 }
                             }
@@ -367,8 +425,7 @@ public class ImportFragment extends Fragment {
                 main:
                 for (Report report : reports) {
                     for (Cow cow : cows) {
-                        //todo check
-                        if (report.cowId.equals(cow.getNumber())) {
+                        if (report.cowId.equals((long) cow.getNumber())) {
                             report.cowId = cow.getId();
                             dao.insert(report);
                             continue main;
