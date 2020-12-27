@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.database.models.DeletedSyncModel;
 import com.damasahhre.hooftrim.database.models.SyncModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -76,11 +77,11 @@ public class Requests {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void editPassword(String email, String oldPassword, String newPassword, Callback callback) {
+    public static void editPassword(String token, String oldPassword, String newPassword, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
-            object.put("email", email);
+            object.put("token", token);
             object.put("old_password", oldPassword);
             object.put("new_password", newPassword);
         } catch (JSONException e) {
@@ -227,7 +228,7 @@ public class Requests {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void delete(String token, SyncModel model, Callback callback) {
+    public static void delete(String token, DeletedSyncModel model, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
         builder.excludeFieldsWithoutExposeAnnotation();
@@ -245,7 +246,7 @@ public class Requests {
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/sync/delete_data/")
-                .method("POST", body)
+                .method("DELETE", body)
                 .build();
         client.newCall(request).enqueue(callback);
     }

@@ -2,11 +2,13 @@ package com.damasahhre.hooftrim.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
@@ -15,6 +17,7 @@ import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
@@ -24,11 +27,12 @@ import java.util.Objects;
 
 public class CowProfileActivity extends AppCompatActivity {
 
+    private ImageView outside;
+    private ConstraintLayout menuLayout;
     private TextView title;
     private TextView lastVisit;
     private TextView nextVisit;
     private ImageView bookmark;
-    private ImageView exit;
     private ImageView menu;
     private GridView reports;
     private Context context;
@@ -47,13 +51,30 @@ public class CowProfileActivity extends AppCompatActivity {
         nextVisit = findViewById(R.id.system_value);
         menu = findViewById(R.id.dropdown_menu);
         reports = findViewById(R.id.reports_list);
-        exit = findViewById(R.id.back_icon);
+        ImageView exit = findViewById(R.id.back_icon);
+        menuLayout = findViewById(R.id.menu_layout);
+        outside = findViewById(R.id.outside);
+
+        menu.setOnClickListener(view -> showMenu());
+        outside.setOnClickListener(view -> hideMenu());
         exit.setOnClickListener(view -> finish());
         Constants.setImageBackBorder(this, exit);
 
         id = Objects.requireNonNull(getIntent().getExtras()).getLong(Constants.COW_ID);
-        exit.setOnClickListener((v) -> finish());
+        MyDao dao = DataBase.getInstance(this).dao();
 
+        exit.setOnClickListener((v) -> finish());
+        ConstraintLayout remove = findViewById(R.id.item_two);
+        remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
+            Cow cow = dao.getCow(id);
+            if (!cow.getCreated())
+                dao.insert(new DeletedReport(cow.getId()));
+            dao.deleteCow(cow);
+            runOnUiThread(() -> {
+                hideMenu();
+                finish();
+            });
+        }));
 
     }
 
@@ -105,4 +126,17 @@ public class CowProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showMenu() {
+        outside.setVisibility(View.VISIBLE);
+        menuLayout.setVisibility(View.VISIBLE);
+        menu.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideMenu() {
+        menu.setVisibility(View.VISIBLE);
+        outside.setVisibility(View.GONE);
+        menuLayout.setVisibility(View.GONE);
+    }
+
 }

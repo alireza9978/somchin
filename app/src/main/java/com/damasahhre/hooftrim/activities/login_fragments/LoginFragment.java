@@ -52,9 +52,9 @@ public class LoginFragment extends Fragment {
                     if (response.isSuccessful()) {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
+                            Constants.setEmail(requireActivity(), user);
                             Constants.setToken(requireActivity(), (String) jsonObject.get("token"));
                             activity.syncData();
-
                             activity.runOnUiThread(activity::goApp);
                         } catch (Exception e) {
                             e.printStackTrace();

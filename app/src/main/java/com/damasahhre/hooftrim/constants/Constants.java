@@ -54,6 +54,10 @@ public class Constants {
     private static String TOKEN_STORAGE = "someWhereInDarknessTOK";
     private static String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
 
+    public static String NO_EMAIL = "NO EMAIL";
+    private static String EMAIL_STORAGE = "soacfsfdInDarknessTOK";
+    private static String EMAIL_DATA = "somenovdonksacDarkness12TOKTOK";
+
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -142,6 +146,18 @@ public class Constants {
         editor.apply();
     }
 
+
+    public static String getEmail(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(EMAIL_STORAGE, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(EMAIL_DATA, NO_EMAIL);
+    }
+
+    public static void setEmail(Context context, String email) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(EMAIL_STORAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAIL_DATA, email);
+        editor.apply();
+    }
 
     /**
      * گرفتن کلید ارتباط با سرور

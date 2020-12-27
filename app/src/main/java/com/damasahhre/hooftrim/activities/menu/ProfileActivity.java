@@ -35,8 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         EditText confirmPass = findViewById(R.id.new_password_input_confirm);
         ProfileActivity activity = this;
         if (Constants.isNetworkAvailable(this)) {
-            //todo get user and set email
-//            email.setText();
+            email.setText(Constants.getEmail(this));
         } else {
             Toast.makeText(this, R.string.no_connection, Toast.LENGTH_LONG).show();
             finish();
@@ -47,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         submit.setOnClickListener(view -> {
             if (!newPass.getText().toString().isEmpty() &&
                     newPass.getText().toString().equals(confirmPass.getText().toString())) {
-                Requests.editPassword(email.getText().toString(), oldPass.getText().toString(), newPass.getText().toString(), new Callback() {
+                Requests.editPassword(Constants.getToken(this), oldPass.getText().toString(), newPass.getText().toString(), new Callback() {
                     @Override
                     public void onFailure(Request request, IOException e) {
                         runOnUiThread(() -> {

@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     DeletedSyncModel deletedSyncModel = new DeletedSyncModel(dao.getAllDeletedFarmToSync(), dao.getAllDeletedCowToSync(), dao.getAllDeletedReportToSync());
                     if (!deletedSyncModel.isEmpty()) {
-                        Requests.delete(Constants.getToken(getApplicationContext()), model, new Callback() {
+                        Requests.delete(Constants.getToken(getApplicationContext()), deletedSyncModel, new Callback() {
                             @Override
                             public void onFailure(Request request, IOException e) {
 
@@ -265,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 dao.deleteAllOtherReport();
                                 runOnUiThread(() -> {
                                     Constants.setToken(activity, Constants.NO_TOKEN);
+                                    Constants.setEmail(activity, Constants.NO_EMAIL);
                                     Intent intent = new Intent(activity, SplashActivity.class);
                                     startActivity(intent);
                                     finish();

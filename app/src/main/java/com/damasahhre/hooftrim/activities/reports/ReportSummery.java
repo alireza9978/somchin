@@ -77,7 +77,7 @@ public class ReportSummery extends AppCompatActivity {
         });
         remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
             Report report = dao.getReport(reportId);
-            if (report.created)
+            if (!report.created)
                 dao.insert(new DeletedReport(report.id));
             dao.deleteReport(report);
             runOnUiThread(() -> {
