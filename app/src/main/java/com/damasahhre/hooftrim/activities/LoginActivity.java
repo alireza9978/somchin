@@ -37,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;
-    public String IMEINumber;
-    private static final int REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,9 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                                 dao.insertAllFarm(model.farms);
                                 dao.insertAllCows(model.cows);
                                 dao.insertAllReport(model.reports);
-                                activity.runOnUiThread(() -> {
-                                    Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
-                                });
+                                activity.runOnUiThread(() -> Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show());
                             });
                         } else {
                             Requests.toastMessage(response, activity);

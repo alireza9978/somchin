@@ -182,9 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         dao.doneSyncFarm(finalModel.farms);
                                         dao.doneSyncCow(finalModel.cows);
                                         dao.doneSyncReport(finalModel.reports);
-                                        runOnUiThread(() -> {
-                                            Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
-                                        });
+                                        runOnUiThread(() -> Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show());
                                     });
                                 } else {
                                     Requests.toastMessage(response, activity);
@@ -210,9 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         dao.doneSyncFarm(finalModel.farms);
                                         dao.doneSyncCow(finalModel.cows);
                                         dao.doneSyncReport(finalModel.reports);
-                                        runOnUiThread(() -> {
-                                            Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
-                                        });
+                                        runOnUiThread(() -> Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show());
                                     });
                                 } else {
                                     Requests.toastMessage(response, activity);
@@ -236,9 +232,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         dao.doneDeleteFarm(deletedSyncModel.farms);
                                         dao.doneDeleteCow(deletedSyncModel.cows);
                                         dao.doneDeleteReport(deletedSyncModel.reports);
-                                        runOnUiThread(() -> {
-                                            Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
-                                        });
+                                        runOnUiThread(() -> Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show());
                                     });
                                 } else {
                                     Requests.toastMessage(response, activity);

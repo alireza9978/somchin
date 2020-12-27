@@ -9,6 +9,8 @@ import com.damasahhre.hooftrim.models.MyDate;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 @Entity
@@ -185,6 +187,7 @@ public class Report {
         return list;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Report{" +
