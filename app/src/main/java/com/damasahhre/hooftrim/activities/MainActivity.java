@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,11 +28,22 @@ import com.damasahhre.hooftrim.activities.menu.ContactActivity;
 import com.damasahhre.hooftrim.activities.menu.ProfileActivity;
 import com.damasahhre.hooftrim.adapters.TabAdapterHome;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.DeletedSyncModel;
+import com.damasahhre.hooftrim.database.models.SyncModel;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.server.Requests;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
@@ -64,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mi.setTitle(mNewTitle);
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         Constants.hideKeyboard(this, findViewById(R.id.root).getWindowToken());
     }
 
@@ -147,6 +160,127 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 finish();
                 return true;
+            }
+            case R.id.sync: {
+                Activity activity = this;
+                MyDao dao = DataBase.getInstance(this).dao();
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                    SyncModel model = new SyncModel(dao.getAllFarmToSync(), dao.getAllCowToSync(), dao.getAllReportToSync());
+                    if (!model.isEmpty()) {
+                        SyncModel finalModel = model;
+                        Requests.update(Constants.getToken(getApplicationContext()), model, new Callback() {
+                            @Override
+                            public void onFailure(Request request, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Response response) {
+                                if (response.isSuccessful()) {
+                                    finalModel.doneUpdate();
+                                    AppExecutors.getInstance().diskIO().execute(() -> {
+                                        dao.doneSyncFarm(finalModel.farms);
+                                        dao.doneSyncCow(finalModel.cows);
+                                        dao.doneSyncReport(finalModel.reports);
+                                        runOnUiThread(() -> {
+                                            Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
+                                        });
+                                    });
+                                } else {
+                                    Requests.toastMessage(response, activity);
+                                }
+                            }
+                        });
+                    }
+
+                    model = new SyncModel(dao.getAllNewFarmToSync(), dao.getAllNewCowToSync(), dao.getAllNewReportToSync());
+                    if (!model.isEmpty()) {
+                        SyncModel finalModel = model;
+                        Requests.create(Constants.getToken(getApplicationContext()), model, new Callback() {
+                            @Override
+                            public void onFailure(Request request, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Response response) {
+                                if (response.isSuccessful()) {
+                                    finalModel.doneCreate();
+                                    AppExecutors.getInstance().diskIO().execute(() -> {
+                                        dao.doneSyncFarm(finalModel.farms);
+                                        dao.doneSyncCow(finalModel.cows);
+                                        dao.doneSyncReport(finalModel.reports);
+                                        runOnUiThread(() -> {
+                                            Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
+                                        });
+                                    });
+                                } else {
+                                    Requests.toastMessage(response, activity);
+                                }
+                            }
+                        });
+                    }
+
+                    DeletedSyncModel deletedSyncModel = new DeletedSyncModel(dao.getAllDeletedFarmToSync(), dao.getAllDeletedCowToSync(), dao.getAllDeletedReportToSync());
+                    if (!deletedSyncModel.isEmpty()) {
+                        Requests.delete(Constants.getToken(getApplicationContext()), model, new Callback() {
+                            @Override
+                            public void onFailure(Request request, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Response response) {
+                                if (response.isSuccessful()) {
+                                    AppExecutors.getInstance().diskIO().execute(() -> {
+                                        dao.doneDeleteFarm(deletedSyncModel.farms);
+                                        dao.doneDeleteCow(deletedSyncModel.cows);
+                                        dao.doneDeleteReport(deletedSyncModel.reports);
+                                        runOnUiThread(() -> {
+                                            Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
+                                        });
+                                    });
+                                } else {
+                                    Requests.toastMessage(response, activity);
+                                }
+                            }
+                        });
+                    }
+                });
+                return true;
+            }
+            case R.id.logout: {
+                Activity activity = this;
+
+                Requests.logout(Constants.getToken(this), new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Response response) {
+                        if (response.isSuccessful()) {
+                            MyDao dao = DataBase.getInstance(activity).dao();
+                            AppExecutors.getInstance().diskIO().execute(() -> {
+                                dao.deleteAllFarm();
+                                dao.deleteAllCow();
+                                dao.deleteAllReport();
+                                dao.deleteAllOtherFarm();
+                                dao.deleteAllOtherCow();
+                                dao.deleteAllOtherReport();
+                                runOnUiThread(() -> {
+                                    Constants.setToken(activity, Constants.NO_TOKEN);
+                                    Intent intent = new Intent(activity, SplashActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                });
+                            });
+                        } else {
+                            Requests.toastMessage(response, activity);
+                        }
+                    }
+                });
             }
         }
         return false;

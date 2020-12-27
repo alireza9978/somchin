@@ -9,6 +9,9 @@ import androidx.room.Update;
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowForMarked;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
+import com.damasahhre.hooftrim.database.models.DeletedCow;
+import com.damasahhre.hooftrim.database.models.DeletedFarm;
+import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
@@ -24,6 +27,24 @@ import java.util.List;
 
 @Dao
 public interface MyDao {
+
+    @Query("DELETE FROM Farm")
+    void deleteAllFarm();
+
+    @Query("DELETE FROM Cow")
+    void deleteAllCow();
+
+    @Query("DELETE FROM Report")
+    void deleteAllReport();
+
+    @Query("DELETE FROM DeletedFarm")
+    void deleteAllOtherFarm();
+
+    @Query("DELETE FROM DeletedCow")
+    void deleteAllOtherCow();
+
+    @Query("DELETE FROM DeletedReport")
+    void deleteAllOtherReport();
 
 
     @Query("SELECT Cow.id AS cowId,Cow.number AS cowNumber, MAX(Report.visit_date) AS lastVisit," +
@@ -144,14 +165,51 @@ public interface MyDao {
     @Query("SELECT * FROM Farm")
     List<Farm> getAll();
 
-    @Query("SELECT * FROM Farm WHERE Farm.sync")
+    @Query("SELECT * FROM Farm WHERE Farm.sync AND (NOT Farm.created)")
     List<Farm> getAllFarmToSync();
 
-    @Query("SELECT * FROM Cow WHERE Cow.sync")
+    @Query("SELECT * FROM Cow WHERE Cow.sync AND (NOT Cow.created)")
     List<Cow> getAllCowToSync();
 
-    @Query("SELECT * FROM Report WHERE Report.sync")
+    @Query("SELECT * FROM Report WHERE Report.sync AND (NOT Report.created)")
     List<Report> getAllReportToSync();
+
+    @Update
+    void doneSyncCow(List<Cow> cows);
+
+    @Update
+    void doneSyncReport(List<Report> reports);
+
+    @Update
+    void doneSyncFarm(List<Farm> farms);
+
+    @Query("SELECT * FROM Farm WHERE Farm.sync AND Farm.created")
+    List<Farm> getAllNewFarmToSync();
+
+    @Query("SELECT * FROM Cow WHERE Cow.sync AND Cow.created")
+    List<Cow> getAllNewCowToSync();
+
+    @Query("SELECT * FROM Report WHERE Report.sync AND Report.created")
+    List<Report> getAllNewReportToSync();
+
+    @Query("SELECT * FROM DeletedFarm")
+    List<DeletedFarm> getAllDeletedFarmToSync();
+
+    @Query("SELECT * FROM DeletedCow")
+    List<DeletedCow> getAllDeletedCowToSync();
+
+    @Query("SELECT * FROM DeletedReport")
+    List<DeletedReport> getAllDeletedReportToSync();
+
+    @Delete
+    void doneDeleteCow(List<DeletedCow> cows);
+
+    @Delete
+    void doneDeleteReport(List<DeletedReport> reports);
+
+    @Delete
+    void doneDeleteFarm(List<DeletedFarm> farms);
+
 
     @Query("SELECT Cow.id AS id, Cow.number AS number, MAX(Report.visit_date) AS lastVisit " +
             " FROM Cow, Report" +
@@ -201,6 +259,15 @@ public interface MyDao {
     @Delete
     void deleteReport(Report... reports);
 
+    @Delete
+    void deleteCow(DeletedCow... cows);
+
+    @Delete
+    void deleteFarm(DeletedFarm... farms);
+
+    @Delete
+    void deleteReport(DeletedReport... reports);
+
     @Update
     void update(Cow cow);
 
@@ -217,6 +284,12 @@ public interface MyDao {
     void insert(Farm farm);
 
     @Insert
+    void insert(DeletedReport report);
+
+    @Insert
+    void insert(DeletedFarm farm);
+
+    @Insert
     long insertGetId(Farm farm);
 
     @Insert
@@ -224,6 +297,9 @@ public interface MyDao {
 
     @Insert
     void insert(Cow Cow);
+
+    @Insert
+    void insert(DeletedCow Cow);
 
     @Insert
     long insertGetId(Cow Cow);
@@ -237,5 +313,12 @@ public interface MyDao {
     @Insert
     void insertAll(Farm... farms);
 
+    @Insert
+    void insertAllCows(List<Cow> cows);
 
+    @Insert
+    void insertAllFarm(List<Farm> farms);
+
+    @Insert
+    void insertAllReport(List<Report> reports);
 }

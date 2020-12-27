@@ -28,6 +28,9 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
 import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
+import com.damasahhre.hooftrim.database.models.DeletedCow;
+import com.damasahhre.hooftrim.database.models.DeletedFarm;
+import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.FarmWithNextVisit;
 import com.damasahhre.hooftrim.database.models.MyReport;
@@ -61,8 +64,8 @@ import static com.damasahhre.hooftrim.R.string.more_info_reason_4;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_5;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_6;
 import static com.damasahhre.hooftrim.R.string.more_info_reason_7;
-import static com.damasahhre.hooftrim.R.string.old_next_visit;
 import static com.damasahhre.hooftrim.R.string.nine;
+import static com.damasahhre.hooftrim.R.string.old_next_visit;
 import static com.damasahhre.hooftrim.R.string.one;
 import static com.damasahhre.hooftrim.R.string.reason_1;
 import static com.damasahhre.hooftrim.R.string.reason_10;
@@ -144,10 +147,16 @@ public class FarmProfileActivity extends AppCompatActivity {
                 List<Cow> cows = dao.getAllCowOfFarm(id);
                 for (Cow cow : cows) {
                     for (Report report : dao.getAllReportOfCow(cow.getId())) {
-                        dao.update(report);
+                        if (!report.created)
+                            dao.insert(new DeletedReport(report.id));
+                        dao.deleteReport(report);
                     }
+                    if (!cow.getCreated())
+                        dao.insert(new DeletedCow(cow.getId()));
                     dao.deleteCow(cow);
                 }
+                if (!farm.getCreated())
+                    dao.insert(new DeletedFarm(farm.getId()));
                 dao.deleteFarm(farm);
                 runOnUiThread(() -> {
                     hideMenu();
@@ -190,6 +199,7 @@ public class FarmProfileActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 bookmark.setOnClickListener(view -> {
                     farm.setFavorite(!farm.getFavorite());
+                    farm.setSync(true);
                     if (farm.getFavorite()) {
                         bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark_fill));
                     } else {
@@ -282,17 +292,17 @@ public class FarmProfileActivity extends AppCompatActivity {
                     row = sheet.createRow(i + 1);
 
                     Cell cell = row.createCell(0);
-                    cell.setCellValue(myReport.cowNumber);
+                    cell.setCellValue(String.valueOf(myReport.cowNumber));
 
                     int[] date = report.visit.convert(this);
                     cell = row.createCell(1);
-                    cell.setCellValue(date[2]);
+                    cell.setCellValue(String.valueOf(date[2]));
 
                     cell = row.createCell(2);
-                    cell.setCellValue(date[1]);
+                    cell.setCellValue(String.valueOf(date[1]));
 
                     cell = row.createCell(3);
-                    cell.setCellValue(date[0]);
+                    cell.setCellValue(String.valueOf(date[0]));
 
                     cell = row.createCell(4);
                     if (report.referenceCauseHundredDays)
@@ -337,7 +347,7 @@ public class FarmProfileActivity extends AppCompatActivity {
                     for (int k = 0; k < 13; k++) {
                         cell = row.createCell(k + 14);
                         if (report.legAreaNumber == k)
-                            cell.setCellValue(report.fingerNumber);
+                            cell.setCellValue(String.valueOf(report.fingerNumber));
                     }
 
                     cell = row.createCell(27);

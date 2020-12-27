@@ -84,7 +84,6 @@ public class ImportFragment extends Fragment {
         ConstraintLayout button = view.findViewById(R.id.import_button);
         button.setOnClickListener(view1 -> showFileChooser());
 
-
         return view;
     }
 
@@ -137,17 +136,17 @@ public class ImportFragment extends Fragment {
 
             assert stream != null;
             assert fileName != null;
-            Sheet datatypeSheet = null;
+            Sheet dataTypeSheet = null;
             String farmName = "imported";
             if (fileName.endsWith(".xls")) {
                 POIFSFileSystem myFileSystem = new POIFSFileSystem(stream);
                 HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
-                datatypeSheet = myWorkBook.getSheetAt(0);
+                dataTypeSheet = myWorkBook.getSheetAt(0);
                 farmName = fileName.substring(0, fileName.length() - 4);
             } else if (fileName.endsWith(".xlsx")) {
                 OPCPackage opcPackage = OPCPackage.open(stream);
                 XSSFWorkbook myWorkBook = new XSSFWorkbook(opcPackage);
-                datatypeSheet = myWorkBook.getSheetAt(0);
+                dataTypeSheet = myWorkBook.getSheetAt(0);
                 farmName = fileName.substring(0, fileName.length() - 5);
             }
 
@@ -162,8 +161,8 @@ public class ImportFragment extends Fragment {
 
             //read headers
             int count = 0;
-            assert datatypeSheet != null;
-            for (Cell cell : datatypeSheet.getRow(0)) {
+            assert dataTypeSheet != null;
+            for (Cell cell : dataTypeSheet.getRow(0)) {
                 if (!cell.getStringCellValue().equals(getString(headers[count]))) {
                     Toast.makeText(requireContext(), "expected : " + getString(headers[count])
                             + " find : " + cell.getStringCellValue(), Toast.LENGTH_LONG).show();
@@ -172,10 +171,10 @@ public class ImportFragment extends Fragment {
                 count++;
             }
             MyDao dao = DataBase.getInstance(requireContext()).dao();
-            Sheet finalDatatypeSheet = datatypeSheet;
+            Sheet finalDatatypeSheet = dataTypeSheet;
             String finalFarmName = farmName;
             AppExecutors.getInstance().diskIO().execute(() -> {
-                Farm farm = new Farm(finalFarmName, 0, "", Boolean.FALSE, Boolean.TRUE);
+                Farm farm = new Farm(finalFarmName, 0, "", Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
                 farm.setId(dao.insertGetId(farm));
 
                 HashSet<Integer> cowNumbers = new HashSet<>();
@@ -413,11 +412,13 @@ public class ImportFragment extends Fragment {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         String star = cell.getStringCellValue();
                         report.otherInfoRecovered = star != null && !star.isEmpty() && star.equals("*");
+                    } else {
+                        report.otherInfoRecovered = false;
                     }
                     reports.add(report);
                 }
                 for (Integer cowNumber : cowNumbers) {
-                    cows.add(new Cow(cowNumber, false, farm.getId(), true));
+                    cows.add(new Cow(cowNumber, false, farm.getId(), true, true));
                 }
                 for (Cow cow : cows) {
                     cow.setId(dao.insertGetId(cow));

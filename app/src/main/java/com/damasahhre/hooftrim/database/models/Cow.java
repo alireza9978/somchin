@@ -7,21 +7,37 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.damasahhre.hooftrim.R;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 @Entity
 public class Cow {
+
+    @Expose()
+    @SerializedName("front_id")
     @PrimaryKey
     private Long id;
+    @Expose()
+    @SerializedName("cow_number")
     @ColumnInfo(name = "number")
     private Integer number;
     @ColumnInfo(name = "number_string")
     private String numberString;
+    @Expose()
+    @SerializedName("is_favorite")
     @ColumnInfo(name = "favorite")
     private Boolean favorite;
+    @Expose()
+    @SerializedName("front_farm_id")
     @ColumnInfo(name = "farm_id")
     private Long farm;
+
+    @Expose(serialize = false, deserialize = false)
     @ColumnInfo(name = "sync")
     private Boolean sync;
+    @Expose(serialize = false, deserialize = false)
+    @ColumnInfo(name = "created")
+    private Boolean created;
 
     public Boolean getSync() {
         return sync;
@@ -31,12 +47,21 @@ public class Cow {
         this.sync = sync;
     }
 
-    public Cow(Integer number, Boolean favorite, Long farm, Boolean sync) {
+    public Cow(Integer number, Boolean favorite, Long farm, Boolean sync, Boolean created) {
         this.number = number;
         this.numberString = "" + number;
         this.favorite = favorite;
         this.farm = farm;
         this.sync = sync;
+        this.created = created;
+    }
+
+    public Boolean getCreated() {
+        return created;
+    }
+
+    public void setCreated(Boolean created) {
+        this.created = created;
     }
 
     public Long getId() {

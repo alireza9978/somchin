@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.constants.Utilities;
+import com.google.gson.annotations.Expose;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -16,8 +17,11 @@ import saman.zamani.persiandate.PersianDate;
 
 public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
 
+    @Expose
     private int day;
+    @Expose
     private int month;
+    @Expose
     private int year;
 
     public MyDate(Date date) {

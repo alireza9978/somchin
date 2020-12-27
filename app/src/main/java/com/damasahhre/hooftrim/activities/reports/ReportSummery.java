@@ -14,6 +14,7 @@ import com.damasahhre.hooftrim.adapters.GridViewAdapterItemInSummery;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.MyReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
@@ -76,6 +77,8 @@ public class ReportSummery extends AppCompatActivity {
         });
         remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
             Report report = dao.getReport(reportId);
+            if (report.created)
+                dao.insert(new DeletedReport(report.id));
             dao.deleteReport(report);
             runOnUiThread(() -> {
                 hideMenu();
@@ -97,8 +100,10 @@ public class ReportSummery extends AppCompatActivity {
                 cowText.append(getString(R.string.cow_title));
                 cowText.append("" + myReport.cowNumber);
 
-                area.setText(getString(R.string.injury_area) + " " + report.legAreaNumber +
-                        ", " + getString(R.string.finger) + " " + report.fingerNumber);
+                if (report.legAreaNumber != -1) {
+                    area.setText(getString(R.string.injury_area) + " " + report.legAreaNumber +
+                            ", " + getString(R.string.finger) + " " + report.fingerNumber);
+                }
                 DateContainer container;
                 if (Constants.getDefaultLanguage(this).equals("fa")) {
                     int[] temp = report.visit.convert(this);

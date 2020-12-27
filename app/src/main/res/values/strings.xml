@@ -197,7 +197,7 @@
     <string name="username">username</string>
     <string name="save">save</string>
     <string name="more_info_text_one">In first filed you should enter primary information of the cow like cow ID and date</string>
-    <string name="more_info_three">In the third field, you can mark the affected zone in case of new lesions or re-checks and then fill the digit number. Numbering the digits in this application starts from one for lateral right forelimb digit following a ‘S’ Pattern as the medial right forelimb (2), medial left forelimb (3), lateral left forelimb (4), lateral right hindlimb (5), medial right hindlimb (6), medial left hindlimb (7) and lateral left hindlimb (8)</string>
+    <string name="more_info_three">In the third field, you can mark the affected zone in case of new lesions or re-checks and then fill the digit number.Choose "new case" or "re-check" to show if the lesion is new or not. Numbering the digits in this application starts from one for lateral right forelimb digit following a ‘S’ Pattern as the medial right forelimb (2), medial left forelimb (3), lateral left forelimb (4), lateral right hindlimb (5), medial right hindlimb (6), medial left hindlimb (7) and lateral left hindlimb (8)</string>
     <string name="forget_password">forgot password?</string>
     <string name="forgot_password">Forgot password</string>
     <string name="reset_password">Request new password</string>
@@ -223,5 +223,10 @@
         Hoof trimming assist (HTA®) is a multimedia application for recording data by hoof trimming chute. By its user friendly design you can record basic dairy information like (dairy production, parity, reason for hoof trimming….), hoof lesions information like number of affected digit or affected region and type of lesion like hemorrhage or wound and so many other useful information. You can create report of hoof trimmings, lesions, costs, bills etc. on excel and other formats. Excel output of application can easily import on different dairy cow management systems.</string>
     <string name="about_us_text_bot">Get HTA® do more precise work on hoof trimming and recording</string>
     <string name="old_next_visit">next visit date</string>
+    <string name="sync">sync</string>
+    <string name="syncStarted">sync started</string>
+    <string name="logout">logout</string>
+    <string name="server_error">server error</string>
+    <string name="sync_done">data sync done</string>
 
 </resources>

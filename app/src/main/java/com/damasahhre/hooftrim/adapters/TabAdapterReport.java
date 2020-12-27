@@ -23,7 +23,7 @@ public class TabAdapterReport extends FragmentStateAdapter {
     private String date;
     private String nextDate;
     private String description;
-    private boolean rightSide;
+    private Boolean rightSide;
     private final boolean edit;
 
     public TabAdapterReport(@NonNull FragmentActivity fragmentActivity) {
@@ -32,7 +32,7 @@ public class TabAdapterReport extends FragmentStateAdapter {
     }
 
     public TabAdapterReport(@NonNull FragmentActivity fragmentActivity, int cowNumber, String date,
-                            String nextDate, int legAreaNumber, boolean rightSide, String description) {
+                            String nextDate, int legAreaNumber, Boolean rightSide, String description) {
         super(fragmentActivity);
         this.edit = true;
         this.description = description;

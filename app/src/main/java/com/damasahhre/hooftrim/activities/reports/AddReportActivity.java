@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities.reports;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -97,11 +96,10 @@ public class AddReportActivity extends AppCompatActivity {
 
                     state = State.info;
                     String next = null;
-                    if (two != null)
+                    if (two != null) {
                         next = two.toString(this);
-                    adapter = new TabAdapterReport(this, cow.getNumber(),
-                            one.toString(this), next,
-                            report.legAreaNumber, report.rightSide, report.description);
+                    }
+                    adapter = new TabAdapterReport(this, cow.getNumber(), one.toString(this), next, report.legAreaNumber, report.rightSide, report.description);
 
                     viewPager.setAdapter(adapter);
                     viewPager.setUserInputEnabled(false);
@@ -170,9 +168,8 @@ public class AddReportActivity extends AppCompatActivity {
         MyDao dao = DataBase.getInstance(this).dao();
         if (mode.equals(Constants.EDIT_REPORT)) {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                Log.i("ADD_REPORT", "onCreate: 3");
-
                 Report report = new Report();
+                report.created = false;
                 report.visit = one.exportStart();
                 if (two != null) {
                     report.nextVisit = two.exportStart();
@@ -186,6 +183,7 @@ public class AddReportActivity extends AppCompatActivity {
                 report.cowId = cow.getId();
                 CheckBoxManager.getCheckBoxManager().setBooleansOnReport(report);
                 report.id = reportId;
+                report.sync = true;
                 dao.update(report);
                 runOnUiThread(() -> {
                     Toast.makeText(this, R.string.data_added, Toast.LENGTH_SHORT).show();
@@ -195,7 +193,6 @@ public class AddReportActivity extends AppCompatActivity {
         } else {
             if (cow != null) {
                 AppExecutors.getInstance().diskIO().execute(() -> {
-                    Log.i("ADD_REPORT", "onCreate: 1");
                     Report report = new Report();
                     report.visit = one.exportStart();
                     if (two != null) {
@@ -218,11 +215,10 @@ public class AddReportActivity extends AppCompatActivity {
                 });
             } else {
                 AppExecutors.getInstance().diskIO().execute(() -> {
-                    Log.i("ADD_REPORT", "onCreate: 2");
                     int cowNumber = ((CowInfoFragment) adapter.getFragment(0)).getNumber();
                     Cow cow = dao.getCow(cowNumber, farmId);
                     if (cow == null) {
-                        cow = new Cow(cowNumber, false, farmId, true);
+                        cow = new Cow(cowNumber, false, farmId, true, true);
                         dao.insert(cow);
                     }
                     cow = dao.getCow(cowNumber, farmId);
@@ -250,7 +246,6 @@ public class AddReportActivity extends AppCompatActivity {
     }
 
     public void addCowAndReportFast() {
-        Log.i("ADD_REPORT", "onCreate: fast");
         MyDao dao = DataBase.getInstance(this).dao();
         if (cow != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
@@ -282,7 +277,7 @@ public class AddReportActivity extends AppCompatActivity {
                 int cowNumber = ((CowInfoFragment) adapter.getFragment(0)).getNumber();
                 Cow cow = dao.getCow(cowNumber, farmId);
                 if (cow == null) {
-                    cow = new Cow(cowNumber, false, farmId, true);
+                    cow = new Cow(cowNumber, false, farmId, true, true);
                     dao.insert(cow);
                 }
                 cow = dao.getCow(cowNumber, farmId);

@@ -44,7 +44,7 @@ public class AddLivestockActivity extends AppCompatActivity {
                         return;
                     }
                     int count = Integer.parseInt(countString);
-                    Farm farm = new Farm(title, count, system, false, true);
+                    Farm farm = new Farm(title, count, system, false, true, true);
                     MyDao dao = DataBase.getInstance(this).dao();
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         dao.insert(farm);
@@ -79,6 +79,7 @@ public class AddLivestockActivity extends AppCompatActivity {
                         Farm farm = dao.getFarm(id);
                         farm.setControlSystem(system);
                         farm.setBirthCount(count);
+                        farm.setSync(true);
                         dao.update(farm);
                         runOnUiThread(this::finish);
                     });

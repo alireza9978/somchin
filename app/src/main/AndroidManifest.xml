@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         android:windowSoftInputMode="stateAlwaysHidden">
-        <activity android:name=".activities.ValidateActivity"></activity>
+        <activity android:name=".activities.ValidateActivity" />
         <activity
             android:name=".activities.login_fragments.ForgetPasswordActivity"
             android:screenOrientation="portrait" />
@@ -82,18 +82,18 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".service.AlarmReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver> <!-- Will not be called unless the application explicitly enables it -->
-        <receiver
-            android:name=".service.DeviceBootReceiver"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".service.AlarmReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver> &lt;!&ndash; Will not be called unless the application explicitly enables it &ndash;&gt;-->
+<!--        <receiver-->
+<!--            android:name=".service.DeviceBootReceiver"-->
+<!--            android:enabled="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

@@ -143,11 +143,7 @@
     \n
     7- Long toe cows
     \n
-    8- New lameness case
-    \n
-    9- Lesion re-check
-    \n
-    10- Whole herd hoof trimming option"
+    8- Whole herd hoof trimming option"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -87,7 +87,7 @@ public class CheckBoxManager {
         }
     }
 
-    private void resetFast() {
+    public void resetFast() {
         for (CheckBoxItem item : dialog) {
             item.setCheck(false);
             item.setActive(true);
@@ -120,12 +120,12 @@ public class CheckBoxManager {
         reasons.get(6).setCheck(report.referenceCauseHeifer);
         reasons.get(7).setCheck(report.referenceCauseGroupHoofTrim);
 
-        dialog.get(0).setCheck(report.otherInfoWound);
-        dialog.get(1).setCheck(report.otherInfoEcchymosis);
+        dialog.get(2).setCheck(report.otherInfoWound);
+        dialog.get(3).setCheck(report.otherInfoEcchymosis);
         dialog.get(6).setCheck(report.otherInfoRecovered);
         moreInfo.get(0).setCheck(report.otherInfoNoInjury);
-        dialog.get(2).setCheck(report.otherInfoGel);
-        dialog.get(3).setCheck(report.otherInfoBoarding);
+        dialog.get(4).setCheck(report.otherInfoGel);
+        dialog.get(5).setCheck(report.otherInfoBoarding);
         moreInfo.get(1).setCheck(report.otherInfoHoofTrim);
         for (CheckBoxItem item : reasons) {
             if (item.isCheck()) {
@@ -156,12 +156,12 @@ public class CheckBoxManager {
         report.referenceCauseHeifer = reasons.get(6).isCheck();
         report.referenceCauseGroupHoofTrim = reasons.get(7).isCheck();
 
-        report.otherInfoWound = dialog.get(0).isCheck();
-        report.otherInfoEcchymosis = dialog.get(1).isCheck();
+        report.otherInfoWound = dialog.get(2).isCheck();
+        report.otherInfoEcchymosis = dialog.get(3).isCheck();
         report.otherInfoRecovered = dialog.get(6).isCheck();
         report.otherInfoNoInjury = moreInfo.get(0).isCheck();
-        report.otherInfoGel = dialog.get(2).isCheck();
-        report.otherInfoBoarding = dialog.get(3).isCheck();
+        report.otherInfoGel = dialog.get(4).isCheck();
+        report.otherInfoBoarding = dialog.get(5).isCheck();
         report.otherInfoHoofTrim = moreInfo.get(1).isCheck();
         reset();
     }
@@ -178,12 +178,12 @@ public class CheckBoxManager {
         report.referenceCauseHeifer = reasons.get(6).isCheck();
         report.referenceCauseGroupHoofTrim = reasons.get(7).isCheck();
 
-        report.otherInfoWound = dialog.get(0).isCheck();
-        report.otherInfoEcchymosis = dialog.get(1).isCheck();
+        report.otherInfoWound = dialog.get(2).isCheck();
+        report.otherInfoEcchymosis = dialog.get(3).isCheck();
         report.otherInfoRecovered = dialog.get(6).isCheck();
         report.otherInfoNoInjury = moreInfo.get(0).isCheck();
-        report.otherInfoGel = dialog.get(2).isCheck();
-        report.otherInfoBoarding = dialog.get(3).isCheck();
+        report.otherInfoGel = dialog.get(4).isCheck();
+        report.otherInfoBoarding = dialog.get(5).isCheck();
         report.otherInfoHoofTrim = moreInfo.get(1).isCheck();
         resetFast();
     }

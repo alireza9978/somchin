@@ -1,9 +1,11 @@
 package com.damasahhre.hooftrim.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,14 +14,31 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.login_fragments.LoginFragment;
 import com.damasahhre.hooftrim.activities.login_fragments.SignUpFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapter;
+import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.database.DataBase;
+import com.damasahhre.hooftrim.database.dao.MyDao;
+import com.damasahhre.hooftrim.database.models.SyncModel;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.server.Requests;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;
+    public String IMEINumber;
+    private static final int REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +129,47 @@ public class LoginActivity extends AppCompatActivity {
         assert tab != null;
         tab.setCustomView(null);
         tab.setCustomView(adapter.getSelectedTabView(position));
+    }
+
+    public void syncData() {
+        runOnUiThread(() -> {
+            Activity activity = this;
+            Toast.makeText(this, R.string.syncStarted, Toast.LENGTH_LONG).show();
+            Requests.getAllData(Constants.getToken(this), new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Response response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            JSONObject object = new JSONObject(response.body().string());
+                            object.remove("message");
+                            GsonBuilder builder = new GsonBuilder();
+                            builder.excludeFieldsWithoutExposeAnnotation();
+                            Gson gson = builder.create();
+                            SyncModel model = gson.fromJson(object.toString(), SyncModel.class);
+                            model.doneCreate();
+                            MyDao dao = DataBase.getInstance(activity).dao();
+                            AppExecutors.getInstance().diskIO().execute(() -> {
+                                dao.insertAllFarm(model.farms);
+                                dao.insertAllCows(model.cows);
+                                dao.insertAllReport(model.reports);
+                                activity.runOnUiThread(() -> {
+                                    Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show();
+                                });
+                            });
+                        } else {
+                            Requests.toastMessage(response, activity);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        });
     }
 
 }

@@ -24,7 +24,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class LoginFragment extends Fragment {
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public class LoginFragment extends Fragment {
 
         EditText password = view.findViewById(R.id.password_input);
         EditText username = view.findViewById(R.id.user_name_input);
-//        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
         view.findViewById(R.id.submit).setOnClickListener(v -> {
             String user = username.getText().toString();
@@ -55,6 +53,8 @@ public class LoginFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
                             Constants.setToken(requireActivity(), (String) jsonObject.get("token"));
+                            activity.syncData();
+
                             activity.runOnUiThread(activity::goApp);
                         } catch (Exception e) {
                             e.printStackTrace();

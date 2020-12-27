@@ -10,11 +10,14 @@ import androidx.room.TypeConverters;
 import com.damasahhre.hooftrim.database.dao.InjuryDao;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.DeletedCow;
+import com.damasahhre.hooftrim.database.models.DeletedFarm;
+import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.DateConverter;
 
-@Database(entities = {Farm.class, Cow.class, Report.class}, version = 1, exportSchema = false)
+@Database(entities = {Farm.class, Cow.class, Report.class, DeletedReport.class, DeletedCow.class, DeletedFarm.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class DataBase extends RoomDatabase {
     private static final String dataBaseName = "temp";

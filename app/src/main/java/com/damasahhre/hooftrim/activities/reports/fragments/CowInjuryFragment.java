@@ -14,6 +14,7 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.dialog.SelectFingerDialog;
+import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 import java.util.Objects;
 
@@ -190,7 +191,13 @@ public class CowInjuryFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.next_button).setOnClickListener(v -> ((AddReportActivity) requireActivity()).next());
+        view.findViewById(R.id.next_button).setOnClickListener(v -> {
+            if (selected == -1) {
+                CheckBoxManager.getCheckBoxManager().resetFast();
+                ((AddReportActivity) requireActivity()).setFingerNumber(-1);
+            }
+            ((AddReportActivity) requireActivity()).next();
+        });
         view.findViewById(R.id.back_button).setOnClickListener(v -> ((AddReportActivity) requireActivity()).back());
         return view;
     }
@@ -199,7 +206,7 @@ public class CowInjuryFragment extends Fragment {
         SelectFingerDialog dialog = new SelectFingerDialog(requireContext(), edit);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setOnDismissListener(dialogInterface -> {
-            if (((AddReportActivity) requireActivity()).getFingerNumber() == -1){
+            if (((AddReportActivity) requireActivity()).getFingerNumber() == -1) {
                 reset();
             }
             ((AddReportActivity) requireActivity()).hideKeyboard();
