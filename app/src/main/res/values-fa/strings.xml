@@ -222,5 +222,6 @@
     <string name="logout">خروج</string>
     <string name="server_error">خطای سرور</string>
     <string name="sync_done">همگامسازی داده‌ها تمام شد</string>
+    <string name="wait">اندکی صبر کنید</string>
 
 </resources>

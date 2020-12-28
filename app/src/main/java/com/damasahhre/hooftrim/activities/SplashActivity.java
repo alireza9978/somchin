@@ -71,27 +71,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        try {
-//            MyDao dao = DataBase.getInstance(this).dao();
-//            AppExecutors.getInstance().diskIO().execute(() -> {
-//                List<Farm> farms = dao.getAll();
-//                for (Farm farm : farms) {
-//                    Log.i("SPLASH", farm.toString());
-//                    List<Cow> cows = dao.getAllCowOfFarm(farms.get(0).getId());
-//                    for (Cow cow : cows) {
-//                        Log.i("SPLASH", cow.toString());
-//                        List<Report> reports = dao.getAllReportOfCow(cow.getId());
-//                        for (Report report : reports) {
-//                            Log.i("SPLASH", report.toString());
-//                        }
-//                    }
-//                }
-//            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
         /* Retrieve a PendingIntent that will perform a broadcast */
         Intent alarmIntent = new Intent(SplashActivity.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);

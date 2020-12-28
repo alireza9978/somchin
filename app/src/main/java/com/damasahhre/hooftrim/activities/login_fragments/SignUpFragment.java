@@ -36,6 +36,8 @@ public class SignUpFragment extends Fragment {
             String pass = password.getText().toString();
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(requireContext(), R.string.wait, Toast.LENGTH_SHORT).show();
             }
             Requests.signUp(user, pass, new Callback() {
                 @Override

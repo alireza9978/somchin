@@ -228,5 +228,6 @@
     <string name="logout">logout</string>
     <string name="server_error">server error</string>
     <string name="sync_done">data sync done</string>
+    <string name="wait">please wait</string>
 
 </resources>

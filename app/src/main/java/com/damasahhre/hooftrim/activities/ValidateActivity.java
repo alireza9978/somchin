@@ -1,6 +1,5 @@
 package com.damasahhre.hooftrim.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -28,6 +27,8 @@ public class ValidateActivity extends AppCompatActivity {
         String email = Objects.requireNonNull(getIntent().getExtras()).getString(Constants.EMAIL);
         ValidateActivity activity = this;
         findViewById(R.id.resend).setOnClickListener(view -> {
+            Toast.makeText(this, R.string.wait, Toast.LENGTH_SHORT).show();
+
             Requests.resend(email, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
@@ -74,7 +75,7 @@ public class ValidateActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else {
-                        Requests.toastMessage(response,activity);
+                        Requests.toastMessage(response, activity);
                     }
                 }
             });
