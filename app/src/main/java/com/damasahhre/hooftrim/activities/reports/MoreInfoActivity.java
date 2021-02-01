@@ -34,7 +34,12 @@ public class MoreInfoActivity extends AppCompatActivity {
                 break;
             }
             case injury:
-                findViewById(R.id.three).setVisibility(View.VISIBLE);
+                if (Constants.getDefaultLanguage(this).equals("fa")) {
+                    findViewById(R.id.three_fa).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.three).setVisibility(View.VISIBLE);
+                }
+
                 break;
             case moreInfo:
                 if (Constants.getDefaultLanguage(this).equals("fa")) {

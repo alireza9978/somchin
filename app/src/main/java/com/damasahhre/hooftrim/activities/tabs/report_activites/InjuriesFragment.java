@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
@@ -75,6 +76,10 @@ public class InjuriesFragment extends Fragment {
 
         Button submit = view.findViewById(R.id.submit);
         submit.setOnClickListener(view13 -> {
+            if (!Constants.getPremium(requireContext())) {
+                Toast.makeText(requireContext(), R.string.premium_requier, Toast.LENGTH_LONG).show();
+                return;
+            }
             if (Constants.checkPermission(requireContext()))
                 return;
             if (date == null) {

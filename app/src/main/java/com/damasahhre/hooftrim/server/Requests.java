@@ -1,6 +1,8 @@
 package com.damasahhre.hooftrim.server;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -60,18 +62,25 @@ public class Requests {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void isPaid(String email, Callback callback) {
+    public static void pay(String email, Activity activity) {
+        String url = BASE_URL + "payment/request/" + email;
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        activity.startActivity(browserIntent);
+        Log.i(TAG, "pay: here");
+    }
+
+    public static void isPaid(String token, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
-            object.put("email", email);
+            object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.i(TAG, "is paid: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/forget_password/")
+                .url(BASE_URL + "user/is_premium/")
                 .method("POST", body)
                 .build();
         client.newCall(request).enqueue(callback);

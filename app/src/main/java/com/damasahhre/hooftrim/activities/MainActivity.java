@@ -42,6 +42,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -51,6 +53,7 @@ import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
 import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_INJURY;
 import static com.damasahhre.hooftrim.constants.Constants.getDefaultLanguage;
+import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -102,6 +105,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         applyFontToMenu(navigationView.getMenu(), this);
         navigationView.setNavigationItemSelectedListener(this);
         tabLayout.selectTab(tabLayout.getTabAt(0));
+
+        Activity activity = this;
+        Requests.isPaid(Constants.getToken(this), new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
+            }
+
+            @Override
+            public void onResponse(Response response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        boolean isPremium = (boolean) jsonObject.get("is_premium");
+                        setPremium(activity, isPremium);
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Requests.toastMessage(response, activity);
+                }
+            }
+        });
+
     }
 
     @Override

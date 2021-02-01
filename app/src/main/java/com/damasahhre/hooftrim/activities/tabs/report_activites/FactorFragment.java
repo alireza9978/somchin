@@ -98,6 +98,10 @@ public class FactorFragment extends Fragment {
 
         Button submit = view.findViewById(R.id.submit);
         submit.setOnClickListener(view1 -> {
+            if (!Constants.getPremium(requireContext())) {
+                Toast.makeText(requireContext(), R.string.premium_requier, Toast.LENGTH_LONG).show();
+                return;
+            }
             if (Constants.checkPermission(requireContext())) {
                 return;
             }

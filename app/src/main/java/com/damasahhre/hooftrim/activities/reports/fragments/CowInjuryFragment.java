@@ -53,6 +53,12 @@ public class CowInjuryFragment extends Fragment {
     public CowInjuryFragment() {
     }
 
+    private void deselect() {
+        selected = -1;
+        rightSide = null;
+        Toast.makeText(requireContext(),R.string.clear_data,Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,8 +77,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 0 && rightSide == null) {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
-                selected = -1;
-                rightSide = null;
+                deselect();
             } else {
                 errorOnlyOne();
             }
@@ -89,8 +94,7 @@ public class CowInjuryFragment extends Fragment {
                     getFingerNumber();
                 } else if (selected == finalI && rightSide != null && rightSide.equals(Boolean.TRUE)) {
                     mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
-                    selected = -1;
-                    rightSide = null;
+                    deselect();
                 } else {
                     errorOnlyOne();
                 }
@@ -108,8 +112,7 @@ public class CowInjuryFragment extends Fragment {
                     getFingerNumber();
                 } else if (selected == finalI && rightSide != null && rightSide.equals(Boolean.FALSE)) {
                     mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
-                    selected = -1;
-                    rightSide = null;
+                    deselect();
                 } else {
                     errorOnlyOne();
                 }
@@ -123,8 +126,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 10 && rightSide == null) {
                 mainImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_som_main));
-                selected = -1;
-                rightSide = null;
+                deselect();
             } else {
                 errorOnlyOne();
             }
@@ -136,7 +138,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 11) {
                 leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
-                selected = -1;
+                deselect();
             } else {
                 errorOnlyOne();
             }
@@ -148,7 +150,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 12) {
                 leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
-                selected = -1;
+                deselect();
             } else {
                 errorOnlyOne();
             }
@@ -161,7 +163,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 8) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
-                selected = -1;
+                deselect();
             } else {
                 errorOnlyOne();
             }
@@ -173,7 +175,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 9) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
-                selected = -1;
+                deselect();
             } else {
                 errorOnlyOne();
             }
@@ -185,7 +187,7 @@ public class CowInjuryFragment extends Fragment {
                 getFingerNumber();
             } else if (selected == 7) {
                 rightImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_16));
-                selected = -1;
+                deselect();
             } else {
                 errorOnlyOne();
             }

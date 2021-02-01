@@ -50,6 +50,10 @@ public class Constants {
     private static String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static String LANGUAGE_DATA = "someWhereInDarkness12";
 
+    public static boolean NO_PREMIUM = false;
+    private static String PREMIUM_STORAGE = "someWhereInD XNKLACarknessTOK";
+    private static String PREMIUM_DATA = "someWhereIKLNFAKLFAV; nDarkness12TOKTOK";
+
     public static String NO_TOKEN = "NO TOKEN";
     private static String TOKEN_STORAGE = "someWhereInDarknessTOK";
     private static String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
@@ -158,6 +162,19 @@ public class Constants {
         editor.putString(EMAIL_DATA, email);
         editor.apply();
     }
+
+    public static Boolean getPremium(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREMIUM_STORAGE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(PREMIUM_DATA, NO_PREMIUM);
+    }
+
+    public static void setPremium(Context context, Boolean state) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREMIUM_STORAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(PREMIUM_DATA, state);
+        editor.apply();
+    }
+
 
     /**
      * گرفتن کلید ارتباط با سرور

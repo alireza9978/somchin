@@ -229,5 +229,12 @@
     <string name="server_error">server error</string>
     <string name="sync_done">data sync done</string>
     <string name="wait">please wait</string>
+    <string name="convert">upgrade user account</string>
+    <string name="premium_user">you are premium user</string>
+    <string name="success">payment success</string>
+    <string name="fail">payment fail</string>
+    <string name="payment_title">payment result</string>
+    <string name="clear_data">entered data cleared</string>
+    <string name="premium_requier">you are not premium user</string>
 
 </resources>

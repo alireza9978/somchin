@@ -221,7 +221,14 @@
     <string name="syncStarted">در حال همگام‌سازی</string>
     <string name="logout">خروج</string>
     <string name="server_error">خطای سرور</string>
-    <string name="sync_done">همگامسازی داده‌ها تمام شد</string>
+    <string name="sync_done">همگام سازی داده‌ها تمام شد</string>
     <string name="wait">اندکی صبر کنید</string>
+    <string name="convert">ارتقا به کاربر ویژه</string>
+    <string name="premium_user">شما کاربر ویژه هستید</string>
+    <string name="success">پرداخت با موفقیت انجام شد</string>
+    <string name="fail">بروز خطا در عملیات پرداخت</string>
+    <string name="payment_title">نتیجه پرداخت</string>
+    <string name="clear_data">اطلاعات وارد شده پاک شد</string>
+    <string name="premium_requier">شما کاربر ویژه نیستید</string>
 
 </resources>

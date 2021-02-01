@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.App.MainConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/Theme.App.MainConstraint"
 
     tools:context=".activities.reports.MoreInfoActivity">
 
@@ -254,28 +254,6 @@
             app:layout_constraintStart_toEndOf="@id/two_four_fa"
             app:layout_constraintTop_toTopOf="@id/two_four_fa" />
 
-        <TextView
-            android:id="@+id/two_five_fa"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/circle_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/two_four_text_fa" />
-
-        <TextView
-            android:id="@+id/two_five_text_fa"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/anjoman_medium"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="اگر در دامی که به هر علت وارد باکس سم‌چینی شده(سم‌چینی، اسکوربالا، ارجاعی و ...) جراحت جدید دام مشاهده شد باید گزینه لنگش جدید را علامت بزنید و در صورتی که دام برای بررسی مجدد و بازدید از زخم به باکس آمده می‌توانید بازدید لنگش را علامت بزنید."
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/two_five_fa"
-            app:layout_constraintTop_toTopOf="@id/two_five_fa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -312,6 +290,112 @@
             app:layout_constraintStart_toEndOf="@id/three_one"
             app:layout_constraintTop_toTopOf="@id/three_one" />
 
+        <TextView
+            android:id="@+id/three_two"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/circle_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/three_one_text" />
+
+        <TextView
+            android:id="@+id/three_two_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/anjoman_medium"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="Kind of injury (Wound, hemorrhage, without injury), kind of treatment (use of hoof block, bandaging, any medication) and possible cured injury can be marked."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/three_two"
+            app:layout_constraintTop_toTopOf="@id/three_two" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/three_fa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_add_cow_container">
+
+        <TextView
+            android:id="@+id/three_zero_fa"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/circle_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/three_zero_text_fa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/anjoman_medium"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="جزپیات جراحت و عملیات درمانی را در این قسمت وارد کنید."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/three_zero_fa"
+            app:layout_constraintTop_toTopOf="@id/three_zero_fa" />
+
+
+        <TextView
+            android:id="@+id/three_one_fa"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/circle_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/three_zero_text_fa" />
+
+        <TextView
+            android:id="@+id/three_one_text_fa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/anjoman_medium"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@string/more_info_three"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/three_one_fa"
+            app:layout_constraintTop_toTopOf="@id/three_one_fa" />
+
+        <TextView
+            android:id="@+id/three_two_fa"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/circle_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/three_one_text_fa" />
+
+        <TextView
+            android:id="@+id/three_two_text_fa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/anjoman_medium"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="اگر در دامی که به هر علت وارد باکس سم‌چینی شده(سم‌چینی، اسکوربالا، ارجاعی و ...) جراحت جدید دام مشاهده شد باید گزینه لنگش جدید را علامت بزنید و در صورتی که دام برای بررسی مجدد و بازدید از زخم به باکس آمده می‌توانید بازدید لنگش را علامت بزنید."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/three_two_fa"
+            app:layout_constraintTop_toTopOf="@id/three_two_fa" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -340,12 +424,13 @@
             android:fontFamily="@font/anjoman_medium"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:text="And finally, in the fourth field any additional information can be added to the application. Kind of injury (Wound, hemorrhage, without injury), kind of treatment (use of hoof block, bandaging, any medication) and possible cured injury can be marked. By adding a re-check date and any further needed information the application will remind you in due date"
+            android:text="And finally, in the fourth field any additional information can be added to the application. By adding a re-check date and any further needed information the application will remind you in due date"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/four_one"
             app:layout_constraintTop_toTopOf="@id/four_one" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -359,28 +444,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_add_cow_container">
 
-        <TextView
-            android:id="@+id/four_one_fa"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/circle_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/four_one_text_fa"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/anjoman_medium"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="جزپیات جراحت و عملیات درمانی را در این قسمت وارد کنید."
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/four_one_fa"
-            app:layout_constraintTop_toTopOf="@id/four_one_fa" />
 
         <TextView
             android:id="@+id/four_two_fa"
@@ -389,7 +452,7 @@
             android:layout_margin="4dp"
             android:background="@drawable/circle_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/four_one_text_fa" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/four_two_text_fa"
@@ -411,6 +474,7 @@
             android:layout_height="20dp"
             android:layout_margin="4dp"
             android:background="@drawable/circle_background"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/four_two_text_fa" />
 
@@ -424,6 +488,7 @@
             android:text="در این قسمت حتما باید یکی از گزینه‌های زخم، خونمردگی یا سم‌چینی را علامت بزنید."
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/four_three_fa"
             app:layout_constraintTop_toTopOf="@id/four_three_fa" />
