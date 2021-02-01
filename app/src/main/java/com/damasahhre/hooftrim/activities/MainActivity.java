@@ -132,9 +132,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         if (tabLayout.getSelectedTabPosition() == 2) {
-            tabLayout.selectTab(tabLayout.getTabAt(4));
+            tabLayout.selectTab(tabLayout.getTabAt(0));
         }
-
     }
 
     @Override

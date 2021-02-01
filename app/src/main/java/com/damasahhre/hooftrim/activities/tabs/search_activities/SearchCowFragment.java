@@ -3,6 +3,7 @@ package com.damasahhre.hooftrim.activities.tabs.search_activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
 import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
 import com.damasahhre.hooftrim.activities.MainActivity;
+import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -64,6 +66,14 @@ public class SearchCowFragment extends Fragment {
         dateContainer = view.findViewById(R.id.date_container);
         farmName = view.findViewById(R.id.livestock_name_text);
         dateText = view.findViewById(R.id.date_text);
+
+        cowNumber.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                ((MainActivity) requireActivity()).hideKeyboard();
+                return true;
+            }
+            return false;
+        });
 
         cowsList.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());

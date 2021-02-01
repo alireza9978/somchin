@@ -1,8 +1,11 @@
 package com.damasahhre.hooftrim.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -32,6 +35,14 @@ public class SelectFingerDialog extends Dialog {
         GridView gridView = findViewById(R.id.grid);
         GridViewAdapterReasonAddReport adapter = new GridViewAdapterReasonAddReport(context, CheckBoxManager.getCheckBoxManager().getDialog());
         gridView.setAdapter(adapter);
+
+        edit.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                Constants.hideKeyboard((AddReportActivity) context, findViewById(R.id.root).getWindowToken());
+                return true;
+            }
+            return false;
+        });
 
         Button newInput = findViewById(R.id.new_input);
         if (editMode) {
