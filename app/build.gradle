@@ -10,8 +10,8 @@ android {
         applicationId "com.damasahhre.hooftrim"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 104
-        versionName "0.1.4"
+        versionCode 105
+        versionName "0.1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
