@@ -230,5 +230,9 @@
     <string name="payment_title">نتیجه پرداخت</string>
     <string name="clear_data">اطلاعات وارد شده پاک شد</string>
     <string name="premium_requier">شما کاربر ویژه نیستید</string>
+    <string name="select_date_selection_mode">بازه زمانی گزارش گیری</string>
+    <string name="singel_date">انتخاب یک روز</string>
+    <string name="range_date">انتخاب بازه</string>
+    <string name="all_date">تمامی زمان‌‌ها</string>
 
 </resources>

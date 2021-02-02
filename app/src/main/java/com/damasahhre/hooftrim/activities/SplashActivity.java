@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,19 +17,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.database.DataBase;
-import com.damasahhre.hooftrim.database.dao.MyDao;
-import com.damasahhre.hooftrim.database.models.Cow;
-import com.damasahhre.hooftrim.database.models.Farm;
-import com.damasahhre.hooftrim.database.models.Report;
-import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.service.AlarmReceiver;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,14 +40,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
-        if (Constants.getDefaultLanguage(this).equals(Constants.NO_LANGUAGE)) {
-            Constants.setLanguage(this, "fa");
-            Intent intent = new Intent(this, SplashActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
 
         AppCenter.start(getApplication(), "f4c019af-38a5-44af-b87a-22c2e0dc8f27",
                 Analytics.class, Crashes.class);
@@ -110,6 +94,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public Context updateBaseContextLocale(Context context) {
+        if (Constants.getDefaultLanguage(context).equals(Constants.NO_LANGUAGE)) {
+            Constants.setLanguage(context, "fa");
+        }
         String language = Constants.getDefaultLanguage(context);
         if (language.isEmpty()) {
             //when first time enter into app (get the device language and set it

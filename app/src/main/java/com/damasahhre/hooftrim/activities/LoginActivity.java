@@ -96,10 +96,16 @@ public class LoginActivity extends AppCompatActivity {
      * بازکردن صفحه اصلی
      */
     public void goApp() {
+        hideKeyboard();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
+
+    public void hideKeyboard() {
+        Constants.hideKeyboard(this, findViewById(R.id.root).getWindowToken());
+    }
+
 
     /**
      * مقدار دهی اولیه نوار پایین

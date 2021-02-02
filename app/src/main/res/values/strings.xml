@@ -236,5 +236,9 @@
     <string name="payment_title">payment result</string>
     <string name="clear_data">entered data cleared</string>
     <string name="premium_requier">you are not premium user</string>
+    <string name="select_date_selection_mode">export date mode</string>
+    <string name="singel_date">select one day</string>
+    <string name="range_date">select range</string>
+    <string name="all_date">all dates</string>
 
 </resources>

@@ -11,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
@@ -37,6 +38,8 @@ import com.damasahhre.hooftrim.database.models.MyReport;
 import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.dialog.DateModelDialog;
+import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.models.MyDate;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -84,6 +87,8 @@ import static com.damasahhre.hooftrim.R.string.three;
 import static com.damasahhre.hooftrim.R.string.twelve;
 import static com.damasahhre.hooftrim.R.string.two;
 import static com.damasahhre.hooftrim.R.string.zero;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_EXPORT_REPORT;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_RESULT;
 
 public class FarmProfileActivity extends AppCompatActivity {
 
@@ -100,6 +105,7 @@ public class FarmProfileActivity extends AppCompatActivity {
     private ConstraintLayout menuLayout;
     private ImageView outside;
     private long id;
+    private DateContainer dateContainerOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,11 +171,43 @@ public class FarmProfileActivity extends AppCompatActivity {
             });
         });
         share.setOnClickListener(view -> {
-            export();
+            dateContainerOne = null;
+            selectDate();
             hideMenu();
         });
 
 
+    }
+
+    public void getDate(boolean single) {
+        Intent intent = new Intent(this, DateSelectionActivity.class);
+        if (single) {
+            intent.setAction(Constants.DateSelectionMode.SINGLE);
+        } else {
+            intent.setAction(Constants.DateSelectionMode.RANG);
+        }
+        startActivityForResult(intent, DATE_SELECTION_EXPORT_REPORT);
+    }
+
+    private void selectDate() {
+        DateModelDialog dialog = new DateModelDialog(this);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == DATE_SELECTION_EXPORT_REPORT) {
+            if (resultCode == Constants.DATE_SELECTION_OK) {
+                assert data != null;
+                DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
+                assert container != null;
+                dateContainerOne = container;
+                export();
+            }
+        }
     }
 
     private void showMenu() {
@@ -205,9 +243,7 @@ public class FarmProfileActivity extends AppCompatActivity {
                     } else {
                         bookmark.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bookmark));
                     }
-                    AppExecutors.getInstance().diskIO().execute(() -> {
-                        dao.update(farm);
-                    });
+                    AppExecutors.getInstance().diskIO().execute(() -> dao.update(farm));
                 });
                 if (farm.getFavorite()) {
                     bookmark.setImageDrawable(ContextCompat.getDrawable(FarmProfileActivity.this, R.drawable.ic_bookmark_fill));
@@ -277,7 +313,17 @@ public class FarmProfileActivity extends AppCompatActivity {
 
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<MyReport> reports = dao.getAllMyReportFarm(id);
+            List<MyReport> reports;
+            if (dateContainerOne == null) {
+                reports = dao.getAllMyReportFarm(id);
+            } else {
+                if (dateContainerOne.getEndDate() != null) {
+                    reports = dao.getAllMyReportFarm(id, dateContainerOne.exportStart(), dateContainerOne.exportEnd());
+                } else {
+                    reports = dao.getAllMyReportFarm(id, dateContainerOne.exportStart());
+                }
+            }
+
             runOnUiThread(() -> {
                 //add headers
                 Row row = sheet.createRow(0);
