@@ -83,9 +83,11 @@ public class InjuriesFragment extends Fragment {
             if (Constants.checkPermission(requireContext()))
                 return;
             if (date == null) {
+                Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (farmId == -1) {
+                Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 

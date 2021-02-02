@@ -52,7 +52,7 @@ public interface MyDao {
             "FROM Cow,Farm,Report " +
             "WHERE Cow.number_string LIKE :id " +
             "AND Report.cow_id == Cow.id " +
-            "AND Cow.farm_id == farm.id " +
+            "AND Cow.farm_id == Farm.id " +
             "GROUP BY Cow.id")
     List<CowForMarked> searchCow(String id);
 

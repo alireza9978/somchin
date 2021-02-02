@@ -240,5 +240,7 @@
     <string name="singel_date">select one day</string>
     <string name="range_date">select range</string>
     <string name="all_date">all dates</string>
+    <string name="notification">Notification</string>
+    <string name="connection_requiered">connection required</string>
 
 </resources>

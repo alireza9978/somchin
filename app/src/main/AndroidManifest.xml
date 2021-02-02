@@ -94,6 +94,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".service.MyNotificationPublisher"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

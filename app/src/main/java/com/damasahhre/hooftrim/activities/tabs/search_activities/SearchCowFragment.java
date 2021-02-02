@@ -87,7 +87,7 @@ public class SearchCowFragment extends Fragment {
                 requireActivity().runOnUiThread(() -> ((MainActivity)requireActivity()).hideKeyboard());
                 String cowIdString = cowNumber.getText().toString();
                 if (cowIdString.isEmpty()) {
-                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "input error", Toast.LENGTH_SHORT).show());
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show());
                     return;
                 }
                 cowIdString = "%" + cowIdString + "%";

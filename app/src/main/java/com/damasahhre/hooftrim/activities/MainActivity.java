@@ -1,6 +1,8 @@
 package com.damasahhre.hooftrim.activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,6 +37,7 @@ import com.damasahhre.hooftrim.database.models.DeletedSyncModel;
 import com.damasahhre.hooftrim.database.models.SyncModel;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.server.Requests;
+import com.damasahhre.hooftrim.service.MyNotificationPublisher;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -46,6 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
@@ -56,6 +61,7 @@ import static com.damasahhre.hooftrim.constants.Constants.getDefaultLanguage;
 import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
 
     private TabAdapterHome adapter;
     private TabLayout tabLayout;
@@ -107,27 +113,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.selectTab(tabLayout.getTabAt(0));
 
         Activity activity = this;
-        Requests.isPaid(Constants.getToken(this), new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
-            }
-
-            @Override
-            public void onResponse(Response response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        boolean isPremium = (boolean) jsonObject.get("is_premium");
-                        setPremium(activity, isPremium);
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Requests.toastMessage(response, activity);
+        if (Constants.isNetworkAvailable(this)) {
+            Requests.isPaid(Constants.getToken(this), new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Response response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            boolean isPremium = (boolean) jsonObject.get("is_premium");
+                            setPremium(activity, isPremium);
+                        } catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Requests.toastMessage(response, activity);
+                    }
+                }
+            });
+        }
+
+        SwitchCompat switchCompat = navigationView.getMenu().getItem(2).getActionView().findViewById(R.id.switch_id);
+        if (switchCompat != null) {
+            switchCompat.setChecked(Constants.getNotificationStatus(this));
+            switchCompat.setClickable(false);
+        }
 
     }
 
@@ -167,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.username: {
+                if (!Constants.isNetworkAvailable(this)) {
+                    Toast.makeText(this, R.string.connection_requiered, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
                 return true;
@@ -188,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.sync: {
+                if (!Constants.isNetworkAvailable(this)) {
+                    Toast.makeText(this, R.string.connection_requiered, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
                 Activity activity = this;
                 MyDao dao = DataBase.getInstance(this).dao();
                 AppExecutors.getInstance().diskIO().execute(() -> {
@@ -270,8 +292,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.logout: {
+                if (!Constants.isNetworkAvailable(this)) {
+                    Toast.makeText(this, R.string.connection_requiered, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
                 Activity activity = this;
-
                 Requests.logout(Constants.getToken(this), new Callback() {
                     @Override
                     public void onFailure(Request request, IOException e) {
@@ -302,6 +327,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     }
                 });
+                return true;
+            }
+            case R.id.nav_switch: {
+                SwitchCompat switchCompat = item.getActionView().findViewById(R.id.switch_id);
+                if (!Constants.getPremium(this)) {
+                    switchCompat.setChecked(false);
+                    Toast.makeText(this, R.string.premium_requier, Toast.LENGTH_LONG).show();
+                    return true;
+                } else {
+                    if (switchCompat.isChecked()) {
+                        switchCompat.setChecked(false);
+                        Constants.setNotificationStatus(this, false);
+                        scheduleNotification();
+                    } else {
+                        switchCompat.setChecked(true);
+                        Constants.setNotificationStatus(this, true);
+                        cancelSchedule();
+                    }
+                }
+                return true;
             }
         }
         return false;
@@ -352,4 +397,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    private void cancelSchedule() {
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, notificationIntent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null && alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+
+    }
+
+    private void scheduleNotification() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+
+        Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
 }

@@ -38,7 +38,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             String emailText = email.getText().toString();
             if (emailText.isEmpty()) {
                 Toast.makeText(this, getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
+                return;
             }
+            hideKeyboard();
             Requests.forgetPassword(emailText, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
@@ -73,4 +75,10 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 });
 
     }
+
+    public void hideKeyboard() {
+        Constants.hideKeyboard(this, findViewById(R.id.root).getWindowToken());
+    }
+
+
 }

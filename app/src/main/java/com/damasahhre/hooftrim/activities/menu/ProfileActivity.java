@@ -1,6 +1,7 @@
 package com.damasahhre.hooftrim.activities.menu;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -92,8 +93,9 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     }
                 });
+            } else {
+                Toast.makeText(activity, R.string.check_fields, Toast.LENGTH_SHORT).show();
             }
-
         });
 
     }

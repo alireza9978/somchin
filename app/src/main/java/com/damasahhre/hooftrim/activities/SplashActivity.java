@@ -17,7 +17,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.service.AlarmReceiver;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
@@ -54,11 +53,6 @@ public class SplashActivity extends AppCompatActivity {
                 goApp();
             }
         });
-
-        /* Retrieve a PendingIntent that will perform a broadcast */
-        Intent alarmIntent = new Intent(SplashActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, 0, alarmIntent, 0);
-        startAtMorning();
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {

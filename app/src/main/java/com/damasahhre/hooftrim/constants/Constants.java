@@ -51,6 +51,10 @@ public class Constants {
     private static String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static String LANGUAGE_DATA = "someWhereInDarkness12";
 
+    public static boolean NO_Notification = false;
+    private static String Notification_STORAGE = "somcdhereInDads rknessTOK";
+    private static String Notification_DATA = "someqwfja; nDarkness12TOKTOK";
+
     public static boolean NO_PREMIUM = false;
     private static String PREMIUM_STORAGE = "someWhereInD XNKLACarknessTOK";
     private static String PREMIUM_DATA = "someWhereIKLNFAKLFAV; nDarkness12TOKTOK";
@@ -176,6 +180,17 @@ public class Constants {
         editor.apply();
     }
 
+    public static Boolean getNotificationStatus(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Notification_STORAGE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(Notification_DATA, NO_Notification);
+    }
+
+    public static void setNotificationStatus(Context context, Boolean state) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Notification_STORAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Notification_DATA, state);
+        editor.apply();
+    }
 
     /**
      * گرفتن کلید ارتباط با سرور
