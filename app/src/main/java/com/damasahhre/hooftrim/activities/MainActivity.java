@@ -339,11 +339,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (switchCompat.isChecked()) {
                         switchCompat.setChecked(false);
                         Constants.setNotificationStatus(this, false);
-                        scheduleNotification();
+                        cancelSchedule();
                     } else {
                         switchCompat.setChecked(true);
                         Constants.setNotificationStatus(this, true);
-                        cancelSchedule();
+                        scheduleNotification();
                     }
                 }
                 return true;
@@ -409,8 +409,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void scheduleNotification() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Calendar cur = Calendar.getInstance();
+
+        if (cur.after(calendar)) {
+            calendar.add(Calendar.DATE, 1);
+        }
 
         Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
