@@ -89,7 +89,7 @@ public class ImportFragment extends Fragment {
 
     public void showFileChooser() {
         if (!Constants.getPremium(requireContext())) {
-            Toast.makeText(requireContext(), R.string.premium_requier, Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
             return;
         }
         if (Constants.checkPermissionRead(requireContext())) {

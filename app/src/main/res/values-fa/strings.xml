@@ -79,7 +79,7 @@
     <string name="month_11">بهمن</string>
     <string name="month_12">اسفند</string>
     <string name="reason">علت ارجاع</string>
-    <string name="prevois">قبلی</string>
+    <string name="my_previous">قبلی</string>
 
     <string name="more_info_reason_1">زخم</string>
     <string name="more_info_reason_2">خون مردگی</string>
@@ -114,6 +114,7 @@
     <string name="add_new_cow_factor">افزودن دام جدید به فاکتور</string>
     <string name="som_cut_price">هزینه‌ سم‌چینی</string>
     <string name="cure_price">هزینه‌ درمان‌عفونی</string>
+    <string name="temp_cure">درمان‌عفونی</string>
     <string name="bed_price">هزینه‌ تخته‌گذاری</string>
     <string name="export_report">دریافت گزارش</string>
     <string name="no_marked_cow">گاو نشان نشده‌ای وجود ندارد!</string>
@@ -206,6 +207,7 @@
     <string name="cant_select">امکان انتخاب همزمان وجود ندارد</string>
     <string name="data_added">داده با موفقیت اضافه شد</string>
     <string name="tripel_error">یکی از موارد زخم خونمردگی یا سم‌چینی را انتخاب کنید</string>
+    <string name="selection_error">حداقل یکی از موارد را انتخاب کنید</string>
     <string name="no_connection">عدم اتصال به اینترنت</string>
     <string name="password_changed">رمزعبور تغییر کرد</string>
     <string name="request_error">خطای ارتباط</string>
@@ -226,15 +228,18 @@
     <string name="convert">ارتقا به کاربر ویژه</string>
     <string name="premium_user">شما کاربر ویژه هستید</string>
     <string name="success">پرداخت با موفقیت انجام شد</string>
+    <string name="success_mail">ایمیل با موفقیت تایید شد</string>
+    <string name="fail_mail">بروز خطا در تایید ایمیل</string>
     <string name="fail">بروز خطا در عملیات پرداخت</string>
     <string name="payment_title">نتیجه پرداخت</string>
+    <string name="email_title">نتیجه تایید ایمیل</string>
     <string name="clear_data">اطلاعات وارد شده پاک شد</string>
-    <string name="premium_requier">شما کاربر ویژه نیستید</string>
+    <string name="premium_require">شما کاربر ویژه نیستید</string>
     <string name="select_date_selection_mode">بازه زمانی گزارش گیری</string>
-    <string name="singel_date">انتخاب یک روز</string>
+    <string name="single_date">انتخاب یک روز</string>
     <string name="range_date">انتخاب بازه</string>
     <string name="all_date">تمامی زمان‌‌ها</string>
     <string name="notification">نوتیفیکیشن</string>
-    <string name="connection_requiered">برای این بخش به اینترنت نیاز است</string>
+    <string name="connection_required">برای این بخش به اینترنت نیاز است</string>
 
 </resources>

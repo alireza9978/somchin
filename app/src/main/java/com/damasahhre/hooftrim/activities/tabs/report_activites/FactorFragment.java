@@ -99,7 +99,7 @@ public class FactorFragment extends Fragment {
         Button submit = view.findViewById(R.id.submit);
         submit.setOnClickListener(view1 -> {
             if (!Constants.getPremium(requireContext())) {
-                Toast.makeText(requireContext(), R.string.premium_requier, Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
                 return;
             }
             if (Constants.checkPermission(requireContext())) {
@@ -139,7 +139,7 @@ public class FactorFragment extends Fragment {
                 HSSFSheet sheet = workbook.createSheet("Sample sheet");
 
                 Integer[] headers = {R.string.empty, R.string.count, R.string.price, R.string.total_price};
-                Integer[] rows = {R.string.more_info_reason_7, R.string.more_info_reason_5,
+                Integer[] rows = {R.string.more_info_reason_7, R.string.temp_cure,
                         R.string.more_info_reason_6, R.string.column_name_2, R.string.sum};
 
                 InjuryDao dao = DataBase.getInstance(requireContext()).injuryDao();
@@ -203,7 +203,7 @@ public class FactorFragment extends Fragment {
                         cell = row.createCell(3);
                         cell.setCellValue(total);
 
-                        String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", "factor");
+                        String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", "invoice");
                         File file = new File(storage);
                         if (file.exists()) {
                             if (file.delete()) {

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.constants.Constants;
 
 public class PayActivity extends AppCompatActivity {
 
@@ -19,6 +18,7 @@ public class PayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
+        TextView header = findViewById(R.id.date_title);
         TextView textView = findViewById(R.id.pay_state);
         ImageView back = findViewById(R.id.back_image);
 
@@ -29,14 +29,25 @@ public class PayActivity extends AppCompatActivity {
         if (data != null) {
             String rdata = data.toString().replace("varchar://", "");
             Log.i("PayActivity", "onCreate: " + data);
-            if (rdata.equals("123")) {
-                textView.setText(R.string.success);
-                textView.setTextColor(getResources().getColor(R.color.persian_green));
-                Constants.setPremium(this, true);
-            } else {
+            if (rdata.equals("122")) {
+                header.setText(R.string.payment_title);
                 textView.setText(R.string.fail);
                 textView.setTextColor(getResources().getColor(R.color.red));
-                Constants.setPremium(this, false);
+            }
+            if (rdata.equals("123")) {
+                header.setText(R.string.payment_title);
+                textView.setText(R.string.success);
+                textView.setTextColor(getResources().getColor(R.color.persian_green));
+            }
+            if (rdata.equals("124")) {
+                header.setText(R.string.email_title);
+                textView.setText(R.string.fail_mail);
+                textView.setTextColor(getResources().getColor(R.color.persian_green));
+            }
+            if (rdata.equals("125")) {
+                header.setText(R.string.email_title);
+                textView.setText(R.string.success_mail);
+                textView.setTextColor(getResources().getColor(R.color.persian_green));
             }
         }
 

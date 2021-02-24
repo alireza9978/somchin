@@ -1,11 +1,9 @@
 package com.damasahhre.hooftrim.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -57,7 +55,7 @@ public class SelectFingerDialog extends Dialog {
                     number = Integer.parseInt(edit.getText().toString());
                 }
                 if (number >= 1 && number <= 8) {
-                    if (CheckBoxManager.getCheckBoxManager().moreInfoSelected()) {
+                    if (!CheckBoxManager.getCheckBoxManager().dialogSelected()) {
                         Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -90,6 +88,10 @@ public class SelectFingerDialog extends Dialog {
                 number = Integer.parseInt(edit.getText().toString());
             }
             if (number >= 1 && number <= 8) {
+                if (!CheckBoxManager.getCheckBoxManager().dialogSelected()) {
+                    Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dismiss();
                 ((AddReportActivity) context).setFingerNumber(number);
             } else {

@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.username: {
                 if (!Constants.isNetworkAvailable(this)) {
-                    Toast.makeText(this, R.string.connection_requiered, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.connection_required, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 Intent intent = new Intent(this, ProfileActivity.class);
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.sync: {
                 if (!Constants.isNetworkAvailable(this)) {
-                    Toast.makeText(this, R.string.connection_requiered, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.connection_required, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 Activity activity = this;
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.logout: {
                 if (!Constants.isNetworkAvailable(this)) {
-                    Toast.makeText(this, R.string.connection_requiered, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.connection_required, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 Activity activity = this;
@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SwitchCompat switchCompat = item.getActionView().findViewById(R.id.switch_id);
                 if (!Constants.getPremium(this)) {
                     switchCompat.setChecked(false);
-                    Toast.makeText(this, R.string.premium_requier, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.premium_require, Toast.LENGTH_LONG).show();
                     return true;
                 } else {
                     if (switchCompat.isChecked()) {

@@ -1,7 +1,6 @@
 package com.damasahhre.hooftrim.activities.menu;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +22,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import mehdi.sakout.fancybuttons.FancyButton;
+
+import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -115,6 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         boolean isPremium = (boolean) jsonObject.get("is_premium");
+                        setPremium(activity, isPremium);
                         if (isPremium) {
                             runOnUiThread(() -> {
                                 convert.setText(R.string.premium_user);

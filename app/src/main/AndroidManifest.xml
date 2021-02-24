@@ -19,7 +19,9 @@
         android:theme="@style/Theme.App"
         android:windowSoftInputMode="stateAlwaysHidden"
         tools:targetApi="q">
-        <activity android:name=".activities.PayActivity">
+        <activity
+            android:name=".activities.PayActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

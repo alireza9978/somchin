@@ -77,7 +77,7 @@ public class InjuriesFragment extends Fragment {
         Button submit = view.findViewById(R.id.submit);
         submit.setOnClickListener(view13 -> {
             if (!Constants.getPremium(requireContext())) {
-                Toast.makeText(requireContext(), R.string.premium_requier, Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
                 return;
             }
             if (Constants.checkPermission(requireContext()))

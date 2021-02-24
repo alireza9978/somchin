@@ -371,7 +371,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/anjoman_medium"
                     android:paddingEnd="20dp"
-                    android:text="@string/prevois"
+                    android:text="@string/my_previous"
                     android:textColor="@color/hit_gray"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"

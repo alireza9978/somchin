@@ -46,6 +46,8 @@ public class CheckBoxManager {
         dialog.get(0).add(dialog.get(1));//new langesh -> visit langesh
         dialog.get(1).add(dialog.get(0));//visit langesh -> new langesh
 
+        dialog.get(1).add(moreInfo.get(0));//visit langesh -> no injury
+
         dialog.get(2).add(dialog.get(3));//zakhm -> khon morde
         dialog.get(2).add(dialog.get(6));//zakhm -> behbod yafte
         dialog.get(2).add(moreInfo.get(0));//zakhm -> no injury
@@ -96,6 +98,15 @@ public class CheckBoxManager {
 
     public boolean moreInfoSelected() {
         return !(dialog.get(2).isCheck() || dialog.get(3).isCheck() || moreInfo.get(1).isCheck());
+    }
+
+    public boolean dialogSelected() {
+        for (CheckBoxItem item : dialog) {
+            if (item.isCheck() && item.isActive()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean reasonSelected() {
