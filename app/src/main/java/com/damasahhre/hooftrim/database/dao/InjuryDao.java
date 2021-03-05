@@ -11,17 +11,24 @@ import java.util.List;
 @Dao
 public interface InjuryDao {
 
-    @Query("SELECT COUNT(Report.id) FROM Report,Cow,Farm " +
+    @Query("SELECT COUNT(DISTINCT Report.visit_date) FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == :farmId " +
+            "AND Report.visit_date >= :start " +
+            "AND Report.visit_date <= :end")
+    Integer countDate(Long farmId, MyDate start, MyDate end);
+
+    @Query("SELECT SUM(id_count) FROM (SELECT COUNT(DISTINCT Report.id) AS id_count FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == :farmId " +
             "AND Report.visit_date >= :start " +
             "AND Report.visit_date <= :end " +
             "AND Report.leg_area_number == 0 " +
             "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.cow_id, Report.visit_date ")
+            "GROUP BY Report.finger_number)")
     Integer felemons(Long farmId, MyDate start, MyDate end);
 
-    @Query("SELECT COUNT(Report.id) FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(id_count) FROM (SELECT COUNT(DISTINCT Report.id) AS id_count FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
@@ -29,7 +36,7 @@ public interface InjuryDao {
             "AND Report.visit_date <= :end " +
             "AND Report.leg_area_number == 10 " +
             "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.cow_id, Report.visit_date ")
+            "GROUP BY Report.finger_number)")
     Integer deramatit(Long farmId, MyDate start, MyDate end);
 
     @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber " +
@@ -40,20 +47,18 @@ public interface InjuryDao {
             "AND Report.visit_date >= :start " +
             "AND Report.visit_date <= :end " +
             "AND Report.leg_area_number == 4 " +
-            "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.cow_id, Report.visit_date ")
+            "AND Report.reference_cause_new_limp ")
     List<InjureyReport> woundHoofBottom(Long farmId, MyDate start, MyDate end);
 
-    @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber" +
-            " FROM Report,Cow,Farm " +
+    @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber " +
+            "FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :start " +
             "AND Report.visit_date <= :end " +
             "AND (Report.leg_area_number == 2 OR Report.leg_area_number == 3) " +
-            "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.finger_number,Report.cow_id, Report.visit_date ")
+            "AND Report.reference_cause_new_limp ")
     List<InjureyReport> whiteLineWound(Long farmId, MyDate start, MyDate end);
 
     @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber" +
@@ -64,23 +69,22 @@ public interface InjuryDao {
             "AND Report.visit_date >= :start " +
             "AND Report.visit_date <= :end " +
             "AND (Report.leg_area_number == 5 OR Report.leg_area_number == 1)" +
-            "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.finger_number, Report.cow_id, Report.visit_date ")
+            "AND Report.reference_cause_new_limp ")
     List<InjureyReport> pangeWound(Long farmId, MyDate start, MyDate end);
 
-    @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber" +
-            " FROM Report,Cow,Farm " +
+    @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber " +
+            "FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :start " +
             "AND Report.visit_date <= :end " +
             "AND Report.leg_area_number == 6 " +
-            "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.finger_number, Report.cow_id, Report.visit_date ")
+            "AND Report.reference_cause_new_limp ")
     List<InjureyReport> pashneWound(Long farmId, MyDate start, MyDate end);
 
-    @Query("SELECT COUNT(Report.id) FROM Report,Cow,Farm " +
+    @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber " +
+            "FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
@@ -88,11 +92,10 @@ public interface InjuryDao {
             "AND Report.visit_date <= :end " +
             "AND (Report.leg_area_number == 7 OR Report.leg_area_number == 8 " +
             "OR Report.leg_area_number == 11 OR Report.leg_area_number == 12) " +
-            "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.finger_number, Report.cow_id, Report.visit_date ")
-    Integer wallWound(Long farmId, MyDate start, MyDate end);
+            "AND Report.reference_cause_new_limp ")
+    List<InjureyReport> wallWound(Long farmId, MyDate start, MyDate end);
 
-    @Query("SELECT COUNT(Report.id) FROM Report,Cow,Farm " +
+    @Query("SELECT COUNT(DISTINCT Report.id) FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
@@ -103,121 +106,121 @@ public interface InjuryDao {
             "GROUP BY Report.cow_id, Report.visit_date ")
     Integer reigenNine(Long farmId, MyDate start, MyDate end);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
-            "GROUP BY Report.cow_id")
-    List<Integer> box(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer box(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_limp_visit " +
-            "GROUP BY Report.cow_id")
-    List<Integer> visit(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer visit(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_new_limp " +
-            "GROUP BY Report.cow_id")
-    List<Integer> newLimp(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer newLimp(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_hundred_days " +
-            "GROUP BY Report.cow_id")
-    List<Integer> sadRoze(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer sadRoze(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_dryness " +
-            "GROUP BY Report.cow_id")
-    List<Integer> dryness(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer dryness(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_lagged " +
-            "GROUP BY Report.cow_id")
-    List<Integer> delayed(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer delayed(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_group_hoof_trim " +
-            "GROUP BY Report.cow_id")
-    List<Integer> group(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer group(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_high_score " +
-            "GROUP BY Report.cow_id")
-    List<Integer> high(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer high(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_referential " +
-            "GROUP BY Report.cow_id")
-    List<Integer> refrence(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer refrence(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_heifer " +
-            "GROUP BY Report.cow_id")
-    List<Integer> heifer(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer heifer(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.reference_cause_long_hoof " +
-            "GROUP BY Report.cow_id")
-    List<Integer> longHoof(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer longHoof(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.other_info_hoof_trim " +
-            "GROUP BY Report.cow_id")
-    List<Integer> somChini(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer somChini(Long farmId, MyDate date, MyDate endDate);
 
-    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+    @Query("SELECT SUM(total) FROM (SELECT 1 AS total FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
             "AND Report.other_info_boarding " +
-            "GROUP BY Report.cow_id")
-    List<Integer> boarding(Long farmId, MyDate date, MyDate endDate);
+            "GROUP BY Report.cow_id, Report.visit_date)")
+    Integer boarding(Long farmId, MyDate date, MyDate endDate);
 
 
     //

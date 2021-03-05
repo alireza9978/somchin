@@ -99,10 +99,11 @@ public class ReportSummery extends AppCompatActivity {
                 cowText.append(" " + myReport.report.id);
                 cowText.append(getString(R.string.cow_title));
                 cowText.append("" + myReport.cowNumber);
-
-                if (report.legAreaNumber != -1) {
-                    area.setText(getString(R.string.injury_area) + " " + report.legAreaNumber +
-                            ", " + getString(R.string.finger) + " " + report.fingerNumber);
+                if (report.legAreaNumber != null) {
+                    if (report.legAreaNumber != -1) {
+                        area.setText(getString(R.string.injury_area) + " " + report.legAreaNumber +
+                                ", " + getString(R.string.finger) + " " + report.fingerNumber);
+                    }
                 }
                 DateContainer container;
                 if (Constants.getDefaultLanguage(this).equals("fa")) {

@@ -147,6 +147,8 @@ public class FarmProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
         remove.setOnClickListener(view -> {
+            remove.setActivated(false);
+            remove.setClickable(false);
             MyDao dao = DataBase.getInstance(this).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Farm farm = dao.getFarm(id);
@@ -338,17 +340,17 @@ public class FarmProfileActivity extends AppCompatActivity {
                     row = sheet.createRow(i + 1);
 
                     Cell cell = row.createCell(0);
-                    cell.setCellValue(String.valueOf(myReport.cowNumber));
+                    cell.setCellValue(myReport.cowNumber);
 
                     int[] date = report.visit.convert(this);
                     cell = row.createCell(1);
-                    cell.setCellValue(String.valueOf(date[2]));
+                    cell.setCellValue(date[2]);
 
                     cell = row.createCell(2);
-                    cell.setCellValue(String.valueOf(date[1]));
+                    cell.setCellValue(date[1]);
 
                     cell = row.createCell(3);
-                    cell.setCellValue(String.valueOf(date[0]));
+                    cell.setCellValue(date[0]);
 
                     cell = row.createCell(4);
                     if (report.referenceCauseHundredDays)
@@ -390,10 +392,16 @@ public class FarmProfileActivity extends AppCompatActivity {
                     if (report.referenceCauseGroupHoofTrim)
                         cell.setCellValue("*");
 
-                    for (int k = 0; k < 13; k++) {
-                        cell = row.createCell(k + 14);
-                        if (report.legAreaNumber == k)
-                            cell.setCellValue(String.valueOf(report.fingerNumber));
+                    if (report.legAreaNumber != null) {
+                        for (int k = 0; k < 13; k++) {
+                            cell = row.createCell(k + 14);
+                            if (report.legAreaNumber == k)
+                                cell.setCellValue(report.fingerNumber);
+                        }
+                    } else {
+                        for (int k = 0; k < 13; k++) {
+                            cell = row.createCell(k + 14);
+                        }
                     }
 
                     cell = row.createCell(27);

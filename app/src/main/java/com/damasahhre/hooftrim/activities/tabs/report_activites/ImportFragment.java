@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,7 +127,6 @@ public class ImportFragment extends Fragment {
                     }, null, null, null)) {
                         if (cursor != null && cursor.moveToFirst()) {
                             fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
-                            Log.d("IMPORTS", "name is " + fileName);
                         }
                     }
                 }
@@ -177,6 +175,7 @@ public class ImportFragment extends Fragment {
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             Sheet finalDatatypeSheet = dataTypeSheet;
             String finalFarmName = farmName;
+            requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "importing...", Toast.LENGTH_LONG).show());
             AppExecutors.getInstance().diskIO().execute(() -> {
                 Farm farm = new Farm(finalFarmName, 0, "", Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
                 farm.setId(dao.insertGetId(farm));
@@ -190,55 +189,85 @@ public class ImportFragment extends Fragment {
                 while (rows.hasNext()) {
                     Row row = rows.next();
                     Report report = new Report();
-                    report.cowId = Long.parseLong(row.getCell(0).getStringCellValue());
+                    if (row.getCell(0).getCellType() == Cell.CELL_TYPE_STRING) {
+                        report.cowId = Long.parseLong(row.getCell(0).getStringCellValue());
+                    } else {
+                        report.cowId = (long) row.getCell(0).getNumericCellValue();
+                    }
                     cowNumbers.add(report.cowId.intValue());
+                    int day, month, year;
+                    if (row.getCell(3).getCellType() == Cell.CELL_TYPE_STRING) {
+                        year = Integer.parseInt(row.getCell(3).getStringCellValue());
+                    } else if (row.getCell(3).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        year = (int) row.getCell(3).getNumericCellValue();
+                    } else {
+                        requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "read error", Toast.LENGTH_LONG).show());
+                        return;
+                    }
+
+                    if (row.getCell(2).getCellType() == Cell.CELL_TYPE_STRING) {
+                        month = Integer.parseInt(row.getCell(2).getStringCellValue());
+                    } else if (row.getCell(2).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        month = (int) row.getCell(2).getNumericCellValue();
+                    } else {
+                        requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "read error", Toast.LENGTH_LONG).show());
+                        return;
+                    }
+
+                    if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
+                        day = Integer.parseInt(row.getCell(1).getStringCellValue());
+                    } else if (row.getCell(1).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        day = (int) row.getCell(1).getNumericCellValue();
+                    } else {
+                        requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "read error", Toast.LENGTH_LONG).show());
+                        return;
+                    }
+
                     if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
                         PersianDate pdate = new PersianDate();
-                        int[] dateArray = pdate.toGregorian(Integer.parseInt(row.getCell(3).getStringCellValue()),
-                                Integer.parseInt(row.getCell(2).getStringCellValue()),
-                                Integer.parseInt(row.getCell(1).getStringCellValue()));
+                        int[] dateArray = pdate.toGregorian(year, month, day);
                         report.visit = new MyDate(dateArray[2], dateArray[1], dateArray[0]);
                     } else {
-                        report.visit = new MyDate(Integer.parseInt(row.getCell(1).getStringCellValue()),
-                                Integer.parseInt(row.getCell(2).getStringCellValue()),
-                                Integer.parseInt(row.getCell(3).getStringCellValue()));
+                        report.visit = new MyDate(day, month, year);
                     }
                     for (int i = 4; i < 14; i++) {
                         Cell cell = row.getCell(i);
                         if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                             String star = cell.getStringCellValue();
-                            if (star != null && !star.isEmpty() && star.equals("*")) {
-                                switch (i) {
-                                    case 4:
-                                        report.referenceCauseHundredDays = true;
-                                        break;
-                                    case 5:
-                                        report.referenceCauseDryness = true;
-                                        break;
-                                    case 6:
-                                        report.referenceCauseLagged = true;
-                                        break;
-                                    case 7:
-                                        report.referenceCauseNewLimp = true;
-                                        break;
-                                    case 8:
-                                        report.referenceCauseLimpVisit = true;
-                                        break;
-                                    case 9:
-                                        report.referenceCauseHighScore = true;
-                                        break;
-                                    case 10:
-                                        report.referenceCauseReferential = true;
-                                        break;
-                                    case 11:
-                                        report.referenceCauseLongHoof = true;
-                                        break;
-                                    case 12:
-                                        report.referenceCauseHeifer = true;
-                                        break;
-                                    case 13:
-                                        report.referenceCauseGroupHoofTrim = true;
-                                        break;
+                            if (star != null && !star.isEmpty()) {
+                                if (star.equalsIgnoreCase("*")) {
+                                    switch (i) {
+                                        case 4:
+                                            report.referenceCauseHundredDays = true;
+                                            break;
+                                        case 5:
+                                            report.referenceCauseDryness = true;
+                                            break;
+                                        case 6:
+                                            report.referenceCauseLagged = true;
+                                            break;
+                                        case 7:
+                                            report.referenceCauseHighScore = true;
+                                            break;
+                                        case 8:
+                                            report.referenceCauseReferential = true;
+                                            break;
+                                        case 9:
+                                            report.referenceCauseHeifer = true;
+                                            break;
+                                        case 10:
+                                            report.referenceCauseLongHoof = true;
+                                            break;
+                                        case 11:
+                                            report.referenceCauseNewLimp = true;
+                                            break;
+                                        case 12:
+                                            report.referenceCauseLimpVisit = true;
+                                            break;
+                                        case 13:
+                                            report.referenceCauseGroupHoofTrim = true;
+                                            break;
+                                    }
                                 }
                             } else {
                                 switch (i) {
@@ -252,27 +281,61 @@ public class ImportFragment extends Fragment {
                                         report.referenceCauseLagged = false;
                                         break;
                                     case 7:
-                                        report.referenceCauseNewLimp = false;
-                                        break;
-                                    case 8:
-                                        report.referenceCauseLimpVisit = false;
-                                        break;
-                                    case 9:
                                         report.referenceCauseHighScore = false;
                                         break;
-                                    case 10:
+                                    case 8:
                                         report.referenceCauseReferential = false;
                                         break;
-                                    case 11:
+                                    case 9:
+                                        report.referenceCauseHeifer = false;
+                                        break;
+                                    case 10:
                                         report.referenceCauseLongHoof = false;
                                         break;
+                                    case 11:
+                                        report.referenceCauseNewLimp = false;
+                                        break;
                                     case 12:
-                                        report.referenceCauseHeifer = false;
+                                        report.referenceCauseLimpVisit = false;
                                         break;
                                     case 13:
                                         report.referenceCauseGroupHoofTrim = false;
                                         break;
                                 }
+                            }
+                        } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+                            boolean state = cell.getBooleanCellValue();
+                            switch (i) {
+                                case 4:
+                                    report.referenceCauseHundredDays = state;
+                                    break;
+                                case 5:
+                                    report.referenceCauseDryness = state;
+                                    break;
+                                case 6:
+                                    report.referenceCauseLagged = state;
+                                    break;
+                                case 7:
+                                    report.referenceCauseHighScore = state;
+                                    break;
+                                case 8:
+                                    report.referenceCauseReferential = state;
+                                    break;
+                                case 9:
+                                    report.referenceCauseHeifer = state;
+                                    break;
+                                case 10:
+                                    report.referenceCauseLongHoof = state;
+                                    break;
+                                case 11:
+                                    report.referenceCauseNewLimp = state;
+                                    break;
+                                case 12:
+                                    report.referenceCauseLimpVisit = state;
+                                    break;
+                                case 13:
+                                    report.referenceCauseGroupHoofTrim = state;
+                                    break;
                             }
                         } else {
                             switch (i) {
@@ -286,22 +349,22 @@ public class ImportFragment extends Fragment {
                                     report.referenceCauseLagged = false;
                                     break;
                                 case 7:
-                                    report.referenceCauseNewLimp = false;
-                                    break;
-                                case 8:
-                                    report.referenceCauseLimpVisit = false;
-                                    break;
-                                case 9:
                                     report.referenceCauseHighScore = false;
                                     break;
-                                case 10:
+                                case 8:
                                     report.referenceCauseReferential = false;
                                     break;
-                                case 11:
+                                case 9:
+                                    report.referenceCauseHeifer = false;
+                                    break;
+                                case 10:
                                     report.referenceCauseLongHoof = false;
                                     break;
+                                case 11:
+                                    report.referenceCauseNewLimp = false;
+                                    break;
                                 case 12:
-                                    report.referenceCauseHeifer = false;
+                                    report.referenceCauseLimpVisit = false;
                                     break;
                                 case 13:
                                     report.referenceCauseGroupHoofTrim = false;
@@ -319,6 +382,11 @@ public class ImportFragment extends Fragment {
                                 report.rightSide = report.fingerNumber % 2 == 0;
                                 break;
                             }
+                        } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                            report.fingerNumber = (int) cell.getNumericCellValue();
+                            report.legAreaNumber = i - 14;
+                            report.rightSide = report.fingerNumber % 2 == 0;
+                            break;
                         }
                     }
                     for (int i = 27; i < 33; i++) {
@@ -367,6 +435,28 @@ public class ImportFragment extends Fragment {
                                         report.otherInfoNoInjury = false;
                                         break;
                                 }
+                            }
+                        } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+                            boolean state = cell.getBooleanCellValue();
+                            switch (i) {
+                                case 27:
+                                    report.otherInfoWound = state;
+                                    break;
+                                case 28:
+                                    report.otherInfoEcchymosis = state;
+                                    break;
+                                case 29:
+                                    report.otherInfoHoofTrim = state;
+                                    break;
+                                case 30:
+                                    report.otherInfoGel = state;
+                                    break;
+                                case 31:
+                                    report.otherInfoBoarding = state;
+                                    break;
+                                case 32:
+                                    report.otherInfoNoInjury = state;
+                                    break;
                             }
                         } else {
                             switch (i) {

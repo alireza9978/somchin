@@ -126,10 +126,25 @@ public class InjuriesFragment extends Fragment {
         });
     }
 
+    public List<InjureyReport> findSame(List<InjureyReport> mainList) {
+        List<InjureyReport> sameToRemove = new ArrayList<>();
+        for (int i = 0; i < mainList.size() - 1; i++) {
+            InjureyReport temp = mainList.get(i);
+            for (int j = i + 1; j < mainList.size(); j++) {
+                InjureyReport inner_temp = mainList.get(j);
+                if (inner_temp.cowId.equals(temp.cowId) && temp.date.equals(inner_temp.date) &&
+                        inner_temp.fingerNumber.equals(temp.fingerNumber)) {
+                    sameToRemove.add(inner_temp);
+                }
+            }
+        }
+        return sameToRemove;
+    }
 
     public void export() {
 
         InjuryDao dao = DataBase.getInstance(requireContext()).injuryDao();
+        MyDao myDao = DataBase.getInstance(requireContext()).dao();
 
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("one");
@@ -169,6 +184,7 @@ public class InjuriesFragment extends Fragment {
             arrayList.add(bottom.size());
             int count = 0;
             List<InjureyReport> white = dao.whiteLineWound(farmId, date.exportStart(), date.exportEnd());
+            white.removeAll(findSame(white));
             for (InjureyReport temp : white) {
                 for (InjureyReport bot : bottom) {
                     if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
@@ -179,6 +195,7 @@ public class InjuriesFragment extends Fragment {
             arrayList.add(white.size() - count);
             count = 0;
             List<InjureyReport> pange = dao.pangeWound(farmId, date.exportStart(), date.exportEnd());
+            pange.removeAll(findSame(pange));
             for (InjureyReport temp : pange) {
                 for (InjureyReport bot : bottom) {
                     if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
@@ -197,24 +214,26 @@ public class InjuriesFragment extends Fragment {
                 }
             }
             arrayList.add(pashne.size() - count);
-            arrayList.add(dao.wallWound(farmId, date.exportStart(), date.exportEnd()));
+            List<InjureyReport> wallWound = dao.wallWound(farmId, date.exportStart(), date.exportEnd());
+            wallWound.removeAll(findSame(wallWound));
+            arrayList.add(wallWound.size());
             arrayList.add(dao.reigenNine(farmId, date.exportStart(), date.exportEnd()));
 
-            ArrayList<Double> secondPart = new ArrayList<>();
-            double dayCount = date.getRange();
-            secondPart.add(dao.box(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.visit(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.newLimp(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.sadRoze(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.dryness(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.delayed(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.group(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.high(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.refrence(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.heifer(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.longHoof(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.somChini(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
-            secondPart.add(dao.boarding(farmId, date.exportStart(), date.exportEnd()).size() / dayCount);
+            ArrayList<Integer> secondPart = new ArrayList<>();
+            double dayCount = dao.countDate(farmId, date.exportStart(), date.exportEnd());
+            double box = dao.box(farmId, date.exportStart(), date.exportEnd()) / dayCount;
+            secondPart.add(dao.visit(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.newLimp(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.sadRoze(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.dryness(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.delayed(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.group(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.longHoof(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.somChini(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.high(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.heifer(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.boarding(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.refrence(farmId, date.exportStart(), date.exportEnd()));
 
             requireActivity().runOnUiThread(() -> {
                 //add headers
@@ -234,19 +253,26 @@ public class InjuriesFragment extends Fragment {
                         cell.setCellValue(0);
                     } else {
                         cell.setCellValue(arrayList.get(i));
-
+                        Log.i("report", "export: " + i + " value = " + arrayList.get(i));
                     }
                 }
-                for (int i = 0; i < 13; i++) {
+
+                row = sheet.createRow(9);
+                Cell temp_cell = row.createCell(0);
+                temp_cell.setCellValue(getString(rowsNameTwo[0]));
+                temp_cell = row.createCell(1);
+                temp_cell.setCellValue(box);
+
+                for (int i = 1; i < 13; i++) {
                     row = sheet.createRow(i + 9);
                     Cell cell = row.createCell(0);
                     cell.setCellValue(getString(rowsNameTwo[i]));
                     cell = row.createCell(1);
-                    if (secondPart.get(i) == null) {
+                    if (secondPart.get(i - 1) == null) {
                         Log.i("report", "export 2 : " + i);
                         cell.setCellValue(0);
                     } else {
-                        cell.setCellValue(secondPart.get(i));
+                        cell.setCellValue(secondPart.get(i - 1));
                     }
                 }
 
