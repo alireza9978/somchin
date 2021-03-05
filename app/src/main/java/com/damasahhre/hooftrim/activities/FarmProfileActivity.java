@@ -340,16 +340,20 @@ public class FarmProfileActivity extends AppCompatActivity {
                     row = sheet.createRow(i + 1);
 
                     Cell cell = row.createCell(0);
+                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                     cell.setCellValue(myReport.cowNumber);
 
                     int[] date = report.visit.convert(this);
                     cell = row.createCell(1);
+                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                     cell.setCellValue(date[2]);
 
                     cell = row.createCell(2);
+                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                     cell.setCellValue(date[1]);
 
                     cell = row.createCell(3);
+                    cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                     cell.setCellValue(date[0]);
 
                     cell = row.createCell(4);
@@ -395,8 +399,10 @@ public class FarmProfileActivity extends AppCompatActivity {
                     if (report.legAreaNumber != null) {
                         for (int k = 0; k < 13; k++) {
                             cell = row.createCell(k + 14);
-                            if (report.legAreaNumber == k)
+                            if (report.legAreaNumber == k) {
+                                cell.setCellType(Cell.CELL_TYPE_NUMERIC);
                                 cell.setCellValue(report.fingerNumber);
+                            }
                         }
                     } else {
                         for (int k = 0; k < 13; k++) {
