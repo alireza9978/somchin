@@ -8,9 +8,9 @@ android {
     defaultConfig {
         applicationId "com.damasahhre.hooftrim"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 109
-        versionName "0.1.9"
+        versionName "0.1.10"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

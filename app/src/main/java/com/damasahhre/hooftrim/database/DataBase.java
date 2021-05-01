@@ -17,7 +17,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.DateConverter;
 
-@Database(entities = {Farm.class, Cow.class, Report.class, DeletedReport.class, DeletedCow.class, DeletedFarm.class}, version = 3, exportSchema = false)
+@Database(entities = {Farm.class, Cow.class, Report.class, DeletedReport.class, DeletedCow.class, DeletedFarm.class}, version = 4, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class DataBase extends RoomDatabase {
     private static final String dataBaseName = "temp";

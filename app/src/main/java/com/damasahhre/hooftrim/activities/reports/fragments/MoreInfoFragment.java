@@ -59,7 +59,7 @@ public class MoreInfoFragment extends Fragment {
 
         view.findViewById(R.id.next_button).setOnClickListener(v -> {
             if (CheckBoxManager.getCheckBoxManager().moreInfoSelected()) {
-                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.triple_selection_error, Toast.LENGTH_SHORT).show();
                 return;
             }
             ((AddReportActivity) requireActivity()).next();

@@ -1,8 +1,5 @@
 package com.damasahhre.hooftrim.database.models;
 
-import android.content.Context;
-
-import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.models.MyDate;
 
 public class CowWithLastVisit {
@@ -27,8 +24,8 @@ public class CowWithLastVisit {
         this.number = number;
     }
 
-    public String getNumber(Context context) {
-        return context.getString(R.string.cow_title) + number;
+    public String getNumberString() {
+        return String.valueOf(number);
     }
 
     public MyDate getLastVisit() {

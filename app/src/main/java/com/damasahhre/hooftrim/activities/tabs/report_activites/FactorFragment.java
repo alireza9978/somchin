@@ -106,17 +106,17 @@ public class FactorFragment extends Fragment {
                 return;
             }
             if (farmId == -1) {
-                Toast.makeText(requireContext(), "enter farm", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.enter_farm_error, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (date == null) {
-                Toast.makeText(requireContext(), "enter date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.toast_enter_date, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (priceSomText.getText().toString().isEmpty() ||
                     priceBoardText.getText().toString().isEmpty() ||
                     priceCureText.getText().toString().isEmpty()) {
-                Toast.makeText(requireContext(), "enter price", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.enter_price_error, Toast.LENGTH_SHORT).show();
                 return;
             }
             try {
@@ -150,6 +150,7 @@ public class FactorFragment extends Fragment {
                         List<Integer> temp = dao.hoofTrimFactorAll(farmId, date.exportStart(), date.exportEnd());
                         List<Integer> temp1 = dao.gelFactorAll(farmId, date.exportStart(), date.exportEnd());
                         List<Integer> temp2 = dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd());
+                        temp2.addAll(dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd()));
                         List<Integer> temp3 = dao.visitFactorAll(farmId, date.exportStart(), date.exportEnd());
                         counts[0] = temp.size();
                         counts[1] = temp1.size();
@@ -160,6 +161,7 @@ public class FactorFragment extends Fragment {
                             List<Integer> temp = dao.hoofTrimFactor(farmId, date.exportStart(), date.exportEnd(), number);
                             List<Integer> temp1 = dao.gelFactor(farmId, date.exportStart(), date.exportEnd(), number);
                             List<Integer> temp2 = dao.boardingFactor(farmId, date.exportStart(), date.exportEnd(), number);
+                            temp2.addAll(dao.boardingFactorOther(farmId, date.exportStart(), date.exportEnd(), number));
                             List<Integer> temp3 = dao.visitFactor(farmId, date.exportStart(), date.exportEnd(), number);
                             counts[0] += temp.size();
                             counts[1] += temp1.size();

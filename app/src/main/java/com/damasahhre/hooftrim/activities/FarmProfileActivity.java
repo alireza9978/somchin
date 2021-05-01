@@ -42,10 +42,10 @@ import com.damasahhre.hooftrim.dialog.DateModelDialog;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.models.MyDate;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -260,22 +260,23 @@ public class FarmProfileActivity extends AppCompatActivity {
                 else
                     nextVisit.setText(R.string.no_visit_short);
             });
+
             List<CowWithLastVisit> cows = dao.getAllCowOfFarmWithLastVisit(id);
             List<Cow> allCows = dao.getAllCowOfFarm(id);
-            runOnUiThread(() -> {
-                main:
-                for (Cow cow : allCows) {
-                    for (CowWithLastVisit cowWithLastVisit : cows) {
-                        if (cow.getId().equals(cowWithLastVisit.getId())) {
-                            continue main;
-                        }
+            main:
+            for (Cow cow : allCows) {
+                for (CowWithLastVisit cowWithLastVisit : cows) {
+                    if (cow.getId().equals(cowWithLastVisit.getId())) {
+                        continue main;
                     }
-                    CowWithLastVisit temp = new CowWithLastVisit();
-                    temp.setId(cow.getId());
-                    temp.setLastVisit(null);
-                    temp.setNumber(cow.getNumber());
-                    cows.add(temp);
                 }
+                CowWithLastVisit temp = new CowWithLastVisit();
+                temp.setId(cow.getId());
+                temp.setLastVisit(null);
+                temp.setNumber(cow.getNumber());
+                cows.add(temp);
+            }
+            runOnUiThread(() -> {
                 GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, id);
                 cowsGridView.setAdapter(adapter);
             });
@@ -302,8 +303,8 @@ public class FarmProfileActivity extends AppCompatActivity {
         if (Constants.checkPermission(this))
             return;
 
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("Sample sheet");
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Sample sheet");
 
         Integer[] headers = {R.string.cow_number, R.string.day, R.string.month, R.string.year,
                 reason_1, reason_2, reason_3,

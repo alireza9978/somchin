@@ -35,6 +35,7 @@ public class CheckBoxManager {
         reasons.add(new CheckBoxItem(R.string.reason_8));
         reasons.add(new CheckBoxItem(R.string.reason_9));
         reasons.add(new CheckBoxItem(R.string.reason_10));
+        reasons.add(new CheckBoxItem(R.string.reason_11));
 
         reasons.get(0).add(reasons.get(1));//100 roze -> khoshki
         reasons.get(0).add(reasons.get(2));//100 roze -> aghab mande
@@ -90,6 +91,10 @@ public class CheckBoxManager {
     }
 
     public void resetFast() {
+        for (CheckBoxItem item : reasons) {
+            item.setCheck(false);
+            item.setActive(true);
+        }
         for (CheckBoxItem item : dialog) {
             item.setCheck(false);
             item.setActive(true);
@@ -98,6 +103,21 @@ public class CheckBoxManager {
 
     public boolean moreInfoSelected() {
         return !(dialog.get(2).isCheck() || dialog.get(3).isCheck() || moreInfo.get(1).isCheck());
+    }
+
+    public boolean conditionOne() {
+//        در صورتی که گزینه ی لنگش جدید یا بازدید علامت می خورد حتما باید یکی از گزینه های زخم یا خونمردگی علامت بخورد
+        if (dialog.get(0).isCheck() || dialog.get(1).isCheck()) {
+            return dialog.get(2).isCheck() || dialog.get(3).isCheck();
+        }
+        return true;
+    }
+
+    public boolean moreInfoCondition() {
+        if (!reasons.get(0).isCheck() && !reasons.get(1).isCheck() && !reasons.get(2).isCheck() && !reasons.get(7).isCheck()) {
+            return dialog.get(0).isCheck() || dialog.get(1).isCheck();
+        }
+        return false;
     }
 
     public boolean dialogSelected() {
@@ -130,6 +150,7 @@ public class CheckBoxManager {
         reasons.get(5).setCheck(report.referenceCauseLongHoof);
         reasons.get(6).setCheck(report.referenceCauseHeifer);
         reasons.get(7).setCheck(report.referenceCauseGroupHoofTrim);
+        reasons.get(8).setCheck(report.referenceCauseOther);
 
         dialog.get(2).setCheck(report.otherInfoWound);
         dialog.get(3).setCheck(report.otherInfoEcchymosis);
@@ -166,6 +187,7 @@ public class CheckBoxManager {
         report.referenceCauseLongHoof = reasons.get(5).isCheck();
         report.referenceCauseHeifer = reasons.get(6).isCheck();
         report.referenceCauseGroupHoofTrim = reasons.get(7).isCheck();
+        report.referenceCauseOther = reasons.get(8).isCheck();
 
         report.otherInfoWound = dialog.get(2).isCheck();
         report.otherInfoEcchymosis = dialog.get(3).isCheck();
@@ -188,6 +210,7 @@ public class CheckBoxManager {
         report.referenceCauseLongHoof = reasons.get(5).isCheck();
         report.referenceCauseHeifer = reasons.get(6).isCheck();
         report.referenceCauseGroupHoofTrim = reasons.get(7).isCheck();
+        report.referenceCauseOther = reasons.get(8).isCheck();
 
         report.otherInfoWound = dialog.get(2).isCheck();
         report.otherInfoEcchymosis = dialog.get(3).isCheck();

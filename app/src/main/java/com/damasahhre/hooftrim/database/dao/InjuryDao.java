@@ -231,8 +231,22 @@ public interface InjuryDao {
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
-            "AND Report.other_info_boarding ")
+            "AND Report.other_info_boarding " +
+            "AND (Report.leg_area_number == 1 OR Report.leg_area_number == 2 OR Report.leg_area_number == 3 OR Report.leg_area_number == 4" +
+            " OR Report.leg_area_number == 5 OR Report.leg_area_number == 6 OR Report.leg_area_number == 7 OR Report.leg_area_number == 8" +
+            " OR Report.leg_area_number == 12 OR Report.leg_area_number == 11) " +
+            "GROUP BY Report.finger_number")
     List<Integer> boardingFactorAll(Long farmId, MyDate date, MyDate endDate);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_boarding " +
+            "AND (Report.leg_area_number == 0 OR Report.leg_area_number == 10 OR Report.leg_area_number == 9)" +
+            "GROUP BY Report.finger_number")
+    List<Integer> boardingFactorAllOther(Long farmId, MyDate date, MyDate endDate);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
@@ -240,8 +254,23 @@ public interface InjuryDao {
             "AND Cow.number == :cowNumber " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
-            "AND Report.other_info_boarding ")
+            "AND Report.other_info_boarding " +
+            "AND (Report.leg_area_number == 1 OR Report.leg_area_number == 2 OR Report.leg_area_number == 3 OR Report.leg_area_number == 4" +
+            " OR Report.leg_area_number == 5 OR Report.leg_area_number == 6 OR Report.leg_area_number == 7 OR Report.leg_area_number == 8" +
+            " OR Report.leg_area_number == 12 OR Report.leg_area_number == 11) " +
+            "GROUP BY Report.finger_number")
     List<Integer> boardingFactor(Long farmId, MyDate date, MyDate endDate, Integer cowNumber);
+
+    @Query("SELECT Report.id FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Cow.number == :cowNumber " +
+            "AND Farm.id == :farmId " +
+            "AND Report.visit_date >= :date  AND Report.visit_date <= :endDate  " +
+            "AND Report.other_info_boarding " +
+            "AND (Report.leg_area_number == 0 OR Report.leg_area_number == 10 OR Report.leg_area_number == 9)" +
+            "GROUP BY Report.finger_number")
+    List<Integer> boardingFactorOther(Long farmId, MyDate date, MyDate endDate, Integer cowNumber);
 
     @Query("SELECT Report.id FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +

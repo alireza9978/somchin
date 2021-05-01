@@ -157,7 +157,7 @@ public interface MyDao {
             " Farm.id == :farmId GROUP BY Cow.id")
     List<NextVisit> getAllNextVisitFroFarm(MyDate now, Long farmId);
 
-    @Query("SELECT Report.next_visit_date AS nextVisit, MAX(Report.visit_date) AS lastVisit" +
+    @Query("SELECT MIN(Report.next_visit_date) AS nextVisit, MAX(Report.visit_date) AS lastVisit" +
             " FROM Report" +
             " WHERE Report.cow_id == :cowId")
     LastReport getLastReport(Long cowId);
@@ -236,7 +236,7 @@ public interface MyDao {
             "WHERE Report.cow_id == Cow.id AND Cow.farm_id == :id AND Report.visit_date == :day")
     List<MyReport> getAllMyReportFarm(Long id, MyDate day);
 
-    @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.id == :id")
+    @Query("SELECT *, Cow.number AS cowNumber FROM Cow,Report WHERE Report.id == :id and Cow.id == Report.cow_id")
     MyReport myReportWithCow(Long id);
 
     @Query("SELECT * FROM Farm WHERE Farm.id == :id")

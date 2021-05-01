@@ -95,14 +95,15 @@
 
     <string name="reason_1">120 DIM</string>
     <string name="reason_2">Dry-off</string>
-    <string name="reason_3">Delayed reproduction</string>
+    <string name="reason_3">Delayed repro</string>
     <string name="reason_4">New case</string>
     <string name="reason_5">Re-check</string>
-    <string name="reason_6">High locomotion score</string>
+    <string name="reason_6">High LS</string>
     <string name="reason_7">Lame cows</string>
     <string name="reason_8">Long toe</string>
     <string name="reason_9">Heifer</string>
     <string name="reason_10">Hoof trimming</string>
+    <string name="reason_11">Other</string>
 
     <string name="more_info">More info</string>
     <string name="create">Create</string>
@@ -197,7 +198,7 @@
     <string name="email">Email</string>
     <string name="username">Profile</string>
     <string name="save">Save</string>
-    <string name="more_info_text_one">In first filed you should enter primary information of the cow like cow ID and date</string>
+    <string name="more_info_text_one">In first field you should enter primary information of the cow like cow ID and date</string>
     <string name="more_info_three">In the third field, you can mark the affected zone in case of new lesions or re-checks and then fill the digit number.Choose "new case" or "re-check" to show if the lesion is new or not. Numbering the digits in this application starts from one for lateral right forelimb digit following a ‘S’ Pattern as the medial right forelimb (2), medial left forelimb (3), lateral left forelimb (4), lateral right hindlimb (5), medial right hindlimb (6), medial left hindlimb (7) and lateral left hindlimb (8)</string>
     <string name="forget_password">Forgot password?</string>
     <string name="forgot_password">Forgot password</string>
@@ -221,9 +222,9 @@
     <string name="forget_sended">We send your new password</string>
     <string name="not_confirmed">Your email is not confirmed</string>
     <string name="login_pls">You can login in app</string>
-    <string name="about_us_text">Data recording and analysis is one of the most important parts of the managerial systems in dairy farms. Modern dairy farming needs applied information that arise from time consuming data recording systems and needs more up to date digital recordings. Herd health is an essential part in maintaining dairy productions and sustainable dairy farming. Infertility, mastitis and lameness consider as the most important causes of economic losses that need constant monitoring and recording.
-        Hoof trimming assist (HTA®) is a multimedia application for recording data by hoof trimming chute. By its user friendly design you can record basic dairy information like (dairy production, parity, reason for hoof trimming….), hoof lesions information like number of affected digit or affected region and type of lesion like hemorrhage or wound and so many other useful information. You can create report of hoof trimmings, lesions, costs, bills etc. on excel and other formats. Excel output of application can easily import on different dairy cow management systems.</string>
-    <string name="about_us_text_bot">Get HTA® do more precise work on hoof trimming and recording</string>
+    <string name="about_us_text">Data recording and analysis is one of the most important parts of the managerial systems in dairy farms. Modern dairy farming needs applied information whose recording and data analyzing can be time consuming, so the need for more up to date digital recordings is arising. Herd health is an essential part in maintaining dairy productions and sustainable dairy farming. Infertility, mastitis and lameness are considered the most important causes of economic losses. Therefore, they need constant monitoring and recording.
+        Hoof trimming assist (HTA®) is an Android application for recording the data provided by hoof trimmers in their trimming chutes. By its user-friendly design, you can record basic dairy information such as (dairy production, parity, reason for hoof trimming….), hoof lesions data including the number of affected digit and affected region and the type of lesion such as hemorrhage or wound and many other useful information. You can also create a report of hoof trimmings, lesions and invoices on an excel sheet. Excel output of the application can be easily imported on different dairy cow management systems.</string>
+    <string name="about_us_text_bot">Get HTA® to be more precise on your hoof trimmings and recordings.</string>
     <string name="old_next_visit">Next visit date</string>
     <string name="sync">Sync</string>
     <string name="syncStarted">Sync started</string>
@@ -247,5 +248,12 @@
     <string name="all_date">All dates</string>
     <string name="notification">Notification</string>
     <string name="connection_required">Connection required</string>
+    <string name="triple_selection_error">select one of wound, hoof trim or point hemorrhage</string>
+    <string name="leg_area_number_error">enter number between 1 and 8</string>
+    <string name="range_date_error">select start and end date</string>
+    <string name="single_date_error">select date</string>
+    <string name="condition_error">select one of wound or point hemorrhage</string>
+    <string name="enter_farm_error">select farm</string>
+    <string name="enter_price_error">enter price</string>
 
 </resources>

@@ -55,6 +55,10 @@ public class SelectFingerDialog extends Dialog {
                     number = Integer.parseInt(edit.getText().toString());
                 }
                 if (number >= 1 && number <= 8) {
+                    if (!CheckBoxManager.getCheckBoxManager().conditionOne()) {
+                        Toast.makeText(context, context.getString(R.string.condition_error), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (!CheckBoxManager.getCheckBoxManager().dialogSelected()) {
                         Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
                         return;
@@ -63,7 +67,7 @@ public class SelectFingerDialog extends Dialog {
                     ((AddReportActivity) context).setFingerNumber(number);
                     ((AddReportActivity) context).addCowAndReportFast();
                 } else {
-                    Toast.makeText(context, "value error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.leg_area_number_error, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -83,11 +87,15 @@ public class SelectFingerDialog extends Dialog {
             Constants.hideKeyboard((AddReportActivity) context, findViewById(R.id.root).getWindowToken());
             int number = -1;
             if (edit.getText().toString().isEmpty()) {
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.empty_error), Toast.LENGTH_SHORT).show();
             } else {
                 number = Integer.parseInt(edit.getText().toString());
             }
             if (number >= 1 && number <= 8) {
+                if (!CheckBoxManager.getCheckBoxManager().conditionOne()) {
+                    Toast.makeText(context, context.getString(R.string.condition_error), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!CheckBoxManager.getCheckBoxManager().dialogSelected()) {
                     Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
                     return;
@@ -95,7 +103,7 @@ public class SelectFingerDialog extends Dialog {
                 dismiss();
                 ((AddReportActivity) context).setFingerNumber(number);
             } else {
-                Toast.makeText(context, "value error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.leg_area_number_error, Toast.LENGTH_SHORT).show();
             }
         });
     }

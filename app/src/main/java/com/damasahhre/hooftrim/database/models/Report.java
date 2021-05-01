@@ -118,6 +118,10 @@ public class Report {
     @ColumnInfo(name = "reference_cause_group_hoof_trim")
     public Boolean referenceCauseGroupHoofTrim;
     @Expose()
+    @SerializedName("reference_cause_other")
+    @ColumnInfo(name = "reference_cause_other")
+    public Boolean referenceCauseOther;
+    @Expose()
     @SerializedName("description")
     @ColumnInfo(name = "description")
     public String description;
@@ -183,6 +187,9 @@ public class Report {
         }
         if (referenceCauseGroupHoofTrim) {
             list.add(R.string.reason_10);
+        }
+        if (referenceCauseOther) {
+            list.add(R.string.reason_11);
         }
         return list;
     }

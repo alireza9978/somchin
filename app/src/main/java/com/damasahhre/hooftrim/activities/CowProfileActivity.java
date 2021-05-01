@@ -17,6 +17,7 @@ import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Cow;
+import com.damasahhre.hooftrim.database.models.DeletedCow;
 import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.Report;
@@ -67,8 +68,13 @@ public class CowProfileActivity extends AppCompatActivity {
         ConstraintLayout remove = findViewById(R.id.item_two);
         remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
             Cow cow = dao.getCow(id);
+            for (Report report : dao.getAllReportOfCow(cow.getId())) {
+                if (!report.created)
+                    dao.insert(new DeletedReport(report.id));
+                dao.deleteReport(report);
+            }
             if (!cow.getCreated())
-                dao.insert(new DeletedReport(cow.getId()));
+                dao.insert(new DeletedCow(cow.getId()));
             dao.deleteCow(cow);
             runOnUiThread(() -> {
                 hideMenu();
