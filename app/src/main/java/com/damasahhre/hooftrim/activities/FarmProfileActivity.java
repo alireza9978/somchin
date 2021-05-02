@@ -454,7 +454,7 @@ public class FarmProfileActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 try {
 
-                    String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", farm.getName());
+                    String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xlsx", farm.getName());
                     File file = new File(storage);
                     if (file.exists()) {
                         if (file.delete()) {
