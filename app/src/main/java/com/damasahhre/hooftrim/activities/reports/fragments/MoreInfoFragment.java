@@ -58,8 +58,13 @@ public class MoreInfoFragment extends Fragment {
         gridView.setAdapter(adapter);
 
         view.findViewById(R.id.next_button).setOnClickListener(v -> {
+
             if (CheckBoxManager.getCheckBoxManager().moreInfoSelected()) {
                 Toast.makeText(requireContext(), R.string.triple_selection_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (CheckBoxManager.getCheckBoxManager().moreInfoCondition()) {
+                Toast.makeText(requireContext(), R.string.select_hoof_triming, Toast.LENGTH_SHORT).show();
                 return;
             }
             ((AddReportActivity) requireActivity()).next();

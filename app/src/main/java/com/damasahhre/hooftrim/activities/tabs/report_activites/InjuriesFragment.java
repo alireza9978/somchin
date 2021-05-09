@@ -232,8 +232,9 @@ public class InjuriesFragment extends Fragment {
             secondPart.add(dao.somChini(farmId, date.exportStart(), date.exportEnd()));
             secondPart.add(dao.high(farmId, date.exportStart(), date.exportEnd()));
             secondPart.add(dao.heifer(farmId, date.exportStart(), date.exportEnd()));
-            secondPart.add(dao.boarding(farmId, date.exportStart(), date.exportEnd()));
             secondPart.add(dao.refrence(farmId, date.exportStart(), date.exportEnd()));
+            secondPart.add(dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd()).size() +
+                    dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd()).size());
 
             requireActivity().runOnUiThread(() -> {
                 //add headers

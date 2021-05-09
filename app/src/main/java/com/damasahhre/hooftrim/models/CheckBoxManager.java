@@ -114,8 +114,8 @@ public class CheckBoxManager {
     }
 
     public boolean moreInfoCondition() {
-        if (!reasons.get(0).isCheck() && !reasons.get(1).isCheck() && !reasons.get(2).isCheck() && !reasons.get(7).isCheck()) {
-            return dialog.get(0).isCheck() || dialog.get(1).isCheck();
+        if (reasons.get(0).isCheck() || reasons.get(1).isCheck() || reasons.get(2).isCheck() || reasons.get(7).isCheck()) {
+            return !moreInfo.get(1).isCheck();
         }
         return false;
     }

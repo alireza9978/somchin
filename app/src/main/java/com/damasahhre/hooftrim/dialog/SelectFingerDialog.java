@@ -60,7 +60,7 @@ public class SelectFingerDialog extends Dialog {
                         return;
                     }
                     if (!CheckBoxManager.getCheckBoxManager().dialogSelected()) {
-                        Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.toast_select_one_extra), Toast.LENGTH_SHORT).show();
                         return;
                     }
                     dismiss();
@@ -97,7 +97,7 @@ public class SelectFingerDialog extends Dialog {
                     return;
                 }
                 if (!CheckBoxManager.getCheckBoxManager().dialogSelected()) {
-                    Toast.makeText(context, context.getString(R.string.tripel_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.toast_select_one_extra), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 dismiss();

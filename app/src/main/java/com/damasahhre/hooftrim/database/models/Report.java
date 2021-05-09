@@ -120,7 +120,7 @@ public class Report {
     @Expose()
     @SerializedName("reference_cause_other")
     @ColumnInfo(name = "reference_cause_other")
-    public Boolean referenceCauseOther;
+    public Boolean referenceCauseOther = false;
     @Expose()
     @SerializedName("description")
     @ColumnInfo(name = "description")

@@ -14,12 +14,10 @@
     <string name="report">گزارش</string>
     <string name="marked">نشان شده‌ها</string>
 
-    <!--    menu -->
     <string name="username">پروفایل</string>
     <string name="help">راهنمای‌برنامه</string>
     <string name="contact_us">تماس با‌ما</string>
     <string name="about_us">درباره‌ما</string>
-
     <string name="show_more">مشاهده بیشتر ></string>
 
     <string name="import_file">ایمپورت اکسل</string>
@@ -129,6 +127,8 @@
     <string name="toast_enter_cow_number">شماره گاو را وارد کنید</string>
     <string name="toast_enter_date">تاریخ را وارد کنید</string>
     <string name="toast_select_one">یکی از موارد را انتخاب کنید</string>
+    <string name="toast_select_one_extra">یکی از موارد را انتخاب کنید
+    توجه داشته باشید که باید حتما یکی از موارد زخم، خون‌مردگی یا سمچینی را انتخاب کنید</string>
     <string name="toast_select_only_one">انتخاب دو مورد امکان‌پذیر نیست</string>
     <string name="ok">تایید</string>
     <string name="other_info">سایر اطلاعات</string>
@@ -242,12 +242,17 @@
     <string name="all_date">تمامی زمان‌‌ها</string>
     <string name="notification">یادآوری بازدید‌ها</string>
     <string name="connection_required">برای این بخش به اینترنت نیاز است</string>
-    <string name="triple_selection_error">یکی از موارد سم‌چینی، خونمردگی یا زخم را انتخاب کنید</string>
+    <string name="triple_selection_error">به دلیل عدم انتخاب خونمردگی یا زخم باید سم‌چینی را انتخاب کنید</string>
     <string name="leg_area_number_error">عددی بین ۱ تا ۸ وارد کنید</string>
     <string name="range_date_error">ابتدا و انتها‌ی بازه را انتخاب کنید</string>
     <string name="single_date_error">تاریخ را انتخاب کنید</string>
     <string name="condition_error">یکی از گزینه‌های زخم یا خونمردگی را انتخاب کنید</string>
     <string name="enter_farm_error">گاوداری را انتخاب کنید</string>
     <string name="enter_price_error">قیمت را وارد کنید</string>
-
+    <string name="contact_top">دام‌آسا
+    گروه تحقیق و ترویج سلامت گله‌های شیری</string>
+    <string name="contact_bottom_one">در صورت تمایل به بررسی اطلاعات لنگش دامداری و گرفتن مشاوره لطفا خروجی اکسل برنامه را که حداقل اطلاعات سه ماه در آن ثبت است به ایمیل </string>
+    <string name="contact_bottom_two">herdhealther@gmail.com</string>
+    <string name="contact_bottom_three"> ارسال نمایید.</string>
+    <string name="select_hoof_triming">گزینه‌ی سمچینی را انتخاب کنید.</string>
 </resources>

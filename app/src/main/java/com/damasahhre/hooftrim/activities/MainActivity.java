@@ -27,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.menu.AboutActivity;
 import com.damasahhre.hooftrim.activities.menu.ContactActivity;
 import com.damasahhre.hooftrim.activities.menu.ProfileActivity;
 import com.damasahhre.hooftrim.adapters.TabAdapterHome;
@@ -191,6 +192,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.contact: {
                 Intent intent = new Intent(this, ContactActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.about_us: {
+                Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
                 return true;
             }

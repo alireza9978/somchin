@@ -131,6 +131,8 @@
     <string name="toast_enter_cow_number">Cow number</string>
     <string name="toast_enter_date">Enter date</string>
     <string name="toast_select_one">Select one of options</string>
+    <string name="toast_select_one_extra">Select one of options
+    pay attention that you must select one of wound, hoof trim or point hemorrhage</string>
     <string name="toast_select_only_one">Select only one part</string>
     <string name="ok">OK</string>
     <string name="other_info">Treatment and severity</string>
@@ -198,7 +200,7 @@
     <string name="email">Email</string>
     <string name="username">Profile</string>
     <string name="save">Save</string>
-    <string name="more_info_text_one">In first field you should enter primary information of the cow like cow ID and date</string>
+    <string name="more_info_text_one">In the first field you should enter primary information of the cow like cow ID and date</string>
     <string name="more_info_three">In the third field, you can mark the affected zone in case of new lesions or re-checks and then fill the digit number.Choose "new case" or "re-check" to show if the lesion is new or not. Numbering the digits in this application starts from one for lateral right forelimb digit following a ‘S’ Pattern as the medial right forelimb (2), medial left forelimb (3), lateral left forelimb (4), lateral right hindlimb (5), medial right hindlimb (6), medial left hindlimb (7) and lateral left hindlimb (8)</string>
     <string name="forget_password">Forgot password?</string>
     <string name="forgot_password">Forgot password</string>
@@ -248,12 +250,17 @@
     <string name="all_date">All dates</string>
     <string name="notification">Notification</string>
     <string name="connection_required">Connection required</string>
-    <string name="triple_selection_error">select one of wound, hoof trim or point hemorrhage</string>
+    <string name="triple_selection_error">you must select hoof trim because you didn\'t select wound or point hemorrhage</string>
     <string name="leg_area_number_error">enter number between 1 and 8</string>
     <string name="range_date_error">select start and end date</string>
     <string name="single_date_error">select date</string>
     <string name="condition_error">select one of wound or point hemorrhage</string>
     <string name="enter_farm_error">select farm</string>
     <string name="enter_price_error">enter price</string>
+    <string name="contact_top">Damasa herd health research and extension group</string>
+    <string name="contact_bottom_one">HTA® consultant service will help you to know more about your fam, s lameness data. You can send an excel file of at least three-month data to </string>
+    <string name="contact_bottom_two">herdhealther@gmail.com</string>
+    <string name="contact_bottom_three"> for more precise analysis on hoof trimming and lesion recordings.</string>
+    <string name="select_hoof_triming">select hoof trim</string>
 
 </resources>
