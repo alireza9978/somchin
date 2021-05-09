@@ -144,6 +144,9 @@ public class HomeFragment extends Fragment {
                         addition.add(temp);
                     }
                     farmList.addAll(addition);
+                    for (FarmWithCowCount f : farmList) {
+                        Log.i("TAG", "onResume: " + f.farmName);
+                    }
                     adapterHomeFarm.setFarms(farmList);
                     adapterHomeFarm.notifyDataSetChanged();
                     showFarms();

@@ -70,11 +70,11 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
             intent.putExtra(Constants.FARM_ID, farm.farmId);
             context.startActivity(intent);
         });
-        holder.farmTitle.setText(farm.farmName);
         holder.cowCount.setText("" + farm.cowCount);
         Constants.setImageFront(context, holder.arrow);
         holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cow));
         Constants.gridRtl(context, view);
+        holder.farmTitle.setText(farm.farmName);
 
         return view;
     }
