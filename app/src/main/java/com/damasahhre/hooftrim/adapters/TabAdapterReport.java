@@ -17,6 +17,7 @@ import com.damasahhre.hooftrim.activities.reports.fragments.MoreInfoFragment;
  */
 public class TabAdapterReport extends FragmentStateAdapter {
 
+    private final boolean edit;
     private Fragment[] fragments = new Fragment[4];
     private int cowNumber;
     private int legAreaNumber;
@@ -24,7 +25,6 @@ public class TabAdapterReport extends FragmentStateAdapter {
     private String nextDate;
     private String description;
     private Boolean rightSide;
-    private final boolean edit;
 
     public TabAdapterReport(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

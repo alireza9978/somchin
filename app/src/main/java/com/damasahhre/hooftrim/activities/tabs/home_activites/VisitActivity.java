@@ -19,6 +19,9 @@ import com.damasahhre.hooftrim.models.MyDate;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * صفحه بازدید های بعدی که از صفحه خانه قابلیت دسترسی دارد
+ */
 public class VisitActivity extends AppCompatActivity {
 
     @Override

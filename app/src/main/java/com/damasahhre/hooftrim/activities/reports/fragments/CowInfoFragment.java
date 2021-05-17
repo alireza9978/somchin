@@ -19,6 +19,10 @@ import com.damasahhre.hooftrim.activities.DateSelectionActivity;
 import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 
+/**
+ * صفحه اول از ثبت گزارش
+ * اطلاعات گاو
+ */
 public class CowInfoFragment extends Fragment {
 
     private ConstraintLayout date_container;
@@ -27,12 +31,12 @@ public class CowInfoFragment extends Fragment {
     private Integer cowNumber = null;
     private String date;
 
+    public CowInfoFragment() {
+    }
+
     public void setCowInfoFragment(Integer cowNumber, String date) {
         this.cowNumber = cowNumber;
         this.date = date;
-    }
-
-    public CowInfoFragment() {
     }
 
     @Override

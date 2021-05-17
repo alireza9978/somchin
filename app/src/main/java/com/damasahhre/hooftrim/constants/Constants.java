@@ -17,6 +17,13 @@ import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
 
+/**
+ * کلاس مربوط به اطلاعات ارتباط بین صفحات
+ * بررسی وضعیت اتصال به شبکه
+ * مدیریت تصاویر در حالت فارسی
+ * بستن کیبورد
+ * ذخیره توکن ایمیل و زبان برنامه
+ */
 public class Constants {
 
     //intent to start activity data
@@ -48,22 +55,18 @@ public class Constants {
     public static String EDIT_REPORT = "EDIT_OLD_REPORT";
 
     public static String NO_LANGUAGE = "asdcexxcNoLang";
+    public static boolean NO_Notification = false;
+    public static boolean NO_PREMIUM = false;
+    public static String NO_TOKEN = "NO TOKEN";
+    public static String NO_EMAIL = "NO EMAIL";
     private static String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static String LANGUAGE_DATA = "someWhereInDarkness12";
-
-    public static boolean NO_Notification = false;
     private static String Notification_STORAGE = "somcdhereInDads rknessTOK";
     private static String Notification_DATA = "someqwfja; nDarkness12TOKTOK";
-
-    public static boolean NO_PREMIUM = false;
     private static String PREMIUM_STORAGE = "someWhereInD XNKLACarknessTOK";
     private static String PREMIUM_DATA = "someWhereIKLNFAKLFAV; nDarkness12TOKTOK";
-
-    public static String NO_TOKEN = "NO TOKEN";
     private static String TOKEN_STORAGE = "someWhereInDarknessTOK";
     private static String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
-
-    public static String NO_EMAIL = "NO EMAIL";
     private static String EMAIL_STORAGE = "soacfsfdInDarknessTOK";
     private static String EMAIL_DATA = "somenovdonksacDarkness12TOKTOK";
 

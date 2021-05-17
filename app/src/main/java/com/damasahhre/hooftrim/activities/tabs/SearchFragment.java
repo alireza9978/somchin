@@ -21,6 +21,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
+/**
+ * صفحه مدیریت بخش جستجو در برنامه
+ */
 public class SearchFragment extends Fragment {
 
     private TabAdapter adapter;

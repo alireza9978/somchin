@@ -30,6 +30,11 @@ import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_CREATE_END;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_RESULT;
 
+/**
+ * صفحه اصلی مدیریت فراین ثبت گزارش
+ * دارای دو حالت ثبت و تغییر
+ * حالت سریع برای پر نکردن صفحه چهارم از مراحل ثبت گزارش
+ */
 public class AddReportActivity extends AppCompatActivity {
 
     private State state;
@@ -355,12 +360,12 @@ public class AddReportActivity extends AppCompatActivity {
         stepperIndicator.setCurrentStep(State.getNumber(state));
     }
 
-    public void setFingerNumber(int fingerNumber) {
-        this.fingerNumber = fingerNumber;
-    }
-
     public int getFingerNumber() {
         return fingerNumber;
+    }
+
+    public void setFingerNumber(int fingerNumber) {
+        this.fingerNumber = fingerNumber;
     }
 
     @Override

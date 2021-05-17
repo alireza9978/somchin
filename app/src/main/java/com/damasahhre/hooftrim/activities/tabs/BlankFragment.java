@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.damasahhre.hooftrim.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link BlankFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * placeholder برای افزودن گاوداری جدید
  */
 public class BlankFragment extends Fragment {
 

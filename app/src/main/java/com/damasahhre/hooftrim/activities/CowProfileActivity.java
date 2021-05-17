@@ -26,6 +26,10 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * صفحه پروفایل گاو
+ * با قابلیت حذف گاو
+ */
 public class CowProfileActivity extends AppCompatActivity {
 
     private ImageView outside;

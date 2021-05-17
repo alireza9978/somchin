@@ -25,6 +25,9 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 
+/**
+ * صفحه پروفایل کاربر
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     private Button convert;

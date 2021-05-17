@@ -29,6 +29,9 @@ import com.damasahhre.hooftrim.models.DateContainer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * صفحه جستجو در بین گاوداری‌های
+ */
 public class SearchFarmFragment extends Fragment {
 
     private RecyclerView farmsList;

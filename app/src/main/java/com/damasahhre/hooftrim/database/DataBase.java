@@ -17,6 +17,9 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.DateConverter;
 
+/**
+ * کلاس اصلی و معرت پایگاه داده
+ */
 @Database(entities = {Farm.class, Cow.class, Report.class, DeletedReport.class, DeletedCow.class, DeletedFarm.class}, version = 4, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class DataBase extends RoomDatabase {

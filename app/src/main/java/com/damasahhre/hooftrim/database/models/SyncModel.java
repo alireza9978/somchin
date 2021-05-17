@@ -6,6 +6,13 @@ import java.util.List;
 
 public class SyncModel {
 
+    @Expose()
+    public List<Farm> farms;
+    @Expose()
+    public List<Cow> cows;
+    @Expose()
+    public List<Report> reports;
+
     public SyncModel(List<Farm> farms, List<Cow> cows, List<Report> reports) {
         this.farms = farms;
         this.cows = cows;
@@ -38,13 +45,6 @@ public class SyncModel {
             report.sync = false;
         }
     }
-
-    @Expose()
-    public List<Farm> farms;
-    @Expose()
-    public List<Cow> cows;
-    @Expose()
-    public List<Report> reports;
 
     public boolean isEmpty() {
         return farms.isEmpty() && cows.isEmpty() && reports.isEmpty();

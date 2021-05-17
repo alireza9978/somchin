@@ -6,12 +6,6 @@ import java.util.List;
 
 public class DeletedSyncModel {
 
-    public DeletedSyncModel(List<DeletedFarm> farms, List<DeletedCow> cows, List<DeletedReport> reports) {
-        this.farms = farms;
-        this.cows = cows;
-        this.reports = reports;
-    }
-
     @Expose()
     public List<DeletedFarm> farms;
     @Expose()
@@ -19,7 +13,13 @@ public class DeletedSyncModel {
     @Expose()
     public List<DeletedReport> reports;
 
-    public boolean isEmpty(){
+    public DeletedSyncModel(List<DeletedFarm> farms, List<DeletedCow> cows, List<DeletedReport> reports) {
+        this.farms = farms;
+        this.cows = cows;
+        this.reports = reports;
+    }
+
+    public boolean isEmpty() {
         return farms.isEmpty() && cows.isEmpty() && reports.isEmpty();
     }
 

@@ -24,6 +24,10 @@ import com.damasahhre.hooftrim.ui_element.ExpandableHeightGridView;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * صفحه بررسی گزارش های ثبت شده
+ * قابلیت ویرایش و حذف گزارش در این صفحه وجود دارد
+ */
 public class ReportSummery extends AppCompatActivity {
 
     private ImageView outside;

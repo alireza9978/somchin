@@ -33,6 +33,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * کلاس اصلی برای مدیریت صفحات مربوط به ورود به برنامه مانند login و sign up
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private TabAdapter adapter;

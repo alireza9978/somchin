@@ -1,7 +1,6 @@
 package com.damasahhre.hooftrim.activities.tabs.marked_activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +20,18 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarkedLivestockFragment extends Fragment {
-
+/**
+ * صفحه گاوداری‌های نشان شده
+ */
+public class MarkedFarmFragment extends Fragment {
 
     private TextView notFound;
     private GridView markedGridView;
     private GridViewAdapterHomeFarm adapterHomeFarm;
-    private String TAG = "MARKED FARM";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_marked_livestock, container, false);
         notFound = view.findViewById(R.id.no_marked_livestroke_text);
         markedGridView = view.findViewById(R.id.marked_livestocks_grid);

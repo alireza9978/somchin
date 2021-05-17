@@ -45,7 +45,9 @@ import saman.zamani.persiandate.PersianDate;
 
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
 
-
+/**
+ * صفحه بررسی بازدید‌های انجام شده در تاریخ‌های قبلی و بازدید‌های موجود بعدی
+ */
 public class ReportVisitFragment extends Fragment {
 
     private TextView month;

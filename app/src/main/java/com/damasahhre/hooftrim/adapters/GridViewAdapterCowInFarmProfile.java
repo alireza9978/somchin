@@ -19,6 +19,9 @@ import com.damasahhre.hooftrim.database.models.CowWithLastVisit;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست گاو‌ها در صفحه‌ی پروفایل گاوداری
+ */
 public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
 
     private List<CowWithLastVisit> cows;

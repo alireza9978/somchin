@@ -14,6 +14,9 @@ import java.util.Objects;
 
 import saman.zamani.persiandate.PersianDate;
 
+/**
+ * کلاس نگهدارنده‌ی اطلاعات تاریخ
+ */
 public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
 
     @Expose

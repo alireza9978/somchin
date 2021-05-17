@@ -18,7 +18,10 @@ import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 import java.util.Objects;
 
-
+/**
+ * صفحه سوم از ثبت گزارش
+ * اطلاعات جراحت
+ */
 public class CowInjuryFragment extends Fragment {
 
     private int selected = -1;
@@ -42,6 +45,9 @@ public class CowInjuryFragment extends Fragment {
         }
     }
 
+    public CowInjuryFragment() {
+    }
+
     public void reset() {
         selected = -1;
         rightSide = null;
@@ -50,13 +56,10 @@ public class CowInjuryFragment extends Fragment {
         leftImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_20));
     }
 
-    public CowInjuryFragment() {
-    }
-
     private void deselect() {
         selected = -1;
         rightSide = null;
-        Toast.makeText(requireContext(),R.string.clear_data,Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), R.string.clear_data, Toast.LENGTH_SHORT).show();
     }
 
     @Override

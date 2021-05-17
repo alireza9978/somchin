@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.tabs.AddLivestockActivity;
+import com.damasahhre.hooftrim.activities.tabs.AddFarmActivity;
 import com.damasahhre.hooftrim.adapters.GridViewAdapterCowInFarmProfile;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterNextVisitFarmProfile;
 import com.damasahhre.hooftrim.constants.Constants;
@@ -90,6 +90,13 @@ import static com.damasahhre.hooftrim.R.string.zero;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_EXPORT_REPORT;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_RESULT;
 
+/**
+ * صفحه پروفایل گاوداری
+ * گرفتن خروجی اکسل برای گاوداری
+ * حذف گاوداری
+ * افزدن گاو
+ * ویراشی گاوداری
+ */
 public class FarmProfileActivity extends AppCompatActivity {
 
     private TextView title;
@@ -141,7 +148,7 @@ public class FarmProfileActivity extends AppCompatActivity {
         ConstraintLayout share = findViewById(R.id.item_three);
         edit.setOnClickListener(view -> {
             hideMenu();
-            Intent intent = new Intent(this, AddLivestockActivity.class);
+            Intent intent = new Intent(this, AddFarmActivity.class);
             intent.putExtra(Constants.FARM_ID, id);
             intent.putExtra(Constants.ADD_FARM_MODE, Constants.EDIT_FARM);
             startActivity(intent);

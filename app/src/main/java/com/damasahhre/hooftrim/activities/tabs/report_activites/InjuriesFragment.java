@@ -42,6 +42,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * صفحه مربوط به خروجی اکسل از جراحت‌های گاو‌ها
+ */
 public class InjuriesFragment extends Fragment {
 
     private ConstraintLayout farmLayout;

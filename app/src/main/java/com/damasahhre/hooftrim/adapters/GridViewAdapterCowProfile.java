@@ -17,6 +17,9 @@ import com.damasahhre.hooftrim.database.models.Report;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست گزارش ها در صفحه‌یپروفایل گاو
+ */
 public class GridViewAdapterCowProfile extends BaseAdapter {
 
     private List<Report> reports;

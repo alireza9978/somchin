@@ -20,6 +20,9 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import java.io.IOException;
 
+/**
+ * صفحه فراموشی پسورد
+ */
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     @Override

@@ -21,6 +21,9 @@ import com.damasahhre.hooftrim.constants.Constants;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * صفحه ارتباط با ما
+ */
 public class ContactActivity extends AppCompatActivity {
 
     @Override
@@ -58,7 +61,7 @@ public class ContactActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.bottom_text)).setText(builder);
         ((TextView) findViewById(R.id.bottom_text)).setMovementMethod(LinkMovementMethod.getInstance());
 
-
+        // ثبت اینتن خروجی برای ۴ تصویر و متن
         textPart = new SpannableString("@hhre_damasa");
         textPart.setSpan(new ClickableSpan() {
             @Override
@@ -114,7 +117,6 @@ public class ContactActivity extends AppCompatActivity {
         }, 0, textPart.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         ((TextView) findViewById(R.id.telegram_text)).setText(textPart);
         ((TextView) findViewById(R.id.telegram_text)).setMovementMethod(LinkMovementMethod.getInstance());
-
         findViewById(R.id.telegram_icon).setOnClickListener(v -> {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/hhre_damasa"));
             startActivity(telegram);
@@ -136,12 +138,10 @@ public class ContactActivity extends AppCompatActivity {
         }, 0, textPart.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         ((TextView) findViewById(R.id.call_text)).setText(textPart);
         ((TextView) findViewById(R.id.call_text)).setMovementMethod(LinkMovementMethod.getInstance());
-
         findViewById(R.id.call_icon).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "+989918760698"));
             startActivity(intent);
         });
-
 
         textPart = new SpannableString("damasahhre.com");
         textPart.setSpan(new ClickableSpan() {
@@ -162,7 +162,6 @@ public class ContactActivity extends AppCompatActivity {
         }, 0, textPart.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         ((TextView) findViewById(R.id.email_text)).setText(textPart);
         ((TextView) findViewById(R.id.email_text)).setMovementMethod(LinkMovementMethod.getInstance());
-
         findViewById(R.id.email_icon).setOnClickListener(v -> {
             String url = "http://www.damasahhre.com";
             Intent inetent = new Intent(Intent.ACTION_VIEW);

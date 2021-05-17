@@ -16,7 +16,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.damasahhre.hooftrim.R;
-import com.damasahhre.hooftrim.activities.tabs.AddLivestockActivity;
+import com.damasahhre.hooftrim.activities.tabs.AddFarmActivity;
 import com.damasahhre.hooftrim.activities.tabs.BlankFragment;
 import com.damasahhre.hooftrim.activities.tabs.HomeFragment;
 import com.damasahhre.hooftrim.activities.tabs.MarkedFragment;
@@ -48,7 +48,7 @@ public class TabAdapterHome extends FragmentStateAdapter {
                 tab.setCustomView(null);
                 tab.setCustomView(getSelectedTabView(tab.getPosition()));
                 if (tab.getPosition() == 2) {
-                    Intent intent = new Intent(context, AddLivestockActivity.class);
+                    Intent intent = new Intent(context, AddFarmActivity.class);
                     intent.putExtra(Constants.ADD_FARM_MODE, Constants.FARM_CREATE);
                     context.startActivity(intent);
                 } else {

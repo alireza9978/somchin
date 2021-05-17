@@ -20,6 +20,9 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * صفحه گاو‌های نشان شده
+ */
 public class MarkedCowsFragment extends Fragment {
 
     private RecyclerViewAdapterSearchCow mAdapter;

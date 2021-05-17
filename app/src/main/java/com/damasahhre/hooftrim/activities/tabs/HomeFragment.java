@@ -33,6 +33,9 @@ import java.util.List;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
+/**
+ * صفحه مدیریت اجزای داخلی خانه که در ابتدای باز کردن نمایش داده می شود
+ */
 public class HomeFragment extends Fragment {
 
     private ImageView downArrow;

@@ -25,6 +25,9 @@ import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.List;
 
+/**
+ * کوئری‌های استفاده شده در صفحات برنامه
+ */
 @Dao
 public interface MyDao {
 

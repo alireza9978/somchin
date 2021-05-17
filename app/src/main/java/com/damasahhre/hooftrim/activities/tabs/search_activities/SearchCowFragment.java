@@ -22,7 +22,6 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
 import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
 import com.damasahhre.hooftrim.activities.MainActivity;
-import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.adapters.RecyclerViewAdapterSearchCow;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -35,6 +34,9 @@ import com.damasahhre.hooftrim.models.DateContainer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * صفحه جستجو گاو‌های
+ */
 public class SearchCowFragment extends Fragment {
 
     private RecyclerView cowsList;
@@ -84,7 +86,7 @@ public class SearchCowFragment extends Fragment {
         search.setOnClickListener((v) -> {
             MyDao dao = DataBase.getInstance(requireContext()).dao();
             AppExecutors.getInstance().diskIO().execute(() -> {
-                requireActivity().runOnUiThread(() -> ((MainActivity)requireActivity()).hideKeyboard());
+                requireActivity().runOnUiThread(() -> ((MainActivity) requireActivity()).hideKeyboard());
                 String cowIdString = cowNumber.getText().toString();
                 if (cowIdString.isEmpty()) {
                     requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show());

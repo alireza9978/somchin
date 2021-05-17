@@ -15,6 +15,9 @@ import com.damasahhre.hooftrim.database.models.Farm;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست گاوداری‌ها در صفحه‌ی انتخاب گاوداری
+ */
 public class RecyclerViewAdapterFarmSimple extends RecyclerView.Adapter<RecyclerViewAdapterFarmSimple.Holder> {
 
     private List<Farm> farms;

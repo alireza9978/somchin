@@ -11,6 +11,9 @@ import com.damasahhre.hooftrim.R;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست ایتم‌ها در صفحه‌ی بررسی گزارش
+ */
 public class GridViewAdapterItemInSummery extends BaseAdapter {
 
     private List<Integer> items;

@@ -1,23 +1,12 @@
 package com.damasahhre.hooftrim.dialog;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.FarmProfileActivity;
-import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
-import com.damasahhre.hooftrim.adapters.GridViewAdapterReasonAddReport;
-import com.damasahhre.hooftrim.constants.Constants;
-import com.damasahhre.hooftrim.models.CheckBoxManager;
 
 
 /**

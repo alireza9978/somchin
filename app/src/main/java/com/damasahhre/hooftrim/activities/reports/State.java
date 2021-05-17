@@ -1,5 +1,8 @@
 package com.damasahhre.hooftrim.activities.reports;
 
+/**
+ * کلاسی برای مدیریت موقعیت برنامه بین چهار صفحه‌ برای ثبت گزارش
+ */
 enum State {
 
     info, reason, injury, moreInfo;

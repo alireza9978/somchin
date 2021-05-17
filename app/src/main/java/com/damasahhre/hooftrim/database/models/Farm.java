@@ -7,17 +7,11 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * کلاس نگهدارنده اطلاعات یک گاوداری
+ */
 @Entity
 public class Farm {
-
-    public Farm(String name, Integer birthCount, String controlSystem, Boolean favorite, Boolean sync, Boolean created) {
-        this.name = name;
-        this.birthCount = birthCount;
-        this.controlSystem = controlSystem;
-        this.favorite = favorite;
-        this.sync = sync;
-        this.created = created;
-    }
 
     @Expose()
     @SerializedName("front_id")
@@ -44,6 +38,15 @@ public class Farm {
     @Expose(serialize = false, deserialize = false)
     @ColumnInfo(name = "created")
     private Boolean created;
+
+    public Farm(String name, Integer birthCount, String controlSystem, Boolean favorite, Boolean sync, Boolean created) {
+        this.name = name;
+        this.birthCount = birthCount;
+        this.controlSystem = controlSystem;
+        this.favorite = favorite;
+        this.sync = sync;
+        this.created = created;
+    }
 
     public Boolean getSync() {
         return sync;

@@ -21,6 +21,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+/**
+ * صفحه ثبت نام در برنامه
+ */
 public class SignUpFragment extends Fragment {
 
     @Override
@@ -36,7 +39,7 @@ public class SignUpFragment extends Fragment {
             String pass = password.getText().toString();
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Toast.makeText(requireContext(), R.string.wait, Toast.LENGTH_SHORT).show();
             }
             Requests.signUp(user, pass, new Callback() {

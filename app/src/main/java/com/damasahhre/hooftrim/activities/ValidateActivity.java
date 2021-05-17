@@ -18,6 +18,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * صفحه تایید ایمیل در ابتدای برنامه
+ */
 public class ValidateActivity extends AppCompatActivity {
 
     @Override

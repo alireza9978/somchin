@@ -18,6 +18,9 @@ import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست گاوداری‌ها در صفحه‌ی خانه
+ */
 public class GridViewAdapterHomeFarm extends BaseAdapter {
 
     private List<FarmWithCowCount> farms;

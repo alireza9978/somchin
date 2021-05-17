@@ -17,6 +17,9 @@ import com.damasahhre.hooftrim.database.models.NextReport;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست بازدید‌های بعدی در صفحه‌ی خانه
+ */
 public class RecyclerViewAdapterHomeNextVisit extends RecyclerView.Adapter<RecyclerViewAdapterHomeNextVisit.Holder> {
 
     private List<NextReport> nextReports;

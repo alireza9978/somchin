@@ -44,7 +44,9 @@ import java.util.List;
 
 import static com.microsoft.appcenter.utils.HandlerUtils.runOnUiThread;
 
-
+/**
+ * صفحه ساخت اکسل فاکتور
+ */
 public class FactorFragment extends Fragment {
 
     private ConstraintLayout farmLayout;

@@ -13,6 +13,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+/**
+ * کلاس نگه دارنده اطلاعات یک گزارش
+ */
 @Entity
 public class Report {
     @Expose()

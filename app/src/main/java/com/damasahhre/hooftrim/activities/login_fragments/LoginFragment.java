@@ -23,6 +23,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * صفحه وارد شدن
+ */
 public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

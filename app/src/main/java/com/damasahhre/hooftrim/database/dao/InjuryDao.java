@@ -8,6 +8,9 @@ import com.damasahhre.hooftrim.models.MyDate;
 
 import java.util.List;
 
+/**
+ * کوئری‌‌های مربوط به جراحت گاو
+ */
 @Dao
 public interface InjuryDao {
 

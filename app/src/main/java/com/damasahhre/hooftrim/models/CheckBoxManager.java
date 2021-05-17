@@ -5,6 +5,9 @@ import com.damasahhre.hooftrim.database.models.Report;
 
 import java.util.ArrayList;
 
+/**
+ * مدیریت کننده اطلاعات مربوط به اپشن‌های ورودی در هنگام ثبت گزارش
+ */
 public class CheckBoxManager {
 
     private static CheckBoxManager checkBoxManager;

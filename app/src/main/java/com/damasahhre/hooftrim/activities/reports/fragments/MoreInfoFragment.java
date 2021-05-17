@@ -21,6 +21,10 @@ import com.damasahhre.hooftrim.adapters.GridViewAdapterReasonAddReport;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.models.CheckBoxManager;
 
+/**
+ * صفحه چهارم از ثبت گزارش
+ * ثبت تاریخ بعدی و اتمام ثبت گزارش
+ */
 public class MoreInfoFragment extends Fragment {
 
     private EditText moreInfo;

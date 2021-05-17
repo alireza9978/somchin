@@ -10,6 +10,9 @@ import com.damasahhre.hooftrim.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * کلاس نگه دارنده اطلاعات یک گاو
+ */
 @Entity
 public class Cow {
 
@@ -39,14 +42,6 @@ public class Cow {
     @ColumnInfo(name = "created")
     private Boolean created;
 
-    public Boolean getSync() {
-        return sync;
-    }
-
-    public void setSync(Boolean sync) {
-        this.sync = sync;
-    }
-
     public Cow(Integer number, Boolean favorite, Long farm, Boolean sync, Boolean created) {
         this.number = number;
         this.numberString = "" + number;
@@ -54,6 +49,14 @@ public class Cow {
         this.farm = farm;
         this.sync = sync;
         this.created = created;
+    }
+
+    public Boolean getSync() {
+        return sync;
+    }
+
+    public void setSync(Boolean sync) {
+        this.sync = sync;
     }
 
     public Boolean getCreated() {

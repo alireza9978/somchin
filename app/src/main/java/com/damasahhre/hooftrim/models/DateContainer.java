@@ -15,6 +15,9 @@ import saman.zamani.persiandate.PersianDate;
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.RANG;
 import static com.damasahhre.hooftrim.constants.Constants.DateSelectionMode.SINGLE;
 
+/**
+ * کلاس نگهدارنده‌ی اطلاعات تاریخ
+ */
 public class DateContainer implements Serializable {
 
     private String mode;

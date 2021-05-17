@@ -20,10 +20,14 @@ import com.damasahhre.hooftrim.models.DateContainer;
 import java.util.List;
 
 
+/**
+ * کلاس ایجاد کننده‌ي اعلان در زمان مشخص
+ */
 public class MyNotificationPublisher extends BroadcastReceiver {
-    public static String NOTIFICATION_ID = "notification-id";
+
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private final static String default_notification_channel_id = "default";
+    public static String NOTIFICATION_ID = "notification-id";
 
     public void onReceive(Context context, Intent intent) {
         MyDao dao = DataBase.getInstance(context).dao();

@@ -25,8 +25,10 @@ import java.util.Objects;
 
 import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
 
+/**
+ * صفحه مدیریت قسمت گزارش‌ها در برنامه
+ */
 public class ReportsFragment extends Fragment {
-
 
     private TabAdapterLongText adapter;
     private TabLayout tabLayout;

@@ -16,6 +16,9 @@ import com.damasahhre.hooftrim.database.models.NextVisit;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست بازدید‌های بعدی در صفحه‌ی پروفایل گاوداری
+ */
 public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapter<RecyclerViewAdapterNextVisitFarmProfile.Holder> {
 
     private List<NextVisit> nextVisits;

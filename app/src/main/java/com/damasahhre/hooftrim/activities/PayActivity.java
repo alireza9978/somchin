@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.damasahhre.hooftrim.R;
 
+/**
+ * صفحه مدیریت پرداخت
+ * برگشت از مرورگر به این صفحه است
+ */
 public class PayActivity extends AppCompatActivity {
 
     @Override

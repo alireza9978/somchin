@@ -15,7 +15,10 @@ import com.damasahhre.hooftrim.adapters.GridViewAdapterReasonAddReport;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.models.CheckBoxManager;
 
-
+/**
+ * صفحه دوم از ثبت گزارش
+ * ثبت اطلاعات جراحت
+ */
 public class CowReasonFragment extends Fragment {
 
     private GridViewAdapterReasonAddReport adapter;

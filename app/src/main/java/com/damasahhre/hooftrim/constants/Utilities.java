@@ -8,6 +8,9 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * کلاسی کاربردی برای تاریخ و زبان فارسی
+ */
 public class Utilities {
 
     public static String monthToString(CalendarDay date, Context context) {

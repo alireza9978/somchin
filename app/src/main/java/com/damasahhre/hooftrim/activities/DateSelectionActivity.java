@@ -42,6 +42,11 @@ import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_RANGE;
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.SELECTION_MODE_SINGLE;
 
+/**
+ * صفحه انتخاب تاریخ
+ * دو حالت انتخاب تکی و بازه‌ای
+ * دو نوع فارسی و انگیلیسی
+ */
 public class DateSelectionActivity extends AppCompatActivity {
 
     private Context context = this;

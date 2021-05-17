@@ -14,6 +14,9 @@ import com.damasahhre.hooftrim.models.CheckBoxItem;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست ایتم ها در صفحه‌‌های افزودن گزارش
+ */
 public class GridViewAdapterReasonAddReport extends BaseAdapter {
 
     private List<CheckBoxItem> items;
@@ -83,7 +86,7 @@ public class GridViewAdapterReasonAddReport extends BaseAdapter {
             holder.item.setChecked(false);
             holder.view.setEnabled(true);
             holder.view.setOnClickListener(view1 -> {
-                Toast.makeText(context,context.getResources().getString(R.string.cant_select),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.cant_select), Toast.LENGTH_SHORT).show();
             });
             holder.item.setEnabled(false);
             holder.name.setEnabled(false);

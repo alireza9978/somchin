@@ -17,8 +17,10 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 
 import java.util.Objects;
 
-public class AddLivestockActivity extends AppCompatActivity {
-
+/**
+ * صفحه اصلی برای افزودن یک گاوداری جدید
+ */
+public class AddFarmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

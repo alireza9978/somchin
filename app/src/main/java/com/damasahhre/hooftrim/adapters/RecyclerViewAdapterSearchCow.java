@@ -18,6 +18,9 @@ import com.damasahhre.hooftrim.database.models.CowForMarked;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست گاو‌ها در صفحه‌ی جستجوی گاو
+ */
 public class RecyclerViewAdapterSearchCow extends RecyclerView.Adapter<RecyclerViewAdapterSearchCow.Holder> {
 
     private List<CowForMarked> cows;

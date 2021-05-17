@@ -23,11 +23,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * کلاس برقراری ارتباط با server
+ */
 public class Requests {
 
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "REQUESTS";
     private static final String BASE_URL = "http://130.185.77.250/";
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public static void toastMessage(Response response, Activity activity) {
         activity.runOnUiThread(() -> {

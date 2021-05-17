@@ -18,6 +18,9 @@ import com.damasahhre.hooftrim.database.models.SearchFarm;
 
 import java.util.List;
 
+/**
+ * کلاس مدیریت لیست گاو‌داری‌ها در صفحه‌ی جستجوی گاو‌داری‌ها
+ */
 public class RecyclerViewAdapterSearchFarm extends RecyclerView.Adapter<RecyclerViewAdapterSearchFarm.Holder> {
 
     private List<SearchFarm> farms;

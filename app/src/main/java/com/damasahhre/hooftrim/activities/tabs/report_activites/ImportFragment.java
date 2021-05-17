@@ -73,6 +73,9 @@ import static com.damasahhre.hooftrim.R.string.twelve;
 import static com.damasahhre.hooftrim.R.string.two;
 import static com.damasahhre.hooftrim.R.string.zero;
 
+/**
+ * صفحه بارگذاری و ایمپورت فایل گزارش‌های یک گاوداری و افزودن اکسل به داده‌های موجود در برتامه
+ */
 public class ImportFragment extends Fragment {
 
     @Override

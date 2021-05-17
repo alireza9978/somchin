@@ -11,10 +11,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.MainActivity;
 import com.damasahhre.hooftrim.activities.tabs.marked_activities.MarkedCowsFragment;
-import com.damasahhre.hooftrim.activities.tabs.marked_activities.MarkedLivestockFragment;
+import com.damasahhre.hooftrim.activities.tabs.marked_activities.MarkedFarmFragment;
 import com.damasahhre.hooftrim.adapters.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * صفحه مدیریت قسمت نشان‌شده ها در برنامه
+ */
 public class MarkedFragment extends Fragment {
 
     private TabAdapter adapter;
@@ -33,7 +36,7 @@ public class MarkedFragment extends Fragment {
 
         adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
         adapter.addFragment(new MarkedCowsFragment(), getResources().getString(R.string.cows));
-        adapter.addFragment(new MarkedLivestockFragment(), getResources().getString(R.string.livestrocks));
+        adapter.addFragment(new MarkedFarmFragment(), getResources().getString(R.string.livestrocks));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

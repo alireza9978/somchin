@@ -10,6 +10,10 @@ import com.damasahhre.hooftrim.constants.Constants;
 
 import java.util.Objects;
 
+/**
+ * صفحه مربوط به اطلاعات موجود در توضیحات چهار صفحه‌ی ثبت گزارش
+ * با توجه به ورودی داده مربوط نشان داده می‌شود
+ */
 public class MoreInfoActivity extends AppCompatActivity {
 
     @Override

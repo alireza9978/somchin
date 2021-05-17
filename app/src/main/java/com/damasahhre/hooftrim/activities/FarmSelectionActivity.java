@@ -19,8 +19,11 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * صفحه انتخابگر از بین گاوداری های موجود
+ * استفاده شده در بخش های گزارش گیری
+ */
 public class FarmSelectionActivity extends AppCompatActivity {
-
 
     private Context context = this;
 
