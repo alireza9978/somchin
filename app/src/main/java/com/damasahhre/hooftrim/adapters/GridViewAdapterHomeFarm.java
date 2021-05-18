@@ -19,16 +19,18 @@ import com.damasahhre.hooftrim.database.models.FarmWithCowCount;
 import java.util.List;
 
 /**
- * کلاس مدیریت لیست گاوداری‌ها در صفحه‌ی خانه
+ * کلاس مدیریت لیست گاوداری‌ها در صفحه‌ی خانه و نشان شده‌ها
  */
 public class GridViewAdapterHomeFarm extends BaseAdapter {
 
     private List<FarmWithCowCount> farms;
     private Context context;
+    private String tagBase;
 
-    public GridViewAdapterHomeFarm(Context context, List<FarmWithCowCount> farms) {
+    public GridViewAdapterHomeFarm(Context context, List<FarmWithCowCount> farms, String tagBase) {
         this.farms = farms;
         this.context = context;
+        this.tagBase = tagBase;
     }
 
     public void setFarms(List<FarmWithCowCount> farms) {
@@ -78,7 +80,7 @@ public class GridViewAdapterHomeFarm extends BaseAdapter {
         holder.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cow));
         Constants.gridRtl(context, view);
         holder.farmTitle.setText(farm.farmName);
-
+        holder.farmTitle.setTag(tagBase + "_" + farm.farmName);
         return view;
     }
 

@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.pager_id);
         tabLayout = findViewById(R.id.tab_layout_id);
 
-        adapter = new TabAdapter(this, getSupportFragmentManager());
+        adapter = new TabAdapter(this, getSupportFragmentManager(), "login");
         adapter.addFragment(new SignUpFragment(), getResources().getString(R.string.sign_in));
         adapter.addFragment(new LoginFragment(), getResources().getString(R.string.login));
 

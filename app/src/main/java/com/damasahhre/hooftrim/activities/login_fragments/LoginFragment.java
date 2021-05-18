@@ -32,10 +32,10 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment_login, container, false);
 
-        EditText password = view.findViewById(R.id.password_input);
-        EditText username = view.findViewById(R.id.user_name_input);
+        EditText password = view.findViewById(R.id.login_password_input);
+        EditText username = view.findViewById(R.id.login_user_name_input);
 
-        view.findViewById(R.id.submit).setOnClickListener(v -> {
+        view.findViewById(R.id.login_submit).setOnClickListener(v -> {
             String user = username.getText().toString();
             String pass = password.getText().toString();
             if (user.isEmpty() || pass.isEmpty()) {

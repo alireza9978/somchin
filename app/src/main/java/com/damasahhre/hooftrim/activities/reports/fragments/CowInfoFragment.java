@@ -47,7 +47,7 @@ public class CowInfoFragment extends Fragment {
 
         date_container = view.findViewById(R.id.date_container);
         ConstraintLayout number_container = view.findViewById(R.id.cow_number_container);
-        numberEdit = view.findViewById(R.id.cow_name_text);
+        numberEdit = view.findViewById(R.id.cow_number_text);
         date_text = view.findViewById(R.id.date_text);
 
         numberEdit.addTextChangedListener(new TextWatcher() {
@@ -76,7 +76,7 @@ public class CowInfoFragment extends Fragment {
             requireActivity().startActivityForResult(intent, Constants.DATE_SELECTION_REPORT_CREATE);
         });
 
-        ConstraintLayout button = view.findViewById(R.id.next_button);
+        ConstraintLayout button = view.findViewById(R.id.next_button_info);
         button.setOnClickListener(view1 -> {
             if (numberEdit.getText().toString().isEmpty()) {
                 Toast.makeText(requireContext(), R.string.toast_enter_cow_number, Toast.LENGTH_SHORT).show();

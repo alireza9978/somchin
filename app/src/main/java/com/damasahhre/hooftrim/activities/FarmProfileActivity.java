@@ -130,7 +130,7 @@ public class FarmProfileActivity extends AppCompatActivity {
         bookmark = findViewById(R.id.bookmark_image);
         cowsGridView = findViewById(R.id.cows_grid);
         nextVisitView = findViewById(R.id.next_visit_lists);
-        ImageView exit = findViewById(R.id.back_icon);
+        ImageView exit = findViewById(R.id.back_icon_profile);
         exit.setOnClickListener(view -> finish());
         Constants.setImageBackBorder(this, exit);
 

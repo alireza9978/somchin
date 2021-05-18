@@ -27,14 +27,12 @@ public class MarkedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_marked, container, false);
-        view.findViewById(R.id.menu_button).setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).openMenu();
-        });
+        view.findViewById(R.id.menu_button).setOnClickListener(v -> ((MainActivity) requireActivity()).openMenu());
         ViewPager viewPager = view.findViewById(R.id.marked_pager_id);
         tabLayout = view.findViewById(R.id.marked_tab_layout_id);
         viewPager.setOffscreenPageLimit(2);
 
-        adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
+        adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager(), "marked");
         adapter.addFragment(new MarkedCowsFragment(), getResources().getString(R.string.cows));
         adapter.addFragment(new MarkedFarmFragment(), getResources().getString(R.string.livestrocks));
 

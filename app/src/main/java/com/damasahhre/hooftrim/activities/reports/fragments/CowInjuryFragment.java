@@ -196,7 +196,7 @@ public class CowInjuryFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.next_button).setOnClickListener(v -> {
+        view.findViewById(R.id.next_button_injury).setOnClickListener(v -> {
             if (selected == -1) {
                 CheckBoxManager.getCheckBoxManager().resetFast();
                 ((AddReportActivity) requireActivity()).setFingerNumber(-1);

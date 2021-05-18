@@ -64,13 +64,13 @@ public class HomeFragment extends Fragment {
         nextVisitList = view.findViewById(R.id.next_visit_lists);
         noVisit = view.findViewById(R.id.no_next_visit);
 
-        view.findViewById(R.id.menu_button).setOnClickListener(v -> ((MainActivity) requireActivity()).openMenu());
+        view.findViewById(R.id.menu_button_home).setOnClickListener(v -> ((MainActivity) requireActivity()).openMenu());
         showMore.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), VisitActivity.class);
             startActivity(intent);
         });
 
-        adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), new ArrayList<>());
+        adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), new ArrayList<>(), "home");
         farmsGrid.setAdapter(adapterHomeFarm);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());

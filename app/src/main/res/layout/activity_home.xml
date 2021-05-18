@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/menu_button"
+            android:id="@+id/menu_button_home"
             style="@style/Theme.App.Toolbar.Image"
             android:layout_width="50dp"
             android:layout_height="55dp"

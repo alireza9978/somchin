@@ -34,7 +34,7 @@ public class CowReasonFragment extends Fragment {
         adapter = new GridViewAdapterReasonAddReport(requireContext(), CheckBoxManager.getCheckBoxManager().getReasons());
         gridView.setAdapter(adapter);
 
-        view.findViewById(R.id.next_button).setOnClickListener(v -> {
+        view.findViewById(R.id.next_button_reason).setOnClickListener(v -> {
             if (!CheckBoxManager.getCheckBoxManager().reasonSelected()) {
                 Toast.makeText(requireContext(), R.string.toast_select_one, Toast.LENGTH_SHORT).show();
                 return;

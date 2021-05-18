@@ -8,6 +8,7 @@
     tools:context=".activities.reports.fragments.CowInjuryFragment">
 
     <ScrollView
+        android:id="@+id/injury_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -88,7 +89,6 @@
 
                 <Button
                     android:id="@+id/three_right"
-
                     android:layout_width="50dp"
                     android:layout_height="75dp"
                     android:layout_marginLeft="110dp"
@@ -314,7 +314,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/next_button"
+                android:id="@+id/next_button_injury"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_margin="35dp"

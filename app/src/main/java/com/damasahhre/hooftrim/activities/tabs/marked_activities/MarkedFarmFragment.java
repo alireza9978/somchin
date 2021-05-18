@@ -36,7 +36,7 @@ public class MarkedFarmFragment extends Fragment {
         notFound = view.findViewById(R.id.no_marked_livestroke_text);
         markedGridView = view.findViewById(R.id.marked_livestocks_grid);
 
-        adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), new ArrayList<>());
+        adapterHomeFarm = new GridViewAdapterHomeFarm(requireContext(), new ArrayList<>(), "marked");
         markedGridView.setAdapter(adapterHomeFarm);
 
         return view;

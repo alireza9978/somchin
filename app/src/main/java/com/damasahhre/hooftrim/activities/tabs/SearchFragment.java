@@ -40,7 +40,7 @@ public class SearchFragment extends Fragment {
         viewPager.setOffscreenPageLimit(2);
         tabLayout = view.findViewById(R.id.search_tab_layout_id);
 
-        adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager());
+        adapter = new TabAdapter(requireContext(), requireActivity().getSupportFragmentManager(), "search");
         adapter.addFragment(new SearchCowFragment(), getResources().getString(R.string.cows));
         adapter.addFragment(new SearchFarmFragment(), getResources().getString(R.string.livestrocks));
 

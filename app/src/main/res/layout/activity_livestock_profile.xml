@@ -27,11 +27,11 @@
             android:padding="10dp"
             android:src="@drawable/ic_menu"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/back_icon"
+            app:layout_constraintTop_toTopOf="@id/back_icon_profile"
             app:tint="@color/selected_tab_home" />
 
         <ImageView
-            android:id="@+id/back_icon"
+            android:id="@+id/back_icon_profile"
             style="@style/Theme.App.ImageView.Edit"
             android:layout_width="50dp"
             android:layout_height="50dp"

@@ -25,9 +25,11 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     private final List<String> mFragmentTitleList = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
+    private String baseTag;
 
-    public TabAdapter(Context context, FragmentManager fm) {
+    public TabAdapter(Context context, FragmentManager fm, String baseTag) {
         super(fm);
+        this.baseTag = baseTag;
         inflater = LayoutInflater.from(context);
         this.context = context;
     }
@@ -44,7 +46,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     public View getTabView(int position) {
         View view = inflater.inflate(R.layout.tab_layout, null);
-        view.setTag(mFragmentTitleList.get(position));
+        view.setTag(baseTag + "_tab_" + position);
         TextView name = view.findViewById(R.id.item_name);
         name.setText(mFragmentTitleList.get(position));
         return view;
@@ -52,6 +54,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     public View getSelectedTabView(int position) {
         View view = inflater.inflate(R.layout.tab_layout_selected, null);
+        view.setTag(baseTag + "_tab_" + position);
         TextView name = view.findViewById(R.id.item_name);
         name.setText(mFragmentTitleList.get(position));
         return view;

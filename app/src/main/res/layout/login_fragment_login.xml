@@ -19,7 +19,7 @@
             android:padding="5dp">
 
             <EditText
-                android:id="@+id/user_name_input"
+                android:id="@+id/login_user_name_input"
                 style="@style/Theme.App.EditText.Login.Input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_input_height"
@@ -27,25 +27,27 @@
                 android:hint="@string/email"
                 android:inputType="text"
                 android:lines="1"
+                android:importantForAutofill="no"
                 android:singleLine="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/password_input"
+                android:id="@+id/login_password_input"
                 style="@style/Theme.App.EditText.Login.Input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_input_height"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
+                android:importantForAutofill="no"
                 android:layout_marginRight="30dp"
                 android:gravity="start|center_vertical"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_name_input" />
+                app:layout_constraintTop_toBottomOf="@id/login_user_name_input" />
 
             <TextView
                 android:id="@+id/forgot_password"
@@ -59,10 +61,10 @@
                 android:textColor="@color/hit_gray"
                 android:textSize="16sp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password_input" />
+                app:layout_constraintTop_toBottomOf="@id/login_password_input" />
 
             <mehdi.sakout.fancybuttons.FancyButton
-                android:id="@+id/submit"
+                android:id="@+id/login_submit"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
