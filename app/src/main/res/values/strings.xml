@@ -6,7 +6,7 @@
         <item>Earth</item>
     </array>
 
-    <string name="app_name">SomChin</string>
+    <string name="app_name">SomChin Yar</string>
     <string name="logo_content">Logo image</string>
 
     <string name="login">Login</string>
@@ -258,9 +258,9 @@
     <string name="enter_farm_error">select farm</string>
     <string name="enter_price_error">enter price</string>
     <string name="contact_top">Damasa herd health research and extension group</string>
-    <string name="contact_bottom_one">HTA® consultant service will help you to know more about your fam, s lameness data. You can send an excel file of at least three-month data to </string>
+    <string name="contact_bottom_one">Hoof Trimming Assistant (HTA) consultant service designed for lameness and hoof trimming data recording. Excel ouput file with at least three month recorded data may be easily shared via social media for your desired address or you can send it to</string>
     <string name="contact_bottom_two">herdhealther@gmail.com</string>
-    <string name="contact_bottom_three"> for more precise analysis on hoof trimming and lesion recordings.</string>
+    <string name="contact_bottom_three">for more analysis and interpretations.</string>
     <string name="select_hoof_triming">select hoof trim</string>
 
 </resources>

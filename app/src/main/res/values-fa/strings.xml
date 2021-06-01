@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">سمچین</string>
+    <string name="app_name">سمچین یار</string>
     <string name="logo_content">logo image</string>
 
     <string name="login">ورود</string>
@@ -251,8 +251,8 @@
     <string name="enter_price_error">قیمت را وارد کنید</string>
     <string name="contact_top">دام‌آسا
     گروه تحقیق و ترویج سلامت گله‌های شیری</string>
-    <string name="contact_bottom_one">در صورت تمایل به بررسی اطلاعات لنگش دامداری و گرفتن مشاوره لطفا خروجی اکسل برنامه را که حداقل اطلاعات سه ماه در آن ثبت است به ایمیل </string>
+    <string name="contact_bottom_one">در صورت تمایل به بررسی اطلاعات لنگش دامداری و گرفتن مشاوره لطفا خروجی اکسل برنامه را که حداقل اطلاعات سه ماه در آن ثبت است به ایمیل</string>
     <string name="contact_bottom_two">herdhealther@gmail.com</string>
-    <string name="contact_bottom_three"> ارسال نمایید.</string>
+    <string name="contact_bottom_three">ارسال نمایید.</string>
     <string name="select_hoof_triming">گزینه‌ی سمچینی را انتخاب کنید.</string>
 </resources>

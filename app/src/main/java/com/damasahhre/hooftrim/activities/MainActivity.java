@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TypefaceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -136,6 +137,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     } else {
                         Requests.toastMessage(response, activity);
+                        if (response.code() == 403) {
+                            Log.i("MAIN", "onResponse: invalid token");
+                            MyDao dao = DataBase.getInstance(activity).dao();
+                            AppExecutors.getInstance().diskIO().execute(() -> {
+                                dao.deleteAllFarm();
+                                dao.deleteAllCow();
+                                dao.deleteAllReport();
+                                dao.deleteAllOtherFarm();
+                                dao.deleteAllOtherCow();
+                                dao.deleteAllOtherReport();
+                                runOnUiThread(() -> {
+                                    Constants.setToken(activity, Constants.NO_TOKEN);
+                                    Constants.setEmail(activity, Constants.NO_EMAIL);
+                                    Intent intent = new Intent(activity, SplashActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                });
+                            });
+                        }
                     }
                 }
             });

@@ -142,7 +142,7 @@ public class FactorFragment extends Fragment {
 
                 Integer[] headers = {R.string.empty, R.string.count, R.string.price, R.string.total_price};
                 Integer[] rows = {R.string.more_info_reason_7, R.string.temp_cure,
-                        R.string.more_info_reason_6, R.string.column_name_2, R.string.sum};
+                        R.string.more_info_reason_6, R.string.sum};
 
                 InjuryDao dao = DataBase.getInstance(requireContext()).injuryDao();
 
@@ -193,13 +193,13 @@ public class FactorFragment extends Fragment {
                             cell.setCellValue(price[i]);
 
                             cell = row.createCell(3);
-                            temp = price[i] * counts[i];
+                            temp = (long) price[i] * (long) counts[i];
                             total += temp;
                             cell.setCellValue(temp);
                         }
-                        row = sheet.createRow(5);
+                        row = sheet.createRow(4);
                         Cell cell = row.createCell(0);
-                        cell.setCellValue(getString(rows[4]));
+                        cell.setCellValue(getString(rows[3]));
                         cell = row.createCell(1);
                         cell.setCellValue(getString(headers[0]));
                         cell = row.createCell(2);

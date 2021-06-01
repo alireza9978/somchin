@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.damasahhre.hooftrim"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 112
         versionName "0.1.12"
 

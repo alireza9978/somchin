@@ -224,6 +224,12 @@ public class InjuriesFragment extends Fragment {
 
             ArrayList<Integer> secondPart = new ArrayList<>();
             double dayCount = dao.countDate(farmId, date.exportStart(), date.exportEnd());
+            if (dayCount < 1) {
+                requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(requireContext(), "Data error", Toast.LENGTH_SHORT).show();
+                });
+                return;
+            }
             double box = dao.box(farmId, date.exportStart(), date.exportEnd()) / dayCount;
             secondPart.add(dao.visit(farmId, date.exportStart(), date.exportEnd()));
             secondPart.add(dao.newLimp(farmId, date.exportStart(), date.exportEnd()));
