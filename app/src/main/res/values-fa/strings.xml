@@ -255,4 +255,5 @@
     <string name="contact_bottom_two">herdhealther@gmail.com</string>
     <string name="contact_bottom_three">ارسال نمایید.</string>
     <string name="select_hoof_triming">گزینه‌ی سمچینی را انتخاب کنید.</string>
+    <string name="password_hint">پسورد باید حداقل ۸ رقم باشد</string>
 </resources>

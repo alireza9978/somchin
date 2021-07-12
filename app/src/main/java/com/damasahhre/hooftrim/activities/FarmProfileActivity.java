@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import static android.os.Build.VERSION.SDK_INT;
 import static com.damasahhre.hooftrim.R.string.eight;
 import static com.damasahhre.hooftrim.R.string.eleven;
 import static com.damasahhre.hooftrim.R.string.five;
@@ -217,6 +219,15 @@ public class FarmProfileActivity extends AppCompatActivity {
                 export();
             }
         }
+        if (requestCode == 2296) {
+            if (SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    export();
+                } else {
+                    Toast.makeText(this, "Allow permission for storage access!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private void showMenu() {
@@ -354,15 +365,15 @@ public class FarmProfileActivity extends AppCompatActivity {
                     int[] date = report.visit.convert(this);
                     cell = row.createCell(1);
                     cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                    cell.setCellValue(date[2]);
+                    cell.setCellValue(String.format("%02d", date[2]));
 
                     cell = row.createCell(2);
                     cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                    cell.setCellValue(date[1]);
+                    cell.setCellValue(String.format("%02d", date[1]));
 
                     cell = row.createCell(3);
                     cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-                    cell.setCellValue(date[0]);
+                    cell.setCellValue(String.format("%04d", date[0]));
 
                     cell = row.createCell(4);
                     if (report.referenceCauseHundredDays)
@@ -480,7 +491,7 @@ public class FarmProfileActivity extends AppCompatActivity {
                     }
 
                     Uri uri;
-                    if (Build.VERSION.SDK_INT < 24) {
+                    if (SDK_INT < 24) {
                         uri = Uri.fromFile(file);
                     } else {
                         uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);

@@ -26,10 +26,10 @@ public class CowInjuryFragment extends Fragment {
 
     private int selected = -1;
     private Boolean rightSide = null;
-    private int[] btnIdRight = {R.id.one_right, R.id.two_right, R.id.three_right, R.id.four_right, R.id.five_right, R.id.six_right};
-    private int[] imageIdRight = {R.drawable.ic_one_right, R.drawable.ic_two_right, R.drawable.ic_three_right, R.drawable.ic_four_right, R.drawable.ic_five_right, R.drawable.ic_six_right};
-    private int[] btnIdLeft = {R.id.one_left, R.id.two_left, R.id.three_left, R.id.four_left, R.id.five_left, R.id.six_left};
-    private int[] imageIdLeft = {R.drawable.ic_one_left, R.drawable.ic_two_left, R.drawable.ic_three_left, R.drawable.ic_four_left, R.drawable.ic_five_left, R.drawable.ic_six_left};
+    private final int[] btnIdRight = {R.id.one_right, R.id.two_right, R.id.three_right, R.id.four_right, R.id.five_right, R.id.six_right};
+    private final int[] imageIdRight = {R.drawable.ic_one_right, R.drawable.ic_two_right, R.drawable.ic_three_right, R.drawable.ic_four_right, R.drawable.ic_five_right, R.drawable.ic_six_right};
+    private final int[] btnIdLeft = {R.id.one_left, R.id.two_left, R.id.three_left, R.id.four_left, R.id.five_left, R.id.six_left};
+    private final int[] imageIdLeft = {R.drawable.ic_one_left, R.drawable.ic_two_left, R.drawable.ic_three_left, R.drawable.ic_four_left, R.drawable.ic_five_left, R.drawable.ic_six_left};
     private ImageView mainImage;
     private ImageView rightImage;
     private ImageView leftImage;
@@ -198,7 +198,7 @@ public class CowInjuryFragment extends Fragment {
 
         view.findViewById(R.id.next_button_injury).setOnClickListener(v -> {
             if (selected == -1) {
-                CheckBoxManager.getCheckBoxManager().resetFast();
+                CheckBoxManager.getCheckBoxManager().resetFastSmall();
                 ((AddReportActivity) requireActivity()).setFingerNumber(-1);
             }
             ((AddReportActivity) requireActivity()).next();

@@ -104,7 +104,7 @@ public class FactorFragment extends Fragment {
                 Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
                 return;
             }
-            if (Constants.checkPermission(requireContext())) {
+            if (Constants.checkPermission(requireActivity())) {
                 return;
             }
             if (farmId == -1) {
@@ -150,12 +150,19 @@ public class FactorFragment extends Fragment {
                     int[] counts = {0, 0, 0, 0};
                     if (cowNumber.isEmpty()) {
                         List<Integer> temp = dao.hoofTrimFactorAll(farmId, date.exportStart(), date.exportEnd());
-                        List<Integer> temp1 = dao.gelFactorAll(farmId, date.exportStart(), date.exportEnd());
                         List<Integer> temp2 = dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd());
                         temp2.addAll(dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd()));
                         List<Integer> temp3 = dao.visitFactorAll(farmId, date.exportStart(), date.exportEnd());
                         counts[0] = temp.size();
-                        counts[1] = temp1.size();
+                        Integer integerOne = dao.deramatit(farmId, date.exportStart(), date.exportEnd());
+                        Integer integerTwo = dao.deramatit(farmId, date.exportStart(), date.exportEnd());
+                        counts[1] = 0;
+                        if (integerOne != null) {
+                            counts[1] += integerOne;
+                        }
+                        if (integerTwo != null) {
+                            counts[1] += integerTwo;
+                        }
                         counts[2] = temp2.size();
                         counts[3] = temp3.size();
                     } else {

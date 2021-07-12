@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class CheckBoxManager {
 
     private static CheckBoxManager checkBoxManager;
-    private ArrayList<CheckBoxItem> reasons;
-    private ArrayList<CheckBoxItem> moreInfo;
-    private ArrayList<CheckBoxItem> dialog;
+    private final ArrayList<CheckBoxItem> reasons;
+    private final ArrayList<CheckBoxItem> moreInfo;
+    private final ArrayList<CheckBoxItem> dialog;
 
     private CheckBoxManager() {
         dialog = new ArrayList<>();
@@ -87,6 +87,13 @@ public class CheckBoxManager {
             item.setCheck(false);
             item.setActive(true);
         }
+        for (CheckBoxItem item : dialog) {
+            item.setCheck(false);
+            item.setActive(true);
+        }
+    }
+
+    public void resetFastSmall() {
         for (CheckBoxItem item : dialog) {
             item.setCheck(false);
             item.setActive(true);

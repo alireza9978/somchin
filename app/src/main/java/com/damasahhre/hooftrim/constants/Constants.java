@@ -1,13 +1,17 @@
 package com.damasahhre.hooftrim.constants;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -16,6 +20,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * کلاس مربوط به اطلاعات ارتباط بین صفحات
@@ -59,16 +67,16 @@ public class Constants {
     public static boolean NO_PREMIUM = false;
     public static String NO_TOKEN = "NO TOKEN";
     public static String NO_EMAIL = "NO EMAIL";
-    private static String LANGUAGE_STORAGE = "someWhereInDarkness";
-    private static String LANGUAGE_DATA = "someWhereInDarkness12";
-    private static String Notification_STORAGE = "somcdhereInDads rknessTOK";
-    private static String Notification_DATA = "someqwfja; nDarkness12TOKTOK";
-    private static String PREMIUM_STORAGE = "someWhereInD XNKLACarknessTOK";
-    private static String PREMIUM_DATA = "someWhereIKLNFAKLFAV; nDarkness12TOKTOK";
-    private static String TOKEN_STORAGE = "someWhereInDarknessTOK";
-    private static String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
-    private static String EMAIL_STORAGE = "soacfsfdInDarknessTOK";
-    private static String EMAIL_DATA = "somenovdonksacDarkness12TOKTOK";
+    private static final String LANGUAGE_STORAGE = "someWhereInDarkness";
+    private static final String LANGUAGE_DATA = "someWhereInDarkness12";
+    private static final String Notification_STORAGE = "somcdhereInDads rknessTOK";
+    private static final String Notification_DATA = "someqwfja; nDarkness12TOKTOK";
+    private static final String PREMIUM_STORAGE = "someWhereInD XNKLACarknessTOK";
+    private static final String PREMIUM_DATA = "someWhereIKLNFAKLFAV; nDarkness12TOKTOK";
+    private static final String TOKEN_STORAGE = "someWhereInDarknessTOK";
+    private static final String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
+    private static final String EMAIL_STORAGE = "soacfsfdInDarknessTOK";
+    private static final String EMAIL_DATA = "somenovdonksacDarkness12TOKTOK";
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
@@ -108,23 +116,40 @@ public class Constants {
     }
 
     public static boolean checkPermissionRead(Context context) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (ActivityCompat.checkSelfPermission(context, READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions((Activity) context,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    new String[]{READ_EXTERNAL_STORAGE}, 1);
 
             return true;
         }
         return false;
     }
 
-    public static boolean checkPermission(Context context) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    public static boolean checkPermission(Activity activity) {
+        if (SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                return false;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s", activity.getApplicationContext().getPackageName())));
+                    activity.startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    activity.startActivityForResult(intent, 2296);
+                }
+                return true;
+            }
+
+        } else if (ActivityCompat.checkSelfPermission(activity, WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions((Activity) context,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{WRITE_EXTERNAL_STORAGE}, 1);
 
             return true;
         }

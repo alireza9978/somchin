@@ -83,7 +83,7 @@ public class InjuriesFragment extends Fragment {
                 Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
                 return;
             }
-            if (Constants.checkPermission(requireContext()))
+            if (Constants.checkPermission(requireActivity()))
                 return;
             if (date == null) {
                 Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();

@@ -6,7 +6,7 @@
         <item>Earth</item>
     </array>
 
-    <string name="app_name">SomChin Yar</string>
+    <string name="app_name">HTA</string>
     <string name="logo_content">Logo image</string>
 
     <string name="login">Login</string>
@@ -262,5 +262,6 @@
     <string name="contact_bottom_two">herdhealther@gmail.com</string>
     <string name="contact_bottom_three">for more analysis and interpretations.</string>
     <string name="select_hoof_triming">select hoof trim</string>
+    <string name="password_hint">password length must be greater than 8 character</string>
 
 </resources>

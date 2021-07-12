@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class RecyclerViewAdapterAllNextVisit extends RecyclerView.Adapter<RecyclerViewAdapterAllNextVisit.Holder> {
 
-    private List<NextReport> nextReports;
-    private Context context;
+    private final List<NextReport> nextReports;
+    private final Context context;
 
     public RecyclerViewAdapterAllNextVisit(List<NextReport> nextReports, Context context) {
         this.nextReports = nextReports;
@@ -47,7 +47,7 @@ public class RecyclerViewAdapterAllNextVisit extends RecyclerView.Adapter<Recycl
             holder.date.setText(R.string.today);
             holder.date.setTextColor(context.getResources().getColor(R.color.red));
         } else {
-            holder.date.setText(report.nextVisitDate.toString());
+            holder.date.setText(report.nextVisitDate.toString(context));
             holder.date.setTextColor(context.getResources().getColor(R.color.black));
         }
         holder.itemView.setOnClickListener(view -> {

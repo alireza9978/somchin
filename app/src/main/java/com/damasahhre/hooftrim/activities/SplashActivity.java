@@ -29,6 +29,7 @@ import java.util.TimerTask;
  */
 public class SplashActivity extends AppCompatActivity {
 
+
     private ConstraintLayout loading_state;
     private ConstraintLayout error_state;
     private PendingIntent pendingIntent;
@@ -60,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
                     checkConnection();
                 });
             }
-        }, 1000);
+        }, 2000);
         changeState(0);
 
     }

@@ -60,7 +60,7 @@
             <Button
                 android:id="@+id/premium"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/my_edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="72dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="72dp"

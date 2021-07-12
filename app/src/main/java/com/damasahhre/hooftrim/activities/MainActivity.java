@@ -7,7 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -54,6 +58,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Calendar;
 
+import static android.os.Build.VERSION.SDK_INT;
 import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
 import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
@@ -184,6 +189,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case DATE_SELECTION_REPORT_FACTOR:
             case FARM_SELECTION_REPORT_FACTOR: {
                 adapter.getFragment(3).onActivityResult(requestCode, resultCode, data);
+                break;
+            }
+            case 2296: {
+                if (SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Environment.isExternalStorageManager()) {
+                        // perform action when allow permission success
+                    } else {
+                        Toast.makeText(this, "Allow permission for storage access!", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             }
             default: {
@@ -382,7 +397,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void openMenu() {
-        drawerLayout.openDrawer(GravityCompat.START);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> drawerLayout.openDrawer(GravityCompat.START), 200);
     }
 
     private void cancelSchedule() {
