@@ -33,6 +33,18 @@ public interface InjuryDao {
 
     @Query("SELECT SUM(id_count) FROM (SELECT COUNT(DISTINCT Report.id) AS id_count FROM Report,Cow,Farm " +
             "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == :farmId " +
+            "AND Cow.number == :cowNumber " +
+            "AND Report.visit_date >= :start " +
+            "AND Report.visit_date <= :end " +
+            "AND Report.leg_area_number == 0 " +
+            "AND Report.reference_cause_new_limp " +
+            "GROUP BY Report.finger_number)")
+    Integer felemons(Long farmId, MyDate start, MyDate end, long cowNumber);
+
+
+    @Query("SELECT SUM(id_count) FROM (SELECT COUNT(DISTINCT Report.id) AS id_count FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
             "AND Cow.farm_id == Farm.id " +
             "AND Farm.id == :farmId " +
             "AND Report.visit_date >= :start " +
@@ -41,6 +53,18 @@ public interface InjuryDao {
             "AND Report.reference_cause_new_limp " +
             "GROUP BY Report.finger_number)")
     Integer deramatit(Long farmId, MyDate start, MyDate end);
+
+    @Query("SELECT SUM(id_count) FROM (SELECT COUNT(DISTINCT Report.id) AS id_count FROM Report,Cow,Farm " +
+            "WHERE Report.cow_id == Cow.id " +
+            "AND Cow.farm_id == Farm.id " +
+            "AND Farm.id == :farmId " +
+            "AND Cow.number == :cowNumber " +
+            "AND Report.visit_date >= :start " +
+            "AND Report.visit_date <= :end " +
+            "AND Report.leg_area_number == 10 " +
+            "AND Report.reference_cause_new_limp " +
+            "GROUP BY Report.finger_number)")
+    Integer deramatit(Long farmId, MyDate start, MyDate end, long cowNumber);
 
     @Query("SELECT Report.cow_id AS cowId, Report.visit_date AS date, Report.finger_number AS fingerNumber " +
             "FROM Report,Cow,Farm " +

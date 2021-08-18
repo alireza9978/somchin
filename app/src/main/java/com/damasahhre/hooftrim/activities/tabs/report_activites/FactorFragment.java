@@ -155,7 +155,7 @@ public class FactorFragment extends Fragment {
                         List<Integer> temp3 = dao.visitFactorAll(farmId, date.exportStart(), date.exportEnd());
                         counts[0] = temp.size();
                         Integer integerOne = dao.deramatit(farmId, date.exportStart(), date.exportEnd());
-                        Integer integerTwo = dao.deramatit(farmId, date.exportStart(), date.exportEnd());
+                        Integer integerTwo = dao.felemons(farmId, date.exportStart(), date.exportEnd());
                         counts[1] = 0;
                         if (integerOne != null) {
                             counts[1] += integerOne;
@@ -168,12 +168,18 @@ public class FactorFragment extends Fragment {
                     } else {
                         for (Integer number : cowNumber) {
                             List<Integer> temp = dao.hoofTrimFactor(farmId, date.exportStart(), date.exportEnd(), number);
-                            List<Integer> temp1 = dao.gelFactor(farmId, date.exportStart(), date.exportEnd(), number);
+                            Integer temp1 = dao.deramatit(farmId, date.exportStart(), date.exportEnd(), number);
+                            Integer temp4 = dao.felemons(farmId, date.exportStart(), date.exportEnd(), number);
                             List<Integer> temp2 = dao.boardingFactor(farmId, date.exportStart(), date.exportEnd(), number);
                             temp2.addAll(dao.boardingFactorOther(farmId, date.exportStart(), date.exportEnd(), number));
                             List<Integer> temp3 = dao.visitFactor(farmId, date.exportStart(), date.exportEnd(), number);
                             counts[0] += temp.size();
-                            counts[1] += temp1.size();
+
+                            if (temp1 != null)
+                                counts[1] += temp1;
+                            if (temp4 != null)
+                                counts[1] += temp4;
+
                             counts[2] += temp2.size();
                             counts[3] += temp3.size();
                         }
