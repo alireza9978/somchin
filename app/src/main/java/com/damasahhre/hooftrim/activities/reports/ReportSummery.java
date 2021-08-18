@@ -107,7 +107,11 @@ public class ReportSummery extends AppCompatActivity {
                     if (report.legAreaNumber != -1) {
                         area.setText(getString(R.string.injury_area) + " " + report.legAreaNumber +
                                 ", " + getString(R.string.finger) + " " + report.fingerNumber);
+                    } else {
+                        area.setText(getString(R.string.injury_area_unknown));
                     }
+                } else {
+                    area.setText(getString(R.string.injury_area_unknown));
                 }
                 DateContainer container;
                 if (Constants.getDefaultLanguage(this).equals("fa")) {

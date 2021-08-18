@@ -101,10 +101,10 @@ public class CheckBoxManager {
     }
 
     public void resetFast() {
-        for (CheckBoxItem item : reasons) {
-            item.setCheck(false);
-            item.setActive(true);
-        }
+//        for (CheckBoxItem item : reasons) {
+//            item.setCheck(false);
+//            item.setActive(true);
+//        }
         for (CheckBoxItem item : dialog) {
             item.setCheck(false);
             item.setActive(true);
