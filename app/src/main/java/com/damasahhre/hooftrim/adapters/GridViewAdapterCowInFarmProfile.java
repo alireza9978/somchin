@@ -24,9 +24,9 @@ import java.util.List;
  */
 public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
 
-    private List<CowWithLastVisit> cows;
-    private Context context;
-    private long farmId;
+    private final List<CowWithLastVisit> cows;
+    private final Context context;
+    private final long farmId;
 
     public GridViewAdapterCowInFarmProfile(Context context, List<CowWithLastVisit> cows, long farmId) {
         this.cows = cows;
@@ -65,7 +65,7 @@ public class GridViewAdapterCowInFarmProfile extends BaseAdapter {
             view.setOnClickListener(view1 -> {
                 Intent intent = new Intent(context, AddReportActivity.class);
                 intent.putExtra(Constants.REPORT_MODE, Constants.REPORT_CREATE);
-                intent.putExtra(Constants.COW_ID, -1);
+                intent.putExtra(Constants.COW_ID, -1L);
                 intent.putExtra(Constants.FARM_ID, farmId);
                 context.startActivity(intent);
             });

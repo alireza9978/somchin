@@ -123,7 +123,7 @@ public class AddReportActivity extends AppCompatActivity {
             });
         } else if (mode.equals(Constants.REPORT_CREATE)) {
             CheckBoxManager.getCheckBoxManager().reset();
-            long id = bundle.getLong(Constants.COW_ID, -1);
+            long id = bundle.getLong(Constants.COW_ID, -1L);
             if (id == -1) {
                 farmId = bundle.getLong(Constants.FARM_ID);
             }
@@ -333,6 +333,7 @@ public class AddReportActivity extends AppCompatActivity {
                 break;
             case injury:
                 state = State.moreInfo;
+                ((MoreInfoFragment) adapter.getFragment(3)).setReportDate(one.exportStart());
                 break;
             case moreInfo:
                 addCowAndReport();

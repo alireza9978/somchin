@@ -23,8 +23,8 @@ import java.util.List;
 public class GridViewAdapterCowProfile extends BaseAdapter {
 
     private List<Report> reports;
-    private Context context;
-    private long cowId;
+    private final Context context;
+    private final long cowId;
 
     public GridViewAdapterCowProfile(Context context, List<Report> reports, long cowId) {
         this.reports = reports;
@@ -95,7 +95,7 @@ public class GridViewAdapterCowProfile extends BaseAdapter {
                 context.startActivity(intent);
             });
             holder.title.setText(R.string.report);
-            holder.title.append(" " + report.id);
+            holder.title.append(" " + (i + 1));
         }
         return view;
     }

@@ -77,6 +77,7 @@ public class Constants {
     private static final String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
     private static final String EMAIL_STORAGE = "soacfsfdInDarknessTOK";
     private static final String EMAIL_DATA = "somenovdonksacDarkness12TOKTOK";
+    public static final String MIN_DATE_SELECTION = "sovdsekklidonk=ness12TOK";
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager

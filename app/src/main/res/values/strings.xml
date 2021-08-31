@@ -132,7 +132,7 @@
     <string name="toast_enter_date">Enter date</string>
     <string name="toast_select_one">Select one of options</string>
     <string name="toast_select_one_extra">Select one of options
-    pay attention that you must select one of wound, hoof trim or point hemorrhage</string>
+    pay attention that you must select one of wound or point hemorrhage</string>
     <string name="toast_select_only_one">Select only one part</string>
     <string name="ok">OK</string>
     <string name="other_info">Treatment and severity</string>
@@ -262,7 +262,9 @@
     <string name="contact_bottom_two">herdhealther@gmail.com</string>
     <string name="contact_bottom_three">for more analysis and interpretations.</string>
     <string name="select_hoof_triming">select hoof trim</string>
-    <string name="password_hint">password length must be greater than 8 character</string>
+    <string name="password_hint">Password length must be greater than 8 character</string>
     <string name="injury_area_unknown">unknown</string>
+    <string name="big_input">Input value is greater than exception.</string>
+    <string name="date_selection_error">next visit date must be after report creation date.</string>
 
 </resources>

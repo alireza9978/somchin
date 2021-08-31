@@ -20,6 +20,8 @@ import com.damasahhre.hooftrim.activities.reports.AddReportActivity;
 import com.damasahhre.hooftrim.adapters.GridViewAdapterReasonAddReport;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.models.CheckBoxManager;
+import com.damasahhre.hooftrim.models.MyDate;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 /**
  * صفحه چهارم از ثبت گزارش
@@ -33,6 +35,7 @@ public class MoreInfoFragment extends Fragment {
     private String date;
     private String description;
     private GridViewAdapterReasonAddReport adapter;
+    private MyDate reportDate;
 
     public MoreInfoFragment(String date, String description) {
         this.date = date;
@@ -53,6 +56,8 @@ public class MoreInfoFragment extends Fragment {
 
         date_container.setOnClickListener(view12 -> {
             Intent intent = new Intent(requireContext(), DateSelectionActivity.class);
+            CalendarDay minDate = CalendarDay.from(reportDate.getYear(), reportDate.getMonth(), reportDate.getDay());
+            intent.putExtra(Constants.MIN_DATE_SELECTION, minDate);
             intent.setAction(Constants.DateSelectionMode.SINGLE);
             requireActivity().startActivityForResult(intent, Constants.DATE_SELECTION_REPORT_CREATE_END);
         });
@@ -115,5 +120,7 @@ public class MoreInfoFragment extends Fragment {
         }
     }
 
-
+    public void setReportDate(MyDate reportDate) {
+        this.reportDate = reportDate;
+    }
 }

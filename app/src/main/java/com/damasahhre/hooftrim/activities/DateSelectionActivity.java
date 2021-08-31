@@ -49,7 +49,7 @@ import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.
  */
 public class DateSelectionActivity extends AppCompatActivity {
 
-    private Context context = this;
+    private final Context context = this;
     private TextView month;
     private TextView year;
     private MaterialCalendarView calendar;
@@ -64,6 +64,7 @@ public class DateSelectionActivity extends AppCompatActivity {
     private PersianDate startPersianDate;
     private PersianDate endPersianDate;
     private PersianCaldroidFragment persianCaldroidFragment;
+    private CalendarDay finalMinDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,8 @@ public class DateSelectionActivity extends AppCompatActivity {
 
         String language = Constants.getDefaultLanguage(context);
 
-
         String action = getIntent().getAction();
+        CalendarDay minDate = null;
         assert action != null;
         if (action.equals(RANG)) {
             calendar.setSelectionMode(SELECTION_MODE_RANGE);
@@ -95,6 +96,7 @@ public class DateSelectionActivity extends AppCompatActivity {
             endDate.setText("");
             rang = true;
         } else if (action.equals(SINGLE)) {
+            minDate = (CalendarDay) getIntent().getParcelableExtra(Constants.MIN_DATE_SELECTION);
             calendar.setSelectionMode(SELECTION_MODE_SINGLE);
             startDate.setVisibility(View.GONE);
             endDate.setVisibility(View.GONE);
@@ -114,7 +116,10 @@ public class DateSelectionActivity extends AppCompatActivity {
             setPersian();
         }
 
-        close.setOnClickListener(view -> finish());
+        finalMinDate = minDate;
+        close.setOnClickListener(view -> {
+            finish();
+        });
 
     }
 
@@ -191,6 +196,13 @@ public class DateSelectionActivity extends AppCompatActivity {
             } else if (calendar.getSelectionMode() == SELECTION_MODE_SINGLE) {
                 CalendarDay day = calendar.getSelectedDate();
                 assert day != null;
+                if (finalMinDate != null) {
+                    if (day.isBefore(finalMinDate) || day.equals(finalMinDate)) {
+                        runOnUiThread(() -> Toast.makeText(this, R.string.date_selection_error, Toast.LENGTH_LONG).show());
+                        return;
+                    }
+                }
+
                 container = new DateContainer(SINGLE,
                         new MyDate(false, day.getDay(), day.getMonth(), day.getYear()));
             }
@@ -293,8 +305,20 @@ public class DateSelectionActivity extends AppCompatActivity {
                     Toast.makeText(context, R.string.single_date_error, Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 container = new DateContainer(SINGLE,
                         new MyDate(true, startPersianDate.getDayOfMonth(), startPersianDate.getMonth(), startPersianDate.getYear()));
+
+                if (finalMinDate != null) {
+                    com.damasahhre.hooftrim.models.MyDate nextDate = container.exportStart();
+                    CalendarDay nextDateCal = CalendarDay.from(nextDate.getYear(), nextDate.getMonth(), nextDate.getDay());
+                    if (nextDateCal.isBefore(finalMinDate) || nextDateCal.equals(finalMinDate)) {
+                        runOnUiThread(() -> Toast.makeText(this, R.string.date_selection_error, Toast.LENGTH_LONG).show());
+                        return;
+                    }
+                }
+
+
             }
             if (container == null) {
                 setResult(Constants.DATE_SELECTION_FAIL);

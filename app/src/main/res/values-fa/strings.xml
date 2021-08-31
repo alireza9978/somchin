@@ -128,7 +128,7 @@
     <string name="toast_enter_date">تاریخ را وارد کنید</string>
     <string name="toast_select_one">یکی از موارد را انتخاب کنید</string>
     <string name="toast_select_one_extra">یکی از موارد را انتخاب کنید
-    توجه داشته باشید که باید حتما یکی از موارد زخم، خون‌مردگی یا سمچینی را انتخاب کنید</string>
+    توجه داشته باشید که باید حتما یکی از موارد زخم یا خون‌مردگی را انتخاب کنید</string>
     <string name="toast_select_only_one">انتخاب دو مورد امکان‌پذیر نیست</string>
     <string name="ok">تایید</string>
     <string name="other_info">سایر اطلاعات</string>
@@ -257,4 +257,6 @@
     <string name="select_hoof_triming">گزینه‌ی سمچینی را انتخاب کنید.</string>
     <string name="password_hint">پسورد باید حداقل ۸ رقم باشد</string>
     <string name="injury_area_unknown">نامشخص</string>
+    <string name="big_input">مقدار ورودی بیش از حد مجاز است</string>
+    <string name="date_selection_error">تاریخ بازدید بعدی باید بعد از تاریخ ثبت گزارش باشد.</string>
 </resources>

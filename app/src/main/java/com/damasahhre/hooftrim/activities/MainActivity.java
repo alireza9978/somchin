@@ -361,6 +361,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 runOnUiThread(() -> {
                                     Constants.setToken(activity, Constants.NO_TOKEN);
                                     Constants.setEmail(activity, Constants.NO_EMAIL);
+                                    Constants.setPremium(activity, false);
+                                    Constants.setNotificationStatus(activity, false);
+                                    cancelSchedule();
                                     Intent intent = new Intent(activity, SplashActivity.class);
                                     startActivity(intent);
                                     finish();
