@@ -178,6 +178,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case Constants.OPEN_PROFILE: {
+                if (resultCode == Constants.PASSWORD_CHANGED) {
+                    logout();
+                } else {
+                    Log.i("MAIN", "onActivityResult: " + resultCode);
+                }
+                break;
+            }
             case Constants.DATE_SELECTION_SEARCH_COW:
             case Constants.FARM_SELECTION_SEARCH_COW:
             case Constants.DATE_SELECTION_SEARCH_FARM:
@@ -224,8 +232,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(this, R.string.connection_required, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                Intent intent = new Intent(this, ProfileActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivityForResult(intent, Constants.OPEN_PROFILE);
                 return true;
             }
             case R.id.contact: {
@@ -336,45 +344,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.logout: {
-                if (!Constants.isNetworkAvailable(this)) {
-                    Toast.makeText(this, R.string.connection_required, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                Activity activity = this;
-                Requests.logout(Constants.getToken(this), new Callback() {
-                    @Override
-                    public void onFailure(Request request, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Response response) {
-                        if (response.isSuccessful()) {
-                            MyDao dao = DataBase.getInstance(activity).dao();
-                            AppExecutors.getInstance().diskIO().execute(() -> {
-                                dao.deleteAllFarm();
-                                dao.deleteAllCow();
-                                dao.deleteAllReport();
-                                dao.deleteAllOtherFarm();
-                                dao.deleteAllOtherCow();
-                                dao.deleteAllOtherReport();
-                                runOnUiThread(() -> {
-                                    Constants.setToken(activity, Constants.NO_TOKEN);
-                                    Constants.setEmail(activity, Constants.NO_EMAIL);
-                                    Constants.setPremium(activity, false);
-                                    Constants.setNotificationStatus(activity, false);
-                                    cancelSchedule();
-                                    Intent intent = new Intent(activity, SplashActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                });
-                            });
-                        } else {
-                            Requests.toastMessage(response, activity);
-                        }
-                    }
-                });
-                return true;
+                return logout();
             }
             case R.id.nav_switch: {
                 SwitchCompat switchCompat = item.getActionView().findViewById(R.id.switch_id);
@@ -475,4 +445,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             applyCustomTypeFace(paint, newType);
         }
     }
+
+    private boolean logout() {
+        if (!Constants.isNetworkAvailable(this)) {
+            Toast.makeText(this, R.string.connection_required, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        Activity activity = this;
+        Requests.logout(Constants.getToken(this), new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
+            }
+
+            @Override
+            public void onResponse(Response response) {
+                if (response.isSuccessful()) {
+                    MyDao dao = DataBase.getInstance(activity).dao();
+                    AppExecutors.getInstance().diskIO().execute(() -> {
+                        dao.deleteAllFarm();
+                        dao.deleteAllCow();
+                        dao.deleteAllReport();
+                        dao.deleteAllOtherFarm();
+                        dao.deleteAllOtherCow();
+                        dao.deleteAllOtherReport();
+                        runOnUiThread(() -> {
+                            Constants.setToken(activity, Constants.NO_TOKEN);
+                            Constants.setEmail(activity, Constants.NO_EMAIL);
+                            Constants.setPremium(activity, false);
+                            Constants.setNotificationStatus(activity, false);
+                            cancelSchedule();
+                            Intent intent = new Intent(activity, SplashActivity.class);
+                            startActivity(intent);
+                            finish();
+                        });
+                    });
+                } else {
+                    Requests.toastMessage(response, activity);
+                }
+            }
+        });
+        return true;
+    }
+
 }

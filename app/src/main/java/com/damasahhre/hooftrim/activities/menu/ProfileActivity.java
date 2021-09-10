@@ -1,5 +1,6 @@
 package com.damasahhre.hooftrim.activities.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 public class ProfileActivity extends AppCompatActivity {
 
     private Button convert;
-    private ProfileActivity activity = this;
+    private final ProfileActivity activity = this;
 
 
     @Override
@@ -54,29 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         }
 
-        convert.setOnClickListener(view -> {
-            if (!newPass.getText().toString().isEmpty() &&
-                    newPass.getText().toString().equals(confirmPass.getText().toString())) {
-                Requests.editPassword(Constants.getToken(this), oldPass.getText().toString(), newPass.getText().toString(), new Callback() {
-                    @Override
-                    public void onFailure(Request request, IOException e) {
-                        runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
-                    }
-
-                    @Override
-                    public void onResponse(Response response) {
-                        if (response.isSuccessful()) {
-                            runOnUiThread(() -> Toast.makeText(activity, R.string.password_changed, Toast.LENGTH_LONG).show());
-                            finish();
-                        } else {
-                            Requests.toastMessage(response, activity);
-                        }
-                    }
-                });
-            }
-
-        });
-
         FancyButton submit = findViewById(R.id.submit);
         submit.setOnClickListener(view -> {
             if (!newPass.getText().toString().isEmpty() &&
@@ -91,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onResponse(Response response) {
                         if (response.isSuccessful()) {
                             runOnUiThread(() -> Toast.makeText(activity, R.string.password_changed, Toast.LENGTH_LONG).show());
+                            setResult(Constants.PASSWORD_CHANGED, new Intent());
                             finish();
                         } else {
                             Requests.toastMessage(response, activity);

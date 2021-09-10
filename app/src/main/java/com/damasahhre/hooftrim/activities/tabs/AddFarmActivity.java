@@ -45,12 +45,14 @@ public class AddFarmActivity extends AppCompatActivity {
                         Toast.makeText(this, R.string.check_fields, Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (countString.length() > 9) {
+                    int count = 0;
+                    try {
+                        count = Integer.parseInt(countString);
+                    } catch (NumberFormatException ex) { // handle your exception
                         Toast.makeText(this, R.string.big_input, Toast.LENGTH_SHORT).show();
                         birth.setText("");
                         return;
                     }
-                    int count = Integer.parseInt(countString);
                     Farm farm = new Farm(title, count, system, false, true, true);
                     MyDao dao = DataBase.getInstance(this).dao();
                     AppExecutors.getInstance().diskIO().execute(() -> {

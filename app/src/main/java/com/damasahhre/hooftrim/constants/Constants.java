@@ -53,6 +53,8 @@ public class Constants {
     public static final int DATE_SELECTION_EXPORT_REPORT = 111;
     public static final int DATE_SELECTION_OK = 200;
     public static final int DATE_SELECTION_FAIL = 400;
+    public static final int OPEN_PROFILE = 700;
+    public static final int PASSWORD_CHANGED = 701;
     public static final String DATE_SELECTION_RESULT = "res_xc";
     public static final String EMAIL = "sFNKndsak";
     public static String ADD_FARM_MODE = "SADASDXCVV";
