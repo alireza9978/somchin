@@ -252,7 +252,7 @@ public class FarmProfileActivity extends AppCompatActivity {
         super.onResume();
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
-            FarmWithNextVisit farmWithNextVisit = dao.getFarmWithNextVisit(id);
+            FarmWithNextVisit farmWithNextVisit = dao.getFarmWithNextVisit(id, new MyDate(new Date()));
             Farm farm = dao.getFarm(id);
             runOnUiThread(() -> {
                 bookmark.setOnClickListener(view -> {

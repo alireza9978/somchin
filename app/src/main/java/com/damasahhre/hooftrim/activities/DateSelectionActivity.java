@@ -197,7 +197,7 @@ public class DateSelectionActivity extends AppCompatActivity {
                 CalendarDay day = calendar.getSelectedDate();
                 assert day != null;
                 if (finalMinDate != null) {
-                    if (day.isBefore(finalMinDate) || day.equals(finalMinDate)) {
+                    if (day.isBefore(finalMinDate)) {
                         runOnUiThread(() -> Toast.makeText(this, R.string.date_selection_error, Toast.LENGTH_LONG).show());
                         return;
                     }
@@ -312,7 +312,7 @@ public class DateSelectionActivity extends AppCompatActivity {
                 if (finalMinDate != null) {
                     com.damasahhre.hooftrim.models.MyDate nextDate = container.exportStart();
                     CalendarDay nextDateCal = CalendarDay.from(nextDate.getYear(), nextDate.getMonth(), nextDate.getDay());
-                    if (nextDateCal.isBefore(finalMinDate) || nextDateCal.equals(finalMinDate)) {
+                    if (nextDateCal.isBefore(finalMinDate)) {
                         runOnUiThread(() -> Toast.makeText(this, R.string.date_selection_error, Toast.LENGTH_LONG).show());
                         return;
                     }

@@ -249,8 +249,9 @@ public interface MyDao {
             "FROM Farm,Cow,Report " +
             "WHERE Farm.id == :id " +
             "AND Cow.farm_id == Farm.id " +
-            "AND Report.cow_id == Cow.id")
-    FarmWithNextVisit getFarmWithNextVisit(Long id);
+            "AND Report.cow_id == Cow.id " +
+            "AND Report.next_visit_date >= :today")
+    FarmWithNextVisit getFarmWithNextVisit(Long id, MyDate today);
 
 
     @Query("SELECT * FROM Cow WHERE Cow.number == :cowNumber AND Cow.farm_id == :farmId")
