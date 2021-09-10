@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
             Requests.getAllData(Constants.getToken(this), new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-
+                    runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
                 }
 
                 @Override
@@ -160,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                                 dao.insertAllCows(model.cows);
                                 dao.insertAllReport(model.reports);
                                 activity.runOnUiThread(() -> Toast.makeText(activity, R.string.sync_done, Toast.LENGTH_LONG).show());
+                                activity.runOnUiThread(() -> goApp());
                             });
                         } else {
                             Requests.toastMessage(response, activity);

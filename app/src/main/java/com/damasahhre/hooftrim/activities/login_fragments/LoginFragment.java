@@ -44,7 +44,7 @@ public class LoginFragment extends Fragment {
             Requests.login(user, pass, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), "Connection error", Toast.LENGTH_LONG).show());
+                    requireActivity().runOnUiThread(() -> Toast.makeText(getContext(), R.string.request_error, Toast.LENGTH_LONG).show());
                 }
 
                 @Override
@@ -56,7 +56,6 @@ public class LoginFragment extends Fragment {
                             Constants.setEmail(requireActivity(), user);
                             Constants.setToken(requireActivity(), (String) jsonObject.get("token"));
                             activity.syncData();
-                            activity.runOnUiThread(activity::goApp);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
