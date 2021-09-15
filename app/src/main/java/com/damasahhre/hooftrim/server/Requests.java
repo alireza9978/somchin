@@ -1,12 +1,13 @@
 package com.damasahhre.hooftrim.server;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.DeletedSyncModel;
 import com.damasahhre.hooftrim.database.models.SyncModel;
 import com.google.gson.Gson;
@@ -31,6 +32,12 @@ public class Requests {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "REQUESTS";
     private static final String BASE_URL = "http://130.185.77.250/";
+    private static Context context;
+
+    public static void setContext(Context context) {
+        Requests.context = context;
+    }
+
 
     public static void toastMessage(Response response, Activity activity) {
         activity.runOnUiThread(() -> {
@@ -52,11 +59,12 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "is confirmed: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/is_confirmed/")
@@ -69,18 +77,18 @@ public class Requests {
         String url = BASE_URL + "payment/request/" + email;
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         activity.startActivity(browserIntent);
-        Log.i(TAG, "pay: here");
     }
 
     public static void isPaid(String token, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "is paid: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/is_premium/")
@@ -93,13 +101,14 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
             object.put("old_password", oldPassword);
             object.put("new_password", newPassword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "edit pass: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/edit_password/")
@@ -112,6 +121,8 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -128,11 +139,12 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "resend: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/resend/")
@@ -145,12 +157,13 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("email", email);
             object.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "sign_up: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/sign_up/")
@@ -163,12 +176,13 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("email", email);
             object.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "login: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/login/")
@@ -181,11 +195,12 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "login: " + object);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/sync/get_all/")
@@ -203,11 +218,12 @@ public class Requests {
         JSONObject object = null;
         try {
             object = new JSONObject(json);
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "update: " + object);
         assert object != null;
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
@@ -226,11 +242,12 @@ public class Requests {
         JSONObject object = null;
         try {
             object = new JSONObject(json);
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "create: " + object);
         assert object != null;
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
@@ -249,11 +266,12 @@ public class Requests {
         JSONObject object = null;
         try {
             object = new JSONObject(json);
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "delete: " + object);
         assert object != null;
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
@@ -267,6 +285,8 @@ public class Requests {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
+            String language = Constants.getDefaultLanguage(context);
+            object.put("language", language);
             object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();

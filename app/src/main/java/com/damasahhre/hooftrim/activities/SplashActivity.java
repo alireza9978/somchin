@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.server.Requests;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
@@ -113,6 +114,7 @@ public class SplashActivity extends AppCompatActivity {
         if (!Constants.isNetworkAvailable(this)) {
             changeState(1);
         } else {
+            Requests.setContext(this);
             if (Constants.getToken(this).equals(Constants.NO_TOKEN)) {
                 goLogin();
             } else {
