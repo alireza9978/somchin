@@ -4,11 +4,15 @@ import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +20,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
+import com.damasahhre.hooftrim.dialog.ErrorDialog;
+import com.damasahhre.hooftrim.dialog.SureDialog;
 import com.damasahhre.hooftrim.server.Requests;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
     private ConstraintLayout loading_state;
     private ConstraintLayout error_state;
     private PendingIntent pendingIntent;
+    private int apkVersionCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +57,18 @@ public class SplashActivity extends AppCompatActivity {
 
         AppCenter.start(getApplication(), "f4c019af-38a5-44af-b87a-22c2e0dc8f27",
                 Analytics.class, Crashes.class);
+
+        TextView version = findViewById(R.id.appVersionName);
+        String versionText = "0.1.20";
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionText = pInfo.versionName;
+            apkVersionCode = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        version.setText("نسخه " + versionText);
+
 
         loading_state = findViewById(R.id.splash_loading_container);
         error_state = findViewById(R.id.offline_splash_loading_container);
@@ -115,12 +142,86 @@ public class SplashActivity extends AppCompatActivity {
             changeState(1);
         } else {
             Requests.setContext(this);
-            if (Constants.getToken(this).equals(Constants.NO_TOKEN)) {
+            Requests.checkVersion(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    runOnUiThread(() -> Toast.makeText(SplashActivity.this, R.string.request_error, Toast.LENGTH_LONG).show());
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            int versionCode = jsonObject.getInt("version_code");
+                            boolean forceUpdate = jsonObject.getBoolean("force_update");
+                            String updateUrl = jsonObject.getString("apk_url");
+                            if (forceUpdate) {
+                                runOnUiThread(() -> {
+                                    showForceUpdateDialog(updateUrl);
+                                });
+                            } else {
+                                if (apkVersionCode < versionCode) {
+                                    showUpdateDialog(updateUrl);
+                                }
+                                runOnUiThread(() -> {
+                                    if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
+                                        goLogin();
+                                    } else {
+                                        goApp();
+                                    }
+                                });
+                            }
+
+
+                        } catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Requests.toastMessage(response, SplashActivity.this);
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * نمایش اپدیت اجباری
+     */
+    public void showForceUpdateDialog(String updateUrl) {
+        ErrorDialog updateDialog = new ErrorDialog(this, updateUrl);
+        Objects.requireNonNull(updateDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        updateDialog.show();
+    }
+
+    /**
+     * نمایش اپدیت معمولی
+     */
+    public void showUpdateDialog(String updateUrl) {
+        SureDialog updateDialog = new SureDialog(this,
+                getString(R.string.new_update),
+                getString(R.string.update_message)
+                , () ->
+        {
+            try {
+                SplashActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                Toast.makeText(SplashActivity.this, R.string.server_error, Toast.LENGTH_LONG).show();
+            }
+
+        }
+                , () ->
+        {
+            if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
                 goLogin();
             } else {
                 goApp();
             }
         }
+                , getString(R.string.update)
+                , getString(R.string.later));
+        Objects.requireNonNull(updateDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        updateDialog.show();
     }
 
     private void changeState(int state) {

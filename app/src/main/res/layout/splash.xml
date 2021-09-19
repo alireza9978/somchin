@@ -81,7 +81,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/splash_loading_container"
         android:layout_width="match_parent"
@@ -123,7 +122,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <ImageView
         android:id="@+id/splash_logo"
         style="@style/Theme.App.ImageView.Edit"
@@ -131,10 +129,23 @@
         android:layout_height="400dp"
         android:contentDescription="@string/logo_content"
         android:src="@mipmap/ic_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/appVersionName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.35" />
+
+    <TextView
+        android:id="@+id/appVersionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/anjoman_light"
+        android:textColor="@color/caribbean_green"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

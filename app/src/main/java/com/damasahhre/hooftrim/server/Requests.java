@@ -55,6 +55,15 @@ public class Requests {
         });
     }
 
+    public static void checkVersion(Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(BASE_URL + "get_version/")
+                .method("GET", null)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void isConfirmed(String email, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();

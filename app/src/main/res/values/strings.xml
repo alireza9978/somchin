@@ -266,5 +266,11 @@
     <string name="injury_area_unknown">unknown</string>
     <string name="big_input">Input value is greater than exception.</string>
     <string name="date_selection_error">next visit date must be after report creation date.</string>
+    <string name="out_of_date">Out of date application</string>
+    <string name="please_update">Please update your application</string>
+    <string name="update">Update</string>
+    <string name="new_update">New update</string>
+    <string name="update_message">Please update your application to increase performance</string>
+    <string name="later">Later</string>
 
 </resources>

@@ -259,4 +259,10 @@
     <string name="injury_area_unknown">نامشخص</string>
     <string name="big_input">مقدار ورودی بیش از حد مجاز است</string>
     <string name="date_selection_error">تاریخ بازدید بعدی باید بعد از تاریخ ثبت گزارش باشد.</string>
+    <string name="out_of_date">عدم پشتیبانی از نرم‌افزار</string>
+    <string name="please_update">لطفا برنامه خود را بروزرسانی کنید</string>
+    <string name="update">بروزرسانی</string>
+    <string name="new_update">آپدیت جدید</string>
+    <string name="update_message">برای بهبود کارایی برنامه را بروز کنید</string>
+    <string name="later">بعدا</string>
 </resources>
