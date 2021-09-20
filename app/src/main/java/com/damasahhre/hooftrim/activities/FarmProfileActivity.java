@@ -40,6 +40,7 @@ import com.damasahhre.hooftrim.database.models.NextVisit;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.dialog.DateModelDialog;
+import com.damasahhre.hooftrim.dialog.SureDialog;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.models.MyDate;
 
@@ -156,38 +157,53 @@ public class FarmProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
         remove.setOnClickListener(view -> {
-            remove.setActivated(false);
-            remove.setClickable(false);
-            MyDao dao = DataBase.getInstance(this).dao();
-            AppExecutors.getInstance().diskIO().execute(() -> {
-                Farm farm = dao.getFarm(id);
-                List<Cow> cows = dao.getAllCowOfFarm(id);
-                for (Cow cow : cows) {
-                    for (Report report : dao.getAllReportOfCow(cow.getId())) {
-                        if (!report.created)
-                            dao.insert(new DeletedReport(report.id));
-                        dao.deleteReport(report);
-                    }
-                    if (!cow.getCreated())
-                        dao.insert(new DeletedCow(cow.getId()));
-                    dao.deleteCow(cow);
-                }
-                if (!farm.getCreated())
-                    dao.insert(new DeletedFarm(farm.getId()));
-                dao.deleteFarm(farm);
-                runOnUiThread(() -> {
-                    hideMenu();
-                    finish();
-                });
-            });
+            removeDialog(remove);
         });
         share.setOnClickListener(view -> {
             dateContainerOne = null;
             selectDate();
             hideMenu();
         });
+    }
 
-
+    public void removeDialog(ConstraintLayout remove) {
+        SureDialog dialog = new SureDialog(FarmProfileActivity.this, getString(R.string.delete_question),
+                getString(R.string.delete),
+                (Runnable) () -> {
+                    MyDao dao = DataBase.getInstance(FarmProfileActivity.this).dao();
+                    AppExecutors.getInstance().diskIO().execute(() -> {
+                        Farm farm = dao.getFarm(id);
+                        List<Cow> cows = dao.getAllCowOfFarm(id);
+                        for (Cow cow : cows) {
+                            for (Report report : dao.getAllReportOfCow(cow.getId())) {
+                                if (!report.created)
+                                    dao.insert(new DeletedReport(report.id));
+                                dao.deleteReport(report);
+                            }
+                            if (!cow.getCreated())
+                                dao.insert(new DeletedCow(cow.getId()));
+                            dao.deleteCow(cow);
+                        }
+                        if (!farm.getCreated())
+                            dao.insert(new DeletedFarm(farm.getId()));
+                        dao.deleteFarm(farm);
+                        runOnUiThread(() -> {
+                            hideMenu();
+                            finish();
+                        });
+                    });
+                },
+                (Runnable) () -> {
+                    runOnUiThread(() -> {
+                        remove.setActivated(true);
+                        remove.setClickable(true);
+                        hideMenu();
+                    });
+                },
+                getString(R.string.yes),
+                getString(R.string.no));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
     }
 
     public void getDate(boolean single) {

@@ -265,4 +265,11 @@
     <string name="new_update">آپدیت جدید</string>
     <string name="update_message">برای بهبود کارایی برنامه را بروز کنید</string>
     <string name="later">بعدا</string>
+    <string name="delete_question">اخطار حذف</string>
+    <string name="delete">آیا از حذف مورد اطمینان دارید؟</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="login_to_work_ffline">برای حالت آفلاین نیاز به ورود است</string>
+    <string name="notification_description">دانلود نسخه جدید</string>
+    <string name="install">لطفا برنامه دانلود شده را نصب کنید</string>
 </resources>

@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.damasahhre.hooftrim.R;
+import com.damasahhre.hooftrim.activities.SplashActivity;
+import com.damasahhre.hooftrim.constants.Constants;
 
 
 /**
@@ -21,24 +23,30 @@ import com.damasahhre.hooftrim.R;
  */
 public class ErrorDialog extends Dialog {
 
-    public ErrorDialog(@NonNull final Context context, String updateUrl) {
-        super(context);
+    public ErrorDialog(@NonNull final SplashActivity activity, String updateUrl) {
+        super(activity);
         setContentView(R.layout.force_update_layout);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
         setCancelable(false);
 
-        RelativeLayout relativeLayout = new RelativeLayout(context);
+        RelativeLayout relativeLayout = new RelativeLayout(activity);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         relativeLayout.setLayoutParams(layoutParams);
 
         Button ok = findViewById(R.id.ok);
         ok.setOnClickListener(v -> {
+            if (Constants.checkPermission(activity))
+                return;
+
             try {
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl)));
-            } catch (android.content.ActivityNotFoundException anfe) {
-                Toast.makeText(context, R.string.server_error, Toast.LENGTH_LONG).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+                activity.startActivity(browserIntent);
+                activity.finish();
+            } catch (Exception anfe) {
+                Toast.makeText(activity, R.string.server_error, Toast.LENGTH_LONG).show();
             }
+
 
         });
     }

@@ -272,5 +272,12 @@
     <string name="new_update">New update</string>
     <string name="update_message">Please update your application to increase performance</string>
     <string name="later">Later</string>
+    <string name="delete_question">Delete warning</string>
+    <string name="delete">Are you sure about deleting this item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="login_to_work_ffline">you need to login for offline mode</string>
+    <string name="notification_description">Downloading new version</string>
+    <string name="install">please install downloaded apk</string>
 
 </resources>

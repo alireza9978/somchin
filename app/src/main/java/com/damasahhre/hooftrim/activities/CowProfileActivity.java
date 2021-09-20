@@ -22,6 +22,7 @@ import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.LastReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.dialog.SureDialog;
 
 import java.util.List;
 import java.util.Objects;
@@ -70,22 +71,38 @@ public class CowProfileActivity extends AppCompatActivity {
 
         exit.setOnClickListener((v) -> finish());
         ConstraintLayout remove = findViewById(R.id.item_two);
-        remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
-            Cow cow = dao.getCow(id);
-            for (Report report : dao.getAllReportOfCow(cow.getId())) {
-                if (!report.created)
-                    dao.insert(new DeletedReport(report.id));
-                dao.deleteReport(report);
-            }
-            if (!cow.getCreated())
-                dao.insert(new DeletedCow(cow.getId()));
-            dao.deleteCow(cow);
-            runOnUiThread(() -> {
-                hideMenu();
-                finish();
-            });
-        }));
+        remove.setOnClickListener(view -> removeDialog());
 
+    }
+
+    public void removeDialog() {
+        MyDao dao = DataBase.getInstance(this).dao();
+        SureDialog dialog = new SureDialog(CowProfileActivity.this, getString(R.string.delete_question),
+                getString(R.string.delete),
+                (Runnable) () -> {
+                    AppExecutors.getInstance().diskIO().execute(() -> {
+                        Cow cow = dao.getCow(id);
+                        for (Report report : dao.getAllReportOfCow(cow.getId())) {
+                            if (!report.created)
+                                dao.insert(new DeletedReport(report.id));
+                            dao.deleteReport(report);
+                        }
+                        if (!cow.getCreated())
+                            dao.insert(new DeletedCow(cow.getId()));
+                        dao.deleteCow(cow);
+
+                        runOnUiThread(() -> {
+                            hideMenu();
+                            finish();
+                        });
+                    });
+                },
+                (Runnable) () -> runOnUiThread(this::hideMenu)
+                ,
+                getString(R.string.yes),
+                getString(R.string.no));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
     }
 
     @Override

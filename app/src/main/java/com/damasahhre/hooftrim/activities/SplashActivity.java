@@ -1,7 +1,6 @@
 package com.damasahhre.hooftrim.activities;
 
 import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +39,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 /**
  * صفحه‌ی اغازین برنامه
  */
@@ -47,7 +48,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private ConstraintLayout loading_state;
     private ConstraintLayout error_state;
-    private PendingIntent pendingIntent;
     private int apkVersionCode = 0;
 
     @Override
@@ -75,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.retry).setOnClickListener(v -> checkConnection());
         findViewById(R.id.work_offline).setOnClickListener(v -> {
             if (Constants.getToken(this).equals(Constants.NO_TOKEN)) {
-                Toast.makeText(this, "you need to login for offline mode", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.login_to_work_ffline, Toast.LENGTH_LONG).show();
             } else {
                 goApp();
             }
@@ -85,9 +85,7 @@ public class SplashActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(() -> {
-                    checkConnection();
-                });
+                runOnUiThread(() -> checkConnection());
             }
         }, 2000);
         changeState(0);
@@ -146,10 +144,11 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     runOnUiThread(() -> Toast.makeText(SplashActivity.this, R.string.request_error, Toast.LENGTH_LONG).show());
+                    changeState(1);
                 }
 
                 @Override
-                public void onResponse(Response response) throws IOException {
+                public void onResponse(Response response) {
                     if (response.isSuccessful()) {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
@@ -157,23 +156,20 @@ public class SplashActivity extends AppCompatActivity {
                             boolean forceUpdate = jsonObject.getBoolean("force_update");
                             String updateUrl = jsonObject.getString("apk_url");
                             if (forceUpdate) {
-                                runOnUiThread(() -> {
-                                    showForceUpdateDialog(updateUrl);
-                                });
+                                runOnUiThread(() -> showForceUpdateDialog(updateUrl));
                             } else {
                                 if (apkVersionCode < versionCode) {
                                     showUpdateDialog(updateUrl);
+                                } else {
+                                    runOnUiThread(() -> {
+                                        if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
+                                            goLogin();
+                                        } else {
+                                            goApp();
+                                        }
+                                    });
                                 }
-                                runOnUiThread(() -> {
-                                    if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
-                                        goLogin();
-                                    } else {
-                                        goApp();
-                                    }
-                                });
                             }
-
-
                         } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
@@ -189,39 +185,43 @@ public class SplashActivity extends AppCompatActivity {
      * نمایش اپدیت اجباری
      */
     public void showForceUpdateDialog(String updateUrl) {
-        ErrorDialog updateDialog = new ErrorDialog(this, updateUrl);
+        ErrorDialog updateDialog = new ErrorDialog(SplashActivity.this, updateUrl);
         Objects.requireNonNull(updateDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         updateDialog.show();
     }
+
 
     /**
      * نمایش اپدیت معمولی
      */
     public void showUpdateDialog(String updateUrl) {
-        SureDialog updateDialog = new SureDialog(this,
-                getString(R.string.new_update),
-                getString(R.string.update_message)
-                , () ->
-        {
-            try {
-                SplashActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl)));
-            } catch (android.content.ActivityNotFoundException anfe) {
-                Toast.makeText(SplashActivity.this, R.string.server_error, Toast.LENGTH_LONG).show();
+        runOnUiThread(() -> {
+            SureDialog updateDialog = new SureDialog(this,
+                    getString(R.string.new_update),
+                    getString(R.string.update_message)
+                    , () ->
+            {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+                startActivity(browserIntent);
+                finish();
             }
+                    , () ->
+            {
+                if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
+                    goLogin();
+                } else {
+                    goApp();
+                }
+            }
+                    , getString(R.string.update)
+                    , getString(R.string.later));
 
-        }
-                , () ->
-        {
-            if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
-                goLogin();
-            } else {
-                goApp();
-            }
-        }
-                , getString(R.string.update)
-                , getString(R.string.later));
-        Objects.requireNonNull(updateDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-        updateDialog.show();
+            updateDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+            updateDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+            updateDialog.setCancelable(false);
+            Objects.requireNonNull(updateDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+            updateDialog.show();
+        });
     }
 
     private void changeState(int state) {

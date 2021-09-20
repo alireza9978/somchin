@@ -18,6 +18,7 @@ import com.damasahhre.hooftrim.database.models.DeletedReport;
 import com.damasahhre.hooftrim.database.models.MyReport;
 import com.damasahhre.hooftrim.database.models.Report;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.dialog.SureDialog;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.ui_element.ExpandableHeightGridView;
 
@@ -65,8 +66,6 @@ public class ReportSummery extends AppCompatActivity {
         reasonAdapter = new GridViewAdapterItemInSummery(this, new ArrayList<>());
         moreInfoAdapter = new GridViewAdapterItemInSummery(this, new ArrayList<>());
 
-        MyDao dao = DataBase.getInstance(this).dao();
-
         back.setOnClickListener(view -> finish());
         menu.setOnClickListener(view -> showMenu());
         outside.setOnClickListener(view -> hideMenu());
@@ -79,16 +78,30 @@ public class ReportSummery extends AppCompatActivity {
             startActivity(intent);
             hideMenu();
         });
-        remove.setOnClickListener(view -> AppExecutors.getInstance().diskIO().execute(() -> {
-            Report report = dao.getReport(reportId);
-            if (!report.created)
-                dao.insert(new DeletedReport(report.id));
-            dao.deleteReport(report);
-            runOnUiThread(() -> {
-                hideMenu();
-                finish();
-            });
-        }));
+        remove.setOnClickListener(view -> removeDialog());
+    }
+
+    public void removeDialog() {
+        MyDao dao = DataBase.getInstance(this).dao();
+        SureDialog dialog = new SureDialog(ReportSummery.this, getString(R.string.delete_question),
+                getString(R.string.delete),
+                (Runnable) () -> {
+                    AppExecutors.getInstance().diskIO().execute(() -> {
+                        Report report = dao.getReport(reportId);
+                        if (!report.created)
+                            dao.insert(new DeletedReport(report.id));
+                        dao.deleteReport(report);
+                        runOnUiThread(() -> {
+                            hideMenu();
+                            finish();
+                        });
+                    });
+                },
+                (Runnable) () -> runOnUiThread(this::hideMenu),
+                getString(R.string.yes),
+                getString(R.string.no));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
     }
 
     @Override
