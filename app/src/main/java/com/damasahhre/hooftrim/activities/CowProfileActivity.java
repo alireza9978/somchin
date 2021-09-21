@@ -79,7 +79,7 @@ public class CowProfileActivity extends AppCompatActivity {
         MyDao dao = DataBase.getInstance(this).dao();
         SureDialog dialog = new SureDialog(CowProfileActivity.this, getString(R.string.delete_question),
                 getString(R.string.delete),
-                (Runnable) () -> {
+                () -> {
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         Cow cow = dao.getCow(id);
                         for (Report report : dao.getAllReportOfCow(cow.getId())) {
@@ -97,7 +97,7 @@ public class CowProfileActivity extends AppCompatActivity {
                         });
                     });
                 },
-                (Runnable) () -> runOnUiThread(this::hideMenu)
+                () -> runOnUiThread(this::hideMenu)
                 ,
                 getString(R.string.yes),
                 getString(R.string.no));

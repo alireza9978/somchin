@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.SplashActivity;
-import com.damasahhre.hooftrim.constants.Constants;
 
 
 /**
@@ -36,9 +35,6 @@ public class ErrorDialog extends Dialog {
 
         Button ok = findViewById(R.id.ok);
         ok.setOnClickListener(v -> {
-            if (Constants.checkPermission(activity))
-                return;
-
             try {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
                 activity.startActivity(browserIntent);
@@ -46,8 +42,6 @@ public class ErrorDialog extends Dialog {
             } catch (Exception anfe) {
                 Toast.makeText(activity, R.string.server_error, Toast.LENGTH_LONG).show();
             }
-
-
         });
     }
 
