@@ -51,6 +51,7 @@ public class Requests {
                 Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(activity, R.string.server_error, Toast.LENGTH_LONG).show();
             }
         });
     }

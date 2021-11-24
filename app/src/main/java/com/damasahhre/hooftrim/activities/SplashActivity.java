@@ -225,13 +225,15 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void changeState(int state) {
-        if (state == 1) {
-            error_state.setVisibility(View.VISIBLE);
-            loading_state.setVisibility(View.INVISIBLE);
-        } else if (state == 0) {
-            loading_state.setVisibility(View.VISIBLE);
-            error_state.setVisibility(View.INVISIBLE);
-        }
+        runOnUiThread(() -> {
+            if (state == 1) {
+                error_state.setVisibility(View.VISIBLE);
+                loading_state.setVisibility(View.INVISIBLE);
+            } else if (state == 0) {
+                loading_state.setVisibility(View.VISIBLE);
+                error_state.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     /**
