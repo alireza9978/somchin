@@ -104,7 +104,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     public String convertDay(Context context) {
         if (Constants.getDefaultLanguage(context).equals("fa")) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toJalali(year, month, day);
+            int[] temp = pdate.gregorian_to_jalali(year, month, day);
             return "" + temp[2];
         } else {
             return "" + day;
@@ -114,7 +114,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     public int[] convert(Context context) {
         if (Constants.getDefaultLanguage(context).equals("fa")) {
             PersianDate pdate = new PersianDate();
-            return pdate.toJalali(year, month, day);
+            return pdate.gregorian_to_jalali(year, month, day);
         } else {
             return new int[]{year, month, day};
         }
@@ -124,7 +124,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     public String toString(Context context) {
         if (Constants.getDefaultLanguage(context).equals("fa")) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toJalali(year, month, day);
+            int[] temp = pdate.gregorian_to_jalali(year, month, day);
             String day = String.format("%02d", temp[2]);
             String month = String.format("%02d", temp[1]);
             String year = String.format("%04d", temp[0]);
@@ -142,7 +142,7 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     public String toStringWithoutYear(Context context) {
         if (Constants.getDefaultLanguage(context).equals("fa")) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toJalali(year, month, day);
+            int[] temp = pdate.gregorian_to_jalali(year, month, day);
             return Utilities.getMonthName(context, temp[1]) + " " + temp[2];
         } else {
             return Utilities.getMonthName(context, month) + " " + day;

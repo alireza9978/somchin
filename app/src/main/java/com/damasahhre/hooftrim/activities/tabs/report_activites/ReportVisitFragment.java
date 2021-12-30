@@ -273,7 +273,7 @@ public class ReportVisitFragment extends Fragment {
         calendar.setOnDateChangedListener((widget, date, selected) -> {
             MyDao dao = DataBase.getInstance(context).dao();
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toJalali(date.getYear(), date.getMonth(), date.getDay());
+            int[] temp = pdate.gregorian_to_jalali(date.getYear(), date.getMonth(), date.getDay());
             DateContainer container = new DateContainer(SINGLE,
                     new DateContainer.MyDate(true, temp[2], temp[1], temp[0]));
             AppExecutors.getInstance().diskIO().execute(() -> {

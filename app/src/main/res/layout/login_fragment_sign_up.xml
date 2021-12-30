@@ -76,26 +76,26 @@
                 app:layout_constraintStart_toStartOf="@id/password_input"
                 app:layout_constraintTop_toBottomOf="@id/password_input" />
 
-
-            <mehdi.sakout.fancybuttons.FancyButton
+            <Button
                 android:id="@+id/submit"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="72dp"
                 android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/persian_green"
                 android:elevation="8dp"
-                android:text="@string/login"
+                android:fontFamily="@font/anjoman_bold"
+                android:text="@string/sign_in"
+                app:cornerRadius="15dp"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                app:fb_defaultColor="@color/persian_green"
-                app:fb_focusColor="@color/black"
-                app:fb_radius="15dp"
-                app:fb_text="@string/sign_in"
-                app:fb_textColor="@color/white"
-                app:fb_textFontRes="@font/anjoman_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_hint" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

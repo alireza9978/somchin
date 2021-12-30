@@ -22,8 +22,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import mehdi.sakout.fancybuttons.FancyButton;
-
 import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 
 /**
@@ -55,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         }
 
-        FancyButton submit = findViewById(R.id.submit);
+        Button submit = findViewById(R.id.submit);
         submit.setOnClickListener(view -> {
             if (!newPass.getText().toString().isEmpty() &&
                     newPass.getText().toString().equals(confirmPass.getText().toString())) {

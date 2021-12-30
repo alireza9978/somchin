@@ -244,7 +244,7 @@ public class ImportFragment extends Fragment {
 
                     if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
                         PersianDate pdate = new PersianDate();
-                        int[] dateArray = pdate.toGregorian(year, month, day);
+                        int[] dateArray = pdate.jalali_to_gregorian(year, month, day);
                         report.visit = new MyDate(dateArray[2], dateArray[1], dateArray[0]);
                     } else {
                         report.visit = new MyDate(day, month, year);
@@ -513,7 +513,7 @@ public class ImportFragment extends Fragment {
                                 String[] date = nextVisitCell.getStringCellValue().split("/");
                                 if (Constants.getDefaultLanguage(requireContext()).equals("fa")) {
                                     PersianDate pdate = new PersianDate();
-                                    int[] dateArray = pdate.toGregorian(Integer.parseInt(date[0]),
+                                    int[] dateArray = pdate.jalali_to_gregorian(Integer.parseInt(date[0]),
                                             Integer.parseInt(date[1]),
                                             Integer.parseInt(date[2]));
                                     report.nextVisit = new MyDate(dateArray[2], dateArray[1], dateArray[0]);

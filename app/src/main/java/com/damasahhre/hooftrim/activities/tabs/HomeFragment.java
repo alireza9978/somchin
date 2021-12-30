@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
  * صفحه مدیریت اجزای داخلی خانه که در ابتدای باز کردن نمایش داده می شود
@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     private GridView farmsGrid;
     private GridViewAdapterHomeFarm adapterHomeFarm;
 
-    private FancyButton showMore;
+    private Button showMore;
     private RecyclerView nextVisitList;
     private TextView noVisit;
     private RecyclerViewAdapterHomeNextVisit mAdapter;

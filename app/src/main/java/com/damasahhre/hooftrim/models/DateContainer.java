@@ -53,8 +53,8 @@ public class DateContainer implements Serializable {
     public int getRange() {
         if (startDate.persian) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toGregorian(startDate.year, startDate.month, startDate.day);
-            int[] tempEnd = pdate.toGregorian(endDate.year, endDate.month, endDate.day);
+            int[] temp = pdate.jalali_to_gregorian(startDate.year, startDate.month, startDate.day);
+            int[] tempEnd = pdate.jalali_to_gregorian(endDate.year, endDate.month, endDate.day);
 
             Calendar startCal = new GregorianCalendar();
             Calendar endCal = new GregorianCalendar();
@@ -142,7 +142,7 @@ public class DateContainer implements Serializable {
     public com.damasahhre.hooftrim.models.MyDate exportStart() {
         if (startDate.persian) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toGregorian(startDate.year, startDate.month, startDate.day);
+            int[] temp = pdate.jalali_to_gregorian(startDate.year, startDate.month, startDate.day);
             return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
         } else {
             return new com.damasahhre.hooftrim.models.MyDate(startDate.day, startDate.month, startDate.year);
@@ -152,7 +152,7 @@ public class DateContainer implements Serializable {
     public com.damasahhre.hooftrim.models.MyDate exportEnd() {
         if (endDate.persian) {
             PersianDate pdate = new PersianDate();
-            int[] temp = pdate.toGregorian(endDate.year, endDate.month, endDate.day);
+            int[] temp = pdate.jalali_to_gregorian(endDate.year, endDate.month, endDate.day);
             return new com.damasahhre.hooftrim.models.MyDate(temp[2], temp[1], temp[0]);
         } else {
             return new com.damasahhre.hooftrim.models.MyDate(endDate.day, endDate.month, endDate.year);

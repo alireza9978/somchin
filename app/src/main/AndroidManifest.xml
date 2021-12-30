@@ -26,7 +26,9 @@
         tools:targetApi="q">
         <activity
             android:name=".activities.PayActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -98,7 +100,8 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -109,7 +112,8 @@
         <receiver
             android:name=".service.MyNotificationPublisher"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            />
     </application>
 
 </manifest>

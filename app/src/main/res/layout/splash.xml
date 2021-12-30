@@ -42,37 +42,29 @@
             app:layout_constraintRight_toLeftOf="@id/error_image"
             app:layout_constraintTop_toTopOf="@id/error_image" />
 
-        <mehdi.sakout.fancybuttons.FancyButton
+        <Button
             android:id="@+id/retry"
             android:layout_width="160dp"
             android:layout_height="50dp"
+            android:fontFamily="@font/anjoman_bold"
+            android:text="@string/try_again"
+            android:textColor="@color/caribbean_green"
             android:textSize="18sp"
-            app:fb_borderColor="@color/caribbean_green"
-            app:fb_borderWidth="1dp"
-            app:fb_defaultColor="@android:color/transparent"
-            app:fb_focusColor="@color/persian_green"
-            app:fb_radius="15dp"
-            app:fb_text="@string/try_again"
-            app:fb_textColor="@color/caribbean_green"
-            app:fb_textFontRes="@font/anjoman_bold"
+            app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/work_offline"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/error_image" />
 
-        <mehdi.sakout.fancybuttons.FancyButton
+        <Button
             android:id="@+id/work_offline"
             android:layout_width="160dp"
             android:layout_height="50dp"
+            android:fontFamily="@font/anjoman_bold"
+            android:text="@string/offline"
+            android:textColor="@color/caribbean_green"
             android:textSize="18sp"
-            app:fb_borderColor="@color/caribbean_green"
-            app:fb_borderWidth="1dp"
-            app:fb_defaultColor="@android:color/transparent"
-            app:fb_focusColor="@color/persian_green"
-            app:fb_radius="15dp"
-            app:fb_text="@string/offline"
-            app:fb_textColor="@color/caribbean_green"
-            app:fb_textFontRes="@font/anjoman_bold"
+            app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="@id/retry"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/retry"
@@ -112,10 +104,10 @@
             android:text="@string/loading"
             android:textColor="@color/caribbean_green"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/appVersionName"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_bar"
-            app:layout_constraintBottom_toTopOf="@id/appVersionName" />
+            app:layout_constraintTop_toBottomOf="@id/progress_bar" />
 
         <TextView
             android:id="@+id/appVersionName"
