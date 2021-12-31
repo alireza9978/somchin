@@ -31,6 +31,7 @@ public class RecyclerViewAdapterNextVisitFarmProfile extends RecyclerView.Adapte
 
     public void setNextVisits(List<NextVisit> nextVisits) {
         this.nextVisits = nextVisits;
+        notifyDataSetChanged();
     }
 
     @NonNull

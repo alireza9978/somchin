@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -18,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -108,23 +110,25 @@ public class FarmProfileActivity extends AppCompatActivity {
     private TextView birthCount;
     private TextView nextVisit;
     private ImageView bookmark;
-    private GridView cowsGridView;
+    private RecyclerView cowsGridView;
     private RecyclerView nextVisitView;
     private RecyclerViewAdapterNextVisitFarmProfile mAdapter;
     private ImageView menu;
     private ConstraintLayout menuLayout;
     private ImageView outside;
+    private ImageView outsideScroll;
     private long id;
     private DateContainer dateContainerOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_livestock_profile);
+        setContentView(R.layout.activity_farm_profile);
 
         menu = findViewById(R.id.dropdown_menu);
         menuLayout = findViewById(R.id.menu_layout);
         outside = findViewById(R.id.outside);
+        outsideScroll = findViewById(R.id.outside_scroll);
         title = findViewById(R.id.title_livestrok);
         visitTitle = findViewById(R.id.next_visit_title);
         birthCount = findViewById(R.id.count_value);
@@ -133,7 +137,7 @@ public class FarmProfileActivity extends AppCompatActivity {
         bookmark = findViewById(R.id.bookmark_image);
         cowsGridView = findViewById(R.id.cows_grid);
         nextVisitView = findViewById(R.id.next_visit_lists);
-        ImageView exit = findViewById(R.id.back_icon_profile);
+        ImageView exit = findViewById(R.id.back_icon);
         exit.setOnClickListener(view -> finish());
         Constants.setImageBackBorder(this, exit);
 
@@ -144,8 +148,12 @@ public class FarmProfileActivity extends AppCompatActivity {
         mAdapter = new RecyclerViewAdapterNextVisitFarmProfile(new ArrayList<>(), this);
         nextVisitView.setAdapter(mAdapter);
 
+        RecyclerView.LayoutManager cowLayoutManager = new GridLayoutManager(this, 2);
+        cowsGridView.setLayoutManager(cowLayoutManager);
+
         menu.setOnClickListener(view -> showMenu());
         outside.setOnClickListener(view -> hideMenu());
+        outsideScroll.setOnClickListener(view -> hideMenu());
         ConstraintLayout edit = findViewById(R.id.item_one);
         ConstraintLayout remove = findViewById(R.id.item_two);
         ConstraintLayout share = findViewById(R.id.item_three);
@@ -156,9 +164,7 @@ public class FarmProfileActivity extends AppCompatActivity {
             intent.putExtra(Constants.ADD_FARM_MODE, Constants.EDIT_FARM);
             startActivity(intent);
         });
-        remove.setOnClickListener(view -> {
-            removeDialog(remove);
-        });
+        remove.setOnClickListener(view -> removeDialog(remove));
         share.setOnClickListener(view -> {
             dateContainerOne = null;
             selectDate();
@@ -169,7 +175,7 @@ public class FarmProfileActivity extends AppCompatActivity {
     public void removeDialog(ConstraintLayout remove) {
         SureDialog dialog = new SureDialog(FarmProfileActivity.this, getString(R.string.delete_question),
                 getString(R.string.delete),
-                (Runnable) () -> {
+                () -> {
                     MyDao dao = DataBase.getInstance(FarmProfileActivity.this).dao();
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         Farm farm = dao.getFarm(id);
@@ -193,13 +199,11 @@ public class FarmProfileActivity extends AppCompatActivity {
                         });
                     });
                 },
-                (Runnable) () -> {
-                    runOnUiThread(() -> {
-                        remove.setActivated(true);
-                        remove.setClickable(true);
-                        hideMenu();
-                    });
-                },
+                () -> runOnUiThread(() -> {
+                    remove.setActivated(true);
+                    remove.setClickable(true);
+                    hideMenu();
+                }),
                 getString(R.string.yes),
                 getString(R.string.no));
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
@@ -248,6 +252,7 @@ public class FarmProfileActivity extends AppCompatActivity {
 
     private void showMenu() {
         outside.setVisibility(View.VISIBLE);
+        outsideScroll.setVisibility(View.VISIBLE);
         menuLayout.setVisibility(View.VISIBLE);
         menu.setVisibility(View.INVISIBLE);
     }
@@ -255,6 +260,7 @@ public class FarmProfileActivity extends AppCompatActivity {
     private void hideMenu() {
         menu.setVisibility(View.VISIBLE);
         outside.setVisibility(View.GONE);
+        outsideScroll.setVisibility(View.GONE);
         menuLayout.setVisibility(View.GONE);
     }
 
@@ -310,9 +316,15 @@ public class FarmProfileActivity extends AppCompatActivity {
                 temp.setNumber(cow.getNumber());
                 cows.add(temp);
             }
+
             runOnUiThread(() -> {
-                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, id);
+                GridViewAdapterCowInFarmProfile adapter = new GridViewAdapterCowInFarmProfile(this, cows, (int) id);
                 cowsGridView.setAdapter(adapter);
+
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                cowsGridView.getLayoutParams().height = 5000;
+                cowsGridView.requestLayout();
             });
             List<NextVisit> list = dao.getAllNextVisitFroFarm(new MyDate(new Date()), id);
             runOnUiThread(() -> {
@@ -321,7 +333,6 @@ public class FarmProfileActivity extends AppCompatActivity {
                 } else {
                     showVisit();
                     mAdapter.setNextVisits(list);
-                    mAdapter.notifyDataSetChanged();
                 }
             });
         });
