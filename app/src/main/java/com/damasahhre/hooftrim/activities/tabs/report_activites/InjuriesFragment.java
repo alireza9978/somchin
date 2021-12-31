@@ -207,16 +207,19 @@ public class InjuriesFragment extends Fragment {
                 }
             }
             arrayList.add(pange.size() - count);
-            count = 0;
+
             List<InjureyReport> pashne = dao.pashneWound(farmId, date.exportStart(), date.exportEnd());
-            for (InjureyReport temp : pashne) {
-                for (InjureyReport bot : bottom) {
-                    if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
-                        count++;
-                    }
-                }
-            }
-            arrayList.add(pashne.size() - count);
+
+//            count = 0;
+//            for (InjureyReport temp : pashne) {
+//                for (InjureyReport bot : bottom) {
+//                    if (temp.cowId.equals(bot.cowId) && temp.date.equals(bot.date) && temp.fingerNumber.equals(bot.fingerNumber)) {
+//                        count++;
+//                    }
+//                }
+//            }
+            arrayList.add(pashne.size());
+
             List<InjureyReport> wallWound = dao.wallWound(farmId, date.exportStart(), date.exportEnd());
             wallWound.removeAll(findSame(wallWound));
             arrayList.add(wallWound.size());
