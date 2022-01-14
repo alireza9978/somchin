@@ -45,6 +45,7 @@ import com.damasahhre.hooftrim.dialog.DateModelDialog;
 import com.damasahhre.hooftrim.dialog.SureDialog;
 import com.damasahhre.hooftrim.models.DateContainer;
 import com.damasahhre.hooftrim.models.MyDate;
+import com.gun0912.tedpermission.PermissionListener;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -104,6 +105,7 @@ import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_RESULT;
  */
 public class FarmProfileActivity extends AppCompatActivity {
 
+    private PermissionListener permissionlistener;
     private TextView title;
     private TextView visitTitle;
     private TextView system;
@@ -170,6 +172,19 @@ public class FarmProfileActivity extends AppCompatActivity {
             selectDate();
             hideMenu();
         });
+
+        permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(FarmProfileActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                export();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(FarmProfileActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     public void removeDialog(ConstraintLayout remove) {
@@ -236,13 +251,13 @@ public class FarmProfileActivity extends AppCompatActivity {
                 DateContainer container = (DateContainer) Objects.requireNonNull(data.getExtras()).get(DATE_SELECTION_RESULT);
                 assert container != null;
                 dateContainerOne = container;
-                export();
+                checkExportPermission();
             }
         }
         if (requestCode == 2296) {
             if (SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
-                    export();
+                    checkExportPermission();
                 } else {
                     Toast.makeText(this, "Allow permission for storage access!", Toast.LENGTH_SHORT).show();
                 }
@@ -343,10 +358,11 @@ public class FarmProfileActivity extends AppCompatActivity {
         nextVisitView.setVisibility(View.VISIBLE);
     }
 
-    public void export() {
+    public void checkExportPermission(){
+        Constants.checkPermission(permissionlistener);
+    }
 
-        if (Constants.checkPermission(this))
-            return;
+    public void export() {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Sample sheet");
@@ -361,6 +377,8 @@ public class FarmProfileActivity extends AppCompatActivity {
 
         MyDao dao = DataBase.getInstance(this).dao();
         AppExecutors.getInstance().diskIO().execute(() -> {
+            Farm farm = dao.getFarm(id);
+
             List<MyReport> reports;
             if (dateContainerOne == null) {
                 reports = dao.getAllMyReportFarm(id);
@@ -491,12 +509,8 @@ public class FarmProfileActivity extends AppCompatActivity {
                     if (report.otherInfoRecovered)
                         cell.setCellValue("*");
                 }
-            });
-        });
 
-        AppExecutors.getInstance().diskIO().execute(() -> {
-            Farm farm = dao.getFarm(id);
-            runOnUiThread(() -> {
+                Log.i("TAG", "export: here");
                 try {
 
                     String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xlsx", farm.getName());
@@ -524,8 +538,8 @@ public class FarmProfileActivity extends AppCompatActivity {
                         uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
                     }
 
-                    Intent intent = ShareCompat.IntentBuilder.from(this)
-                            .setType("*/*")
+                    ShareCompat.IntentBuilder builder = new ShareCompat.IntentBuilder(FarmProfileActivity.this);
+                    Intent intent = builder.setType("*/*")
                             .setStream(uri)
                             .setChooserTitle("Choose bar")
                             .createChooserIntent()
@@ -537,6 +551,7 @@ public class FarmProfileActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
             });
         });

@@ -32,7 +32,7 @@ public class DateModelDialog extends Dialog {
             dismiss();
         });
         all.setOnClickListener(v -> {
-            activity.export();
+            activity.checkExportPermission();
             dismiss();
         });
     }

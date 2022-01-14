@@ -28,7 +28,7 @@ public class GridViewAdapterCowInFarmProfile extends RecyclerView.Adapter<GridVi
 
     private List<CowWithLastVisit> cows;
     private Context context;
-    private int farmId;
+    private long farmId;
 
     public GridViewAdapterCowInFarmProfile(Context context, List<CowWithLastVisit> cows, int farmId) {
         this.cows = cows;
@@ -73,7 +73,7 @@ public class GridViewAdapterCowInFarmProfile extends RecyclerView.Adapter<GridVi
             holder.view.setOnClickListener(view1 -> {
                 Intent intent = new Intent(context, AddReportActivity.class);
                 intent.putExtra(Constants.REPORT_MODE, Constants.REPORT_CREATE);
-                intent.putExtra(Constants.COW_ID, -1);
+                intent.putExtra(Constants.COW_ID, -1L);
                 intent.putExtra(Constants.FARM_ID, farmId);
                 context.startActivity(intent);
             });

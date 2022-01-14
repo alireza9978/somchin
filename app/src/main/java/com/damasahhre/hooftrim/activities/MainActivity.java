@@ -294,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     model = new SyncModel(dao.getAllNewFarmToSync(), dao.getAllNewCowToSync(), dao.getAllNewReportToSync());
                     if (!model.isEmpty()) {
                         SyncModel finalModel = model;
+                        Requests.setContext(MainActivity.this);
                         Requests.create(Constants.getToken(getApplicationContext()), model, new Callback() {
                             @Override
                             public void onFailure(Request request, IOException e) {

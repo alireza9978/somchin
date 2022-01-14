@@ -30,6 +30,7 @@ import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
+import com.gun0912.tedpermission.PermissionListener;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -104,166 +105,177 @@ public class FactorFragment extends Fragment {
                 Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
                 return;
             }
-            if (Constants.checkPermission(requireActivity())) {
-                return;
-            }
-            if (farmId == -1) {
-                Toast.makeText(requireContext(), R.string.enter_farm_error, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (date == null) {
-                Toast.makeText(requireContext(), R.string.toast_enter_date, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (priceSomText.getText().toString().isEmpty() ||
-                    priceBoardText.getText().toString().isEmpty() ||
-                    priceCureText.getText().toString().isEmpty()) {
-                Toast.makeText(requireContext(), R.string.enter_price_error, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            try {
-                int[] price = new int[4];
-                price[0] = Integer.parseInt(priceSomText.getText().toString());
-                price[1] = Integer.parseInt(priceCureText.getText().toString());
-                price[2] = Integer.parseInt(priceBoardText.getText().toString());
-                price[3] = 10000;
-
-                ArrayList<Integer> cowNumber = new ArrayList<>();
-                if (!cowText.getText().toString().isEmpty()) {
-                    String[] cows = cowText.getText().toString().split(",");
-                    for (String cow : cows) {
-                        cowNumber.add(Integer.parseInt(cow));
+            PermissionListener permissionlistener = new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    Toast.makeText(requireActivity(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                    if (farmId == -1) {
+                        Toast.makeText(requireContext(), R.string.enter_farm_error, Toast.LENGTH_SHORT).show();
+                        return;
                     }
+                    if (date == null) {
+                        Toast.makeText(requireContext(), R.string.toast_enter_date, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (priceSomText.getText().toString().isEmpty() ||
+                            priceBoardText.getText().toString().isEmpty() ||
+                            priceCureText.getText().toString().isEmpty()) {
+                        Toast.makeText(requireContext(), R.string.enter_price_error, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    try {
+                        int[] price = new int[4];
+                        price[0] = Integer.parseInt(priceSomText.getText().toString());
+                        price[1] = Integer.parseInt(priceCureText.getText().toString());
+                        price[2] = Integer.parseInt(priceBoardText.getText().toString());
+                        price[3] = 10000;
+
+                        ArrayList<Integer> cowNumber = new ArrayList<>();
+                        if (!cowText.getText().toString().isEmpty()) {
+                            String[] cows = cowText.getText().toString().split(",");
+                            for (String cow : cows) {
+                                cowNumber.add(Integer.parseInt(cow));
+                            }
+                        }
+
+
+                        HSSFWorkbook workbook = new HSSFWorkbook();
+                        HSSFSheet sheet = workbook.createSheet("Sample sheet");
+
+                        Integer[] headers = {R.string.empty, R.string.count, R.string.price, R.string.total_price};
+                        Integer[] rows = {R.string.more_info_reason_7, R.string.temp_cure,
+                                R.string.more_info_reason_6, R.string.sum};
+
+                        InjuryDao dao = DataBase.getInstance(requireContext()).injuryDao();
+
+                        AppExecutors.getInstance().diskIO().execute(() -> {
+                            int[] counts = {0, 0, 0, 0};
+                            if (cowNumber.isEmpty()) {
+                                List<Integer> temp = dao.hoofTrimFactorAll(farmId, date.exportStart(), date.exportEnd());
+                                Integer temp2 = dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd());
+                                temp2 = temp2 + dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd());
+                                List<Integer> temp3 = dao.visitFactorAll(farmId, date.exportStart(), date.exportEnd());
+                                counts[0] = temp.size();
+                                Integer integerOne = dao.deramatit(farmId, date.exportStart(), date.exportEnd());
+                                Integer integerTwo = dao.felemons(farmId, date.exportStart(), date.exportEnd());
+                                counts[1] = 0;
+                                if (integerOne != null) {
+                                    counts[1] += integerOne;
+                                }
+                                if (integerTwo != null) {
+                                    counts[1] += integerTwo;
+                                }
+                                counts[2] = temp2;
+                                counts[3] = temp3.size();
+                            } else {
+                                for (Integer number : cowNumber) {
+                                    List<Integer> temp = dao.hoofTrimFactor(farmId, date.exportStart(), date.exportEnd(), number);
+                                    Integer temp1 = dao.deramatit(farmId, date.exportStart(), date.exportEnd(), number);
+                                    Integer temp4 = dao.felemons(farmId, date.exportStart(), date.exportEnd(), number);
+                                    List<Integer> temp2 = dao.boardingFactor(farmId, date.exportStart(), date.exportEnd(), number);
+                                    temp2.addAll(dao.boardingFactorOther(farmId, date.exportStart(), date.exportEnd(), number));
+                                    List<Integer> temp3 = dao.visitFactor(farmId, date.exportStart(), date.exportEnd(), number);
+                                    counts[0] += temp.size();
+
+                                    if (temp1 != null)
+                                        counts[1] += temp1;
+                                    if (temp4 != null)
+                                        counts[1] += temp4;
+
+                                    counts[2] += temp2.size();
+                                    counts[3] += temp3.size();
+                                }
+                            }
+                            runOnUiThread(() -> {
+                                Row row = sheet.createRow(0);
+                                for (int i = 0; i < headers.length; i++) {
+                                    Cell cell = row.createCell(i);
+                                    cell.setCellValue(getString(headers[i]));
+                                }
+                                long total = 0;
+                                long temp;
+                                //add reports
+                                for (int i = 0; i < rows.length - 1; i++) {
+                                    row = sheet.createRow(i + 1);
+
+                                    Cell cell = row.createCell(0);
+                                    cell.setCellValue(getString(rows[i]));
+
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(counts[i]);
+
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(price[i]);
+
+                                    cell = row.createCell(3);
+                                    temp = (long) price[i] * (long) counts[i];
+                                    total += temp;
+                                    cell.setCellValue(temp);
+                                }
+                                row = sheet.createRow(4);
+                                Cell cell = row.createCell(0);
+                                cell.setCellValue(getString(rows[3]));
+                                cell = row.createCell(1);
+                                cell.setCellValue(getString(headers[0]));
+                                cell = row.createCell(2);
+                                cell.setCellValue(getString(headers[0]));
+                                cell = row.createCell(3);
+                                cell.setCellValue(total);
+
+                                String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", "invoice");
+                                File file = new File(storage);
+                                if (file.exists()) {
+                                    if (file.delete()) {
+                                        Log.i("TAG", "export: deleted ok");
+                                    } else {
+                                        Log.i("TAG", "export: deleted fuck");
+                                    }
+                                }
+                                try {
+                                    if (file.createNewFile()) {
+                                        FileOutputStream out = new FileOutputStream(file);
+                                        workbook.write(out);
+                                        out.close();
+                                        Log.i("TAG", "export: Excel written successfully..");
+                                    } else {
+                                        Log.i("TAG", "export: Excel written fuck..");
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                Uri uri;
+                                if (Build.VERSION.SDK_INT < 24) {
+                                    uri = Uri.fromFile(file);
+                                } else {
+                                    uri = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider", file);
+                                }
+
+                                Intent intent = ShareCompat.IntentBuilder.from(requireActivity())
+                                        .setType("*/*")
+                                        .setStream(uri)
+                                        .setChooserTitle("Choose bar")
+                                        .createChooserIntent()
+                                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                                startActivity(intent);
+
+                            });
+
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
+                @Override
+                public void onPermissionDenied(List<String> deniedPermissions) {
+                    Toast.makeText(requireActivity(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                }
+            };
+            Constants.checkPermission(permissionlistener);
 
-                HSSFWorkbook workbook = new HSSFWorkbook();
-                HSSFSheet sheet = workbook.createSheet("Sample sheet");
-
-                Integer[] headers = {R.string.empty, R.string.count, R.string.price, R.string.total_price};
-                Integer[] rows = {R.string.more_info_reason_7, R.string.temp_cure,
-                        R.string.more_info_reason_6, R.string.sum};
-
-                InjuryDao dao = DataBase.getInstance(requireContext()).injuryDao();
-
-                AppExecutors.getInstance().diskIO().execute(() -> {
-                    int[] counts = {0, 0, 0, 0};
-                    if (cowNumber.isEmpty()) {
-                        List<Integer> temp = dao.hoofTrimFactorAll(farmId, date.exportStart(), date.exportEnd());
-                        List<Integer> temp2 = dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd());
-                        temp2.addAll(dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd()));
-                        List<Integer> temp3 = dao.visitFactorAll(farmId, date.exportStart(), date.exportEnd());
-                        counts[0] = temp.size();
-                        Integer integerOne = dao.deramatit(farmId, date.exportStart(), date.exportEnd());
-                        Integer integerTwo = dao.felemons(farmId, date.exportStart(), date.exportEnd());
-                        counts[1] = 0;
-                        if (integerOne != null) {
-                            counts[1] += integerOne;
-                        }
-                        if (integerTwo != null) {
-                            counts[1] += integerTwo;
-                        }
-                        counts[2] = temp2.size();
-                        counts[3] = temp3.size();
-                    } else {
-                        for (Integer number : cowNumber) {
-                            List<Integer> temp = dao.hoofTrimFactor(farmId, date.exportStart(), date.exportEnd(), number);
-                            Integer temp1 = dao.deramatit(farmId, date.exportStart(), date.exportEnd(), number);
-                            Integer temp4 = dao.felemons(farmId, date.exportStart(), date.exportEnd(), number);
-                            List<Integer> temp2 = dao.boardingFactor(farmId, date.exportStart(), date.exportEnd(), number);
-                            temp2.addAll(dao.boardingFactorOther(farmId, date.exportStart(), date.exportEnd(), number));
-                            List<Integer> temp3 = dao.visitFactor(farmId, date.exportStart(), date.exportEnd(), number);
-                            counts[0] += temp.size();
-
-                            if (temp1 != null)
-                                counts[1] += temp1;
-                            if (temp4 != null)
-                                counts[1] += temp4;
-
-                            counts[2] += temp2.size();
-                            counts[3] += temp3.size();
-                        }
-                    }
-                    runOnUiThread(() -> {
-                        Row row = sheet.createRow(0);
-                        for (int i = 0; i < headers.length; i++) {
-                            Cell cell = row.createCell(i);
-                            cell.setCellValue(getString(headers[i]));
-                        }
-                        long total = 0;
-                        long temp;
-                        //add reports
-                        for (int i = 0; i < rows.length - 1; i++) {
-                            row = sheet.createRow(i + 1);
-
-                            Cell cell = row.createCell(0);
-                            cell.setCellValue(getString(rows[i]));
-
-                            cell = row.createCell(1);
-                            cell.setCellValue(counts[i]);
-
-                            cell = row.createCell(2);
-                            cell.setCellValue(price[i]);
-
-                            cell = row.createCell(3);
-                            temp = (long) price[i] * (long) counts[i];
-                            total += temp;
-                            cell.setCellValue(temp);
-                        }
-                        row = sheet.createRow(4);
-                        Cell cell = row.createCell(0);
-                        cell.setCellValue(getString(rows[3]));
-                        cell = row.createCell(1);
-                        cell.setCellValue(getString(headers[0]));
-                        cell = row.createCell(2);
-                        cell.setCellValue(getString(headers[0]));
-                        cell = row.createCell(3);
-                        cell.setCellValue(total);
-
-                        String storage = Environment.getExternalStorageDirectory().toString() + String.format("/%s.xls", "invoice");
-                        File file = new File(storage);
-                        if (file.exists()) {
-                            if (file.delete()) {
-                                Log.i("TAG", "export: deleted ok");
-                            } else {
-                                Log.i("TAG", "export: deleted fuck");
-                            }
-                        }
-                        try {
-                            if (file.createNewFile()) {
-                                FileOutputStream out = new FileOutputStream(file);
-                                workbook.write(out);
-                                out.close();
-                                Log.i("TAG", "export: Excel written successfully..");
-                            } else {
-                                Log.i("TAG", "export: Excel written fuck..");
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        Uri uri;
-                        if (Build.VERSION.SDK_INT < 24) {
-                            uri = Uri.fromFile(file);
-                        } else {
-                            uri = FileProvider.getUriForFile(requireContext(), requireContext().getApplicationContext().getPackageName() + ".provider", file);
-                        }
-
-                        Intent intent = ShareCompat.IntentBuilder.from(requireActivity())
-                                .setType("*/*")
-                                .setStream(uri)
-                                .setChooserTitle("Choose bar")
-                                .createChooserIntent()
-                                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                        startActivity(intent);
-
-                    });
-
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
         });
         setBackgrounds();

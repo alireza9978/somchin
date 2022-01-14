@@ -10,6 +10,7 @@ import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.models.DeletedSyncModel;
 import com.damasahhre.hooftrim.database.models.SyncModel;
+import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Callback;
@@ -45,14 +46,16 @@ public class Requests {
                 Toast.makeText(activity, R.string.server_error, Toast.LENGTH_LONG).show();
                 return;
             }
-            try {
-                JSONObject jsonObject = new JSONObject(response.body().string());
-                String message = (String) jsonObject.get("message");
-                Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(activity, R.string.server_error, Toast.LENGTH_LONG).show();
-            }
+            AppExecutors.getInstance().networkIO().execute(() -> {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String message = (String) jsonObject.get("message");
+                    activity.runOnUiThread(() -> Toast.makeText(activity, message, Toast.LENGTH_LONG).show());
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                    activity.runOnUiThread(() -> Toast.makeText(activity, R.string.server_error, Toast.LENGTH_LONG).show());
+                }
+            });
         });
     }
 

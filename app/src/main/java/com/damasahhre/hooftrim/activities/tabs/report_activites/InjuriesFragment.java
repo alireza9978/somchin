@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
+import com.damasahhre.hooftrim.activities.FarmProfileActivity;
 import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -30,6 +31,7 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.InjureyReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
+import com.gun0912.tedpermission.PermissionListener;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -83,18 +85,28 @@ public class InjuriesFragment extends Fragment {
                 Toast.makeText(requireContext(), R.string.premium_require, Toast.LENGTH_LONG).show();
                 return;
             }
-            if (Constants.checkPermission(requireActivity()))
-                return;
-            if (date == null) {
-                Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (farmId == -1) {
-                Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
-                return;
-            }
+            PermissionListener permissionlistener = new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    Toast.makeText(requireActivity(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                    if (date == null) {
+                        Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (farmId == -1) {
+                        Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    export();
+                }
 
-            export();
+                @Override
+                public void onPermissionDenied(List<String> deniedPermissions) {
+                    Toast.makeText(requireActivity(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                }
+            };
+            Constants.checkPermission(permissionlistener);
+
         });
 
         return view;
@@ -245,8 +257,8 @@ public class InjuriesFragment extends Fragment {
             secondPart.add(dao.high(farmId, date.exportStart(), date.exportEnd()));
             secondPart.add(dao.heifer(farmId, date.exportStart(), date.exportEnd()));
             secondPart.add(dao.refrence(farmId, date.exportStart(), date.exportEnd()));
-            secondPart.add(dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd()).size() +
-                    dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd()).size());
+            secondPart.add(dao.boardingFactorAll(farmId, date.exportStart(), date.exportEnd()) +
+                    dao.boardingFactorAllOther(farmId, date.exportStart(), date.exportEnd()));
 
             requireActivity().runOnUiThread(() -> {
                 //add headers

@@ -143,8 +143,11 @@ public class SplashActivity extends AppCompatActivity {
             Requests.checkVersion(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    runOnUiThread(() -> Toast.makeText(SplashActivity.this, R.string.request_error, Toast.LENGTH_LONG).show());
-                    changeState(1);
+                    SplashActivity.this.runOnUiThread(() -> {
+                        Toast.makeText(SplashActivity.this, R.string.request_error, Toast.LENGTH_LONG).show();
+                        changeState(1);
+                    });
+
                 }
 
                 @Override
@@ -225,15 +228,13 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void changeState(int state) {
-        runOnUiThread(() -> {
-            if (state == 1) {
-                error_state.setVisibility(View.VISIBLE);
-                loading_state.setVisibility(View.INVISIBLE);
-            } else if (state == 0) {
-                loading_state.setVisibility(View.VISIBLE);
-                error_state.setVisibility(View.INVISIBLE);
-            }
-        });
+        if (state == 1) {
+            error_state.setVisibility(View.VISIBLE);
+            loading_state.setVisibility(View.INVISIBLE);
+        } else if (state == 0) {
+            loading_state.setVisibility(View.VISIBLE);
+            error_state.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
