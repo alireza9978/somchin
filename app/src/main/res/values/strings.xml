@@ -30,8 +30,6 @@
     <string name="visits">Re-check list</string>
     <string name="factor">Invoice</string>
     <string name="injeries">Lesions</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_visits">Re-check list</string>
     <string name="next_visit">Next visit</string>
     <string name="no_next_visit">Nothing available</string>
@@ -279,5 +277,6 @@
     <string name="login_to_work_ffline">you need to login for offline mode</string>
     <string name="notification_description">Downloading new version</string>
     <string name="install">please install downloaded apk</string>
+    <string name="version">version</string>
 
 </resources>

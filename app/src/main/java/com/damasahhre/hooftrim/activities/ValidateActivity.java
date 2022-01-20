@@ -52,7 +52,7 @@ public class ValidateActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.submit).setOnClickListener(view -> {
-            Requests.isConfirmed(email, new Callback() {
+            Requests.isValidated(email, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
 

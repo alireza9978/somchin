@@ -67,14 +67,14 @@ public class SplashActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        version.setText("نسخه " + versionText);
+        version.setText(getString(R.string.version) + versionText);
 
 
         loading_state = findViewById(R.id.splash_loading_container);
         error_state = findViewById(R.id.offline_splash_loading_container);
         findViewById(R.id.retry).setOnClickListener(v -> checkConnection());
         findViewById(R.id.work_offline).setOnClickListener(v -> {
-            if (Constants.getToken(this).equals(Constants.NO_TOKEN)) {
+            if (Constants.getToken(this).equals(Constants.NO_TOKEN_B)) {
                 Toast.makeText(this, R.string.login_to_work_ffline, Toast.LENGTH_LONG).show();
             } else {
                 goApp();
@@ -165,7 +165,7 @@ public class SplashActivity extends AppCompatActivity {
                                     showUpdateDialog(updateUrl);
                                 } else {
                                     runOnUiThread(() -> {
-                                        if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
+                                        if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN_B)) {
                                             goLogin();
                                         } else {
                                             goApp();
@@ -210,7 +210,7 @@ public class SplashActivity extends AppCompatActivity {
             }
                     , () ->
             {
-                if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN)) {
+                if (Constants.getToken(SplashActivity.this).equals(Constants.NO_TOKEN_B)) {
                     goLogin();
                 } else {
                     goApp();

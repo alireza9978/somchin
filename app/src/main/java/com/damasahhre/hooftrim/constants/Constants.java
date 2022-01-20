@@ -1,39 +1,25 @@
 package com.damasahhre.hooftrim.constants;
 
-import android.Manifest;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.damasahhre.hooftrim.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.os.Build.VERSION.SDK_INT;
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-
-import java.util.List;
 
 /**
  * کلاس مربوط به اطلاعات ارتباط بین صفحات
@@ -78,6 +64,7 @@ public class Constants {
     public static boolean NO_Notification = false;
     public static boolean NO_PREMIUM = false;
     public static String NO_TOKEN = "NO TOKEN";
+    public static String NO_TOKEN_B = "Bearer NO TOKEN";
     public static String NO_EMAIL = "NO EMAIL";
     private static final String LANGUAGE_STORAGE = "someWhereInDarkness";
     private static final String LANGUAGE_DATA = "someWhereInDarkness12";
@@ -191,7 +178,7 @@ public class Constants {
      */
     public static String getToken(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(TOKEN_STORAGE, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(TOKEN_DATA, NO_TOKEN);
+        return "Bearer " + sharedPreferences.getString(TOKEN_DATA, NO_TOKEN);
     }
 
     /**

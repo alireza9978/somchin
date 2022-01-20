@@ -24,7 +24,6 @@
     <string name="visits">بازدید‌ها</string>
     <string name="factor">دریافت فاکتور</string>
     <string name="injeries">جراحات گله</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_visits">بازدید‌های بعدی</string>
     <string name="next_visit">بازدید‌ بعدی</string>
     <string name="old_next_visit">تاریخ بازدید</string>
@@ -272,4 +271,5 @@
     <string name="login_to_work_ffline">برای حالت آفلاین نیاز به ورود است</string>
     <string name="notification_description">دانلود نسخه جدید</string>
     <string name="install">لطفا برنامه دانلود شده را نصب کنید</string>
+    <string name="version"> نسخه </string>
 </resources>

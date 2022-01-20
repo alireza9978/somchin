@@ -32,13 +32,13 @@ public class Requests {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "REQUESTS";
-    private static final String BASE_URL = "http://130.185.77.250/";
+    //    private static final String BASE_URL = "http://130.185.77.250/";
+    private static final String BASE_URL = "http://176.97.218.196/";
     private static Context context;
 
     public static void setContext(Context context) {
         Requests.context = context;
     }
-
 
     public static void toastMessage(Response response, Activity activity) {
         activity.runOnUiThread(() -> {
@@ -62,26 +62,26 @@ public class Requests {
     public static void checkVersion(Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(BASE_URL + "get_version/")
+                .url(BASE_URL + "api/app_versions/get_latest_version/")
                 .method("GET", null)
                 .build();
         client.newCall(request).enqueue(callback);
     }
 
-    public static void isConfirmed(String email, Callback callback) {
+    public static void isValidated(String email, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
+        String language = Constants.getDefaultLanguage(context);
         try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
             object.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/is_confirmed/")
+                .url(BASE_URL + "api/email/is_validated/")
                 .method("POST", body)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -95,17 +95,13 @@ public class Requests {
     public static void isPaid(String token, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
-        try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        String language = Constants.getDefaultLanguage(context);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/is_premium/")
                 .method("POST", body)
+                .addHeader("language", language)
+                .addHeader("Authorization", token)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -113,19 +109,19 @@ public class Requests {
     public static void editPassword(String token, String oldPassword, String newPassword, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
+        String language = Constants.getDefaultLanguage(context);
         try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
-            object.put("old_password", oldPassword);
+            object.put("current_password", oldPassword);
             object.put("new_password", newPassword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/edit_password/")
+                .url(BASE_URL + "user/auth/users/set_password/")
                 .method("POST", body)
+                .addHeader("language", language)
+                .addHeader("Authorization", token)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -133,17 +129,17 @@ public class Requests {
     public static void forgetPassword(String email, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
+        String language = Constants.getDefaultLanguage(context);
         try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
             object.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/forget_password/")
+                .url(BASE_URL + "user/auth/users/reset_password/")
                 .method("POST", body)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -151,17 +147,17 @@ public class Requests {
     public static void resend(String email, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
+        String language = Constants.getDefaultLanguage(context);
         try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
             object.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/resend/")
+                .url(BASE_URL + "user/auth/users/resend_activation/")
                 .method("POST", body)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -169,9 +165,8 @@ public class Requests {
     public static void signUp(String email, String password, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
+        String language = Constants.getDefaultLanguage(context);
         try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
             object.put("email", email);
             object.put("password", password);
         } catch (JSONException e) {
@@ -179,8 +174,9 @@ public class Requests {
         }
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/sign_up/")
+                .url(BASE_URL + "user/auth/users/")
                 .method("POST", body)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -188,9 +184,8 @@ public class Requests {
     public static void login(String email, String password, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
+        String language = Constants.getDefaultLanguage(context);
         try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
             object.put("email", email);
             object.put("password", password);
         } catch (JSONException e) {
@@ -200,6 +195,7 @@ public class Requests {
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/login/")
                 .method("POST", body)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -207,17 +203,13 @@ public class Requests {
     public static void getAllData(String token, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
-        try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        String language = Constants.getDefaultLanguage(context);
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/sync/get_all/")
-                .method("POST", body)
+                .url(BASE_URL + "api/sync_data/")
+                .method("GET", body)
+                .addHeader("Authorization", token)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -225,23 +217,23 @@ public class Requests {
     public static void update(String token, SyncModel model, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
+        String language = Constants.getDefaultLanguage(context);
         builder.excludeFieldsWithoutExposeAnnotation();
         Gson gson = builder.create();
         String json = gson.toJson(model);
         JSONObject object = null;
         try {
             object = new JSONObject(json);
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         assert object != null;
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/sync/update_data/")
-                .method("POST", body)
+                .url(BASE_URL + "api/sync_data/")
+                .method("PUT", body)
+                .addHeader("Authorization", token)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
@@ -249,28 +241,29 @@ public class Requests {
     public static void create(String token, SyncModel model, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
+        String language = Constants.getDefaultLanguage(context);
         builder.excludeFieldsWithoutExposeAnnotation();
         Gson gson = builder.create();
         String json = gson.toJson(model);
         JSONObject object = null;
         try {
             object = new JSONObject(json);
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         assert object != null;
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/sync/create_data/")
+                .url(BASE_URL + "api/sync_data/")
                 .method("POST", body)
+                .addHeader("Authorization", token)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
 
     public static void delete(String token, DeletedSyncModel model, Callback callback) {
+        String language = Constants.getDefaultLanguage(context);
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
         builder.excludeFieldsWithoutExposeAnnotation();
@@ -279,36 +272,48 @@ public class Requests {
         JSONObject object = null;
         try {
             object = new JSONObject(json);
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         assert object != null;
         RequestBody body = RequestBody.create(JSON, object.toString());
         Request request = new Request.Builder()
-                .url(BASE_URL + "user/sync/delete_data/")
+                .url(BASE_URL + "api/sync_data/")
                 .method("DELETE", body)
+                .addHeader("Authorization", token)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
 
     public static void logout(String token, Callback callback) {
         OkHttpClient client = new OkHttpClient();
-        JSONObject object = new JSONObject();
-        try {
-            String language = Constants.getDefaultLanguage(context);
-            object.put("language", language);
-            object.put("token", token);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        RequestBody body = RequestBody.create(JSON, object.toString());
+        String language = Constants.getDefaultLanguage(context);
         Request request = new Request.Builder()
                 .url(BASE_URL + "user/logout/")
-                .method("POST", body)
+                .method("GET", null)
+                .addHeader("Authorization", token)
+                .addHeader("language", language)
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    public static void getInjuryFile(String token, Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        JSONObject object = null;
+//        try {
+////            object = new JSONObject(json);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        String language = Constants.getDefaultLanguage(context);
+        Request request = new Request.Builder()
+                .url(BASE_URL + "api//")
+                .method("GET", null)
+                .addHeader("Authorization", token)
+                .addHeader("language", language)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
 }
