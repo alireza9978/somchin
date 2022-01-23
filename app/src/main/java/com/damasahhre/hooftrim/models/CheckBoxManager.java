@@ -112,7 +112,12 @@ public class CheckBoxManager {
     }
 
     public boolean moreInfoSelected() {
+//        در این حالت باید سمچینی انتخاب شود
         return !(dialog.get(2).isCheck() || dialog.get(3).isCheck() || moreInfo.get(1).isCheck());
+    }
+
+    public boolean moreInfoFineCow() {
+        return dialog.get(6).isCheck();
     }
 
     public boolean conditionOne() {

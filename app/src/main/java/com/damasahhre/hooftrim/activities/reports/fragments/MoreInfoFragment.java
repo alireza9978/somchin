@@ -67,8 +67,7 @@ public class MoreInfoFragment extends Fragment {
         gridView.setAdapter(adapter);
 
         view.findViewById(R.id.next_button).setOnClickListener(v -> {
-
-            if (CheckBoxManager.getCheckBoxManager().moreInfoSelected()) {
+            if (!CheckBoxManager.getCheckBoxManager().moreInfoFineCow() && CheckBoxManager.getCheckBoxManager().moreInfoSelected()) {
                 Toast.makeText(requireContext(), R.string.triple_selection_error, Toast.LENGTH_SHORT).show();
                 return;
             }
