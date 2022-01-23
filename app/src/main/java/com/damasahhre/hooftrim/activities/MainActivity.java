@@ -1,5 +1,14 @@
 package com.damasahhre.hooftrim.activities;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
+import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
+import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
+import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_INJURY;
+import static com.damasahhre.hooftrim.constants.Constants.getDefaultLanguage;
+import static com.damasahhre.hooftrim.constants.Constants.setPremium;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -57,15 +66,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Calendar;
-
-import static android.os.Build.VERSION.SDK_INT;
-import static com.damasahhre.hooftrim.constants.Constants.CHOOSE_FILE_REQUEST_CODE;
-import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_FACTOR;
-import static com.damasahhre.hooftrim.constants.Constants.DATE_SELECTION_REPORT_INJURY;
-import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_FACTOR;
-import static com.damasahhre.hooftrim.constants.Constants.FARM_SELECTION_REPORT_INJURY;
-import static com.damasahhre.hooftrim.constants.Constants.getDefaultLanguage;
-import static com.damasahhre.hooftrim.constants.Constants.setPremium;
 
 /**
  * صفحه اصلی برنامه برای مدیریت ۵ صفحه‌ی پایین برنامه
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     } else {
                         Requests.toastMessage(response, activity);
-                        if (response.code() == 403) {
+                        if (response.code() == 401) {
                             Log.i("MAIN", "onResponse: invalid token");
                             MyDao dao = DataBase.getInstance(activity).dao();
                             AppExecutors.getInstance().diskIO().execute(() -> {

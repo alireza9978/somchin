@@ -102,6 +102,10 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
     implementation 'com.github.badoualy:stepper-indicator:1.0.7'
 
+//    downloader
+    implementation "androidx.tonyodev.fetch2okhttp:xfetch2okhttp:3.1.6"
+    implementation "androidx.tonyodev.fetch2:xfetch2:3.1.6"
+
     implementation "androidx.room:room-runtime:2.4.1"
     annotationProcessor "androidx.room:room-compiler:2.4.1"
     implementation 'com.github.samanzamani:PersianDate:1.3.4'

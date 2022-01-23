@@ -63,7 +63,7 @@ public class ValidateActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
-                            boolean confirmed = (boolean) jsonObject.get("is_confirmed");
+                            boolean confirmed = (boolean) jsonObject.get("is_active");
                             if (confirmed) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(activity, R.string.login_pls, Toast.LENGTH_LONG).show();

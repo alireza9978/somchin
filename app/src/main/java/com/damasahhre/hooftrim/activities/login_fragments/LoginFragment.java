@@ -54,7 +54,7 @@ public class LoginFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
                             Constants.setEmail(requireActivity(), user);
-                            Constants.setToken(requireActivity(), (String) jsonObject.get("token"));
+                            Constants.setToken(requireActivity(), (String) jsonObject.get("access_token"));
                             activity.syncData();
                         } catch (Exception e) {
                             e.printStackTrace();

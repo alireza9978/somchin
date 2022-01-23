@@ -272,4 +272,5 @@
     <string name="notification_description">دانلود نسخه جدید</string>
     <string name="install">لطفا برنامه دانلود شده را نصب کنید</string>
     <string name="version"> نسخه </string>
+    <string name="file_downloaded">دانلود فایل به اتمام رسید</string>
 </resources>

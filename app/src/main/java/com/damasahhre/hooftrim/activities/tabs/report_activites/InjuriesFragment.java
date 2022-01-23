@@ -1,5 +1,7 @@
 package com.damasahhre.hooftrim.activities.tabs.report_activites;
 
+import static com.microsoft.appcenter.utils.HandlerUtils.runOnUiThread;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -21,7 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.damasahhre.hooftrim.R;
 import com.damasahhre.hooftrim.activities.DateSelectionActivity;
-import com.damasahhre.hooftrim.activities.FarmProfileActivity;
 import com.damasahhre.hooftrim.activities.FarmSelectionActivity;
 import com.damasahhre.hooftrim.constants.Constants;
 import com.damasahhre.hooftrim.database.DataBase;
@@ -31,18 +32,30 @@ import com.damasahhre.hooftrim.database.models.Farm;
 import com.damasahhre.hooftrim.database.models.InjureyReport;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.DateContainer;
+import com.damasahhre.hooftrim.server.Requests;
 import com.gun0912.tedpermission.PermissionListener;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Response;
+import com.tonyodev.fetch2.Fetch;
+import com.tonyodev.fetch2.FetchConfiguration;
+import com.tonyodev.fetch2.NetworkType;
+import com.tonyodev.fetch2.Priority;
+import com.tonyodev.fetch2.Request;
+import com.tonyodev.fetch2okhttp.OkHttpDownloader;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 /**
  * صفحه مربوط به خروجی اکسل از جراحت‌های گاو‌ها
@@ -97,7 +110,7 @@ public class InjuriesFragment extends Fragment {
                         Toast.makeText(requireContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    export();
+                    exportOnline();
                 }
 
                 @Override
@@ -154,6 +167,62 @@ public class InjuriesFragment extends Fragment {
             }
         }
         return sameToRemove;
+    }
+
+    public void exportOnline() {
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+
+        FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(requireContext())
+                .setDownloadConcurrentLimit(5)
+                .setHttpDownloader(new OkHttpDownloader(okHttpClient))
+                .build();
+
+        Fetch fetch = Fetch.Impl.getInstance(fetchConfiguration);
+
+        String file = "/downloads/test.txt";
+
+        Requests.getInjuryFile(Constants.getToken(requireContext()), farmId, date.exportStart(), date.exportEnd(), new Callback() {
+            @Override
+            public void onFailure(com.squareup.okhttp.Request request, IOException e) {
+                runOnUiThread(() -> Toast.makeText(requireActivity(), R.string.request_error, Toast.LENGTH_LONG).show());
+            }
+
+            @Override
+            public void onResponse(Response response) {
+                try {
+                    if (response.isSuccessful()) {
+                        JSONObject object = new JSONObject(response.body().string());
+                        Log.i("Injury export", "onResponse: " + object);
+//                        String url = object.getString("link");
+                        String url = "https://doc-0k-9s-sheets.googleusercontent.com/export/p21bsln2ga5s8q8dn5sjdoldoo/" +
+                                "omctje37765cujfo3im2vacgjc/1642675835000/104846878786963225493/104846878786963225493/" +
+                                "1_Z0MzQZezLl8LE7Qmn4zTOZTbG2aqY0535L0bismDyQ?format=xlsx&id=1_Z0MzQZezLl8LE7Qmn4zTOZTbG2a" +
+                                "qY0535L0bismDyQ&dat=AFCstmobixu6GWoomsSKON-wBoPnc0_ZUH3dYPmb520VWa1qPMGYCCds4iNHSJx1ho4KKc-y" +
+                                "-D0pmNzoFeE3OhImm_dWLentVkXOhslPQ7bMYOdK89X9wVww0rMQ9JMKHL3LUVmc7tSu96T8GirDjNqAswf-1WjFjjaF8" +
+                                "R_QQVVVxAFxj7sKUqxMk0h0Hom63DKJ6ld4rCf2p2mszJOiZ-dV_Lj6xc1-l17nJSZc_XbiLon1JhZv_zaSMR6vhYLuL8" +
+                                "biYEonmODeh7FPnHChfE2V9TyndF7h4t485tqTdmzCuHxvFbwaErDsIEDcxyPW7C6UWzSYuduTqOAe4fY1Ao7z7oxYMeN" +
+                                "gctKvy7VYQ6hGoQTpFnKwI3noCiZWGNGW1zRVoRhtrcQWl5xY4oVnkSsW4mQLfs-PblxomVnrdKG_Yt1Mcz0OOpQYZ2kE19j" +
+                                "VRZndFy-j0HAFD_HNYL9NpOEYr8xrum5wRquUob1TJR3aTBL9VoBoNIiHlTehycWDRcKaHu7VqSk7kw3J1znV6BEtq58hUmW9wn" +
+                                "q9c5bw6j2pI6er8ENVoKN-6i8uwAU4D8y2_7tmPvKIFmnAfoMCV2ghn0sbX6fB1Q27BQORU92Lq4yhObzHL0MK5Nb65hZVYdttrKWL" +
+                                "aIMypfO9aEmMn3Pmrm8Fw4xCLFmOKfz5P4FE4UJsGjDu9wiVIE6tz5ETptYusVQfmS-NW9XNhB5EThz449SkPP90";
+
+                        final Request request = new com.tonyodev.fetch2.Request(url, file);
+                        request.setPriority(Priority.HIGH);
+                        request.setNetworkType(NetworkType.ALL);
+                        fetch.enqueue(request, updatedRequest -> {
+                            runOnUiThread(() -> Toast.makeText(requireActivity(), R.string.file_downloaded, Toast.LENGTH_LONG).show());
+                        }, error -> {
+                            //An error occurred enqueuing the request.
+                        });
+                    } else {
+                        Requests.toastMessage(response, requireActivity());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void export() {

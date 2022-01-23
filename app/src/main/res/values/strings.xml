@@ -278,5 +278,6 @@
     <string name="notification_description">Downloading new version</string>
     <string name="install">please install downloaded apk</string>
     <string name="version">version</string>
+    <string name="file_downloaded">download finished</string>
 
 </resources>

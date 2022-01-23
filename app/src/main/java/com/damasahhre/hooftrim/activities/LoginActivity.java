@@ -19,6 +19,7 @@ import com.damasahhre.hooftrim.database.DataBase;
 import com.damasahhre.hooftrim.database.dao.MyDao;
 import com.damasahhre.hooftrim.database.models.SyncModel;
 import com.damasahhre.hooftrim.database.utils.AppExecutors;
+import com.damasahhre.hooftrim.models.MyDate;
 import com.damasahhre.hooftrim.server.Requests;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -150,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject object = new JSONObject(response.body().string());
                             object.remove("message");
                             GsonBuilder builder = new GsonBuilder();
+                            builder.registerTypeAdapter(MyDate.class, Requests.getDateSerializer());
                             builder.excludeFieldsWithoutExposeAnnotation();
                             Gson gson = builder.create();
                             SyncModel model = gson.fromJson(object.toString(), SyncModel.class);

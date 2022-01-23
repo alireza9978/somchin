@@ -163,4 +163,8 @@ public class MyDate implements Serializable, Cloneable, Comparable<MyDate> {
     public int hashCode() {
         return Objects.hash(day, month, year);
     }
+
+    public String toJsonString() {
+        return year + "-" + month + "-" + day;
+    }
 }
