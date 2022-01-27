@@ -1,5 +1,7 @@
 package com.damasahhre.hooftrim.server;
 
+import static com.microsoft.appcenter.utils.HandlerUtils.runOnUiThread;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import com.damasahhre.hooftrim.database.utils.AppExecutors;
 import com.damasahhre.hooftrim.models.MyDate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import com.squareup.okhttp.Callback;
@@ -40,6 +43,13 @@ public class Requests {
     private static Context context;
 
     private static final JsonSerializer<MyDate> serializer = (src, typeOfSrc, context) -> new JsonPrimitive(src.toJsonString());
+    private static final JsonDeserializer<MyDate> deserializer = (json, typeOfT, context) -> {
+        String date = json.getAsString();
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8, 10));
+        return new MyDate(day, month, year);
+    };
 
     public static void setContext(Context context) {
         Requests.context = context;
@@ -99,6 +109,7 @@ public class Requests {
     }
 
     public static void isPaid(String token, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         String language = Constants.getDefaultLanguage(context);
         Request request = new Request.Builder()
@@ -111,6 +122,7 @@ public class Requests {
     }
 
     public static void editPassword(String token, String oldPassword, String newPassword, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         String language = Constants.getDefaultLanguage(context);
@@ -205,6 +217,7 @@ public class Requests {
     }
 
     public static void getAllData(String token, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         String language = Constants.getDefaultLanguage(context);
         Request request = new Request.Builder()
@@ -217,6 +230,7 @@ public class Requests {
     }
 
     public static void update(String token, SyncModel model, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(MyDate.class, serializer);
@@ -242,6 +256,7 @@ public class Requests {
     }
 
     public static void create(String token, SyncModel model, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(MyDate.class, serializer);
@@ -267,6 +282,7 @@ public class Requests {
     }
 
     public static void delete(String token, DeletedSyncModel model, Callback callback) {
+        refreshToken();
         String language = Constants.getDefaultLanguage(context);
         OkHttpClient client = new OkHttpClient();
         GsonBuilder builder = new GsonBuilder();
@@ -291,7 +307,48 @@ public class Requests {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void refreshToken() {
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                runOnUiThread(() -> Toast.makeText(context, R.string.request_error, Toast.LENGTH_LONG).show());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject object = new JSONObject(response.body().string());
+                        Constants.setToken(context, object.getString("refresh"));
+                        Constants.setToken(context, object.getString("access"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else if (response.code() == 401) {
+//                    todo login again
+                }
+            }
+        };
+        OkHttpClient client = new OkHttpClient();
+        JSONObject object = new JSONObject();
+        try {
+            object.put("refresh", Constants.getTokenRefresh(context));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String language = Constants.getDefaultLanguage(context);
+        RequestBody body = RequestBody.create(JSON, object.toString());
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + "/user/token/refresh/")
+                .method("POST", body)
+                .addHeader("language", language)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void logout(String token, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         String language = Constants.getDefaultLanguage(context);
         Request request = new Request.Builder()
@@ -304,6 +361,7 @@ public class Requests {
     }
 
     public static void getInjuryFile(String token, long farmId, MyDate startDate, MyDate endDate, Callback callback) {
+        refreshToken();
         OkHttpClient client = new OkHttpClient();
         JSONObject object = new JSONObject();
         try {
@@ -323,7 +381,7 @@ public class Requests {
         client.newCall(request).enqueue(callback);
     }
 
-    public static JsonSerializer<MyDate> getDateSerializer() {
-        return serializer;
+    public static JsonDeserializer<MyDate> getDateDeserializer() {
+        return deserializer;
     }
 }

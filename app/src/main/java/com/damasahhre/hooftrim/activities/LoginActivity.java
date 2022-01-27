@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject object = new JSONObject(response.body().string());
                             object.remove("message");
                             GsonBuilder builder = new GsonBuilder();
-                            builder.registerTypeAdapter(MyDate.class, Requests.getDateSerializer());
+                            builder.registerTypeAdapter(MyDate.class, Requests.getDateDeserializer());
                             builder.excludeFieldsWithoutExposeAnnotation();
                             Gson gson = builder.create();
                             SyncModel model = gson.fromJson(object.toString(), SyncModel.class);

@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Requests.update(Constants.getToken(getApplicationContext()), model, new Callback() {
                             @Override
                             public void onFailure(Request request, IOException e) {
-
+                                runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
                             }
 
                             @Override
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Requests.create(Constants.getToken(getApplicationContext()), model, new Callback() {
                             @Override
                             public void onFailure(Request request, IOException e) {
-
+                                runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
                             }
 
                             @Override
@@ -323,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Requests.delete(Constants.getToken(getApplicationContext()), deletedSyncModel, new Callback() {
                             @Override
                             public void onFailure(Request request, IOException e) {
+                                runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
 
                             }
 

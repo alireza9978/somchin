@@ -74,6 +74,7 @@ public class Constants {
     private static final String PREMIUM_DATA = "someWhereIKLNFAKLFAV; nDarkness12TOKTOK";
     private static final String TOKEN_STORAGE = "someWhereInDarknessTOK";
     private static final String TOKEN_DATA = "someWhereInDarkness12TOKTOK";
+    private static final String TOKEN_DATA_ACCESS = "someWhereInDlndfskarkness12TOKTOK";
     private static final String EMAIL_STORAGE = "soacfsfdInDarknessTOK";
     private static final String EMAIL_DATA = "somenovdonksacDarkness12TOKTOK";
     public static final String MIN_DATE_SELECTION = "sovdsekklidonk=ness12TOK";
@@ -178,6 +179,11 @@ public class Constants {
      */
     public static String getToken(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(TOKEN_STORAGE, Context.MODE_PRIVATE);
+        return "Bearer " + sharedPreferences.getString(TOKEN_DATA_ACCESS, NO_TOKEN);
+    }
+
+    public static String getTokenRefresh(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(TOKEN_STORAGE, Context.MODE_PRIVATE);
         return "Bearer " + sharedPreferences.getString(TOKEN_DATA, NO_TOKEN);
     }
 
@@ -185,6 +191,13 @@ public class Constants {
      * ذخیره کلید ارطباط با سرور در حافظه
      */
     public static void setToken(Context context, String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(TOKEN_STORAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(TOKEN_DATA_ACCESS, token);
+        editor.apply();
+    }
+
+    public static void setTokenRefresh(Context context, String token) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(TOKEN_STORAGE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TOKEN_DATA, token);
@@ -229,7 +242,7 @@ public class Constants {
     }
 
     /**
-     * گرفتن کلید ارتباط با سرور
+     * گرفتن زبان ارتباط با سرور
      */
     public static String getDefaultLanguage(Context context) {
         if (context == null) {
@@ -240,7 +253,7 @@ public class Constants {
     }
 
     /**
-     * ذخیره کلید ارطباط با سرور در حافظه
+     * ذخیره زبان ارطباط با سرور در حافظه
      */
     public static void setLanguage(Context context, String token) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(LANGUAGE_STORAGE, Context.MODE_PRIVATE);

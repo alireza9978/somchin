@@ -2,7 +2,6 @@ package com.damasahhre.hooftrim.activities.login_fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +44,7 @@ public class SignUpFragment extends Fragment {
             Requests.signUp(user, pass, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    e.printStackTrace();
-                    Log.i("HTTP_LOGIN", "onFailure: " + request.toString());
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireActivity(), R.string.request_error, Toast.LENGTH_LONG).show());
                 }
 
                 @Override

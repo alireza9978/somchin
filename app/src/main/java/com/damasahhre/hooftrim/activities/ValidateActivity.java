@@ -35,7 +35,7 @@ public class ValidateActivity extends AppCompatActivity {
             Requests.resend(email, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-
+                    runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
                 }
 
                 @Override
@@ -55,6 +55,7 @@ public class ValidateActivity extends AppCompatActivity {
             Requests.isValidated(email, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
+                    runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
 
                 }
 

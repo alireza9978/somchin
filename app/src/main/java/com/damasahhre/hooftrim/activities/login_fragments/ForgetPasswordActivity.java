@@ -1,7 +1,6 @@
 package com.damasahhre.hooftrim.activities.login_fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,8 +46,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             Requests.forgetPassword(emailText, new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    e.printStackTrace();
-                    Log.i("HTTP_LOGIN", "onFailure: " + request.toString());
+                    runOnUiThread(() -> Toast.makeText(activity, R.string.request_error, Toast.LENGTH_LONG).show());
                 }
 
                 @Override
